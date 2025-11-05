@@ -6,6 +6,10 @@
 //
 
 import IdentityLookup
+import Foundation
+
+/// App Group ID - Ana uygulama ile veri paylaşımı için
+let kAppGroupIdentifier = "group.tsavasci.SafeMessageShield"
 
 final class MessageFilterExtension: ILMessageFilterExtension {}
 
@@ -57,8 +61,42 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling, ILMessageFilterC
     }
 
     private func offlineAction(for queryRequest: ILMessageFilterQueryRequest) -> (ILMessageFilterAction, ILMessageFilterSubAction) {
-        // TODO: Replace with logic to perform offline check whether to filter first (if possible).
+        guard let sender = queryRequest.sender else {
+            return (.none, .none)
+        }
+        
+        // App Group'tan engellenen numaraları al
+        guard let userDefaults = UserDefaults(suiteName: kAppGroupIdentifier),
+              let blockedNumbers = userDefaults.stringArray(forKey: "blockedNumbers") else {
+            return (.none, .none)
+        }
+        
+        // Gönderenin numarasını temizle
+        let cleanedSender = sender.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        
+        // Numara engellenmiş mi kontrol et
+        if blockedNumbers.contains(where: { cleanedSender.contains($0) || $0.contains(cleanedSender) }) {
+            NSLog("🛡️ SafeMessageShield: SMS filtrelendi - Gönderen: \(sender)")
+            
+            // İstatistiği güncelle
+            incrementSMSFilterCount()
+            
+            return (.junk, .none)
+        }
+        
         return (.none, .none)
+    }
+    
+    /// SMS filtreleme sayacını artır
+    private func incrementSMSFilterCount() {
+        guard let userDefaults = UserDefaults(suiteName: kAppGroupIdentifier) else { return }
+        
+        let currentCount = userDefaults.integer(forKey: "smsFilterCount")
+        userDefaults.set(currentCount + 1, forKey: "smsFilterCount")
+        userDefaults.set(Date(), forKey: "lastSMSFilterDate")
+        userDefaults.synchronize()
+        
+        NSLog("🛡️ SafeMessageShield: Toplam SMS filtreleme: \(currentCount + 1)")
     }
 
     private func networkAction(for networkResponse: ILNetworkResponse) -> (ILMessageFilterAction, ILMessageFilterSubAction) {

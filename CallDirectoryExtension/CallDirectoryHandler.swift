@@ -8,10 +8,15 @@
 import Foundation
 import CallKit
 
+/// App Group ID - Ana uygulama ile veri paylaşımı için
+let kAppGroupIdentifier = "group.tsavasci.SafeMessageShield"
+
 class CallDirectoryHandler: CXCallDirectoryProvider {
 
     override func beginRequest(with context: CXCallDirectoryExtensionContext) {
         context.delegate = self
+        
+        NSLog("🛡️ SafeMessageShield: CallDirectory güncelleniyor...")
 
         // Check whether this is an "incremental" data request. If so, only provide the set of phone number blocking
         // and identification entries which have been added or removed since the last time this extension's data was loaded.
@@ -28,17 +33,39 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
         }
 
         context.completeRequest()
+        NSLog("🛡️ SafeMessageShield: CallDirectory güncelleme tamamlandı")
     }
 
     private func addAllBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Retrieve all phone numbers to block from data store. For optimal performance and memory usage when there are many phone numbers,
-        // consider only loading a subset of numbers at a given time and using autorelease pool(s) to release objects allocated during each batch of numbers which are loaded.
-        //
-        // Numbers must be provided in numerically ascending order.
-        let allPhoneNumbers: [CXCallDirectoryPhoneNumber] = [ 1_408_555_5555, 1_800_555_5555 ]
-        for phoneNumber in allPhoneNumbers {
+        // App Group'tan engellenen numaraları al
+        guard let userDefaults = UserDefaults(suiteName: kAppGroupIdentifier),
+              let blockedNumbers = userDefaults.stringArray(forKey: "blockedNumbers") else {
+            NSLog("🛡️ SafeMessageShield: Engellenen numara bulunamadı")
+            return
+        }
+        
+        // Numaraları CXCallDirectoryPhoneNumber formatına çevir ve sırala
+        var phoneNumbers: [CXCallDirectoryPhoneNumber] = []
+        
+        for numberString in blockedNumbers {
+            // Numarayı temizle (sadece rakamlar)
+            let cleanNumber = numberString.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+            
+            // + işareti varsa kaldır ve direkt sayıya çevir
+            if let phoneNumber = CXCallDirectoryPhoneNumber(cleanNumber) {
+                phoneNumbers.append(phoneNumber)
+            }
+        }
+        
+        // Numaraları sırala (CallKit gereksinimi)
+        phoneNumbers.sort()
+        
+        // Numaraları ekle
+        for phoneNumber in phoneNumbers {
             context.addBlockingEntry(withNextSequentialPhoneNumber: phoneNumber)
         }
+        
+        NSLog("🛡️ SafeMessageShield: \(phoneNumbers.count) numara engelleme listesine eklendi")
     }
 
     private func addOrRemoveIncrementalBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {

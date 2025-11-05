@@ -17,11 +17,37 @@ struct ContentView: View {
     @State private var showingContactPicker = false
     @State private var showingSuccessAlert = false
     @State private var lastBlockedNumber = ""
+    @State private var selectedTab = 0
     
     // ViewModel'i burada da kullanalım
     @StateObject private var contactViewModel = ContactPickerViewModel()
 
     var body: some View {
+        TabView(selection: $selectedTab) {
+            // Ana Liste Sekmesi
+            mainListView
+                .tabItem {
+                    Label("Liste", systemImage: "list.bullet")
+                }
+                .tag(0)
+            
+            // İstatistikler Sekmesi
+            StatisticsView()
+                .tabItem {
+                    Label("İstatistikler", systemImage: "chart.bar.fill")
+                }
+                .tag(1)
+            
+            // Ayarlar Sekmesi
+            SettingsView()
+                .tabItem {
+                    Label("Ayarlar", systemImage: "gear")
+                }
+                .tag(2)
+        }
+    }
+    
+    private var mainListView: some View {
         NavigationStack {
             VStack {
                 // Durum Kartı
@@ -75,12 +101,6 @@ struct ContentView: View {
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "gear")
                             .font(.title2)
                     }
                 }
