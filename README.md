@@ -5,11 +5,13 @@ iOS için SMS Filtreleme ve Telefon Engelleme Uygulaması
 ## 🎯 Özellikler
 
 - ✅ **SMS Filtreleme**: İstenmeyen SMS'leri otomatik olarak filtreler
-- ✅ **Numara Engelleme**: Belirtilen numaralardan gelen aramaları ve mesajları engeller
-- ✅ **Kara Liste Yönetimi**: Kolayca numara ekle/çıkar
+- ✅ **Arama Engelleme**: Belirtilen numaralardan gelen aramaları engeller
+- ✅ **Manuel Numara Ekleme**: Telefon numaralarını kolayca manuel olarak girin
+- ✅ **Rehber Entegrasyonu**: Rehberinizden doğrudan numara seçerek engelleyin
 - ✅ **Gizlilik Odaklı**: Tüm veriler cihazda saklanır, sunucuya hiçbir veri gönderilmez
-- ✅ **Akıllı Filtreleme**: AI bazlı spam tespiti (cihaz içi)
-- ✅ **Transaction Koruması**: Banka, OTP gibi önemli mesajları korur
+- ✅ **Sürekli Koruma**: Uygulama kapalıyken bile çalışır (kill-safe)
+- ✅ **Sıfır Gecikme**: Anında filtreleme ve engelleme
+- ✅ **Modern UI**: SwiftUI ile tasarlanmış kullanıcı dostu arayüz
 
 ## 🏗️ Mimari
 
@@ -108,23 +110,38 @@ Her target için (Ana App, Message Filter, Call Directory):
 
 ### Numara Engelleme
 
+**Yöntem 1: Manuel Ekleme**
 1. Ana ekranda "+" butonuna tıklayın
-2. Telefon numarasını girin (örn: +905551234567)
-3. Opsiyonel bir sebep ekleyin
-4. "Numarayı Engelle" butonuna tıklayın
+2. "Manuel Ekle" seçeneğini seçin
+3. Telefon numarasını girin (örn: +905551234567)
+4. İsteğe bağlı bir sebep ekleyin
+5. "Numarayı Engelle" butonuna tıklayın
+
+**Yöntem 2: Rehberden Seçme**
+1. Ana ekranda "+" butonuna tıklayın
+2. "Rehberden Seç" seçeneğini seçin
+3. Kişiyi ve telefon numarasını seçin
+4. Numara otomatik olarak engellenecektir
+
+**Numara Silme**
+- Engellenen numara üzerinde sola kaydırın ve "Sil" butonuna tıklayın
 
 ### Filtreleme Nasıl Çalışır?
 
-**Otomatik Spam Tespiti:**
-- Kampanya, hediye, kazandınız gibi kelimeler içeren mesajlar
-- Şüpheli linkler içeren mesajlar
-- Promosyon karakteristiği taşıyan mesajlar
+**SMS Filtreleme:**
+- Eklediğiniz numaralardan gelen mesajlar otomatik olarak filtrelenir
+- Mesajlar "Junk" klasörüne düşer
+- Bildirim almaz, rahatsız olmazsınız
 
-**Korunan Mesajlar:**
-- Banka bildirimleri
-- OTP kodları
-- Doğrulama mesajları
-- Güvenlik kodları
+**Arama Engelleme:**
+- Engellenen numaralardan gelen aramalar otomatik olarak reddedilir
+- Arama geçmişinizde "Engellendi" olarak görünür
+- Hiçbir bildirim veya rahatsızlık yaşamazsınız
+
+**Önemli Not:**
+- Her iki özellik de uygulama kapalıyken/silinmiş halde bile çalışır
+- Extension'lar iOS tarafından otomatik olarak tetiklenir
+- İnternet bağlantısı gerektirmez, tamamen offline çalışır
 
 ## 🔒 Gizlilik
 
@@ -185,11 +202,12 @@ log stream --predicate 'process == "callservicesd"'
 ## 📚 Kullanılan Teknolojiler
 
 - **SwiftUI**: Modern UI framework
-- **SwiftData**: Veri yönetimi
-- **IdentityLookup**: SMS filtreleme
-- **CallKit**: Numara engelleme
-- **App Groups**: Extension'lar arası veri paylaşımı
-- **Combine**: Reaktif programlama
+- **SwiftData**: Veri persistance ve yönetimi
+- **IdentityLookup**: SMS filtreleme framework
+- **CallKit**: Arama engelleme framework
+- **ContactsUI**: Rehber entegrasyonu
+- **App Groups**: Extension'lar arası güvenli veri paylaşımı
+- **ObservableObject**: State yönetimi için reaktif pattern
 
 ## 🔮 Gelecek Özellikler
 

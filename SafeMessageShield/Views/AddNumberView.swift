@@ -23,8 +23,6 @@ struct AddNumberView: View {
     @State private var showingSuccessAlert = false
     
     var body: some View {
-        // ViewModel'deki değişiklikleri izlemek için
-        let _ = print("📱 DEBUG: AddNumberView render - phoneNumber: '\(viewModel.selectedPhoneNumber)'")
         NavigationStack {
             Form {
                 Section {
@@ -94,8 +92,7 @@ struct AddNumberView: View {
     }
     
     private func addNumber() {
-        print("🔵 DEBUG: addNumber çağrıldı")
-        // Numarayı ViewModel'den al
+        // ViewModel'den al
         let cleanedNumber = viewModel.selectedPhoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // Basit validasyon
@@ -159,23 +156,18 @@ struct ContactPickerView: UIViewControllerRepresentable {
         }
         
         func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
-            print("📞 DEBUG: Numara seçildi")
             if let phoneNumberValue = contactProperty.value as? CNPhoneNumber {
                 let number = phoneNumberValue.stringValue
-                print("📞 DEBUG: Seçilen numara: \(number)")
                 DispatchQueue.main.async {
                     // ViewModel'i güncelle
                     self.viewModel.selectedPhoneNumber = number
-                    print("📞 DEBUG: ViewModel güncellendi: \(self.viewModel.selectedPhoneNumber)")
                     // Picker'ı kapat
                     self.viewModel.isPickerPresented = false
-                    print("📞 DEBUG: Picker kapatıldı")
                 }
             }
         }
         
         func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
-            print("📞 DEBUG: Kullanıcı iptal etti")
             DispatchQueue.main.async {
                 // Picker'ı kapat
                 self.viewModel.isPickerPresented = false
