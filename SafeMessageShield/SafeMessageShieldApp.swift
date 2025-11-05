@@ -12,7 +12,7 @@ import SwiftData
 struct SafeMessageShieldApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            BlockedNumber.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
