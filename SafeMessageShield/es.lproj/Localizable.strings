@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "Lista";
+"tab.statistics" = "Estadísticas";
+"tab.settings" = "Ajustes";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "Añadir Número";
+"blocked.count" = "%d números bloqueados";
+"no.blocked.title" = "Aún no hay números bloqueados";
+"no.blocked.message" = "Toca el botón + de arriba para añadir los números que quieras bloquear";
+
+/* Add Number Menu */
+"menu.manual" = "Entrada Manual";
+"menu.contacts" = "Desde Contactos";
+
+/* Add Number View */
+"phone.number" = "Número de Teléfono";
+"reason.optional" = "Razón (opcional)";
+"number.info" = "Información del Número";
+"number.info.footer" = "Introduce manualmente o selecciona desde los contactos. Ejemplo: +34600123456";
+"block.number" = "Bloquear Número";
+"cancel" = "Cancelar";
+"alert" = "Alerta";
+"ok" = "OK";
+"success" = "¡Éxito!";
+"number.blocked.success" = "Número bloqueado con éxito: %@";
+"enter.phone.number" = "Por favor, introduce un número de teléfono.";
+"number.already.blocked" = "Este número ya está bloqueado.";
+"added.from.contacts" = "Añadido desde Contactos";
+
+/* Status Card */
+"protection.active" = "Protección Activa";
+"protection.inactive" = "Activar Extensiones";
+"sms.filtering" = "Filtrado de SMS activo";
+"enable.from.settings" = "Activar desde Ajustes de iOS";
+"how.to.enable" = "¿Cómo Activar?";
+"hide.instructions" = "Ocultar Instrucciones";
+"sms.filter.title" = "📱 Filtrado de SMS:";
+"sms.filter.instruction" = "Ajustes → Mensajes → Desconocido y Spam → Activa SafeMessageShield";
+"call.block.title" = "📞 Bloqueo de Llamadas:";
+"call.block.instruction" = "Ajustes → Teléfono → Bloqueo e Identificación de Llamadas → Activa SafeMessageShield";
+"open.settings" = "Abrir Ajustes de iOS";
+"extensions.enabled" = "He Activado las Extensiones";
+"extensions.active" = "Extensiones activas. ¡Los mensajes de spam serán filtrados!";
+
+/* Statistics View */
+"statistics.title" = "Estadísticas";
+"total.protection" = "Protección Total";
+"sms.label" = "SMS";
+"calls.label" = "Llamadas";
+"blocked.label" = "Bloqueado";
+"sms.filtering.title" = "Filtrado de SMS";
+"call.blocking.title" = "Bloqueo de Llamadas";
+"blocked.numbers.title" = "Números Bloqueados";
+"active.protection.title" = "Protección Activa";
+"last.activity" = "Última: %@";
+"no.activity" = "Aún no hay actividad";
+"auto.blocked" = "Bloqueado automáticamente por iOS";
+"total.in.list" = "Total de números en la lista";
+"days.count" = "%d días";
+"since.install" = "Desde que instalaste la app";
+"how.it.works" = "¿Cómo Funciona?";
+"stats.info" = "El recuento de filtrado de SMS es un registro en tiempo real de los mensajes bloqueados por la extensión. El bloqueo de llamadas lo realiza iOS automáticamente y el recuento exacto no está disponible.";
+"pull.to.refresh" = "Desliza hacia abajo para actualizar";
+
+/* Settings View */
+"settings.title" = "Ajustes";
+"language" = "Idioma";
+"select.language" = "Seleccionar Idioma";
+"app.version" = "Versión de la App";
+"about" = "Acerca de";
+"privacy.focused" = "Enfocado en la Privacidad";
+"privacy.description" = "Todos tus datos se almacenan en tu dispositivo";
+"offline.works" = "Funciona Sin Conexión";
+"offline.description" = "No requiere conexión a internet";
+"always.protected" = "Siempre Protegido";
+"always.description" = "Funciona incluso cuando la app está cerrada";
+
+/* Common */
+"delete" = "Eliminar";
+"done" = "Hecho";
+"close" = "Cerrar";
+"save" = "Guardar";
+
+/* Privacy */
+"privacy.footer" = "Esta aplicación no envía ningún contenido de mensajes ni datos personales a servidores. Todas las operaciones de filtrado y bloqueo ocurren en su dispositivo.";

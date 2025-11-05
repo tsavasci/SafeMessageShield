@@ -13,6 +13,7 @@ import ContactsUI
 struct AddNumberView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var languageManager = LanguageManager.shared
     
     // ViewModel'i StateObject olarak oluştur
     @StateObject private var viewModel = ContactPickerViewModel()
@@ -28,7 +29,7 @@ struct AddNumberView: View {
                 Section {
                     HStack {
                         // TextField'ı ViewModel'e bağla
-                        TextField("Telefon Numarası", text: $viewModel.selectedPhoneNumber)
+                        TextField(NSLocalizedString("phone.number", comment: ""), text: $viewModel.selectedPhoneNumber)
                             .keyboardType(.phonePad)
                             .textContentType(.telephoneNumber)
                         
@@ -40,11 +41,11 @@ struct AddNumberView: View {
                         }
                     }
                     
-                    TextField("Sebep (opsiyonel)", text: $reason)
+                    TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
                 } header: {
-                    Text("Numara Bilgileri")
+                    Text(NSLocalizedString("number.info", comment: ""))
                 } footer: {
-                    Text("Manuel girin veya rehberden seçin. Örnek: +905551234567")
+                    Text(NSLocalizedString("number.info.footer", comment: ""))
                 }
                 
                 Section {
@@ -52,7 +53,7 @@ struct AddNumberView: View {
                         HStack {
                             Spacer()
                             Image(systemName: "plus.circle.fill")
-                            Text("Numarayı Engelle")
+                            Text(NSLocalizedString("block.number", comment: ""))
                             Spacer()
                         }
                     }
@@ -60,27 +61,27 @@ struct AddNumberView: View {
                     .disabled(viewModel.selectedPhoneNumber.isEmpty)
                 }
             }
-            .navigationTitle("Numara Ekle")
+            .navigationTitle(NSLocalizedString("add.number", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("İptal") {
+                    Button(NSLocalizedString("cancel", comment: "")) {
                         dismiss()
                     }
                 }
             }
-            .alert("Uyarı", isPresented: $showingAlert) {
-                Button("Tamam", role: .cancel) { }
+            .alert(NSLocalizedString("alert", comment: ""), isPresented: $showingAlert) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) { }
             } message: {
                 Text(alertMessage)
             }
-            .alert("Başarılı!", isPresented: $showingSuccessAlert) {
-                Button("Tamam", role: .cancel) {
+            .alert(NSLocalizedString("success", comment: ""), isPresented: $showingSuccessAlert) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
                     dismiss()
                 }
             } message: {
                 // Başarı mesajında ViewModel'deki numarayı göster
-                Text("Numara başarıyla engellendi: \(viewModel.selectedPhoneNumber)")
+                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), viewModel.selectedPhoneNumber))
             }
             // Picker'ın gösterilmesini ViewModel'deki duruma bağla
             .fullScreenCover(isPresented: $viewModel.isPickerPresented) {
@@ -97,14 +98,14 @@ struct AddNumberView: View {
         
         // Basit validasyon
         guard !cleanedNumber.isEmpty else {
-            alertMessage = "Lütfen bir telefon numarası girin."
+            alertMessage = NSLocalizedString("enter.phone.number", comment: "")
             showingAlert = true
             return
         }
         
         // Numara zaten engellenmiş mi kontrol et
         if DataManager.shared.isNumberBlocked(cleanedNumber) {
-            alertMessage = "Bu numara zaten engellenmiş."
+            alertMessage = NSLocalizedString("number.already.blocked", comment: "")
             showingAlert = true
             return
         }

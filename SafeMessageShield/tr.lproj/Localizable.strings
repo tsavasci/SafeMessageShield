@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "Liste";
+"tab.statistics" = "İstatistikler";
+"tab.settings" = "Ayarlar";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "Numara Ekle";
+"blocked.count" = "%d numara engellendi";
+"no.blocked.title" = "Henüz Engellenmiş Numara Yok";
+"no.blocked.message" = "Engellemek istediğiniz numaraları eklemek için üstteki + butonuna basın";
+
+/* Add Number Menu */
+"menu.manual" = "Manuel Ekle";
+"menu.contacts" = "Rehberden Seç";
+
+/* Add Number View */
+"phone.number" = "Telefon Numarası";
+"reason.optional" = "Sebep (opsiyonel)";
+"number.info" = "Numara Bilgileri";
+"number.info.footer" = "Manuel girin veya rehberden seçin. Örnek: +905551234567";
+"block.number" = "Numarayı Engelle";
+"cancel" = "İptal";
+"alert" = "Uyarı";
+"ok" = "Tamam";
+"success" = "Başarılı!";
+"number.blocked.success" = "Numara başarıyla engellendi: %@";
+"enter.phone.number" = "Lütfen bir telefon numarası girin.";
+"number.already.blocked" = "Bu numara zaten engellenmiş.";
+"added.from.contacts" = "Rehberden Eklendi";
+
+/* Status Card */
+"protection.active" = "Koruma Aktif";
+"protection.inactive" = "Extension'ları Etkinleştirin";
+"sms.filtering" = "SMS'ler filtreleniyor";
+"enable.from.settings" = "iOS Ayarlar'dan etkinleştirin";
+"how.to.enable" = "Nasıl Etkinleştirilir?";
+"hide.instructions" = "Talimatları Gizle";
+"sms.filter.title" = "📱 SMS Filtreleme:";
+"sms.filter.instruction" = "Ayarlar → Mesajlar → Bilinmeyen & İstenmeyen → SafeMessageShield AÇ";
+"call.block.title" = "📞 Numara Engelleme:";
+"call.block.instruction" = "Ayarlar → Telefon → Engelleme ve Kimlik Tanımlama → SafeMessageShield AÇ";
+"open.settings" = "iOS Ayarlarını Aç";
+"extensions.enabled" = "Extension'ları Etkinleştirdim";
+"extensions.active" = "Extension'lar aktif. Spam mesajlar filtrelenecek!";
+
+/* Statistics View */
+"statistics.title" = "İstatistikler";
+"total.protection" = "Toplam Koruma";
+"sms.label" = "SMS";
+"calls.label" = "Arama";
+"blocked.label" = "Engelli";
+"sms.filtering.title" = "SMS Filtreleme";
+"call.blocking.title" = "Arama Engelleme";
+"blocked.numbers.title" = "Engellenen Numara";
+"active.protection.title" = "Aktif Koruma";
+"last.activity" = "Son: %@";
+"no.activity" = "Henüz aktivite yok";
+"auto.blocked" = "iOS tarafından otomatik engellenir";
+"total.in.list" = "Listedeki toplam numara";
+"days.count" = "%d gün";
+"since.install" = "Uygulamayı yüklediğinizden beri";
+"how.it.works" = "Nasıl Çalışır?";
+"stats.info" = "SMS filtreleme sayısı, extension'ın engellediği mesajların gerçek zamanlı kaydıdır. Arama engelleme ise iOS tarafından otomatik olarak yapılır ve tam sayıya erişim yoktur.";
+"pull.to.refresh" = "Aşağı çekerek güncelleyin";
+
+/* Settings View */
+"settings.title" = "Ayarlar";
+"language" = "Dil";
+"select.language" = "Dil Seçin";
+"app.version" = "Uygulama Sürümü";
+"about" = "Hakkında";
+"privacy.focused" = "Gizlilik Odaklı";
+"privacy.description" = "Tüm verileriniz cihazınızda saklanır";
+"offline.works" = "Çevrimdışı Çalışır";
+"offline.description" = "İnternet bağlantısı gerektirmez";
+"always.protected" = "Sürekli Koruma";
+"always.description" = "Uygulama kapalıyken bile çalışır";
+
+/* Common */
+"delete" = "Sil";
+"done" = "Tamam";
+"close" = "Kapat";
+"save" = "Kaydet";
+
+/* Privacy */
+"privacy.footer" = "Bu uygulama hiçbir mesaj içeriğini veya kişisel verilerinizi sunucuya göndermez. Tüm filtreleme ve engelleme işlemleri cihazınızda gerçekleşir.";

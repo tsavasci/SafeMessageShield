@@ -8,49 +8,66 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var filterEnabled = DataManager.shared.isFilterEnabled()
+    @ObservedObject private var languageManager = LanguageManager.shared
+    @State private var showingLanguagePicker = false
     
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    Image(systemName: "shield.checkered")
-                        .font(.largeTitle)
-                        .foregroundStyle(.blue)
-                    
-                    VStack(alignment: .leading) {
-                        Text("SafeMessageShield")
-                            .font(.headline)
-                        Text("Versiyon 1.0.0")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+        NavigationStack {
+            Form {
+                Section {
+                    HStack {
+                        Image(systemName: "shield.checkered")
+                            .font(.largeTitle)
+                            .foregroundStyle(.blue)
+                        
+                        VStack(alignment: .leading) {
+                            Text("SafeMessageShield")
+                                .font(.headline)
+                            Text(NSLocalizedString("app.version", comment: "") + " 1.0.0")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
+                    .padding(.vertical, 8)
                 }
-                .padding(.vertical, 8)
-            }
+                
+                // Dil Seçimi Bölümü
+                Section {
+                    Button(action: { showingLanguagePicker = true }) {
+                        HStack {
+                            Label(NSLocalizedString("language", comment: ""), systemImage: "globe")
+                            Spacer()
+                            if let currentLang = languageManager.supportedLanguages.first(where: { $0.code == languageManager.currentLanguage }) {
+                                Text(currentLang.nativeName)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+                } header: {
+                    Text(NSLocalizedString("language", comment: ""))
+                }
             
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Label("SMS Filtreleme", systemImage: "message.fill")
+                    Label(NSLocalizedString("sms.filter.title", comment: ""), systemImage: "message.fill")
                         .font(.headline)
                     
-                    Text("SMS filtrelemeyi etkinleştirmek için:")
+                    Text(NSLocalizedString("sms.filter.instruction", comment: ""))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("1. Ayarlar > Mesajlar")
-                        Text("2. Bilinmeyen & İstenmeyen")
-                        Text("3. SafeMessageShield'i etkinleştir")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .padding(.leading)
-                    
-                    Button(action: openMessagesSettings) {
+                                        
+                    Button(action: {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
                         HStack {
                             Image(systemName: "arrow.right.circle.fill")
-                            Text("Mesajlar Ayarlarını Aç")
+                            Text(NSLocalizedString("open.settings", comment: ""))
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -61,31 +78,26 @@ struct SettingsView: View {
                 }
                 .padding(.vertical, 4)
             } header: {
-                Text("Filtreleme Ayarları")
+                Text(NSLocalizedString("sms.filtering.title", comment: ""))
             }
             
             Section {
                 VStack(alignment: .leading, spacing: 8) {
-                    Label("Telefon Engelleme", systemImage: "phone.fill")
+                    Label(NSLocalizedString("call.block.title", comment: ""), systemImage: "phone.fill")
                         .font(.headline)
                     
-                    Text("Numara engellemeyi etkinleştirmek için:")
+                    Text(NSLocalizedString("call.block.instruction", comment: ""))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("1. Ayarlar > Telefon")
-                        Text("2. Engelleme ve Kimlik Tanımlama")
-                        Text("3. SafeMessageShield'i etkinleştir")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .padding(.leading)
-                    
-                    Button(action: openPhoneSettings) {
+                    Button(action: {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
                         HStack {
                             Image(systemName: "arrow.right.circle.fill")
-                            Text("Telefon Ayarlarını Aç")
+                            Text(NSLocalizedString("open.settings", comment: ""))
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -96,68 +108,43 @@ struct SettingsView: View {
                 }
                 .padding(.vertical, 4)
             } header: {
-                Text("Çağrı Engelleme")
-            }
-            
-            Section {
-                Link(destination: URL(string: "https://developer.apple.com/documentation/identitylookup")!) {
-                    HStack {
-                        Image(systemName: "info.circle")
-                        Text("IdentityLookup Hakkında")
-                        Spacer()
-                        Image(systemName: "arrow.up.right.square")
-                    }
-                }
-                
-                Link(destination: URL(string: "https://developer.apple.com/documentation/callkit")!) {
-                    HStack {
-                        Image(systemName: "info.circle")
-                        Text("CallKit Hakkında")
-                        Spacer()
-                        Image(systemName: "arrow.up.right.square")
-                    }
-                }
-            } header: {
-                Text("Geliştirici Bilgileri")
+                Text(NSLocalizedString("call.blocking.title", comment: ""))
             }
             
             Section {
                 HStack {
-                    Text("Gizlilik")
+                    Text(NSLocalizedString("privacy.focused", comment: ""))
                     Spacer()
-                    Text("Tüm veriler cihazda saklanır")
+                    Text(NSLocalizedString("privacy.description", comment: ""))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 
                 HStack {
-                    Text("Veri Paylaşımı")
+                    Text(NSLocalizedString("offline.works", comment: ""))
                     Spacer()
-                    Text("Yok")
+                    Text(NSLocalizedString("offline.description", comment: ""))
                         .font(.caption)
-                        .foregroundStyle(.green)
+                        .foregroundStyle(.secondary)
+                }
+                HStack {
+                    Text(NSLocalizedString("always.protected", comment: ""))
+                    Spacer()
+                    Text(NSLocalizedString("always.description", comment: ""))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             } header: {
-                Text("Gizlilik")
+                Text(NSLocalizedString("about", comment: ""))
             } footer: {
-                Text("Bu uygulama hiçbir mesaj içeriğini veya kişisel verilerinizi sunucuya göndermez. Tüm filtreleme ve engelleme işlemleri cihazınızda gerçekleşir.")
+                Text(NSLocalizedString("privacy.footer", comment: ""))
             }
+            }
+            .navigationTitle(NSLocalizedString("settings.title", comment: ""))
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Ayarlar")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    private func openMessagesSettings() {
-        // iOS'ta doğrudan Mesajlar ayarlarına yönlendirme
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    private func openPhoneSettings() {
-        // iOS'ta doğrudan Telefon ayarlarına yönlendirme
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
+        .sheet(isPresented: $showingLanguagePicker) {
+            LanguagePickerView()
         }
     }
 }

@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "リスト";
+"tab.statistics" = "統計";
+"tab.settings" = "設定";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "番号を追加";
+"blocked.count" = "%d 件の番号をブロック中";
+"no.blocked.title" = "ブロック中の番号はありません";
+"no.blocked.message" = "上の + ボタンをタップしてブロックしたい番号を追加してください";
+
+/* Add Number Menu */
+"menu.manual" = "手動で入力";
+"menu.contacts" = "連絡先から選択";
+
+/* Add Number View */
+"phone.number" = "電話番号";
+"reason.optional" = "理由（任意）";
+"number.info" = "番号情報";
+"number.info.footer" = "手動で入力するか、連絡先から選択します。例：+819012345678";
+"block.number" = "番号をブロック";
+"cancel" = "キャンセル";
+"alert" = "警告";
+"ok" = "OK";
+"success" = "成功！";
+"number.blocked.success" = "番号のブロックに成功しました: %@";
+"enter.phone.number" = "電話番号を入力してください。";
+"number.already.blocked" = "この番号はすでにブロックされています。";
+"added.from.contacts" = "連絡先から追加済み";
+
+/* Status Card */
+"protection.active" = "保護が有効です";
+"protection.inactive" = "機能拡張を有効にする";
+"sms.filtering" = "SMSフィルタリングが有効です";
+"enable.from.settings" = "iOSの設定から有効にしてください";
+"how.to.enable" = "有効にするには？";
+"hide.instructions" = "手順を隠す";
+"sms.filter.title" = "📱 SMSフィルタリング:";
+"sms.filter.instruction" = "設定 → メッセージ → 不明な差出人/迷惑メッセージ → SafeMessageShieldをオン";
+"call.block.title" = "📞 着信拒否:";
+"call.block.instruction" = "設定 → 電話 → 着信拒否設定と着信ID → SafeMessageShieldをオン";
+"open.settings" = "iOSの設定を開く";
+"extensions.enabled" = "機能拡張を有効にしました";
+"extensions.active" = "機能拡張が有効です。迷惑メッセージはフィルタリングされます！";
+
+/* Statistics View */
+"statistics.title" = "統計";
+"total.protection" = "合計保護";
+"sms.label" = "SMS";
+"calls.label" = "通話";
+"blocked.label" = "ブロック済み";
+"sms.filtering.title" = "SMSフィルタリング";
+"call.blocking.title" = "着信拒否";
+"blocked.numbers.title" = "ブロックした番号";
+"active.protection.title" = "有効な保護";
+"last.activity" = "最終: %@";
+"no.activity" = "まだアクティビティがありません";
+"auto.blocked" = "iOSにより自動的にブロック";
+"total.in.list" = "リスト内の合計番号";
+"days.count" = "%d 日";
+"since.install" = "アプリをインストールしてからの日数";
+"how.it.works" = "仕組み";
+"stats.info" = "SMSフィルタリング数は、機能拡張によってブロックされたメッセージのリアルタイムの記録です。着信拒否はiOSによって自動的に行われるため、正確な数にはアクセスできません。";
+"pull.to.refresh" = "下に引いて更新";
+
+/* Settings View */
+"settings.title" = "設定";
+"language" = "言語";
+"select.language" = "言語を選択";
+"app.version" = "アプリのバージョン";
+"about" = "概要";
+"privacy.focused" = "プライバシー重視";
+"privacy.description" = "すべてのデータはデバイスに保存されます";
+"offline.works" = "オフラインで動作";
+"offline.description" = "インターネット接続は不要です";
+"always.protected" = "常時保護";
+"always.description" = "アプリが閉じていても動作します";
+
+/* Common */
+"delete" = "削除";
+"done" = "完了";
+"close" = "閉じる";
+"save" = "保存";
+
+/* Privacy */
+"privacy.footer" = "このアプリは、メッセージの内容や個人データをサーバーに送信しません。すべてのフィルタリングとブロック操作は、お使いのデバイス上で行われます。";

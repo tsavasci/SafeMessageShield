@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "列表";
+"tab.statistics" = "统计";
+"tab.settings" = "设置";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "添加号码";
+"blocked.count" = "已拦截 %d 个号码";
+"no.blocked.title" = "暂无拦截号码";
+"no.blocked.message" = "点击上方 + 按钮添加您想拦截的号码";
+
+/* Add Number Menu */
+"menu.manual" = "手动输入";
+"menu.contacts" = "从通讯录选择";
+
+/* Add Number View */
+"phone.number" = "电话号码";
+"reason.optional" = "原因（可选）";
+"number.info" = "号码信息";
+"number.info.footer" = "手动输入或从通讯录选择。例如：+8613812345678";
+"block.number" = "拦截号码";
+"cancel" = "取消";
+"alert" = "提醒";
+"ok" = "好的";
+"success" = "成功！";
+"number.blocked.success" = "号码拦截成功: %@";
+"enter.phone.number" = "请输入电话号码。";
+"number.already.blocked" = "该号码已被拦截。";
+"added.from.contacts" = "从通讯录添加";
+
+/* Status Card */
+"protection.active" = "保护已开启";
+"protection.inactive" = "请启用扩展";
+"sms.filtering" = "短信过滤已开启";
+"enable.from.settings" = "从iOS设置中启用";
+"how.to.enable" = "如何启用？";
+"hide.instructions" = "隐藏说明";
+"sms.filter.title" = "📱 短信过滤：";
+"sms.filter.instruction" = "设置 → 信息 → 未知与过滤信息 → 开启 SafeMessageShield";
+"call.block.title" = "📞 来电拦截：";
+"call.block.instruction" = "设置 → 电话 → 来电阻止与身份识别 → 开启 SafeMessageShield";
+"open.settings" = "打开iOS设置";
+"extensions.enabled" = "我已启用扩展";
+"extensions.active" = "扩展已激活。垃圾信息将被过滤！";
+
+/* Statistics View */
+"statistics.title" = "统计";
+"total.protection" = "全面防护";
+"sms.label" = "短信";
+"calls.label" = "来电";
+"blocked.label" = "已拦截";
+"sms.filtering.title" = "短信过滤";
+"call.blocking.title" = "来电拦截";
+"blocked.numbers.title" = "已拦截号码";
+"active.protection.title" = "防护天数";
+"last.activity" = "上次活动: %@";
+"no.activity" = "暂无活动";
+"auto.blocked" = "由iOS自动拦截";
+"total.in.list" = "列表中的总号码数";
+"days.count" = "%d 天";
+"since.install" = "自您安装应用以来";
+"how.it.works" = "工作原理";
+"stats.info" = "短信过滤计数是扩展程序拦截消息的实时记录。来电拦截由iOS自动完成，无法获取确切数量。";
+"pull.to.refresh" = "下拉刷新";
+
+/* Settings View */
+"settings.title" = "设置";
+"language" = "语言";
+"select.language" = "选择语言";
+"app.version" = "应用版本";
+"about" = "关于";
+"privacy.focused" = "注重隐私";
+"privacy.description" = "您的所有数据都存储在您的设备上";
+"offline.works" = "离线工作";
+"offline.description" = "无需网络连接";
+"always.protected" = "始终保护";
+"always.description" = "即使应用关闭也能工作";
+
+/* Common */
+"delete" = "删除";
+"done" = "完成";
+"close" = "关闭";
+"save" = "保存";
+
+/* Privacy */
+"privacy.footer" = "本应用不会向服务器发送任何消息内容或个人数据。所有过滤和拦截操作都在您的设备上进行。";

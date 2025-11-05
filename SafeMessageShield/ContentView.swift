@@ -12,6 +12,7 @@ import ContactsUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var blockedNumbers: [BlockedNumber]
+    @ObservedObject private var languageManager = LanguageManager.shared
     
     @State private var showingAddNumberSheet = false
     @State private var showingContactPicker = false
@@ -27,21 +28,21 @@ struct ContentView: View {
             // Ana Liste Sekmesi
             mainListView
                 .tabItem {
-                    Label("Liste", systemImage: "list.bullet")
+                    Label(NSLocalizedString("tab.list", comment: ""), systemImage: "list.bullet")
                 }
                 .tag(0)
             
             // İstatistikler Sekmesi
             StatisticsView()
                 .tabItem {
-                    Label("İstatistikler", systemImage: "chart.bar.fill")
+                    Label(NSLocalizedString("tab.statistics", comment: ""), systemImage: "chart.bar.fill")
                 }
                 .tag(1)
             
             // Ayarlar Sekmesi
             SettingsView()
                 .tabItem {
-                    Label("Ayarlar", systemImage: "gear")
+                    Label(NSLocalizedString("tab.settings", comment: ""), systemImage: "gear")
                 }
                 .tag(2)
         }
@@ -61,11 +62,11 @@ struct ContentView: View {
                             .font(.system(size: 60))
                             .foregroundStyle(.gray)
                         
-                        Text("Henüz Engellenmiş Numara Yok")
+                        Text(NSLocalizedString("no.blocked.title", comment: ""))
                             .font(.headline)
                             .foregroundStyle(.secondary)
                         
-                        Text("Engellemek istediğiniz numaraları eklemek için üstteki + butonuna basın")
+                        Text(NSLocalizedString("no.blocked.message", comment: ""))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
@@ -74,7 +75,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("\(blockedNumbers.count) numara engellendi")
+                        Text(String(format: NSLocalizedString("blocked.count", comment: ""), blockedNumbers.count))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                             .padding(.horizontal)
@@ -89,15 +90,15 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("SafeMessageShield")
+            .navigationTitle(NSLocalizedString("app.title", comment: ""))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button(action: { showingAddNumberSheet = true }) {
-                            Label("Manuel Ekle", systemImage: "square.and.pencil")
+                            Label(NSLocalizedString("menu.manual", comment: ""), systemImage: "square.and.pencil")
                         }
                         Button(action: { showingContactPicker = true }) {
-                            Label("Rehberden Seç", systemImage: "person.crop.circle.badge.plus")
+                            Label(NSLocalizedString("menu.contacts", comment: ""), systemImage: "person.crop.circle.badge.plus")
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
@@ -120,10 +121,10 @@ struct ContentView: View {
                     addNumberFromContact(phoneNumber: newValue)
                 }
             }
-            .alert("Başarılı!", isPresented: $showingSuccessAlert) {
-                Button("Tamam", role: .cancel) { }
+            .alert(NSLocalizedString("success", comment: ""), isPresented: $showingSuccessAlert) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) { }
             } message: {
-                Text("Numara başarıyla engellendi: \(lastBlockedNumber)")
+                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), lastBlockedNumber))
             }
         }
     }
@@ -142,7 +143,7 @@ struct ContentView: View {
         let blockedNumber = BlockedNumber(
             phoneNumber: cleanedNumber,
             addedAt: Date(),
-            reason: "Rehberden Eklendi"
+            reason: NSLocalizedString("added.from.contacts", comment: "")
         )
         modelContext.insert(blockedNumber)
         DataManager.shared.addBlockedNumber(cleanedNumber)
@@ -179,9 +180,9 @@ struct StatusCard: View {
                     .foregroundStyle(isFilterEnabled ? .green : .orange)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(isFilterEnabled ? "Koruma Aktif" : "Extension'ları Etkinleştirin")
+                    Text(isFilterEnabled ? NSLocalizedString("protection.active", comment: "") : NSLocalizedString("protection.inactive", comment: ""))
                         .font(.headline)
-                    Text(isFilterEnabled ? "SMS'ler filtreleniyor" : "iOS Ayarlar'dan etkinleştirin")
+                    Text(isFilterEnabled ? NSLocalizedString("sms.filtering", comment: "") : NSLocalizedString("enable.from.settings", comment: ""))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -199,7 +200,7 @@ struct StatusCard: View {
                 Button(action: { showInstructions.toggle() }) {
                     HStack {
                         Image(systemName: "info.circle.fill")
-                        Text(showInstructions ? "Talimatları Gizle" : "Nasıl Etkinleştirilir?")
+                        Text(showInstructions ? NSLocalizedString("hide.instructions", comment: "") : NSLocalizedString("how.to.enable", comment: ""))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -210,19 +211,19 @@ struct StatusCard: View {
                 
                 if showInstructions {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("📱 SMS Filtreleme:")
+                        Text(NSLocalizedString("sms.filter.title", comment: ""))
                             .font(.subheadline)
                             .fontWeight(.semibold)
-                        Text("Ayarlar → Mesajlar → Bilinmeyen & İstenmeyen → SafeMessageShield AÇ")
+                        Text(NSLocalizedString("sms.filter.instruction", comment: ""))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         
                         Divider()
                         
-                        Text("📞 Numara Engelleme:")
+                        Text(NSLocalizedString("call.block.title", comment: ""))
                             .font(.subheadline)
                             .fontWeight(.semibold)
-                        Text("Ayarlar → Telefon → Engelleme ve Kimlik Tanımlama → SafeMessageShield AÇ")
+                        Text(NSLocalizedString("call.block.instruction", comment: ""))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         
@@ -230,7 +231,7 @@ struct StatusCard: View {
                             HStack {
                                 Spacer()
                                 Image(systemName: "gear")
-                                Text("iOS Ayarlarını Aç")
+                                Text(NSLocalizedString("open.settings", comment: ""))
                                 Spacer()
                             }
                             .padding(8)
@@ -243,7 +244,7 @@ struct StatusCard: View {
                             HStack {
                                 Spacer()
                                 Image(systemName: "checkmark.circle")
-                                Text("Extension'ları Etkinleştirdim")
+                                Text(NSLocalizedString("extensions.enabled", comment: ""))
                                 Spacer()
                             }
                             .padding(8)
@@ -260,7 +261,7 @@ struct StatusCard: View {
                 HStack {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.green)
-                    Text("Extension'lar aktif. Spam mesajlar filtrelenecek!")
+                    Text(NSLocalizedString("extensions.active", comment: ""))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

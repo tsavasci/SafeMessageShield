@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "Список";
+"tab.statistics" = "Статистика";
+"tab.settings" = "Настройки";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "Добавить номер";
+"blocked.count" = "Заблокировано %d номеров";
+"no.blocked.title" = "Пока нет заблокированных номеров";
+"no.blocked.message" = "Нажмите кнопку + выше, чтобы добавить номера, которые вы хотите заблокировать";
+
+/* Add Number Menu */
+"menu.manual" = "Ввести вручную";
+"menu.contacts" = "Из контактов";
+
+/* Add Number View */
+"phone.number" = "Номер телефона";
+"reason.optional" = "Причина (необязательно)";
+"number.info" = "Информация о номере";
+"number.info.footer" = "Введите вручную или выберите из контактов. Пример: +79161234567";
+"block.number" = "Заблокировать номер";
+"cancel" = "Отмена";
+"alert" = "Внимание";
+"ok" = "ОК";
+"success" = "Успешно!";
+"number.blocked.success" = "Номер успешно заблокирован: %@";
+"enter.phone.number" = "Пожалуйста, введите номер телефона.";
+"number.already.blocked" = "Этот номер уже заблокирован.";
+"added.from.contacts" = "Добавлено из контактов";
+
+/* Status Card */
+"protection.active" = "Защита активна";
+"protection.inactive" = "Включите расширения";
+"sms.filtering" = "Фильтрация SMS активна";
+"enable.from.settings" = "Включить в настройках iOS";
+"how.to.enable" = "Как включить?";
+"hide.instructions" = "Скрыть инструкции";
+"sms.filter.title" = "📱 Фильтрация SMS:";
+"sms.filter.instruction" = "Настройки → Сообщения → Неизвестные и спам → Включить SafeMessageShield";
+"call.block.title" = "📞 Блокировка вызовов:";
+"call.block.instruction" = "Настройки → Телефон → Блокировка и идентификация вызовов → Включить SafeMessageShield";
+"open.settings" = "Открыть настройки iOS";
+"extensions.enabled" = "Я включил расширения";
+"extensions.active" = "Расширения активны. Спам-сообщения будут отфильтрованы!";
+
+/* Statistics View */
+"statistics.title" = "Статистика";
+"total.protection" = "Общая защита";
+"sms.label" = "SMS";
+"calls.label" = "Звонки";
+"blocked.label" = "Заблокировано";
+"sms.filtering.title" = "Фильтрация SMS";
+"call.blocking.title" = "Блокировка вызовов";
+"blocked.numbers.title" = "Заблокированные номера";
+"active.protection.title" = "Активная защита";
+"last.activity" = "Последнее: %@";
+"no.activity" = "Пока нет активности";
+"auto.blocked" = "Автоматически заблокировано iOS";
+"total.in.list" = "Всего номеров в списке";
+"days.count" = "%d дней";
+"since.install" = "С момента установки приложения";
+"how.it.works" = "Как это работает?";
+"stats.info" = "Количество отфильтрованных SMS — это запись в реальном времени о сообщениях, заблокированных расширением. Блокировка вызовов выполняется iOS автоматически, и точное количество недоступно.";
+"pull.to.refresh" = "Потяните вниз для обновления";
+
+/* Settings View */
+"settings.title" = "Настройки";
+"language" = "Язык";
+"select.language" = "Выбрать язык";
+"app.version" = "Версия приложения";
+"about" = "О приложении";
+"privacy.focused" = "Конфиденциальность";
+"privacy.description" = "Все ваши данные хранятся на вашем устройстве";
+"offline.works" = "Работает оффлайн";
+"offline.description" = "Не требуется подключение к интернету";
+"always.protected" = "Всегда защищен";
+"always.description" = "Работает, даже когда приложение закрыто";
+
+/* Common */
+"delete" = "Удалить";
+"done" = "Готово";
+"close" = "Закрыть";
+"save" = "Сохранить";
+
+/* Privacy */
+"privacy.footer" = "Это приложение не отправляет содержимое сообщений или личные данные на серверы. Все операции фильтрации и блокировки выполняются на вашем устройстве.";

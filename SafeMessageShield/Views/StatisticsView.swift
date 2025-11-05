@@ -10,6 +10,7 @@ import SwiftData
 
 struct StatisticsView: View {
     @Query private var blockedNumbers: [BlockedNumber]
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var smsFilterCount = 0
     @State private var callBlockCount = 0
     @State private var lastSMSFilterDate: Date?
@@ -33,33 +34,33 @@ struct StatisticsView: View {
                     VStack(spacing: 16) {
                         StatisticRow(
                             icon: "message.badge.filled.fill",
-                            title: "SMS Filtreleme",
+                            title: NSLocalizedString("sms.filtering.title", comment: ""),
                             value: "\(smsFilterCount)",
-                            subtitle: lastActivityText(for: lastSMSFilterDate, prefix: "Son: "),
+                            subtitle: lastActivityText(for: lastSMSFilterDate, prefix: NSLocalizedString("last.activity", comment: "")),
                             color: .blue
                         )
                         
                         StatisticRow(
                             icon: "phone.down.fill",
-                            title: "Arama Engelleme",
+                            title: NSLocalizedString("call.blocking.title", comment: ""),
                             value: "\(callBlockCount)",
-                            subtitle: "iOS tarafından otomatik engellenir",
+                            subtitle: NSLocalizedString("auto.blocked", comment: ""),
                             color: .red
                         )
                         
                         StatisticRow(
                             icon: "list.bullet.rectangle",
-                            title: "Engellenen Numara",
+                            title: NSLocalizedString("blocked.numbers.title", comment: ""),
                             value: "\(blockedNumbers.count)",
-                            subtitle: "Listedeki toplam numara",
+                            subtitle: NSLocalizedString("total.in.list", comment: ""),
                             color: .orange
                         )
                         
                         StatisticRow(
                             icon: "calendar.badge.clock",
-                            title: "Aktif Koruma",
-                            value: "\(activeDays) gün",
-                            subtitle: "Uygulamayı yüklediğinizden beri",
+                            title: NSLocalizedString("active.protection.title", comment: ""),
+                            value: String(format: NSLocalizedString("days.count", comment: ""), activeDays),
+                            subtitle: NSLocalizedString("since.install", comment: ""),
                             color: .green
                         )
                     }
@@ -72,7 +73,7 @@ struct StatisticsView: View {
                 }
                 .padding(.vertical)
             }
-            .navigationTitle("İstatistikler")
+            .navigationTitle(NSLocalizedString("statistics.title", comment: ""))
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 loadStatistics()
@@ -93,7 +94,7 @@ struct StatisticsView: View {
     
     private func lastActivityText(for date: Date?, prefix: String) -> String {
         guard let date = date else {
-            return "Henüz aktivite yok"
+            return NSLocalizedString("no.activity", comment: "")
         }
         
         let formatter = RelativeDateTimeFormatter()
@@ -137,7 +138,7 @@ struct SummaryCard: View {
                         )
                     )
                 
-                Text("Toplam Koruma")
+                Text(NSLocalizedString("total.protection", comment: ""))
                     .font(.headline)
                     .foregroundStyle(.secondary)
             }
@@ -146,9 +147,9 @@ struct SummaryCard: View {
             
             // Hızlı İstatistikler
             HStack(spacing: 20) {
-                QuickStat(value: "\(smsFiltered)", label: "SMS")
-                QuickStat(value: "\(callsBlocked)", label: "Arama")
-                QuickStat(value: "\(totalBlocked)", label: "Engelli")
+                QuickStat(value: "\(smsFiltered)", label: NSLocalizedString("sms.label", comment: ""))
+                QuickStat(value: "\(callsBlocked)", label: NSLocalizedString("calls.label", comment: ""))
+                QuickStat(value: "\(totalBlocked)", label: NSLocalizedString("blocked.label", comment: ""))
             }
         }
         .padding()
@@ -224,11 +225,11 @@ struct InfoCard: View {
             HStack {
                 Image(systemName: "info.circle.fill")
                     .foregroundStyle(.blue)
-                Text("Nasıl Çalışır?")
+                Text(NSLocalizedString("how.it.works", comment: ""))
                     .font(.headline)
             }
             
-            Text("SMS filtreleme sayısı, extension'ın engellediği mesajların gerçek zamanlı kaydıdır. Arama engelleme ise iOS tarafından otomatik olarak yapılır ve tam sayıya erişim yoktur.")
+            Text(NSLocalizedString("stats.info", comment: ""))
                 .font(.caption)
                 .foregroundStyle(.secondary)
             
@@ -237,7 +238,7 @@ struct InfoCard: View {
             HStack {
                 Image(systemName: "arrow.clockwise")
                     .foregroundStyle(.green)
-                Text("Aşağı çekerek güncelleyin")
+                Text(NSLocalizedString("pull.to.refresh", comment: ""))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

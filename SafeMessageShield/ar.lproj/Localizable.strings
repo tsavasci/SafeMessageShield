@@ -1,0 +1,87 @@
+/* Tab Bar */
+"tab.list" = "القائمة";
+"tab.statistics" = "الإحصائيات";
+"tab.settings" = "الإعدادات";
+
+/* Main Screen */
+"app.title" = "SafeMessageShield";
+"add.number" = "إضافة رقم";
+"blocked.count" = "تم حظر %d رقم";
+"no.blocked.title" = "لا توجد أرقام محظورة بعد";
+"no.blocked.message" = "اضغط على زر + أعلاه لإضافة الأرقام التي تريد حظرها";
+
+/* Add Number Menu */
+"menu.manual" = "إدخال يدوي";
+"menu.contacts" = "من جهات الاتصال";
+
+/* Add Number View */
+"phone.number" = "رقم الهاتف";
+"reason.optional" = "السبب (اختياري)";
+"number.info" = "معلومات الرقم";
+"number.info.footer" = "أدخل يدويًا أو اختر من جهات الاتصال. مثال: +966501234567";
+"block.number" = "حظر الرقم";
+"cancel" = "إلغاء";
+"alert" = "تنبيه";
+"ok" = "موافق";
+"success" = "نجاح!";
+"number.blocked.success" = "تم حظر الرقم بنجاح: %@";
+"enter.phone.number" = "الرجاء إدخال رقم هاتف.";
+"number.already.blocked" = "هذا الرقم محظور بالفعل.";
+"added.from.contacts" = "تمت الإضافة من جهات الاتصال";
+
+/* Status Card */
+"protection.active" = "الحماية مفعلة";
+"protection.inactive" = "تفعيل الإضافات";
+"sms.filtering" = "تصفية الرسائل القصيرة مفعلة";
+"enable.from.settings" = "تفعيل من إعدادات iOS";
+"how.to.enable" = "كيفية التفعيل؟";
+"hide.instructions" = "إخفاء التعليمات";
+"sms.filter.title" = "📱 تصفية الرسائل القصيرة:";
+"sms.filter.instruction" = "الإعدادات ← الرسائل ← غير معروف ومزعج ← تشغيل SafeMessageShield";
+"call.block.title" = "📞 حظر المكالمات:";
+"call.block.instruction" = "الإعدادات ← الهاتف ← حظر المكالمات والتعرف عليها ← تشغيل SafeMessageShield";
+"open.settings" = "فتح إعدادات iOS";
+"extensions.enabled" = "لقد قمت بتفعيل الإضافات";
+"extensions.active" = "الإضافات مفعلة. سيتم تصفية الرسائل المزعجة!";
+
+/* Statistics View */
+"statistics.title" = "الإحصائيات";
+"total.protection" = "الحماية الكاملة";
+"sms.label" = "رسائل";
+"calls.label" = "مكالمات";
+"blocked.label" = "محظور";
+"sms.filtering.title" = "تصفية الرسائل";
+"call.blocking.title" = "حظر المكالمات";
+"blocked.numbers.title" = "الأرقام المحظورة";
+"active.protection.title" = "الحماية النشطة";
+"last.activity" = "آخر نشاط: %@";
+"no.activity" = "لا يوجد نشاط بعد";
+"auto.blocked" = "محظور تلقائيًا بواسطة iOS";
+"total.in.list" = "إجمالي الأرقام في القائمة";
+"days.count" = "%d يوم";
+"since.install" = "منذ تثبيت التطبيق";
+"how.it.works" = "كيف يعمل؟";
+"stats.info" = "عدد تصفية الرسائل القصيرة هو سجل في الوقت الفعلي للرسائل التي حظرتها الإضافة. يتم حظر المكالمات تلقائيًا بواسطة iOS والعدد الدقيق غير متاح.";
+"pull.to.refresh" = "اسحب للأسفل للتحديث";
+
+/* Settings View */
+"settings.title" = "الإعدادات";
+"language" = "اللغة";
+"select.language" = "اختر اللغة";
+"app.version" = "إصدار التطبيق";
+"about" = "حول";
+"privacy.focused" = "يركز على الخصوصية";
+"privacy.description" = "يتم تخزين جميع بياناتك على جهازك";
+"offline.works" = "يعمل دون اتصال";
+"offline.description" = "لا يتطلب اتصال بالإنترنت";
+"always.protected" = "محمي دائمًا";
+"always.description" = "يعمل حتى عند إغلاق التطبيق";
+
+/* Common */
+"delete" = "حذف";
+"done" = "تم";
+"close" = "إغلاق";
+"save" = "حفظ";
+
+/* Privacy */
+"privacy.footer" = "لا يرسل هذا التطبيق أي محتوى رسائل أو بيانات شخصية إلى الخوادم. تتم جميع عمليات التصفية والحظر على جهازك.";
