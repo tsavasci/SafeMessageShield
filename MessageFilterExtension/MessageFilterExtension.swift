@@ -15,16 +15,50 @@ final class MessageFilterExtension: ILMessageFilterExtension {}
 
 extension MessageFilterExtension: ILMessageFilterQueryHandling, ILMessageFilterCapabilitiesQueryHandling {
     func handle(_ capabilitiesQueryRequest: ILMessageFilterCapabilitiesQueryRequest, context: ILMessageFilterExtensionContext, completion: @escaping (ILMessageFilterCapabilitiesQueryResponse) -> Void) {
+        NSLog("🛡️ SafeMessageShield: Capabilities query çağrıldı")
+        
         let response = ILMessageFilterCapabilitiesQueryResponse()
+        
+        // iOS'a tüm SMS'leri offline filtreleyebileceğimizi söyle
+        // Bu olmadan iOS extension'ı çağırmayabilir
+        response.transactionalSubActions = [
+            ILMessageFilterSubAction.transactionalOthers
+        ]
+        response.promotionalSubActions = [
+            ILMessageFilterSubAction.promotionalOthers
+        ]
 
-        // TODO: Update subActions from ILMessageFilterSubAction enum
-        // response.transactionalSubActions = [...]
-        // response.promotionalSubActions   = [...]
-
+        NSLog("🛡️ SafeMessageShield: Capabilities yanıtı gönderildi - Transactional ve Promotional filtreleme aktif")
         completion(response)
     }
 
     func handle(_ queryRequest: ILMessageFilterQueryRequest, context: ILMessageFilterExtensionContext, completion: @escaping (ILMessageFilterQueryResponse) -> Void) {
+        // =================== GEÇİCİ TEST KODU ===================
+        // Bu kod, bilinmeyen her göndericiden gelen SMS'i JUNK olarak işaretler.
+        // Sorunun data okumada mı yoksa extension'ın kendisinde mi olduğunu anlamak için.
+        
+        NSLog("🛡️ SafeMessageShield: 💣 HEPSİNİ ENGELLEME MODU AKTİF 💣")
+        
+        let response = ILMessageFilterQueryResponse()
+        
+        // Gönderen "kişiler" listesinde değilse, direkt JUNK yap.
+        if queryRequest.sender != nil {
+            response.action = .junk
+            NSLog("🛡️ SafeMessageShield: ✅ JUNK olarak işaretlendi (Test Modu)")
+        } else {
+            response.action = .none
+            NSLog("🛡️ SafeMessageShield: ℹ️ Gönderen nil, dokunulmadı (Test Modu)")
+        }
+        
+        completion(response)
+        
+        /*
+        // =================== ORİJİNAL KOD ===================
+        NSLog("🛡️ SafeMessageShield: ============================================")
+        NSLog("🛡️ SafeMessageShield: SMS FİLTRE QUERY ÇAĞRILDI!")
+        NSLog("🛡️ SafeMessageShield: Gönderen: \(queryRequest.sender ?? "nil")")
+        NSLog("🛡️ SafeMessageShield: Mesaj içeriği var mı: \(queryRequest.messageBody != nil)")
+        NSLog("🛡️ SafeMessageShield: ============================================")
         // First, check whether to filter using offline data (if possible).
         let (offlineAction, offlineSubAction) = self.offlineAction(for: queryRequest)
 
@@ -34,56 +68,92 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling, ILMessageFilterC
             let response = ILMessageFilterQueryResponse()
             response.action = offlineAction
             response.subAction = offlineSubAction
-
+            
+            NSLog("🛡️ SafeMessageShield: Yanıt gönderiliyor - Action: \(offlineAction.rawValue)")
             completion(response)
 
         case .none:
-            // Based on offline data, we do not know whether this message should be Allowed or Filtered. Defer to network.
-            // Note: Deferring requests to network requires the extension target's Info.plist to contain a key with a URL to use. See documentation for details.
-            context.deferQueryRequestToNetwork() { (networkResponse, error) in
-                let response = ILMessageFilterQueryResponse()
-                response.action = .none
-                response.subAction = .none
-
-                if let networkResponse = networkResponse {
-                    // If we received a network response, parse it to determine an action to return in our response.
-                    (response.action, response.subAction) = self.networkAction(for: networkResponse)
-                } else {
-                    NSLog("Error deferring query request to network: \(String(describing: error))")
-                }
-
-                completion(response)
-            }
+            // Offline veriye göre karar veremiyoruz, mesajı geçir
+            let response = ILMessageFilterQueryResponse()
+            response.action = .none
+            response.subAction = .none
+            
+            NSLog("🛡️ SafeMessageShield: SMS geçirildi (engelli değil)")
+            completion(response)
 
         @unknown default:
-            break
+            let response = ILMessageFilterQueryResponse()
+            response.action = .none
+            response.subAction = .none
+            completion(response)
         }
+        */
     }
 
     private func offlineAction(for queryRequest: ILMessageFilterQueryRequest) -> (ILMessageFilterAction, ILMessageFilterSubAction) {
         guard let sender = queryRequest.sender else {
+            NSLog("🛡️ SafeMessageShield: ⚠️ Gönderen bilgisi yok!")
             return (.none, .none)
         }
         
         // App Group'tan engellenen numaraları al
         guard let userDefaults = UserDefaults(suiteName: kAppGroupIdentifier),
               let blockedNumbers = userDefaults.stringArray(forKey: "blockedNumbers") else {
+            NSLog("🛡️ SafeMessageShield: ❌ UserDefaults veya blockedNumbers alınamadı")
             return (.none, .none)
         }
         
-        // Gönderenin numarasını temizle
+        // Gönderenin numarasını temizle (sadece rakamlar ve +)
         let cleanedSender = sender.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
-        // Numara engellenmiş mi kontrol et
-        if blockedNumbers.contains(where: { cleanedSender.contains($0) || $0.contains(cleanedSender) }) {
-            NSLog("🛡️ SafeMessageShield: SMS filtrelendi - Gönderen: \(sender)")
-            
-            // İstatistiği güncelle
-            incrementSMSFilterCount()
-            
-            return (.junk, .none)
+        NSLog("🛡️ SafeMessageShield: 📨 SMS kontrol ediliyor")
+        NSLog("🛡️ SafeMessageShield:    Gönderen (orijinal): \(sender)")
+        NSLog("🛡️ SafeMessageShield:    Gönderen (temizlenmiş): \(cleanedSender)")
+        NSLog("🛡️ SafeMessageShield:    Engelli numara sayısı: \(blockedNumbers.count)")
+        
+        // Eğer liste boşsa
+        if blockedNumbers.isEmpty {
+            NSLog("🛡️ SafeMessageShield: ℹ️ Engelli numara listesi boş")
+            return (.none, .none)
         }
         
+        // Her engelli numarayı kontrol et
+        for (index, blockedNumber) in blockedNumbers.enumerated() {
+            let cleanedBlocked = blockedNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+            
+            NSLog("🛡️ SafeMessageShield:    [\(index+1)/\(blockedNumbers.count)] Kontrol: \(blockedNumber) → \(cleanedBlocked)")
+            
+            // Farklı eşleşme senaryoları
+            let exactMatch = cleanedSender == cleanedBlocked
+            let senderEndsWith = cleanedSender.hasSuffix(cleanedBlocked)
+            let blockedEndsWith = cleanedBlocked.hasSuffix(cleanedSender)
+            let senderContains = cleanedSender.contains(cleanedBlocked)
+            let blockedContains = cleanedBlocked.contains(cleanedSender)
+            
+            if exactMatch {
+                NSLog("🛡️ SafeMessageShield: ✅✅✅ SMS FİLTRELENDİ - TAM EŞLEŞME!")
+                incrementSMSFilterCount()
+                return (.junk, .none)
+            } else if senderEndsWith {
+                NSLog("🛡️ SafeMessageShield: ✅✅ SMS FİLTRELENDİ - Gönderen numarası engelli numara ile bitiyor")
+                incrementSMSFilterCount()
+                return (.junk, .none)
+            } else if blockedEndsWith {
+                NSLog("🛡️ SafeMessageShield: ✅ SMS FİLTRELENDİ - Engelli numara gönderen ile bitiyor")
+                incrementSMSFilterCount()
+                return (.junk, .none)
+            } else if cleanedBlocked.count >= 7 && senderContains {
+                NSLog("🛡️ SafeMessageShield: ✅ SMS FİLTRELENDİ - Gönderen içerisinde engelli numara var")
+                incrementSMSFilterCount()
+                return (.junk, .none)
+            } else if cleanedSender.count >= 7 && blockedContains {
+                NSLog("🛡️ SafeMessageShield: ✅ SMS FİLTRELENDİ - Engelli numara içerisinde gönderen var")
+                incrementSMSFilterCount()
+                return (.junk, .none)
+            }
+        }
+        
+        NSLog("🛡️ SafeMessageShield: ❌ SMS GEÇİRİLDİ - Gönderen engelli listesinde değil")
         return (.none, .none)
     }
     

@@ -14,7 +14,14 @@ struct SafeMessageShieldApp: App {
         let schema = Schema([
             BlockedNumber.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        
+        // App Group konteynerini kullan
+        guard let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: kAppGroupIdentifier) else {
+            fatalError("App Group container bulunamadı. Capabilities ayarlarını kontrol edin.")
+        }
+        
+        let modelURL = appGroupURL.appendingPathComponent("SafeMessageShield.sqlite")
+        let modelConfiguration = ModelConfiguration(schema: schema, url: modelURL, cloudKitDatabase: .none)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])

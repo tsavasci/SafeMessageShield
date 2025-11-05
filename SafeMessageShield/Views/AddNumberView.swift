@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 import Contacts
 import ContactsUI
+import CallKit
 
 struct AddNumberView: View {
     @Environment(\.modelContext) private var modelContext
@@ -80,8 +81,9 @@ struct AddNumberView: View {
                     dismiss()
                 }
             } message: {
-                // Başarı mesajında ViewModel'deki numarayı göster
-                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), viewModel.selectedPhoneNumber))
+                // Temizlenmiş numarayı göster
+                let cleanedNumber = viewModel.selectedPhoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), cleanedNumber))
             }
             // Picker'ın gösterilmesini ViewModel'deki duruma bağla
             .fullScreenCover(isPresented: $viewModel.isPickerPresented) {
@@ -93,8 +95,8 @@ struct AddNumberView: View {
     }
     
     private func addNumber() {
-        // ViewModel'den al
-        let cleanedNumber = viewModel.selectedPhoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Numarayı temizle: boşluklar, tire, parantez vb. kaldır, sadece rakamlar ve + kalsın
+        let cleanedNumber = viewModel.selectedPhoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
         // Basit validasyon
         guard !cleanedNumber.isEmpty else {
@@ -103,7 +105,7 @@ struct AddNumberView: View {
             return
         }
         
-        // Numara zaten engellenmiş mi kontrol et
+        // Numara zaten engellenmiş mi kontrol et (temizlenmiş numara ile)
         if DataManager.shared.isNumberBlocked(cleanedNumber) {
             alertMessage = NSLocalizedString("number.already.blocked", comment: "")
             showingAlert = true
@@ -121,12 +123,25 @@ struct AddNumberView: View {
         // App Group'a da ekle (Extension'lar için)
         DataManager.shared.addBlockedNumber(cleanedNumber)
         
+        // Call Directory Extension'ı güncelle
+        reloadCallDirectory()
+        
         // Başarı mesajı göster
         showingSuccessAlert = true
         
         // Kısa bir delay ile kapat (kullanıcı mesajı görsün)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             dismiss()
+        }
+    }
+    
+    private func reloadCallDirectory() {
+        CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
+            if let error = error {
+                NSLog("❌ Call Directory yenileme hatası: \(error.localizedDescription)")
+            } else {
+                NSLog("✅ Call Directory başarıyla güncellendi")
+            }
         }
     }
 }

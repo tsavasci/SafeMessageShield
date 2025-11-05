@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import ContactsUI
+import CallKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -130,12 +131,13 @@ struct ContentView: View {
     }
     
     private func addNumberFromContact(phoneNumber: String) {
-        let cleanedNumber = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Numarayı temizle: boşluklar, tire, parantez vb. kaldır, sadece rakamlar ve + kalsın
+        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
         guard !cleanedNumber.isEmpty else { return }
         
+        // Temizlenmiş numara ile kontrol et
         if DataManager.shared.isNumberBlocked(cleanedNumber) {
-            // İsteğe bağlı: kullanıcıya zaten engelli olduğuna dair bir uyarı gösterilebilir.
             print("⚠️ Numara zaten engelli: \(cleanedNumber)")
             return
         }
@@ -147,6 +149,9 @@ struct ContentView: View {
         )
         modelContext.insert(blockedNumber)
         DataManager.shared.addBlockedNumber(cleanedNumber)
+        
+        // Call Directory Extension'ı güncelle
+        reloadCallDirectory()
         
         // Geri bildirim için
         lastBlockedNumber = cleanedNumber
@@ -162,6 +167,19 @@ struct ContentView: View {
                 let number = blockedNumbers[index]
                 DataManager.shared.removeBlockedNumber(number.phoneNumber)
                 modelContext.delete(number)
+            }
+            
+            // Call Directory Extension'ı güncelle
+            reloadCallDirectory()
+        }
+    }
+    
+    private func reloadCallDirectory() {
+        CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
+            if let error = error {
+                NSLog("❌ Call Directory yenileme hatası: \(error.localizedDescription)")
+            } else {
+                NSLog("✅ Call Directory başarıyla güncellendi")
             }
         }
     }

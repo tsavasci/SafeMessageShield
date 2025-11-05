@@ -59,7 +59,7 @@ struct StatisticsView: View {
                         StatisticRow(
                             icon: "calendar.badge.clock",
                             title: NSLocalizedString("active.protection.title", comment: ""),
-                            value: String(format: NSLocalizedString("days.count", comment: ""), activeDays),
+                            value: "\(activeDays)",
                             subtitle: NSLocalizedString("since.install", comment: ""),
                             color: .green
                         )
