@@ -33,19 +33,26 @@ struct ContentView: View {
                 }
                 .tag(0)
             
+            // Güvenli Numaralar Sekmesi
+            AllowedNumbersView()
+                .tabItem {
+                    Label(NSLocalizedString("tab.allowed", comment: ""), systemImage: "checkmark.shield")
+                }
+                .tag(1)
+            
             // İstatistikler Sekmesi
             StatisticsView()
                 .tabItem {
                     Label(NSLocalizedString("tab.statistics", comment: ""), systemImage: "chart.bar.fill")
                 }
-                .tag(1)
+                .tag(2)
             
             // Ayarlar Sekmesi
             SettingsView()
                 .tabItem {
                     Label(NSLocalizedString("tab.settings", comment: ""), systemImage: "gear")
                 }
-                .tag(2)
+                .tag(3)
         }
     }
     

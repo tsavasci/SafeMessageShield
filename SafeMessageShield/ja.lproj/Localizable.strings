@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "リスト";
+"tab.allowed" = "安全";
 "tab.statistics" = "統計";
 "tab.settings" = "設定";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "電話番号を入力してください。";
 "number.already.blocked" = "この番号はすでにブロックされています。";
 "added.from.contacts" = "連絡先から追加済み";
+
+/* Allowed Numbers */
+"allowed.numbers" = "安全な番号";
+"no.allowed.title" = "まだ安全な番号がありません";
+"no.allowed.message" = "このリストに追加した番号からのメッセージはフィルタリングされません";
+"allowed.count" = "%d件の安全な番号";
+"add.allowed.number" = "安全な番号を追加";
+"number.allowed.success" = "番号が安全リストに追加されました: %@";
+"number.already.allowed" = "この番号はすでに安全リストにあります。";
+"allowed.info.title" = "安全な番号とは？";
+"allowed.info.message" = "このリストに追加した番号は、フィルタリングやブロックされることはありません。連絡先にないが安全だとわかっている番号を追加できます。";
+"allowed.explanation" = "この番号は安全リストに追加され、そのメッセージはフィルタリングされません。";
+"add" = "追加";
+"error" = "エラー";
+"invalid.phone.number"
+"entry.type" = "エントリータイプ";
+"what.to.add" = "何を追加しますか？";
+"sender.name" = "送信者名";
+"sender.name.example" = "例: ヤマト運輸、AMAZON";
+"phone.number.footer" = "国際形式を使用できます。例: +815551234567";
+"sender.name.footer" = "SMSで送信者として表示される名前を入力してください。大文字小文字は区別されません。";
+"invalid.sender.name" = "無効な送信者名";
+ = "無効な電話番号";
 
 /* Status Card */
 "protection.active" = "保護が有効です";

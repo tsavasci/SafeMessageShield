@@ -13,6 +13,7 @@ struct SafeMessageShieldApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             BlockedNumber.self,
+            AllowedNumber.self,
         ])
         
         // App Group konteynerini kullan

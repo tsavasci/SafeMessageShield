@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "Liste";
+"tab.allowed" = "Sicher";
 "tab.statistics" = "Statistiken";
 "tab.settings" = "Einstellungen";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "Bitte geben Sie eine Telefonnummer ein.";
 "number.already.blocked" = "Diese Nummer ist bereits blockiert.";
 "added.from.contacts" = "Aus Kontakten hinzugefügt";
+
+/* Allowed Numbers */
+"allowed.numbers" = "Sichere Nummern";
+"no.allowed.title" = "Noch keine sicheren Nummern";
+"no.allowed.message" = "Nachrichten von Nummern, die Sie zu dieser Liste hinzufügen, werden niemals gefiltert";
+"allowed.count" = "%d Nummern in sicherer Liste";
+"add.allowed.number" = "Sichere Nummer hinzufügen";
+"number.allowed.success" = "Nummer zur sicheren Liste hinzugefügt: %@";
+"number.already.allowed" = "Diese Nummer ist bereits in der sicheren Liste.";
+"allowed.info.title" = "Was sind sichere Nummern?";
+"allowed.info.message" = "Nummern, die Sie zu dieser Liste hinzufügen, werden niemals gefiltert oder blockiert. Sie können Nummern hinzufügen, die nicht in Ihren Kontakten sind, aber sicher sind.";
+"allowed.explanation" = "Diese Nummer wird zur sicheren Liste hinzugefügt und ihre Nachrichten werden niemals gefiltert.";
+"add" = "Hinzufügen";
+"error" = "Fehler";
+"invalid.phone.number"
+"entry.type" = "Eingabetyp";
+"what.to.add" = "Was möchten Sie hinzufügen?";
+"sender.name" = "Absendername";
+"sender.name.example" = "z.B: DHL, AMAZON";
+"phone.number.footer" = "Sie können das internationale Format verwenden. z.B: +4915551234567";
+"sender.name.footer" = "Geben Sie den Namen ein, der als Absender in der SMS erscheint. Groß-/Kleinschreibung spielt keine Rolle.";
+"invalid.sender.name" = "Ungültiger Absendername";
+ = "Ungültige Telefonnummer";
 
 /* Status Card */
 "protection.active" = "Schutz aktiv";

@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "Liste";
+"tab.allowed" = "Güvenli";
 "tab.statistics" = "İstatistikler";
 "tab.settings" = "Ayarlar";
 
@@ -28,6 +29,28 @@
 "enter.phone.number" = "Lütfen bir telefon numarası girin.";
 "number.already.blocked" = "Bu numara zaten engellenmiş.";
 "added.from.contacts" = "Rehberden Eklendi";
+
+/* Allowed Numbers */
+"allowed.numbers" = "Güvenli Numaralar";
+"no.allowed.title" = "Henüz Güvenli Numara Yok";
+"no.allowed.message" = "Bu listeye eklediğiniz numaralardan gelen mesajlar asla filtrelenmez";
+"allowed.count" = "%d numara güvenli listede";
+"add.allowed.number" = "Güvenli Numara Ekle";
+"number.allowed.success" = "Numara güvenli listeye eklendi: %@";
+"number.already.allowed" = "Bu numara zaten güvenli listede.";
+"allowed.info.title" = "Güvenli Numaralar Nedir?";
+"allowed.info.message" = "Bu listeye eklediğiniz numaralar hiçbir zaman filtrelenmez veya engellenmez. Rehberinizde olmayan ama güvenli olduğunu bildiğiniz numaraları buraya ekleyebilirsiniz.";
+"allowed.explanation" = "Bu numara güvenli listeye eklenecek ve mesajları asla filtrelenmeyecek.";
+"add" = "Ekle";
+"error" = "Hata";
+"invalid.phone.number" = "Geçersiz telefon numarası";
+"entry.type" = "Giriş Tipi";
+"what.to.add" = "Ne Eklemek İstiyorsunuz?";
+"sender.name" = "Gönderen Adı";
+"sender.name.example" = "Örn: ARASKARGO, MİGROS";
+"phone.number.footer" = "Numara girerken uluslararası format kullanabilirsiniz. Örn: +905551234567";
+"sender.name.footer" = "SMS'te gönderen olarak görünen ismi girin. Büyük/küçük harf farkı yoktur.";
+"invalid.sender.name" = "Geçersiz gönderen adı";
 
 /* Status Card */
 "protection.active" = "Koruma Aktif";

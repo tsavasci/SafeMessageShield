@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "列表";
+"tab.allowed" = "安全";
 "tab.statistics" = "统计";
 "tab.settings" = "设置";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "请输入电话号码。";
 "number.already.blocked" = "该号码已被拦截。";
 "added.from.contacts" = "从通讯录添加";
+
+/* Allowed Numbers */
+"allowed.numbers" = "安全号码";
+"no.allowed.title" = "还没有安全号码";
+"no.allowed.message" = "您添加到此列表的号码发送的消息将不会被过滤";
+"allowed.count" = "%d个安全号码";
+"add.allowed.number" = "添加安全号码";
+"number.allowed.success" = "号码已添加到安全列表: %@";
+"number.already.allowed" = "此号码已在安全列表中。";
+"allowed.info.title" = "什么是安全号码？";
+"allowed.info.message" = "您添加到此列表的号码将永远不会被过滤或阻止。您可以添加不在联系人中但您知道是安全的号码。";
+"allowed.explanation" = "此号码将添加到安全列表，其消息将不会被过滤。";
+"add" = "添加";
+"error" = "错误";
+"invalid.phone.number"
+"entry.type" = "输入类型";
+"what.to.add" = "要添加什么？";
+"sender.name" = "发件人姓名";
+"sender.name.example" = "例如: 顺丰快递、AMAZON";
+"phone.number.footer" = "可以使用国际格式。例如: +86551234567";
+"sender.name.footer" = "输入在短信中显示为发件人的名称。不区分大小写。";
+"invalid.sender.name" = "无效的发件人姓名";
+ = "无效的电话号码";
 
 /* Status Card */
 "protection.active" = "保护已开启";

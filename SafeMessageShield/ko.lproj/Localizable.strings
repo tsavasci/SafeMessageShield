@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "목록";
+"tab.allowed" = "안전";
 "tab.statistics" = "통계";
 "tab.settings" = "설정";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "전화번호를 입력하세요.";
 "number.already.blocked" = "이 번호는 이미 차단되었습니다.";
 "added.from.contacts" = "연락처에서 추가됨";
+
+/* Allowed Numbers */
+"allowed.numbers" = "안전한 번호";
+"no.allowed.title" = "아직 안전한 번호가 없습니다";
+"no.allowed.message" = "이 목록에 추가한 번호의 메시지는 필터링되지 않습니다";
+"allowed.count" = "%d개의 안전한 번호";
+"add.allowed.number" = "안전한 번호 추가";
+"number.allowed.success" = "번호가 안전 목록에 추가되었습니다: %@";
+"number.already.allowed" = "이 번호는 이미 안전 목록에 있습니다.";
+"allowed.info.title" = "안전한 번호란?";
+"allowed.info.message" = "이 목록에 추가한 번호는 절대 필터링되거나 차단되지 않습니다. 연락처에 없지만 안전하다고 알고 있는 번호를 추가할 수 있습니다.";
+"allowed.explanation" = "이 번호는 안전 목록에 추가되며 메시지는 필터링되지 않습니다.";
+"add" = "추가";
+"error" = "오류";
+"invalid.phone.number"
+"entry.type" = "입력 유형";
+"what.to.add" = "무엇을 추가하시겠습니까?";
+"sender.name" = "발신자 이름";
+"sender.name.example" = "예: 우체국택배, AMAZON";
+"phone.number.footer" = "국제 형식을 사용할 수 있습니다. 예: +82551234567";
+"sender.name.footer" = "SMS에서 발신자로 표시되는 이름을 입력하세요. 대소문자 구분 없음.";
+"invalid.sender.name" = "잘못된 발신자 이름";
+ = "잘못된 전화번호";
 
 /* Status Card */
 "protection.active" = "보호 활성";

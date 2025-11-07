@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "List";
+"tab.allowed" = "Safe";
 "tab.statistics" = "Statistics";
 "tab.settings" = "Settings";
 
@@ -28,6 +29,28 @@
 "enter.phone.number" = "Please enter a phone number.";
 "number.already.blocked" = "This number is already blocked.";
 "added.from.contacts" = "Added from Contacts";
+
+/* Allowed Numbers */
+"allowed.numbers" = "Safe Numbers";
+"no.allowed.title" = "No Safe Numbers Yet";
+"no.allowed.message" = "Messages from numbers you add to this list will never be filtered";
+"allowed.count" = "%d numbers in safe list";
+"add.allowed.number" = "Add Safe Number";
+"number.allowed.success" = "Number added to safe list: %@";
+"number.already.allowed" = "This number is already in safe list.";
+"allowed.info.title" = "What are Safe Numbers?";
+"allowed.info.message" = "Numbers you add to this list will never be filtered or blocked. You can add numbers that are not in your contacts but you know are safe.";
+"allowed.explanation" = "This number will be added to safe list and its messages will never be filtered.";
+"add" = "Add";
+"error" = "Error";
+"invalid.phone.number" = "Invalid phone number";
+"entry.type" = "Entry Type";
+"what.to.add" = "What to Add?";
+"sender.name" = "Sender Name";
+"sender.name.example" = "e.g: FEDEX, AMAZON";
+"phone.number.footer" = "You can use international format. e.g: +15551234567";
+"sender.name.footer" = "Enter the name that appears as sender in SMS. Case insensitive.";
+"invalid.sender.name" = "Invalid sender name";
 
 /* Status Card */
 "protection.active" = "Protection Active";

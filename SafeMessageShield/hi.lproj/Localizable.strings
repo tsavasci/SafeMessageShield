@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "सूची";
+"tab.allowed" = "सुरक्षित";
 "tab.statistics" = "आँकड़े";
 "tab.settings" = "सेटिंग्स";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "कृपया एक फ़ोन नंबर दर्ज करें।";
 "number.already.blocked" = "यह नंबर पहले से ही ब्लॉक है।";
 "added.from.contacts" = "संपर्कों से जोड़ा गया";
+
+/* Allowed Numbers */
+"allowed.numbers" = "सुरक्षित नंबर";
+"no.allowed.title" = "अभी तक कोई सुरक्षित नंबर नहीं";
+"no.allowed.message" = "इस सूची में जोड़े गए नंबरों के संदेश कभी फ़िल्टर नहीं होंगे";
+"allowed.count" = "%d सुरक्षित नंबर";
+"add.allowed.number" = "सुरक्षित नंबर जोड़ें";
+"number.allowed.success" = "नंबर सुरक्षित सूची में जोड़ा गया: %@";
+"number.already.allowed" = "यह नंबर पहले से सुरक्षित सूची में है।";
+"allowed.info.title" = "सुरक्षित नंबर क्या हैं?";
+"allowed.info.message" = "इस सूची में जोड़े गए नंबर कभी फ़िल्टर या ब्लॉक नहीं होंगे। आप ऐसे नंबर जोड़ सकते हैं जो आपके संपर्कों में नहीं हैं लेकिन आप जानते हैं कि वे सुरक्षित हैं।";
+"allowed.explanation" = "यह नंबर सुरक्षित सूची में जोड़ा जाएगा और इसके संदेश कभी फ़िल्टर नहीं होंगे।";
+"add" = "जोड़ें";
+"error" = "त्रुटि";
+"invalid.phone.number"
+"entry.type" = "प्रविष्टि प्रकार";
+"what.to.add" = "क्या जोड़ना चाहते हैं?";
+"sender.name" = "प्रेषक का नाम";
+"sender.name.example" = "उदा: इंडियापोस्ट, AMAZON";
+"phone.number.footer" = "आप अंतर्राष्ट्रीय प्रारूप का उपयोग कर सकते हैं। उदा: +91551234567";
+"sender.name.footer" = "SMS में प्रेषक के रूप में दिखाई देने वाला नाम दर्ज करें। केस असंवेदनशील।";
+"invalid.sender.name" = "अमान्य प्रेषक नाम";
+ = "अमान्य फ़ोन नंबर";
 
 /* Status Card */
 "protection.active" = "सुरक्षा सक्रिय";

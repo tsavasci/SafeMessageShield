@@ -1,5 +1,6 @@
 /* Tab Bar */
 "tab.list" = "Liste";
+"tab.allowed" = "Sûr";
 "tab.statistics" = "Statistiques";
 "tab.settings" = "Paramètres";
 
@@ -28,6 +29,29 @@
 "enter.phone.number" = "Veuillez entrer un numéro de téléphone.";
 "number.already.blocked" = "Ce numéro est déjà bloqué.";
 "added.from.contacts" = "Ajouté depuis les contacts";
+
+/* Allowed Numbers */
+"allowed.numbers" = "Numéros sûrs";
+"no.allowed.title" = "Pas encore de numéros sûrs";
+"no.allowed.message" = "Les messages des numéros que vous ajoutez à cette liste ne seront jamais filtrés";
+"allowed.count" = "%d numéros dans la liste sûre";
+"add.allowed.number" = "Ajouter un numéro sûr";
+"number.allowed.success" = "Numéro ajouté à la liste sûre: %@";
+"number.already.allowed" = "Ce numéro est déjà dans la liste sûre.";
+"allowed.info.title" = "Que sont les numéros sûrs?";
+"allowed.info.message" = "Les numéros que vous ajoutez à cette liste ne seront jamais filtrés ou bloqués. Vous pouvez ajouter des numéros qui ne sont pas dans vos contacts mais que vous savez sûrs.";
+"allowed.explanation" = "Ce numéro sera ajouté à la liste sûre et ses messages ne seront jamais filtrés.";
+"add" = "Ajouter";
+"error" = "Erreur";
+"invalid.phone.number"
+"entry.type" = "Type d'entrée";
+"what.to.add" = "Que voulez-vous ajouter?";
+"sender.name" = "Nom de l'expéditeur";
+"sender.name.example" = "ex: COLISSIMO, AMAZON";
+"phone.number.footer" = "Vous pouvez utiliser le format international. ex: +33551234567";
+"sender.name.footer" = "Entrez le nom qui apparaît comme expéditeur dans le SMS. Insensible à la casse.";
+"invalid.sender.name" = "Nom d'expéditeur invalide";
+ = "Numéro de téléphone invalide";
 
 /* Status Card */
 "protection.active" = "Protection active";

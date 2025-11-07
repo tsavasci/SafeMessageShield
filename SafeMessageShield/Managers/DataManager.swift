@@ -15,6 +15,7 @@ class DataManager {
     
     private let userDefaults: UserDefaults
     private let blockedNumbersKey = "blockedNumbers"
+    private let allowedNumbersKey = "allowedNumbers"
     private let smsFilterCountKey = "smsFilterCount"
     private let callBlockCountKey = "callBlockCount"
     private let lastSMSFilterDateKey = "lastSMSFilterDate"
@@ -62,6 +63,37 @@ class DataManager {
     func isNumberBlocked(_ phoneNumber: String) -> Bool {
         let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         return getBlockedNumbers().contains(cleanedNumber)
+    }
+    
+    // MARK: - Allowed Numbers Management (Whitelist)
+    
+    func getAllowedNumbers() -> [String] {
+        return userDefaults.stringArray(forKey: allowedNumbersKey) ?? []
+    }
+    
+    func addAllowedNumber(_ phoneNumber: String) {
+        var numbers = getAllowedNumbers()
+        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        
+        if !numbers.contains(cleanedNumber) {
+            numbers.append(cleanedNumber)
+            userDefaults.set(numbers, forKey: allowedNumbersKey)
+            userDefaults.synchronize()
+        }
+    }
+    
+    func removeAllowedNumber(_ phoneNumber: String) {
+        var numbers = getAllowedNumbers()
+        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        
+        numbers.removeAll { $0 == cleanedNumber }
+        userDefaults.set(numbers, forKey: allowedNumbersKey)
+        userDefaults.synchronize()
+    }
+    
+    func isNumberAllowed(_ phoneNumber: String) -> Bool {
+        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        return getAllowedNumbers().contains(cleanedNumber)
     }
     
     // MARK: - Settings
