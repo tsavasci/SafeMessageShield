@@ -43,7 +43,7 @@
 "allowed.explanation" = "此号码将添加到安全列表，其消息将不会被过滤。";
 "add" = "添加";
 "error" = "错误";
-"invalid.phone.number"
+"invalid.phone.number" = "无效的电话号码";
 "entry.type" = "输入类型";
 "what.to.add" = "要添加什么？";
 "sender.name" = "发件人姓名";
@@ -51,7 +51,6 @@
 "phone.number.footer" = "可以使用国际格式。例如: +86551234567";
 "sender.name.footer" = "输入在短信中显示为发件人的名称。不区分大小写。";
 "invalid.sender.name" = "无效的发件人姓名";
- = "无效的电话号码";
 
 /* Status Card */
 "protection.active" = "保护已开启";

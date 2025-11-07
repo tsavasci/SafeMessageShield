@@ -43,15 +43,15 @@
 "allowed.explanation" = "Diese Nummer wird zur sicheren Liste hinzugefügt und ihre Nachrichten werden niemals gefiltert.";
 "add" = "Hinzufügen";
 "error" = "Fehler";
-"invalid.phone.number"
+"invalid.phone.number" =
 "entry.type" = "Eingabetyp";
+"entry.type" = "Eingabetyp"; "Ungültige Telefonnummer";
 "what.to.add" = "Was möchten Sie hinzufügen?";
 "sender.name" = "Absendername";
 "sender.name.example" = "z.B: DHL, AMAZON";
 "phone.number.footer" = "Sie können das internationale Format verwenden. z.B: +4915551234567";
 "sender.name.footer" = "Geben Sie den Namen ein, der als Absender in der SMS erscheint. Groß-/Kleinschreibung spielt keine Rolle.";
 "invalid.sender.name" = "Ungültiger Absendername";
- = "Ungültige Telefonnummer";
 
 /* Status Card */
 "protection.active" = "Schutz aktiv";

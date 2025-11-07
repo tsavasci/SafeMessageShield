@@ -43,7 +43,7 @@
 "allowed.explanation" = "이 번호는 안전 목록에 추가되며 메시지는 필터링되지 않습니다.";
 "add" = "추가";
 "error" = "오류";
-"invalid.phone.number"
+"invalid.phone.number" = "잘못된 전화번호";
 "entry.type" = "입력 유형";
 "what.to.add" = "무엇을 추가하시겠습니까?";
 "sender.name" = "발신자 이름";
@@ -51,7 +51,6 @@
 "phone.number.footer" = "국제 형식을 사용할 수 있습니다. 예: +82551234567";
 "sender.name.footer" = "SMS에서 발신자로 표시되는 이름을 입력하세요. 대소문자 구분 없음.";
 "invalid.sender.name" = "잘못된 발신자 이름";
- = "잘못된 전화번호";
 
 /* Status Card */
 "protection.active" = "보호 활성";

@@ -43,15 +43,15 @@
 "allowed.explanation" = "سيتم إضافة هذا الرقم إلى القائمة الآمنة ولن يتم تصفية رسائله أبدًا.";
 "add" = "إضافة";
 "error" = "خطأ";
-"invalid.phone.number"
+"invalid.phone.number" =
 "entry.type" = "نوع الإدخال";
+"entry.type" = "نوع الإدخال"; "رقم هاتف غير صالح";
 "what.to.add" = "ماذا تريد أن تضيف؟";
 "sender.name" = "اسم المرسل";
 "sender.name.example" = "مثال: بريد السعودية، AMAZON";
 "phone.number.footer" = "يمكنك استخدام التنسيق الدولي. مثال: +966551234567";
 "sender.name.footer" = "أدخل الاسم الذي يظهر كمرسل في الرسالة القصيرة. غير حساس لحالة الأحرف.";
 "invalid.sender.name" = "اسم مرسل غير صالح";
- = "رقم هاتف غير صالح";
 
 /* Status Card */
 "protection.active" = "الحماية مفعلة";

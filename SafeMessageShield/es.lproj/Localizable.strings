@@ -43,15 +43,15 @@
 "allowed.explanation" = "Este número se agregará a la lista segura y sus mensajes nunca serán filtrados.";
 "add" = "Agregar";
 "error" = "Error";
-"invalid.phone.number"
+"invalid.phone.number" =
 "entry.type" = "Tipo de entrada";
+"entry.type" = "Tipo de entrada"; "Número de teléfono inválido";
 "what.to.add" = "¿Qué desea agregar?";
 "sender.name" = "Nombre del remitente";
 "sender.name.example" = "ej: CORREOS, AMAZON";
 "phone.number.footer" = "Puede usar formato internacional. ej: +34551234567";
 "sender.name.footer" = "Ingrese el nombre que aparece como remitente en SMS. No distingue mayúsculas.";
 "invalid.sender.name" = "Nombre de remitente inválido";
- = "Número de teléfono inválido";
 
 /* Status Card */
 "protection.active" = "Protección Activa";

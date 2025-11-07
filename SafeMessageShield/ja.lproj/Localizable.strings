@@ -43,7 +43,7 @@
 "allowed.explanation" = "この番号は安全リストに追加され、そのメッセージはフィルタリングされません。";
 "add" = "追加";
 "error" = "エラー";
-"invalid.phone.number"
+"invalid.phone.number" = "無効な電話番号";
 "entry.type" = "エントリータイプ";
 "what.to.add" = "何を追加しますか？";
 "sender.name" = "送信者名";
@@ -51,7 +51,6 @@
 "phone.number.footer" = "国際形式を使用できます。例: +815551234567";
 "sender.name.footer" = "SMSで送信者として表示される名前を入力してください。大文字小文字は区別されません。";
 "invalid.sender.name" = "無効な送信者名";
- = "無効な電話番号";
 
 /* Status Card */
 "protection.active" = "保護が有効です";

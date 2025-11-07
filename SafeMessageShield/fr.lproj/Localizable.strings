@@ -43,15 +43,15 @@
 "allowed.explanation" = "Ce numéro sera ajouté à la liste sûre et ses messages ne seront jamais filtrés.";
 "add" = "Ajouter";
 "error" = "Erreur";
-"invalid.phone.number"
+"invalid.phone.number" =
 "entry.type" = "Type d'entrée";
+"entry.type" = "Type d'entrée"; "Numéro de téléphone invalide";
 "what.to.add" = "Que voulez-vous ajouter?";
 "sender.name" = "Nom de l'expéditeur";
 "sender.name.example" = "ex: COLISSIMO, AMAZON";
 "phone.number.footer" = "Vous pouvez utiliser le format international. ex: +33551234567";
 "sender.name.footer" = "Entrez le nom qui apparaît comme expéditeur dans le SMS. Insensible à la casse.";
 "invalid.sender.name" = "Nom d'expéditeur invalide";
- = "Numéro de téléphone invalide";
 
 /* Status Card */
 "protection.active" = "Protection active";
