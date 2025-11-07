@@ -2,7 +2,24 @@
 
 Modern, responsive marketing website for Safe Message Shield iOS app.
 
-## 🌐 Live Preview
+## 🌍 Multi-Language Support
+
+The website is available in **11 languages**:
+- 🇹🇷 Turkish (Türkçe) - `index.html` ✅
+- 🇬🇧 English - `index-en.html` ✅
+- 🇩🇪 German (Deutsch) - `index-de.html` ✅
+- 🇫🇷 French (Français) - `index-fr.html` ✅
+- 🇪🇸 Spanish (Español) - `index-es.html` ✅
+- 🇷🇺 Russian (Русский) - `index-ru.html` ✅
+- 🇯🇵 Japanese (日本語) - `index-ja.html` ✅
+- 🇰🇷 Korean (한국어) - `index-ko.html` ✅
+- 🇨🇳 Chinese (中文) - `index-zh.html` ✅
+- 🇮🇳 Hindi (हिन्दी) - `index-hi.html` ✅
+- 🇸🇦 Arabic (العربية) - `index-ar.html` ✅ (RTL supported)
+
+**Language Switcher**: Each page includes a dropdown menu to easily switch between all 11 languages.
+
+## �🌐 Live Preview
 
 To preview locally:
 1. Open `index.html` in your browser

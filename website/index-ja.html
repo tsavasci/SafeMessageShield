@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Safe Message Shield - iOSで不要なSMSと通話をブロックします。">
+    <title>Safe Message Shield - スパムなし</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="shield-icon">
+                        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                            <defs><linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#5CD65C" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#34C759" stop-opacity="1" />
+                            </linearGradient></defs>
+                            <path d="M50 5 L90 20 L90 50 Q90 85 50 110 Q10 85 10 50 L10 20 Z" fill="url(#shieldGradient)" stroke="#2D9F46" stroke-width="2"/>
+                            <path d="M35 55 L45 65 L70 40" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </span>
+                    <span class="logo-text">Safe Message Shield</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">機能</a>
+                    <a href="#how-it-works">使い方</a>
+                    <a href="#privacy">プライバシー</a>
+                    <div class="language-switcher">
+                        <select id="langSelect" onchange="window.location.href=this.value" aria-label="言語を選択">
+                            <option value="index.html">🇹🇷 Türkçe</option>
+                            <option value="index-en.html">🇬🇧 English</option>
+                            <option value="index-de.html">🇩🇪 Deutsch</option>
+                            <option value="index-fr.html">🇫🇷 Français</option>
+                            <option value="index-es.html">🇪🇸 Español</option>
+                            <option value="index-ru.html">🇷🇺 Русский</option>
+                            <option value="index-ja.html" selected>🇯🇵 日本語</option>
+                            <option value="index-ko.html">🇰🇷 한국어</option>
+                            <option value="index-zh.html">🇨🇳 中文</option>
+                            <option value="index-hi.html">🇮🇳 हिन्दी</option>
+                            <option value="index-ar.html">🇸🇦 العربية</option>
+                        </select>
+                    </div>
+                    <a href="#download" class="btn-primary">ダウンロード</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title"><span class="gradient-text">スパムメッセージ</span>にさようなら</h1>
+                    <p class="hero-subtitle">不要なSMSや通話を自動的にブロック。あなたのプライバシーはデバイス内に保たれます。</p>
+                    <div class="hero-buttons">
+                        <a href="#download" class="btn-hero"><span class="apple-icon"><svg width="20" height="24" viewBox="0 0 20 24" fill="none"><path d="M15.5 0.5C14.5 0.5 12.8 1.3 11.5 2.8C10.4 4.1 9.5 6 9.8 7.9C11 7.9 12.3 7.1 13.3 5.8C14.3 4.5 15.1 2.6 15.5 0.5Z" fill="currentColor"/><path d="M19.5 8.5C18 7.5 15.8 6.8 13.8 7.2C12.3 7.5 11.1 8.2 10.3 8.8C9.5 9.4 8.5 9.9 7.3 9.9C6 9.9 4.8 9.3 3.8 8.6C2.5 7.7 0.8 7.5 0 7.5C0 11.5 0 19.5 0 19.5C0 21.7 1.8 23.5 4 23.5H16C18.2 23.5 20 21.7 20 19.5V8.5C19.8 8.5 19.7 8.5 19.5 8.5Z" fill="currentColor"/></svg></span>App Storeでダウンロード</a>
+                        <a href="#how-it-works" class="btn-secondary">どのように機能しますか？</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat"><div class="stat-number">100%</div><div class="stat-label">オフライン</div></div>
+                        <div class="stat"><div class="stat-number">11</div><div class="stat-label">言語</div></div>
+                        <div class="stat"><div class="stat-number">¥0</div><div class="stat-label">無料</div></div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="app-preview">
+                                <div class="preview-header"><span class="time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+                                <div class="preview-content">
+                                    <div class="shield-large"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="shieldGradient2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#5CD65C" stop-opacity="1" /><stop offset="100%" stop-color="#34C759" stop-opacity="1" /></linearGradient></defs><path d="M50 5 L90 20 L90 50 Q90 85 50 110 Q10 85 10 50 L10 20 Z" fill="url(#shieldGradient2)" stroke="#2D9F46" stroke-width="2"/><path d="M35 55 L45 65 L70 40" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+                                    <h3>保護が有効</h3>
+                                    <p>SMSフィルタリングがオン</p>
+                                    <div class="blocked-count"><span class="count">24</span><span class="label">ブロック済み番号</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="gradient-circle gradient-circle-1"></div>
+            <div class="gradient-circle gradient-circle-2"></div>
+            <div class="gradient-circle gradient-circle-3"></div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">強力な機能</h2>
+                <p class="section-subtitle">プライバシーのために設計され、あなたの利便性のために構築されました</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card"><div class="feature-icon">📱</div><h3 class="feature-title">SMSフィルタリング</h3><p class="feature-description">不要なSMSは自動的に「スパム」フォルダに移動されます。</p></div>
+                <div class="feature-card"><div class="feature-icon">📞</div><h3 class="feature-title">通話ブロック</h3><p class="feature-description">ブロックされた番号から電話がかかってきても、あなたの電話は鳴りません。</p></div>
+                <div class="feature-card"><div class="feature-icon">🔒</div><h3 class="feature-title">完全なプライバシー</h3><p class="feature-description">すべてのデータはデバイス内に保持されます。</p></div>
+                <div class="feature-card"><div class="feature-icon">⚡</div><h3 class="feature-title">高速で簡単</h3><p class="feature-description">アプリを閉じていても機能します。</p></div>
+                <div class="feature-card"><div class="feature-icon">🌍</div><h3 class="feature-title">多言語対応</h3><p class="feature-description">11の異なる言語で利用可能。</p></div>
+                <div class="feature-card"><div class="feature-icon">✨</div><h3 class="feature-title">使いやすさ</h3><p class="feature-description">シンプルで直感的なインターフェース。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">どのように機能しますか？</h2>
+                <p class="section-subtitle">3つの簡単なステップで始めましょう</p>
+            </div>
+            <div class="steps">
+                <div class="step"><div class="step-number">1</div><div class="step-content"><h3 class="step-title">アプリをダウンロード</h3><p class="step-description">App StoreからSafe Message Shieldを無料でダウンロード。</p></div></div>
+                <div class="step"><div class="step-number">2</div><div class="step-content"><h3 class="step-title">拡張機能を有効化</h3><p class="step-description">iOS設定でSMSフィルタリングと通話ブロックを有効化。</p></div></div>
+                <div class="step"><div class="step-number">3</div><div class="step-content"><h3 class="step-title">番号を追加</h3><p class="step-description">手動で番号を入力するか、連絡先から選択。</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="privacy" class="privacy">
+        <div class="container">
+            <div class="privacy-content">
+                <div class="privacy-text">
+                    <h2 class="section-title">あなたのプライバシーが最優先</h2>
+                    <p class="privacy-description">Safe Message Shieldはあなたのプライバシーを保護するために設計されています。メッセージの内容、電話番号、個人情報はデバイスから出ることはありません。</p>
+                    <ul class="privacy-list">
+                        <li><span class="check-icon">✓</span><span>すべてのデータは暗号化されデバイスに保存</span></li>
+                        <li><span class="check-icon">✓</span><span>サーバーにデータを送信しません</span></li>
+                        <li><span class="check-icon">✓</span><span>インターネット接続不要</span></li>
+                        <li><span class="check-icon">✓</span><span>広告やトラッキングなし</span></li>
+                        <li><span class="check-icon">✓</span><span>まもなくオープンソース</span></li>
+                    </ul>
+                </div>
+                <div class="privacy-visual">
+                    <div class="privacy-shield">
+                        <div class="shield-ring shield-ring-1"></div>
+                        <div class="shield-ring shield-ring-2"></div>
+                        <div class="shield-ring shield-ring-3"></div>
+                        <div class="shield-center"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="shieldGradient3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#5CD65C" stop-opacity="1" /><stop offset="100%" stop-color="#34C759" stop-opacity="1" /></linearGradient></defs><path d="M50 5 L90 20 L90 50 Q90 85 50 110 Q10 85 10 50 L10 20 Z" fill="url(#shieldGradient3)" stroke="#2D9F46" stroke-width="2"/><path d="M35 55 L45 65 L70 40" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-card">
+                <h2 class="download-title">今すぐダウンロードしてスパムを排除</h2>
+                <p class="download-subtitle">iOS 18.6以降に対応</p>
+                <a href="#" class="btn-download"><svg width="24" height="28" viewBox="0 0 24 28" fill="none"><path d="M18.6 0.6C17.4 0.6 15.36 1.56 13.8 3.36C12.48 4.92 11.4 7.2 11.76 9.48C13.2 9.48 14.76 8.52 15.96 6.96C17.16 5.4 18.12 3.12 18.6 0.6Z" fill="currentColor"/><path d="M23.4 10.2C21.6 9 18.96 8.16 16.56 8.64C14.76 9 13.32 9.84 12.36 10.56C11.4 11.28 10.2 11.88 8.76 11.88C7.2 11.88 5.76 11.16 4.56 10.32C3 9.24 0.96 9 0 9C0 13.8 0 23.4 0 23.4C0 26.04 2.16 28.2 4.8 28.2H19.2C21.84 28.2 24 26.04 24 23.4V10.2C23.76 10.2 23.64 10.2 23.4 10.2Z" fill="currentColor"/></svg>App Storeでダウンロード</a>
+                <div class="download-info"><span>🇯🇵 日本語</span><span>•</span><span>11言語対応</span><span>•</span><span>無料</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo"><span class="shield-icon"><svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="shieldGradient4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#5CD65C" stop-opacity="1" /><stop offset="100%" stop-color="#34C759" stop-opacity="1" /></linearGradient></defs><path d="M50 5 L90 20 L90 50 Q90 85 50 110 Q10 85 10 50 L10 20 Z" fill="url(#shieldGradient4)" stroke="#2D9F46" stroke-width="2"/><path d="M35 55 L45 65 L70 40" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span><span class="logo-text">Safe Message Shield</span></div>
+                    <p class="footer-description">不要なメッセージや通話をブロック。プライバシーを守ります。</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column"><h4>製品</h4><a href="#features">機能</a><a href="#how-it-works">使い方</a><a href="#privacy">プライバシー</a><a href="#download">ダウンロード</a></div>
+                    <div class="footer-column"><h4>サポート</h4><a href="mailto:support@safemessageshield.app">お問い合わせ</a><a href="/privacy-policy.html">プライバシーポリシー</a><a href="/terms.html">利用規約</a></div>
+                    <div class="footer-column"><h4>ソーシャル</h4><a href="https://twitter.com/safemsgshield" target="_blank" rel="noopener">Twitter</a><a href="https://github.com/tsavasci/SafeMessageShield" target="_blank" rel="noopener">GitHub</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Safe Message Shield. 全著作権所有。</p>
+                <p>Made with ❤️ by <a href="https://github.com/tsavasci" target="_blank" rel="noopener">Tamer Savaşcı</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
