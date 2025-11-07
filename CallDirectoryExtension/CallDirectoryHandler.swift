@@ -2,118 +2,100 @@
 //  CallDirectoryHandler.swift
 //  CallDirectoryExtension
 //
-//  Created by Tamer Savaşcı on 5.11.2025.
+//  Created by Tamer Savaşcı on 6.11.2025.
 //
 
 import Foundation
 import CallKit
-
-/// App Group ID - Ana uygulama ile veri paylaşımı için
-let kAppGroupIdentifier = "group.tsavasci.SafeMessageShield"
 
 class CallDirectoryHandler: CXCallDirectoryProvider {
 
     override func beginRequest(with context: CXCallDirectoryExtensionContext) {
         context.delegate = self
         
-        NSLog("🛡️ SafeMessageShield: CallDirectory güncelleniyor...")
+        NSLog("🛡️ SafeMessageShield: Call Directory extension başlatıldı")
+        NSLog("🛡️ SafeMessageShield: Incremental request: \(context.isIncremental)")
 
-        // Check whether this is an "incremental" data request. If so, only provide the set of phone number blocking
-        // and identification entries which have been added or removed since the last time this extension's data was loaded.
-        // But the extension must still be prepared to provide the full set of data at any time, so add all blocking
-        // and identification phone numbers if the request is not incremental.
-        if context.isIncremental {
-            addOrRemoveIncrementalBlockingPhoneNumbers(to: context)
-
-            addOrRemoveIncrementalIdentificationPhoneNumbers(to: context)
+        // Debug: App Group sayaçlarını güncelle
+        if let defaults = UserDefaults(suiteName: "group.tsavasci.SafeMessageShield") {
+            let count = defaults.integer(forKey: "callBlockCount")
+            defaults.set(count + 1, forKey: "callBlockCount")
+            defaults.set(Date().timeIntervalSince1970, forKey: "callDirectoryLastLoadAt")
         } else {
-            addAllBlockingPhoneNumbers(to: context)
-
-            addAllIdentificationPhoneNumbers(to: context)
+            NSLog("🛡️ SafeMessageShield: ⚠️ App Group erişimi yok (beginRequest)")
         }
 
+        // Her zaman tüm numaraları yükle (incremental update şimdilik desteklenmez)
+        addAllBlockingPhoneNumbers(to: context)
+
         context.completeRequest()
-        NSLog("🛡️ SafeMessageShield: CallDirectory güncelleme tamamlandı")
+        NSLog("🛡️ SafeMessageShield: Call Directory request tamamlandı")
     }
 
     private func addAllBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
+        NSLog("🛡️ SafeMessageShield: addAllBlockingPhoneNumbers çağrıldı")
+        
         // App Group'tan engellenen numaraları al
-        guard let userDefaults = UserDefaults(suiteName: kAppGroupIdentifier),
-              let blockedNumbers = userDefaults.stringArray(forKey: "blockedNumbers") else {
-            NSLog("🛡️ SafeMessageShield: Engellenen numara bulunamadı")
+        guard let sharedDefaults = UserDefaults(suiteName: "group.tsavasci.SafeMessageShield") else {
+            NSLog("🛡️ SafeMessageShield: ❌ App Group'a erişilemedi!")
             return
         }
         
-        // Numaraları CXCallDirectoryPhoneNumber formatına çevir ve sırala
+        let blockedNumbers = sharedDefaults.array(forKey: "blockedNumbers") as? [String] ?? []
+        NSLog("🛡️ SafeMessageShield: Engellenen numara sayısı: \(blockedNumbers.count)")
+        NSLog("🛡️ SafeMessageShield: Engellenen numaralar: \(blockedNumbers)")
+        
+        // Numaraları CXCallDirectoryPhoneNumber'a çevir ve sırala
         var phoneNumbers: [CXCallDirectoryPhoneNumber] = []
         
-        for numberString in blockedNumbers {
-            // Numarayı temizle (sadece rakamlar)
-            let cleanNumber = numberString.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        for number in blockedNumbers {
+            // Sadece rakamları al
+            var cleanNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
             
-            // + işareti varsa kaldır ve direkt sayıya çevir
+            // Türk numarası formatı dönüştürme
+            // 0505... -> 90505...
+            // +90505... -> 90505...
+            // 905... -> 905... (değişmez)
+            if cleanNumber.hasPrefix("0") && cleanNumber.count == 11 {
+                // Türk numarası 0 ile başlıyorsa, 0'ı at ve başına 90 ekle
+                cleanNumber = "90" + cleanNumber.dropFirst()
+                NSLog("🛡️ SafeMessageShield: Format dönüşümü: 0xxx -> 90xxx")
+            }
+            
+            // CXCallDirectoryPhoneNumber'a çevir
             if let phoneNumber = CXCallDirectoryPhoneNumber(cleanNumber) {
                 phoneNumbers.append(phoneNumber)
+                NSLog("🛡️ SafeMessageShield: Numara ekleniyor: \(cleanNumber) -> \(phoneNumber)")
+            } else {
+                NSLog("🛡️ SafeMessageShield: ⚠️ Geçersiz numara: \(cleanNumber)")
             }
         }
         
-        // Numaraları sırala (CallKit gereksinimi)
+        // Numaraları artan sırada sırala (CallKit requirement)
         phoneNumbers.sort()
         
-        // Numaraları ekle
+        // Her numarayı blocking listesine ekle
         for phoneNumber in phoneNumbers {
             context.addBlockingEntry(withNextSequentialPhoneNumber: phoneNumber)
+            NSLog("🛡️ SafeMessageShield: ✅ Blocking entry eklendi: \(phoneNumber)")
         }
         
-        NSLog("🛡️ SafeMessageShield: \(phoneNumbers.count) numara engelleme listesine eklendi")
+        NSLog("🛡️ SafeMessageShield: Toplam \(phoneNumbers.count) numara blocking listesine eklendi")
     }
 
     private func addOrRemoveIncrementalBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Retrieve any changes to the set of phone numbers to block from data store. For optimal performance and memory usage when there are many phone numbers,
-        // consider only loading a subset of numbers at a given time and using autorelease pool(s) to release objects allocated during each batch of numbers which are loaded.
-        let phoneNumbersToAdd: [CXCallDirectoryPhoneNumber] = [ 1_408_555_1234 ]
-        for phoneNumber in phoneNumbersToAdd {
-            context.addBlockingEntry(withNextSequentialPhoneNumber: phoneNumber)
-        }
-
-        let phoneNumbersToRemove: [CXCallDirectoryPhoneNumber] = [ 1_800_555_5555 ]
-        for phoneNumber in phoneNumbersToRemove {
-            context.removeBlockingEntry(withPhoneNumber: phoneNumber)
-        }
-
-        // Record the most-recently loaded set of blocking entries in data store for the next incremental load...
+        // Incremental update şimdilik kullanılmıyor
+        NSLog("🛡️ SafeMessageShield: Incremental blocking update (şimdilik desteklenmiyor)")
     }
 
     private func addAllIdentificationPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Retrieve phone numbers to identify and their identification labels from data store. For optimal performance and memory usage when there are many phone numbers,
-        // consider only loading a subset of numbers at a given time and using autorelease pool(s) to release objects allocated during each batch of numbers which are loaded.
-        //
-        // Numbers must be provided in numerically ascending order.
-        let allPhoneNumbers: [CXCallDirectoryPhoneNumber] = [ 1_877_555_5555, 1_888_555_5555 ]
-        let labels = [ "Telemarketer", "Local business" ]
-
-        for (phoneNumber, label) in zip(allPhoneNumbers, labels) {
-            context.addIdentificationEntry(withNextSequentialPhoneNumber: phoneNumber, label: label)
-        }
+        // Identification şimdilik kullanılmıyor
+        NSLog("🛡️ SafeMessageShield: Identification phone numbers (şimdilik desteklenmiyor)")
     }
 
     private func addOrRemoveIncrementalIdentificationPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Retrieve any changes to the set of phone numbers to identify (and their identification labels) from data store. For optimal performance and memory usage when there are many phone numbers,
-        // consider only loading a subset of numbers at a given time and using autorelease pool(s) to release objects allocated during each batch of numbers which are loaded.
-        let phoneNumbersToAdd: [CXCallDirectoryPhoneNumber] = [ 1_408_555_5678 ]
-        let labelsToAdd = [ "New local business" ]
-
-        for (phoneNumber, label) in zip(phoneNumbersToAdd, labelsToAdd) {
-            context.addIdentificationEntry(withNextSequentialPhoneNumber: phoneNumber, label: label)
-        }
-
-        let phoneNumbersToRemove: [CXCallDirectoryPhoneNumber] = [ 1_888_555_5555 ]
-
-        for phoneNumber in phoneNumbersToRemove {
-            context.removeIdentificationEntry(withPhoneNumber: phoneNumber)
-        }
-
-        // Record the most-recently loaded set of identification entries in data store for the next incremental load...
+        // Incremental identification update şimdilik kullanılmıyor
+        NSLog("🛡️ SafeMessageShield: Incremental identification update (şimdilik desteklenmiyor)")
     }
 
 }
@@ -121,12 +103,8 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
 extension CallDirectoryHandler: CXCallDirectoryExtensionContextDelegate {
 
     func requestFailed(for extensionContext: CXCallDirectoryExtensionContext, withError error: Error) {
-        // An error occurred while adding blocking or identification entries, check the NSError for details.
-        // For Call Directory error codes, see the CXErrorCodeCallDirectoryManagerError enum in <CallKit/CXError.h>.
-        //
-        // This may be used to store the error details in a location accessible by the extension's containing app, so that the
-        // app may be notified about errors which occurred while loading data even if the request to load data was initiated by
-        // the user in Settings instead of via the app itself.
+        NSLog("🛡️ SafeMessageShield: ❌ Call Directory request başarısız: \(error.localizedDescription)")
+        NSLog("🛡️ SafeMessageShield: ❌ Error details: \(error)")
     }
 
 }
