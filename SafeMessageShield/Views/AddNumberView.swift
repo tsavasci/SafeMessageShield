@@ -137,11 +137,7 @@ struct AddNumberView: View {
     
     private func reloadCallDirectory() {
         CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
-            if let error = error {
-                NSLog("❌ Call Directory yenileme hatası: \(error.localizedDescription)")
-            } else {
-                NSLog("✅ Call Directory başarıyla güncellendi")
-            }
+            // Silently handle reload
         }
     }
 }

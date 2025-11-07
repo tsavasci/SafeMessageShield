@@ -87,8 +87,6 @@ class DataManager {
         userDefaults.set(currentCount + 1, forKey: smsFilterCountKey)
         userDefaults.set(Date(), forKey: lastSMSFilterDateKey)
         userDefaults.synchronize()
-        
-        NSLog("🛡️ SMS Filtrelendi - Toplam: \(currentCount + 1)")
     }
     
     /// Arama engelleme sayacını artır (CallDirectoryExtension tarafından çağrılır)
@@ -97,8 +95,6 @@ class DataManager {
         userDefaults.set(currentCount + 1, forKey: callBlockCountKey)
         userDefaults.set(Date(), forKey: lastCallBlockDateKey)
         userDefaults.synchronize()
-        
-        NSLog("🛡️ Arama Engellendi - Toplam: \(currentCount + 1)")
     }
     
     /// Toplam SMS filtreleme sayısı

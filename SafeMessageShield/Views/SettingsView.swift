@@ -50,15 +50,6 @@ struct SettingsView: View {
                 } header: {
                     Text(NSLocalizedString("language", comment: ""))
                 }
-                
-                // Debug Bölümü
-                Section {
-                    NavigationLink(destination: ExtensionStatusView()) {
-                        Label("Debug Info", systemImage: "ant.circle.fill")
-                    }
-                } header: {
-                    Text("Developer")
-                }
             
             Section {
                 VStack(alignment: .leading, spacing: 8) {
