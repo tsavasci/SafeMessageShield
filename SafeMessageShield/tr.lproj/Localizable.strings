@@ -71,21 +71,29 @@
 "statistics.title" = "İstatistikler";
 "total.protection" = "Toplam Koruma";
 "sms.label" = "SMS";
-"calls.label" = "Arama";
-"blocked.label" = "Engelli";
+"calls.label" = "Aramalar";
+"blocked.label" = "Engellendi";
 "sms.filtering.title" = "SMS Filtreleme";
+"blocked.sms" = "Engellenen SMS";
+"blocked.sms.subtitle" = "İstenmeyen klasörüne gönderildi";
+"categorized.sms" = "Kategorize Edilen SMS";
+"categorized.sms.subtitle" = "Anahtar kelimelere göre filtrelendi";
+"total.filtered.sms" = "Toplam Filtrelenen SMS";
 "call.blocking.title" = "Arama Engelleme";
-"blocked.numbers.title" = "Engellenen Numara";
+"blocked.numbers.title" = "Engellenen Numaralar";
 "active.protection.title" = "Aktif Koruma";
 "last.activity" = "Son: %@";
 "no.activity" = "Henüz aktivite yok";
-"auto.blocked" = "iOS tarafından otomatik engellenir";
+"auto.blocked" = "iOS tarafından otomatik engellendi";
 "total.in.list" = "Listedeki toplam numara";
 "days.count" = "%d gün";
 "since.install" = "Uygulamayı yüklediğinizden beri";
 "how.it.works" = "Nasıl Çalışır?";
-"stats.info" = "SMS filtreleme sayısı, extension'ın engellediği mesajların gerçek zamanlı kaydıdır. Arama engelleme ise iOS tarafından otomatik olarak yapılır ve tam sayıya erişim yoktur.";
-"pull.to.refresh" = "Aşağı çekerek güncelleyin";
+"stats.info" = "SMS filtreleme sayısı, extension tarafından engellenen mesajların gerçek zamanlı kaydıdır. Arama engelleme iOS tarafından otomatik yapılır ve tam sayı mevcut değildir.";
+"pull.to.refresh" = "Yenilemek için aşağı çekin";
+"reset.statistics.title" = "İstatistikleri Sıfırla";
+"reset.statistics.message" = "Bu işlem tüm sayaçları sıfırlayacaktır. Engellenen numaralar etkilenmeyecektir.";
+"reset" = "Sıfırla";
 
 /* Settings View */
 "settings.title" = "Ayarlar";
@@ -108,3 +116,31 @@
 
 /* Privacy */
 "privacy.footer" = "Bu uygulama hiçbir mesaj içeriğini veya kişisel verilerinizi sunucuya göndermez. Tüm filtreleme ve engelleme işlemleri cihazınızda gerçekleşir.";
+
+/* Filter Customization */
+"filter.customization" = "Filtre Özelleştirme";
+"no.filter.rules.title" = "Henüz Filtre Kuralı Yok";
+"no.filter.rules.message" = "Mesaj içeriğine göre özel filtreleme kuralları oluşturmak için + butonuna basın";
+"add.filter.rule" = "Filtre Kuralı Ekle";
+"filter.keyword" = "Mesajda Geçen Kelime";
+"filter.keyword.placeholder" = "örn: checkup, banka, kampanya";
+"filter.keyword.footer" = "Mesajlarda aranacak anahtar kelimeyi girin. Büyük/küçük harf fark etmez.";
+"filter.category" = "Kategori";
+"filter.rule.explanation" = "Bu kelimeyi içeren mesajlar seçilen kategoriye filtrelenecektir.";
+"invalid.keyword" = "Geçersiz anahtar kelime";
+
+/* Message Categories */
+"category.finance" = "Finans";
+"category.orders" = "Siparişler";
+"category.reminders" = "Anımsatıcılar";
+"category.health" = "Sağlık";
+"category.weather" = "Hava Durumu";
+"category.carrier" = "Operatör";
+"category.rewards" = "Ödüller";
+"category.public_services" = "Kamu Hizmetleri";
+"category.transaction_others" = "Diğer İşlemler";
+"category.offers" = "Fırsatlar";
+"category.coupons" = "Kuponlar";
+"category.promotion_others" = "Diğer Promosyonlar";
+"category.group.transactional" = "Tüm İşlemler";
+"category.group.promotional" = "Tüm Promosyonlar";

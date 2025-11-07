@@ -43,9 +43,8 @@
 "allowed.explanation" = "سيتم إضافة هذا الرقم إلى القائمة الآمنة ولن يتم تصفية رسائله أبدًا.";
 "add" = "إضافة";
 "error" = "خطأ";
-"invalid.phone.number" =
+"invalid.phone.number" = "رقم هاتف غير صالح";
 "entry.type" = "نوع الإدخال";
-"entry.type" = "نوع الإدخال"; "رقم هاتف غير صالح";
 "what.to.add" = "ماذا تريد أن تضيف؟";
 "sender.name" = "اسم المرسل";
 "sender.name.example" = "مثال: بريد السعودية، AMAZON";
@@ -88,6 +87,15 @@
 "stats.info" = "عدد تصفية الرسائل القصيرة هو سجل في الوقت الفعلي للرسائل التي حظرتها الإضافة. يتم حظر المكالمات تلقائيًا بواسطة iOS والعدد الدقيق غير متاح.";
 "pull.to.refresh" = "اسحب للأسفل للتحديث";
 
+"blocked.sms" = "الرسائل المحظورة";
+"blocked.sms.subtitle" = "تم إرسالها إلى مجلد البريد العشوائي";
+"categorized.sms" = "الرسائل المصنفة";
+"categorized.sms.subtitle" = "تمت تصفيتها حسب الكلمات الرئيسية";
+"total.filtered.sms" = "إجمالي الرسائل المفلترة";
+"reset.statistics.title" = "إعادة تعيين الإحصائيات";
+"reset.statistics.message" = "سيؤدي هذا إلى إعادة تعيين جميع العدادات. لن تتأثر الأرقام المحظورة.";
+"reset" = "إعادة تعيين";
+
 /* Settings View */
 "settings.title" = "الإعدادات";
 "language" = "اللغة";
@@ -109,3 +117,28 @@
 
 /* Privacy */
 "privacy.footer" = "لا يرسل هذا التطبيق أي محتوى رسائل أو بيانات شخصية إلى الخوادم. تتم جميع عمليات التصفية والحظر على جهازك.";
+/* Filter Customization */
+"filter.customization" = "تخصيص الفلتر";
+"no.filter.rules.title" = "لا توجد قواعد تصفية بعد";
+"no.filter.rules.message" = "اضغط على زر + لإنشاء قواعد تصفية مخصصة بناءً على كلمات رسائل مفتاحية";
+"add.filter.rule" = "إضافة قاعدة تصفية";
+"filter.keyword" = "كلمة مفتاحية في الرسالة";
+"filter.keyword.placeholder" = "مثال: checkup، بنك، عرض";
+"filter.keyword.footer" = "أدخل كلمة مفتاحية للبحث في الرسائل. غير حساسة لحالة الأحرف.";
+"filter.category" = "الفئة";
+"filter.rule.explanation" = "الرسائل التي تحتوي على هذه الكلمة المفتاحية سيتم تصفيتها إلى الفئة المحددة.";
+"invalid.keyword" = "كلمة مفتاحية غير صالحة";
+"category.finance" = "المال";
+"category.orders" = "الطلبات";
+"category.reminders" = "التذكيرات";
+"category.health" = "الصحة";
+"category.weather" = "الطقس";
+"category.carrier" = "المشغل";
+"category.rewards" = "المكافآت";
+"category.public_services" = "الخدمات العامة";
+"category.transaction_others" = "معاملات أخرى";
+"category.offers" = "العروض";
+"category.coupons" = "القسائم";
+"category.promotion_others" = "عروض ترويجية أخرى";
+"category.group.transactional" = "جميع المعاملات";
+"category.group.promotional" = "جميع العروض الترويجية";

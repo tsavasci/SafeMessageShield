@@ -87,6 +87,15 @@
 "stats.info" = "Количество отфильтрованных SMS — это запись в реальном времени о сообщениях, заблокированных расширением. Блокировка вызовов выполняется iOS автоматически, и точное количество недоступно.";
 "pull.to.refresh" = "Потяните вниз для обновления";
 
+"blocked.sms" = "Заблокированные SMS";
+"blocked.sms.subtitle" = "Отправлено в папку со спамом";
+"categorized.sms" = "Категоризированные SMS";
+"categorized.sms.subtitle" = "Отфильтровано по ключевым словам";
+"total.filtered.sms" = "Всего отфильтрованных SMS";
+"reset.statistics.title" = "Сбросить статистику";
+"reset.statistics.message" = "Это сбросит все счетчики. Заблокированные номера не будут затронуты.";
+"reset" = "Сбросить";
+
 /* Settings View */
 "settings.title" = "Настройки";
 "language" = "Язык";
@@ -108,3 +117,29 @@
 
 /* Privacy */
 "privacy.footer" = "Это приложение не отправляет содержимое сообщений или личные данные на серверы. Все операции фильтрации и блокировки выполняются на вашем устройстве.";
+
+/* Filter Customization */
+"filter.customization" = "Настройка фильтров";
+"no.filter.rules.title" = "Правил фильтрации пока нет";
+"no.filter.rules.message" = "Нажмите кнопку +, чтобы создать пользовательские правила фильтрации на основе ключевых слов сообщений";
+"add.filter.rule" = "Добавить правило фильтрации";
+"filter.keyword" = "Ключевое слово сообщения";
+"filter.keyword.placeholder" = "напр: checkup, банк, промо";
+"filter.keyword.footer" = "Введите ключевое слово для поиска в сообщениях. Регистр не важен.";
+"filter.category" = "Категория";
+"filter.rule.explanation" = "Сообщения, содержащие это ключевое слово, будут отфильтрованы в выбранную категорию.";
+"invalid.keyword" = "Неверное ключевое слово";
+"category.finance" = "Финансы";
+"category.orders" = "Заказы";
+"category.reminders" = "Напоминания";
+"category.health" = "Здоровье";
+"category.weather" = "Погода";
+"category.carrier" = "Оператор";
+"category.rewards" = "Награды";
+"category.public_services" = "Государственные услуги";
+"category.transaction_others" = "Другие транзакции";
+"category.offers" = "Предложения";
+"category.coupons" = "Купоны";
+"category.promotion_others" = "Другие промоакции";
+"category.group.transactional" = "Все транзакции";
+"category.group.promotional" = "Все промоакции";

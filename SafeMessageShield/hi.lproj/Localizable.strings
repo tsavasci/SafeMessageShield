@@ -87,6 +87,15 @@
 "stats.info" = "एसएमएस फ़िल्टरिंग गणना एक्सटेंशन द्वारा ब्लॉक किए गए संदेशों का एक वास्तविक समय का रिकॉर्ड है। कॉल ब्लॉकिंग iOS द्वारा स्वचालित रूप से की जाती है और सटीक गणना उपलब्ध नहीं है।";
 "pull.to.refresh" = "ताज़ा करने के लिए नीचे खींचें";
 
+"blocked.sms" = "अवरोधित SMS";
+"blocked.sms.subtitle" = "स्पैम फ़ोल्डर में भेजा गया";
+"categorized.sms" = "वर्गीकृत SMS";
+"categorized.sms.subtitle" = "कीवर्ड द्वारा फ़िल्टर किया गया";
+"total.filtered.sms" = "कुल फ़िल्टर किए गए SMS";
+"reset.statistics.title" = "सांख्यिकी रीसेट करें";
+"reset.statistics.message" = "यह सभी काउंटर रीसेट कर देगा। अवरोधित नंबर प्रभावित नहीं होंगे।";
+"reset" = "रीसेट करें";
+
 /* Settings View */
 "settings.title" = "सेटिंग्स";
 "language" = "भाषा";
@@ -108,3 +117,29 @@
 
 /* Privacy */
 "privacy.footer" = "यह ऐप कोई संदेश सामग्री या व्यक्तिगत डेटा सर्वर को नहीं भेजता है। सभी फ़िल्टरिंग और ब्लॉकिंग कार्य आपके डिवाइस पर होते हैं।";
+
+/* Filter Customization */
+"filter.customization" = "फ़िल्टर अनुकूलन";
+"no.filter.rules.title" = "अभी तक कोई फ़िल्टर नियम नहीं";
+"no.filter.rules.message" = "संदेश कीवर्ड के आधार पर कस्टम फ़िल्टरिंग नियम बनाने के लिए + बटन टैप करें";
+"add.filter.rule" = "फ़िल्टर नियम जोड़ें";
+"filter.keyword" = "संदेश कीवर्ड";
+"filter.keyword.placeholder" = "उदा: checkup, बैंक, promo";
+"filter.keyword.footer" = "संदेशों में खोजने के लिए एक कीवर्ड दर्ज करें। केस संवेदनशील नहीं।";
+"filter.category" = "श्रेणी";
+"filter.rule.explanation" = "इस कीवर्ड वाले संदेशों को चयनित श्रेणी में फ़िल्टर किया जाएगा।";
+"invalid.keyword" = "अमान्य कीवर्ड";
+"category.finance" = "वित्त";
+"category.orders" = "आदेश";
+"category.reminders" = "अनुस्मारक";
+"category.health" = "स्वास्थ्य";
+"category.weather" = "मौसम";
+"category.carrier" = "वाहक";
+"category.rewards" = "पुरस्कार";
+"category.public_services" = "सार्वजनिक सेवाएं";
+"category.transaction_others" = "अन्य लेनदेन";
+"category.offers" = "ऑफ़र";
+"category.coupons" = "कूपन";
+"category.promotion_others" = "अन्य प्रचार";
+"category.group.transactional" = "सभी लेनदेन";
+"category.group.promotional" = "सभी प्रचार";

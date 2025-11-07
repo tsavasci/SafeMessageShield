@@ -87,6 +87,15 @@
 "stats.info" = "短信过滤计数是扩展程序拦截消息的实时记录。来电拦截由iOS自动完成，无法获取确切数量。";
 "pull.to.refresh" = "下拉刷新";
 
+"blocked.sms" = "已拦截短信";
+"blocked.sms.subtitle" = "已发送到垃圾邮件文件夹";
+"categorized.sms" = "已分类短信";
+"categorized.sms.subtitle" = "按关键词过滤";
+"total.filtered.sms" = "总过滤短信";
+"reset.statistics.title" = "重置统计";
+"reset.statistics.message" = "这将重置所有计数器。已拦截的号码不会受到影响。";
+"reset" = "重置";
+
 /* Settings View */
 "settings.title" = "设置";
 "language" = "语言";
@@ -108,3 +117,29 @@
 
 /* Privacy */
 "privacy.footer" = "本应用不会向服务器发送任何消息内容或个人数据。所有过滤和拦截操作都在您的设备上进行。";
+
+/* Filter Customization */
+"filter.customization" = "过滤器自定义";
+"no.filter.rules.title" = "暂无过滤规则";
+"no.filter.rules.message" = "点击+按钮创建基于消息关键词的自定义过滤规则";
+"add.filter.rule" = "添加过滤规则";
+"filter.keyword" = "消息关键词";
+"filter.keyword.placeholder" = "例如: checkup, 银行, 促销";
+"filter.keyword.footer" = "输入要在消息中搜索的关键词。不区分大小写。";
+"filter.category" = "类别";
+"filter.rule.explanation" = "包含此关键词的消息将被过滤到所选类别。";
+"invalid.keyword" = "无效的关键词";
+"category.finance" = "金融";
+"category.orders" = "订单";
+"category.reminders" = "提醒";
+"category.health" = "健康";
+"category.weather" = "天气";
+"category.carrier" = "运营商";
+"category.rewards" = "奖励";
+"category.public_services" = "公共服务";
+"category.transaction_others" = "其他交易";
+"category.offers" = "优惠";
+"category.coupons" = "优惠券";
+"category.promotion_others" = "其他促销";
+"category.group.transactional" = "所有交易";
+"category.group.promotional" = "所有促销";

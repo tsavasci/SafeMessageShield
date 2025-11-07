@@ -100,6 +100,7 @@ struct AllowedNumbersView: View {
     }
     
     private func addNumberFromContact(phoneNumber: String) {
+        // Kontaktlardan gelen numara, her zaman numara formatındadır
         let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
         guard !cleanedNumber.isEmpty else { return }

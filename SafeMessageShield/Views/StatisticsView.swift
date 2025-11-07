@@ -12,10 +12,13 @@ struct StatisticsView: View {
     @Query private var blockedNumbers: [BlockedNumber]
     @ObservedObject private var languageManager = LanguageManager.shared
     @State private var smsFilterCount = 0
+    @State private var smsJunkCount = 0
+    @State private var smsCategorizedCount = 0
     @State private var callBlockCount = 0
     @State private var lastSMSFilterDate: Date?
     @State private var lastCallBlockDate: Date?
     @State private var activeDays = 0
+    @State private var showingResetAlert = false
     
     var body: some View {
         NavigationStack {
@@ -30,22 +33,48 @@ struct StatisticsView: View {
                     )
                     .padding(.horizontal)
                     
-                    // Detaylı İstatistikler
-                    VStack(spacing: 16) {
+                    // SMS Filtreleme Detayları
+                    VStack(spacing: 12) {
+                        HStack {
+                            Text(NSLocalizedString("sms.filtering.title", comment: ""))
+                                .font(.headline)
+                            Spacer()
+                        }
+                        
                         StatisticRow(
-                            icon: "message.badge.filled.fill",
-                            title: NSLocalizedString("sms.filtering.title", comment: ""),
+                            icon: "xmark.shield.fill",
+                            title: NSLocalizedString("blocked.sms", comment: ""),
+                            value: "\(smsJunkCount)",
+                            subtitle: NSLocalizedString("blocked.sms.subtitle", comment: ""),
+                            color: .red
+                        )
+                        
+                        StatisticRow(
+                            icon: "tray.and.arrow.down.fill",
+                            title: NSLocalizedString("categorized.sms", comment: ""),
+                            value: "\(smsCategorizedCount)",
+                            subtitle: NSLocalizedString("categorized.sms.subtitle", comment: ""),
+                            color: .orange
+                        )
+                        
+                        StatisticRow(
+                            icon: "chart.bar.fill",
+                            title: NSLocalizedString("total.filtered.sms", comment: ""),
                             value: "\(smsFilterCount)",
                             subtitle: lastActivityText(for: lastSMSFilterDate, prefix: NSLocalizedString("last.activity", comment: "")),
                             color: .blue
                         )
-                        
+                    }
+                    .padding(.horizontal)
+                    
+                    // Detaylı İstatistikler
+                    VStack(spacing: 16) {
                         StatisticRow(
                             icon: "phone.down.fill",
                             title: NSLocalizedString("call.blocking.title", comment: ""),
                             value: "\(callBlockCount)",
                             subtitle: NSLocalizedString("auto.blocked", comment: ""),
-                            color: .red
+                            color: .purple
                         )
                         
                         StatisticRow(
@@ -53,13 +82,13 @@ struct StatisticsView: View {
                             title: NSLocalizedString("blocked.numbers.title", comment: ""),
                             value: "\(blockedNumbers.count)",
                             subtitle: NSLocalizedString("total.in.list", comment: ""),
-                            color: .orange
+                            color: .indigo
                         )
                         
                         StatisticRow(
                             icon: "calendar.badge.clock",
                             title: NSLocalizedString("active.protection.title", comment: ""),
-                            value: "\(activeDays)",
+                            value: String(format: NSLocalizedString("days.count", comment: ""), activeDays),
                             subtitle: NSLocalizedString("since.install", comment: ""),
                             color: .green
                         )
@@ -75,21 +104,44 @@ struct StatisticsView: View {
             }
             .navigationTitle(NSLocalizedString("statistics.title", comment: ""))
             .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showingResetAlert = true }) {
+                        Image(systemName: "arrow.counterclockwise")
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
             .onAppear {
                 loadStatistics()
             }
             .refreshable {
                 loadStatistics()
             }
+            .alert(NSLocalizedString("reset.statistics.title", comment: ""), isPresented: $showingResetAlert) {
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel) { }
+                Button(NSLocalizedString("reset", comment: ""), role: .destructive) {
+                    resetStatistics()
+                }
+            } message: {
+                Text(NSLocalizedString("reset.statistics.message", comment: ""))
+            }
         }
     }
     
     private func loadStatistics() {
         smsFilterCount = DataManager.shared.getTotalSMSFilterCount()
+        smsJunkCount = DataManager.shared.getSMSJunkCount()
+        smsCategorizedCount = DataManager.shared.getSMSCategorizedCount()
         callBlockCount = DataManager.shared.getTotalCallBlockCount()
         lastSMSFilterDate = DataManager.shared.getLastSMSFilterDate()
         lastCallBlockDate = DataManager.shared.getLastCallBlockDate()
         activeDays = DataManager.shared.getActiveDays()
+    }
+    
+    private func resetStatistics() {
+        DataManager.shared.resetStatistics()
+        loadStatistics()
     }
     
     private func lastActivityText(for date: Date?, prefix: String) -> String {

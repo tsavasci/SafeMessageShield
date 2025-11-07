@@ -43,9 +43,8 @@
 "allowed.explanation" = "Ce numéro sera ajouté à la liste sûre et ses messages ne seront jamais filtrés.";
 "add" = "Ajouter";
 "error" = "Erreur";
-"invalid.phone.number" =
+"invalid.phone.number" = "Numéro de téléphone invalide";
 "entry.type" = "Type d'entrée";
-"entry.type" = "Type d'entrée"; "Numéro de téléphone invalide";
 "what.to.add" = "Que voulez-vous ajouter?";
 "sender.name" = "Nom de l'expéditeur";
 "sender.name.example" = "ex: COLISSIMO, AMAZON";
@@ -88,6 +87,15 @@
 "stats.info" = "Le comptage du filtrage SMS est un enregistrement en temps réel des messages bloqués par l'extension. Le blocage des appels est effectué automatiquement par iOS et le compte exact n'est pas disponible.";
 "pull.to.refresh" = "Tirer vers le bas pour actualiser";
 
+"blocked.sms" = "SMS bloqués";
+"blocked.sms.subtitle" = "Envoyés dans le dossier spam";
+"categorized.sms" = "SMS catégorisés";
+"categorized.sms.subtitle" = "Filtrés par mots-clés";
+"total.filtered.sms" = "Total SMS filtrés";
+"reset.statistics.title" = "Réinitialiser les statistiques";
+"reset.statistics.message" = "Cela réinitialisera tous les compteurs. Les numéros bloqués ne seront pas affectés.";
+"reset" = "Réinitialiser";
+
 /* Settings View */
 "settings.title" = "Paramètres";
 "language" = "Langue";
@@ -109,3 +117,28 @@
 
 /* Privacy */
 "privacy.footer" = "Cette application n'envoie aucun contenu de message ou donnée personnelle aux serveurs. Toutes les opérations de filtrage et de blocage se produisent sur votre appareil.";
+/* Filter Customization */
+"filter.customization" = "Personnalisation des Filtres";
+"no.filter.rules.title" = "Pas encore de règles de filtre";
+"no.filter.rules.message" = "Appuyez sur le bouton + pour créer des règles de filtrage personnalisées basées sur des mots-clés de messages";
+"add.filter.rule" = "Ajouter une règle de filtre";
+"filter.keyword" = "Mot-clé du message";
+"filter.keyword.placeholder" = "ex: checkup, banque, promo";
+"filter.keyword.footer" = "Entrez un mot-clé à rechercher dans les messages. Insensible à la casse.";
+"filter.category" = "Catégorie";
+"filter.rule.explanation" = "Les messages contenant ce mot-clé seront filtrés dans la catégorie sélectionnée.";
+"invalid.keyword" = "Mot-clé invalide";
+"category.finance" = "Finance";
+"category.orders" = "Commandes";
+"category.reminders" = "Rappels";
+"category.health" = "Santé";
+"category.weather" = "Météo";
+"category.carrier" = "Opérateur";
+"category.rewards" = "Récompenses";
+"category.public_services" = "Services Publics";
+"category.transaction_others" = "Autres Transactions";
+"category.offers" = "Offres";
+"category.coupons" = "Coupons";
+"category.promotion_others" = "Autres Promotions";
+"category.group.transactional" = "Toutes les Transactions";
+"category.group.promotional" = "Toutes les Promotions";

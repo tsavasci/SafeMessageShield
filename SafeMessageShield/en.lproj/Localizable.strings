@@ -74,6 +74,11 @@
 "calls.label" = "Calls";
 "blocked.label" = "Blocked";
 "sms.filtering.title" = "SMS Filtering";
+"blocked.sms" = "Blocked SMS";
+"blocked.sms.subtitle" = "Sent to Junk folder";
+"categorized.sms" = "Categorized SMS";
+"categorized.sms.subtitle" = "Filtered by keywords";
+"total.filtered.sms" = "Total Filtered SMS";
 "call.blocking.title" = "Call Blocking";
 "blocked.numbers.title" = "Blocked Numbers";
 "active.protection.title" = "Active Protection";
@@ -86,6 +91,9 @@
 "how.it.works" = "How It Works?";
 "stats.info" = "SMS filtering count is a real-time record of messages blocked by the extension. Call blocking is done automatically by iOS and exact count is not available.";
 "pull.to.refresh" = "Pull down to refresh";
+"reset.statistics.title" = "Reset Statistics";
+"reset.statistics.message" = "This will reset all counters. Blocked numbers will not be affected.";
+"reset" = "Reset";
 
 /* Settings View */
 "settings.title" = "Settings";
@@ -108,3 +116,31 @@
 
 /* Privacy */
 "privacy.footer" = "This app does not send any message content or personal data to servers. All filtering and blocking operations occur on your device.";
+
+/* Filter Customization */
+"filter.customization" = "Filter Customization";
+"no.filter.rules.title" = "No Filter Rules Yet";
+"no.filter.rules.message" = "Tap the + button to create custom filtering rules based on message keywords";
+"add.filter.rule" = "Add Filter Rule";
+"filter.keyword" = "Message Keyword";
+"filter.keyword.placeholder" = "e.g: checkup, bank, promo";
+"filter.keyword.footer" = "Enter a keyword to search in messages. Case insensitive.";
+"filter.category" = "Category";
+"filter.rule.explanation" = "Messages containing this keyword will be filtered to the selected category.";
+"invalid.keyword" = "Invalid keyword";
+
+/* Message Categories */
+"category.finance" = "Finance";
+"category.orders" = "Orders";
+"category.reminders" = "Reminders";
+"category.health" = "Health";
+"category.weather" = "Weather";
+"category.carrier" = "Carrier";
+"category.rewards" = "Rewards";
+"category.public_services" = "Public Services";
+"category.transaction_others" = "Other Transactions";
+"category.offers" = "Offers";
+"category.coupons" = "Coupons";
+"category.promotion_others" = "Other Promotions";
+"category.group.transactional" = "Transactions";
+"category.group.promotional" = "Promotions";

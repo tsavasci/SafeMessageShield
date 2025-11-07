@@ -16,7 +16,10 @@ class DataManager {
     private let userDefaults: UserDefaults
     private let blockedNumbersKey = "blockedNumbers"
     private let allowedNumbersKey = "allowedNumbers"
+    private let filterRulesKey = "filterRules"
     private let smsFilterCountKey = "smsFilterCount"
+    private let smsJunkCountKey = "smsJunkCount"
+    private let smsCategorizedCountKey = "smsCategorizedCount"
     private let callBlockCountKey = "callBlockCount"
     private let lastSMSFilterDateKey = "lastSMSFilterDate"
     private let lastCallBlockDateKey = "lastCallBlockDate"
@@ -71,29 +74,40 @@ class DataManager {
         return userDefaults.stringArray(forKey: allowedNumbersKey) ?? []
     }
     
-    func addAllowedNumber(_ phoneNumber: String) {
+    func addAllowedNumber(_ value: String) {
         var numbers = getAllowedNumbers()
-        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
-        if !numbers.contains(cleanedNumber) {
-            numbers.append(cleanedNumber)
+        // Değer zaten listede mi kontrol et (case-insensitive)
+        let exists = numbers.contains { existingValue in
+            existingValue.uppercased() == value.uppercased()
+        }
+        
+        if !exists {
+            numbers.append(value)
             userDefaults.set(numbers, forKey: allowedNumbersKey)
             userDefaults.synchronize()
         }
     }
     
-    func removeAllowedNumber(_ phoneNumber: String) {
+    func removeAllowedNumber(_ value: String) {
         var numbers = getAllowedNumbers()
-        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
         
-        numbers.removeAll { $0 == cleanedNumber }
+        // Case-insensitive silme
+        numbers.removeAll { existingValue in
+            existingValue.uppercased() == value.uppercased()
+        }
+        
         userDefaults.set(numbers, forKey: allowedNumbersKey)
         userDefaults.synchronize()
     }
     
-    func isNumberAllowed(_ phoneNumber: String) -> Bool {
-        let cleanedNumber = phoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
-        return getAllowedNumbers().contains(cleanedNumber)
+    func isNumberAllowed(_ value: String) -> Bool {
+        let allowedNumbers = getAllowedNumbers()
+        
+        // Case-insensitive kontrol
+        return allowedNumbers.contains { existingValue in
+            existingValue.uppercased() == value.uppercased()
+        }
     }
     
     // MARK: - Settings
@@ -111,14 +125,70 @@ class DataManager {
         userDefaults.synchronize()
     }
     
+    // MARK: - Filter Rules Management
+    
+    func getFilterRules() -> [[String: String]] {
+        return userDefaults.array(forKey: filterRulesKey) as? [[String: String]] ?? []
+    }
+    
+    func addFilterRule(keyword: String, category: String) {
+        var rules = getFilterRules()
+        let newRule: [String: String] = [
+            "keyword": keyword.lowercased(),
+            "category": category
+        ]
+        rules.append(newRule)
+        userDefaults.set(rules, forKey: filterRulesKey)
+        userDefaults.synchronize()
+    }
+    
+    func removeFilterRule(keyword: String) {
+        var rules = getFilterRules()
+        rules.removeAll { rule in
+            rule["keyword"]?.lowercased() == keyword.lowercased()
+        }
+        userDefaults.set(rules, forKey: filterRulesKey)
+        userDefaults.synchronize()
+    }
+    
+    func getCategoryForMessage(_ messageBody: String) -> String? {
+        let rules = getFilterRules()
+        let lowercasedMessage = messageBody.lowercased()
+        
+        // Mesaj içinde anahtar kelime var mı kontrol et
+        for rule in rules {
+            if let keyword = rule["keyword"],
+               let category = rule["category"],
+               lowercasedMessage.contains(keyword.lowercased()) {
+                return category
+            }
+        }
+        
+        return nil
+    }
+    
     // MARK: - Statistics
     
-    /// SMS filtreleme sayacını artır (MessageFilterExtension tarafından çağrılır)
+    /// SMS filtreleme sayacını artır (MessageFilterExtension tarafından çağrılır - TOPLAM)
     func incrementSMSFilterCount() {
         let currentCount = userDefaults.integer(forKey: smsFilterCountKey)
         userDefaults.set(currentCount + 1, forKey: smsFilterCountKey)
         userDefaults.set(Date(), forKey: lastSMSFilterDateKey)
         userDefaults.synchronize()
+    }
+    
+    /// Junk'a gönderilen SMS sayacını artır
+    func incrementSMSJunkCount() {
+        let currentCount = userDefaults.integer(forKey: smsJunkCountKey)
+        userDefaults.set(currentCount + 1, forKey: smsJunkCountKey)
+        incrementSMSFilterCount() // Toplam sayaca da ekle
+    }
+    
+    /// Kategorize edilen SMS sayacını artır
+    func incrementSMSCategorizedCount() {
+        let currentCount = userDefaults.integer(forKey: smsCategorizedCountKey)
+        userDefaults.set(currentCount + 1, forKey: smsCategorizedCountKey)
+        incrementSMSFilterCount() // Toplam sayaca da ekle
     }
     
     /// Arama engelleme sayacını artır (CallDirectoryExtension tarafından çağrılır)
@@ -129,9 +199,19 @@ class DataManager {
         userDefaults.synchronize()
     }
     
-    /// Toplam SMS filtreleme sayısı
+    /// Toplam SMS filtreleme sayısı (Junk + Kategorize)
     func getTotalSMSFilterCount() -> Int {
         return userDefaults.integer(forKey: smsFilterCountKey)
+    }
+    
+    /// Junk'a gönderilen SMS sayısı
+    func getSMSJunkCount() -> Int {
+        return userDefaults.integer(forKey: smsJunkCountKey)
+    }
+    
+    /// Kategorize edilen SMS sayısı
+    func getSMSCategorizedCount() -> Int {
+        return userDefaults.integer(forKey: smsCategorizedCountKey)
     }
     
     /// Toplam arama engelleme sayısı
@@ -161,9 +241,11 @@ class DataManager {
         return max(days, 0)
     }
     
-    /// İstatistikleri sıfırla
+    /// İstatistikleri sıfırla (Sadece sayaçları sıfırlar, engellenen numaraları silmez)
     func resetStatistics() {
         userDefaults.removeObject(forKey: smsFilterCountKey)
+        userDefaults.removeObject(forKey: smsJunkCountKey)
+        userDefaults.removeObject(forKey: smsCategorizedCountKey)
         userDefaults.removeObject(forKey: callBlockCountKey)
         userDefaults.removeObject(forKey: lastSMSFilterDateKey)
         userDefaults.removeObject(forKey: lastCallBlockDateKey)

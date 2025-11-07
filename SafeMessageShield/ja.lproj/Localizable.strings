@@ -87,6 +87,15 @@
 "stats.info" = "SMSフィルタリング数は、機能拡張によってブロックされたメッセージのリアルタイムの記録です。着信拒否はiOSによって自動的に行われるため、正確な数にはアクセスできません。";
 "pull.to.refresh" = "下に引いて更新";
 
+"blocked.sms" = "ブロックされたSMS";
+"blocked.sms.subtitle" = "迷惑メールフォルダに送信";
+"categorized.sms" = "分類されたSMS";
+"categorized.sms.subtitle" = "キーワードでフィルタリング";
+"total.filtered.sms" = "合計フィルタリングされたSMS";
+"reset.statistics.title" = "統計をリセット";
+"reset.statistics.message" = "これによりすべてのカウンターがリセットされます。ブロックされた番号は影響を受けません。";
+"reset" = "リセット";
+
 /* Settings View */
 "settings.title" = "設定";
 "language" = "言語";
@@ -108,3 +117,29 @@
 
 /* Privacy */
 "privacy.footer" = "このアプリは、メッセージの内容や個人データをサーバーに送信しません。すべてのフィルタリングとブロック操作は、お使いのデバイス上で行われます。";
+
+/* Filter Customization */
+"filter.customization" = "フィルターカスタマイズ";
+"no.filter.rules.title" = "フィルタールールはまだありません";
+"no.filter.rules.message" = "+ボタンをタップして、メッセージキーワードに基づくカスタムフィルタリングルールを作成します";
+"add.filter.rule" = "フィルタールールを追加";
+"filter.keyword" = "メッセージキーワード";
+"filter.keyword.placeholder" = "例: checkup, 銀行, プロモ";
+"filter.keyword.footer" = "メッセージで検索するキーワードを入力してください。大文字小文字は区別されません。";
+"filter.category" = "カテゴリ";
+"filter.rule.explanation" = "このキーワードを含むメッセージは、選択したカテゴリにフィルタリングされます。";
+"invalid.keyword" = "無効なキーワード";
+"category.finance" = "金融";
+"category.orders" = "注文";
+"category.reminders" = "リマインダー";
+"category.health" = "健康";
+"category.weather" = "天気";
+"category.carrier" = "キャリア";
+"category.rewards" = "報酬";
+"category.public_services" = "公共サービス";
+"category.transaction_others" = "その他の取引";
+"category.offers" = "オファー";
+"category.coupons" = "クーポン";
+"category.promotion_others" = "その他のプロモーション";
+"category.group.transactional" = "すべての取引";
+"category.group.promotional" = "すべてのプロモーション";

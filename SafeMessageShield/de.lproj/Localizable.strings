@@ -43,9 +43,8 @@
 "allowed.explanation" = "Diese Nummer wird zur sicheren Liste hinzugefügt und ihre Nachrichten werden niemals gefiltert.";
 "add" = "Hinzufügen";
 "error" = "Fehler";
-"invalid.phone.number" =
+"invalid.phone.number" = "Ungültige Telefonnummer";
 "entry.type" = "Eingabetyp";
-"entry.type" = "Eingabetyp"; "Ungültige Telefonnummer";
 "what.to.add" = "Was möchten Sie hinzufügen?";
 "sender.name" = "Absendername";
 "sender.name.example" = "z.B: DHL, AMAZON";
@@ -88,6 +87,15 @@
 "stats.info" = "Die SMS-Filteranzahl ist eine Echtzeitaufzeichnung der von der Erweiterung blockierten Nachrichten. Die Anrufblockierung erfolgt automatisch durch iOS und die genaue Anzahl ist nicht verfügbar.";
 "pull.to.refresh" = "Nach unten ziehen zum Aktualisieren";
 
+"blocked.sms" = "Blockierte SMS";
+"blocked.sms.subtitle" = "An Spam-Ordner gesendet";
+"categorized.sms" = "Kategorisierte SMS";
+"categorized.sms.subtitle" = "Nach Schlüsselwörtern gefiltert";
+"total.filtered.sms" = "Gesamt gefilterte SMS";
+"reset.statistics.title" = "Statistiken zurücksetzen";
+"reset.statistics.message" = "Dadurch werden alle Zähler zurückgesetzt. Blockierte Nummern sind nicht betroffen.";
+"reset" = "Zurücksetzen";
+
 /* Settings View */
 "settings.title" = "Einstellungen";
 "language" = "Sprache";
@@ -109,3 +117,28 @@
 
 /* Privacy */
 "privacy.footer" = "Diese App sendet keine Nachrichteninhalte oder persönlichen Daten an Server. Alle Filter- und Blockierungsvorgänge erfolgen auf Ihrem Gerät.";
+/* Filter Customization */
+"filter.customization" = "Filter-Anpassung";
+"no.filter.rules.title" = "Noch keine Filterregeln";
+"no.filter.rules.message" = "Tippen Sie auf die Schaltfläche +, um benutzerdefinierte Filterregeln basierend auf Nachrichtenschlüsselwörtern zu erstellen";
+"add.filter.rule" = "Filterregel hinzufügen";
+"filter.keyword" = "Nachrichtenschlüsselwort";
+"filter.keyword.placeholder" = "z.B: checkup, bank, promo";
+"filter.keyword.footer" = "Geben Sie ein Schlüsselwort ein, nach dem in Nachrichten gesucht werden soll. Groß-/Kleinschreibung wird ignoriert.";
+"filter.category" = "Kategorie";
+"filter.rule.explanation" = "Nachrichten mit diesem Schlüsselwort werden in die ausgewählte Kategorie gefiltert.";
+"invalid.keyword" = "Ungültiges Schlüsselwort";
+"category.finance" = "Finanzen";
+"category.orders" = "Bestellungen";
+"category.reminders" = "Erinnerungen";
+"category.health" = "Gesundheit";
+"category.weather" = "Wetter";
+"category.carrier" = "Mobilfunkanbieter";
+"category.rewards" = "Belohnungen";
+"category.public_services" = "Öffentliche Dienste";
+"category.transaction_others" = "Andere Transaktionen";
+"category.offers" = "Angebote";
+"category.coupons" = "Gutscheine";
+"category.promotion_others" = "Andere Promotionen";
+"category.group.transactional" = "Alle Transaktionen";
+"category.group.promotional" = "Alle Promotionen";

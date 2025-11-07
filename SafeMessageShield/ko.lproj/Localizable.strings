@@ -87,6 +87,15 @@
 "stats.info" = "SMS 필터링 수는 확장 프로그램에 의해 차단된 메시지의 실시간 기록입니다. 통화 차단은 iOS에서 자동으로 수행되며 정확한 수는 제공되지 않습니다.";
 "pull.to.refresh" = "아래로 당겨서 새로 고침";
 
+"blocked.sms" = "차단된 SMS";
+"blocked.sms.subtitle" = "스팸 폴더로 전송됨";
+"categorized.sms" = "분류된 SMS";
+"categorized.sms.subtitle" = "키워드로 필터링됨";
+"total.filtered.sms" = "총 필터링된 SMS";
+"reset.statistics.title" = "통계 재설정";
+"reset.statistics.message" = "모든 카운터가 재설정됩니다. 차단된 번호는 영향을 받지 않습니다.";
+"reset" = "재설정";
+
 /* Settings View */
 "settings.title" = "설정";
 "language" = "언어";
@@ -108,3 +117,29 @@
 
 /* Privacy */
 "privacy.footer" = "이 앱은 메시지 내용이나 개인 데이터를 서버로 전송하지 않습니다. 모든 필터링 및 차단 작업은 기기에서 수행됩니다.";
+
+/* Filter Customization */
+"filter.customization" = "필터 사용자 정의";
+"no.filter.rules.title" = "아직 필터 규칙이 없습니다";
+"no.filter.rules.message" = "메시지 키워드를 기반으로 사용자 정의 필터링 규칙을 만들려면 + 버튼을 탭하세요";
+"add.filter.rule" = "필터 규칙 추가";
+"filter.keyword" = "메시지 키워드";
+"filter.keyword.placeholder" = "예: checkup, 은행, 프로모";
+"filter.keyword.footer" = "메시지에서 검색할 키워드를 입력하세요. 대소문자 구분 안 함.";
+"filter.category" = "카테고리";
+"filter.rule.explanation" = "이 키워드가 포함된 메시지는 선택한 카테고리로 필터링됩니다.";
+"invalid.keyword" = "잘못된 키워드";
+"category.finance" = "금융";
+"category.orders" = "주문";
+"category.reminders" = "알림";
+"category.health" = "건강";
+"category.weather" = "날씨";
+"category.carrier" = "통신사";
+"category.rewards" = "보상";
+"category.public_services" = "공공 서비스";
+"category.transaction_others" = "기타 거래";
+"category.offers" = "제안";
+"category.coupons" = "쿠폰";
+"category.promotion_others" = "기타 프로모션";
+"category.group.transactional" = "모든 거래";
+"category.group.promotional" = "모든 프로모션";

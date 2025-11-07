@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject private var languageManager = LanguageManager.shared
     @State private var showingLanguagePicker = false
+    @State private var showingFilterCustomization = false
     
     var body: some View {
         NavigationStack {
@@ -49,6 +50,22 @@ struct SettingsView: View {
                     .foregroundStyle(.primary)
                 } header: {
                     Text(NSLocalizedString("language", comment: ""))
+                }
+                
+                // Filtre Özelleştirme Bölümü
+                Section {
+                    Button(action: { showingFilterCustomization = true }) {
+                        HStack {
+                            Label(NSLocalizedString("filter.customization", comment: ""), systemImage: "slider.horizontal.3")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.secondary)
+                                .font(.caption)
+                        }
+                    }
+                    .foregroundStyle(.primary)
+                } header: {
+                    Text(NSLocalizedString("filter.customization", comment: ""))
                 }
             
             Section {
@@ -145,6 +162,9 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showingLanguagePicker) {
             LanguagePickerView()
+        }
+        .sheet(isPresented: $showingFilterCustomization) {
+            FilterCustomizationView()
         }
     }
 }

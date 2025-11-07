@@ -14,6 +14,7 @@ struct SafeMessageShieldApp: App {
         let schema = Schema([
             BlockedNumber.self,
             AllowedNumber.self,
+            FilterRule.self,
         ])
         
         // App Group konteynerini kullan
