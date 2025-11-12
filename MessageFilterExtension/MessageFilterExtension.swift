@@ -74,8 +74,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling, ILMessageFilterC
                     let subAction = getSubAction(for: category)
                     
                     // Kategorize edildi sayacını artır
-                    sharedDefaults.set((sharedDefaults.integer(forKey: "smsCategorizedCount") + 1), forKey: "smsCategorizedCount")
-                    sharedDefaults.set((sharedDefaults.integer(forKey: "smsFilterCount") + 1), forKey: "smsFilterCount")
+                    let currentCategorizedCount = sharedDefaults.integer(forKey: "smsCategorizedCount")
+                    sharedDefaults.set(currentCategorizedCount + 1, forKey: "smsCategorizedCount")
                     sharedDefaults.set(Date(), forKey: "lastSMSFilterDate")
                     sharedDefaults.synchronize()
                     
@@ -102,8 +102,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling, ILMessageFilterC
                cleanBlocked.contains(cleanSender) {
                 
                 // Junk sayacını artır
-                sharedDefaults.set((sharedDefaults.integer(forKey: "smsJunkCount") + 1), forKey: "smsJunkCount")
-                sharedDefaults.set((sharedDefaults.integer(forKey: "smsFilterCount") + 1), forKey: "smsFilterCount")
+                let currentJunkCount = sharedDefaults.integer(forKey: "smsJunkCount")
+                sharedDefaults.set(currentJunkCount + 1, forKey: "smsJunkCount")
                 sharedDefaults.set(Date(), forKey: "lastSMSFilterDate")
                 sharedDefaults.synchronize()
                 

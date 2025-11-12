@@ -17,7 +17,6 @@ class DataManager {
     private let blockedNumbersKey = "blockedNumbers"
     private let allowedNumbersKey = "allowedNumbers"
     private let filterRulesKey = "filterRules"
-    private let smsFilterCountKey = "smsFilterCount"
     private let smsJunkCountKey = "smsJunkCount"
     private let smsCategorizedCountKey = "smsCategorizedCount"
     private let callBlockCountKey = "callBlockCount"
@@ -169,26 +168,20 @@ class DataManager {
     
     // MARK: - Statistics
     
-    /// SMS filtreleme sayacını artır (MessageFilterExtension tarafından çağrılır - TOPLAM)
-    func incrementSMSFilterCount() {
-        let currentCount = userDefaults.integer(forKey: smsFilterCountKey)
-        userDefaults.set(currentCount + 1, forKey: smsFilterCountKey)
-        userDefaults.set(Date(), forKey: lastSMSFilterDateKey)
-        userDefaults.synchronize()
-    }
-    
     /// Junk'a gönderilen SMS sayacını artır
     func incrementSMSJunkCount() {
         let currentCount = userDefaults.integer(forKey: smsJunkCountKey)
         userDefaults.set(currentCount + 1, forKey: smsJunkCountKey)
-        incrementSMSFilterCount() // Toplam sayaca da ekle
+        userDefaults.set(Date(), forKey: lastSMSFilterDateKey)
+        userDefaults.synchronize()
     }
     
     /// Kategorize edilen SMS sayacını artır
     func incrementSMSCategorizedCount() {
         let currentCount = userDefaults.integer(forKey: smsCategorizedCountKey)
         userDefaults.set(currentCount + 1, forKey: smsCategorizedCountKey)
-        incrementSMSFilterCount() // Toplam sayaca da ekle
+        userDefaults.set(Date(), forKey: lastSMSFilterDateKey)
+        userDefaults.synchronize()
     }
     
     /// Arama engelleme sayacını artır (CallDirectoryExtension tarafından çağrılır)
@@ -201,7 +194,9 @@ class DataManager {
     
     /// Toplam SMS filtreleme sayısı (Junk + Kategorize)
     func getTotalSMSFilterCount() -> Int {
-        return userDefaults.integer(forKey: smsFilterCountKey)
+        let junkCount = userDefaults.integer(forKey: smsJunkCountKey)
+        let categorizedCount = userDefaults.integer(forKey: smsCategorizedCountKey)
+        return junkCount + categorizedCount
     }
     
     /// Junk'a gönderilen SMS sayısı
@@ -243,7 +238,6 @@ class DataManager {
     
     /// İstatistikleri sıfırla (Sadece sayaçları sıfırlar, engellenen numaraları silmez)
     func resetStatistics() {
-        userDefaults.removeObject(forKey: smsFilterCountKey)
         userDefaults.removeObject(forKey: smsJunkCountKey)
         userDefaults.removeObject(forKey: smsCategorizedCountKey)
         userDefaults.removeObject(forKey: callBlockCountKey)
