@@ -73,6 +73,8 @@
 "sms.label" = "SMS";
 "calls.label" = "Calls";
 "blocked.label" = "Blocked";
+"numbers.label" = "Numbers";
+"total.label" = "Total";
 "sms.filtering.title" = "SMS Filtering";
 "blocked.sms" = "Blocked SMS";
 "blocked.sms.subtitle" = "Sent to Junk folder";
@@ -85,6 +87,7 @@
 "last.activity" = "Last: %@";
 "no.activity" = "No activity yet";
 "auto.blocked" = "Automatically blocked by iOS";
+"numbers.in.blocklist" = "Numbers in blocklist";
 "total.in.list" = "Total numbers in list";
 "days.count" = "%d days";
 "since.install" = "Since you installed the app";

@@ -73,6 +73,8 @@
 "sms.label" = "SMS";
 "calls.label" = "Aramalar";
 "blocked.label" = "Engellendi";
+"numbers.label" = "Numara";
+"total.label" = "Toplam";
 "sms.filtering.title" = "SMS Filtreleme";
 "blocked.sms" = "Engellenen SMS";
 "blocked.sms.subtitle" = "İstenmeyen klasörüne gönderildi";
@@ -85,6 +87,7 @@
 "last.activity" = "Son: %@";
 "no.activity" = "Henüz aktivite yok";
 "auto.blocked" = "iOS tarafından otomatik engellendi";
+"numbers.in.blocklist" = "Kara listedeki numara sayısı";
 "total.in.list" = "Listedeki toplam numara";
 "days.count" = "%d gün";
 "since.install" = "Uygulamayı yüklediğinizden beri";

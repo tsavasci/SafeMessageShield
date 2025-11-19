@@ -35,7 +35,7 @@ struct AddNumberView: View {
                             .textContentType(.telephoneNumber)
                         
                         // Buton ViewModel'deki durumu değiştirsin
-                        Button(action: { viewModel.isPickerPresented = true }) {
+                        Button(action: { checkContactsPermission() }) {
                             Image(systemName: "person.crop.circle.badge.plus")
                                 .font(.title2)
                                 .foregroundStyle(.blue)
@@ -138,6 +138,34 @@ struct AddNumberView: View {
     private func reloadCallDirectory() {
         CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
             // Silently handle reload
+        }
+    }
+
+    private func checkContactsPermission() {
+        let status = CNContactStore.authorizationStatus(for: .contacts)
+        switch status {
+        case .notDetermined:
+            CNContactStore().requestAccess(for: .contacts) { granted, error in
+                DispatchQueue.main.async {
+                    if granted {
+                        viewModel.isPickerPresented = true
+                    } else {
+                        alertMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+                        showingAlert = true
+                    }
+                }
+            }
+        case .authorized:
+            viewModel.isPickerPresented = true
+        case .denied, .restricted:
+            alertMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+            showingAlert = true
+        case .limited:
+            // Limited access - picker can still be opened but with restrictions
+            viewModel.isPickerPresented = true
+        @unknown default:
+            alertMessage = "Beklenmeyen bir hata oluştu. Lütfen rehber erişim ayarlarını kontrol edin."
+            showingAlert = true
         }
     }
 }
