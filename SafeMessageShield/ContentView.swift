@@ -13,6 +13,9 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var blockedNumbers: [BlockedNumber]
+    @Query private var allowedNumbersList: [AllowedNumber]
+    @Query private var filterRulesList: [FilterRule]
+    @Query private var numberFilterRulesList: [NumberFilterRule]
     @ObservedObject private var languageManager = LanguageManager.shared
 
     @State private var showingAddNumberSheet = false
@@ -49,7 +52,16 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
+        .onAppear {
+            // Perform a one-time sync from SwiftData -> App Group so extensions can read current data
+            if !didInitialSync {
+                DataManager.shared.syncFromSwiftData(allowed: allowedNumbersList, blocked: blockedNumbers, filterRules: filterRulesList, numberRules: numberFilterRulesList)
+                didInitialSync = true
+            }
+        }
     }
+
+    @State private var didInitialSync = false
 
     private var mainListView: some View {
         NavigationStack {
@@ -156,13 +168,8 @@ struct ContentView: View {
             return
         }
 
-        let blockedNumber = BlockedNumber(
-            phoneNumber: cleanedNumber,
-            addedAt: Date(),
-            reason: NSLocalizedString("added.from.contacts", comment: "")
-        )
-        modelContext.insert(blockedNumber)
-        DataManager.shared.addBlockedNumber(cleanedNumber)
+        // Centralize persistence via DataManager (will insert into SwiftData when modelContext provided)
+        DataManager.shared.addBlockedNumber(cleanedNumber, modelContext: modelContext)
 
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()

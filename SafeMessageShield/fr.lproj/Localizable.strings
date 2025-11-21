@@ -17,9 +17,11 @@
 
 /* Add Number View */
 "phone.number" = "Numéro de téléphone";
+"phone.number.or.sender" = "Nº de téléphone ou expéditeur";
+"invalid.entry" = "Entrée invalide. Veuillez saisir un numéro de téléphone ou un nom d'expéditeur.";
 "reason.optional" = "Raison (facultatif)";
 "number.info" = "Informations sur le numéro";
-"number.info.footer" = "Saisir manuellement ou sélectionner dans les contacts. Exemple: +905551234567";
+"number.info.footer" = "Saisir manuellement ou sélectionner dans les contacts. Exemple: +33551234567";
 "block.number" = "Bloquer le numéro";
 "cancel" = "Annuler";
 "alert" = "Alerte";
@@ -128,6 +130,20 @@
 "filter.category" = "Catégorie";
 "filter.rule.explanation" = "Les messages contenant ce mot-clé seront filtrés dans la catégorie sélectionnée.";
 "invalid.keyword" = "Mot-clé invalide";
+
+/* Number Filter Rules */
+"number.filter.rules" = "Règles de filtrage de numéros";
+"no.number.rules.title" = "Aucune règle de numéro";
+"no.number.rules.message" = "Ajoutez des règles pour filtrer les numéros par leur préfixe, suffixe ou les chiffres qu'ils contiennent.";
+"rule.type.prefix" = "Préfixe";
+"rule.type.suffix" = "Suffixe";
+"rule.type.contains" = "Contient";
+"add.number.rule" = "Ajouter une règle de numéro";
+"rule.type" = "Type de règle";
+"enter.value.numbers.only" = "Valeur (chiffres uniquement)";
+"rule.details" = "Détails de la règle";
+
+/* Message Categories */
 "category.finance" = "Finance";
 "category.orders" = "Commandes";
 "category.reminders" = "Rappels";

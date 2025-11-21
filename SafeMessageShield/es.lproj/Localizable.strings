@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "Número de Teléfono";
+"phone.number.or.sender" = "Nº de teléfono o remitente";
+"invalid.entry" = "Entrada no válida. Por favor, introduzca un número de teléfono o un nombre de remitente.";
 "reason.optional" = "Razón (opcional)";
 "number.info" = "Información del Número";
 "number.info.footer" = "Introduce manualmente o selecciona desde los contactos. Ejemplo: +34600123456";
@@ -128,6 +130,20 @@
 "filter.category" = "Categoría";
 "filter.rule.explanation" = "Los mensajes que contengan esta palabra clave se filtrarán en la categoría seleccionada.";
 "invalid.keyword" = "Palabra clave no válida";
+
+/* Number Filter Rules */
+"number.filter.rules" = "Reglas de filtro de números";
+"no.number.rules.title" = "No hay reglas de números";
+"no.number.rules.message" = "Añada reglas para filtrar números por su prefijo, sufijo o dígitos que contengan.";
+"rule.type.prefix" = "Prefijo";
+"rule.type.suffix" = "Sufijo";
+"rule.type.contains" = "Contiene";
+"add.number.rule" = "Añadir regla de número";
+"rule.type" = "Tipo de regla";
+"enter.value.numbers.only" = "Valor (sólo números)";
+"rule.details" = "Detalles de la regla";
+
+/* Message Categories */
 "category.finance" = "Finanzas";
 "category.orders" = "Pedidos";
 "category.reminders" = "Recordatorios";

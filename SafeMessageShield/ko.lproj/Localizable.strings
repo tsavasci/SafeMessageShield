@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "전화번호";
+"phone.number.or.sender" = "전화번호 또는 발신자 이름";
+"invalid.entry" = "잘못된 입력입니다. 전화번호 또는 발신자 이름을 입력하십시오.";
 "reason.optional" = "이유 (선택 사항)";
 "number.info" = "번호 정보";
 "number.info.footer" = "수동으로 입력하거나 연락처에서 선택하세요. 예: +821012345678";
@@ -129,6 +131,20 @@
 "filter.category" = "카테고리";
 "filter.rule.explanation" = "이 키워드가 포함된 메시지는 선택한 카테고리로 필터링됩니다.";
 "invalid.keyword" = "잘못된 키워드";
+
+/* Number Filter Rules */
+"number.filter.rules" = "번호 필터 규칙";
+"no.number.rules.title" = "번호 규칙 없음";
+"no.number.rules.message" = "접두사, 접미사 또는 포함된 숫자로 번호를 필터링하는 규칙을 추가합니다.";
+"rule.type.prefix" = "접두사";
+"rule.type.suffix" = "접미사";
+"rule.type.contains" = "포함";
+"add.number.rule" = "번호 규칙 추가";
+"rule.type" = "규칙 유형";
+"enter.value.numbers.only" = "값 (숫자만)";
+"rule.details" = "규칙 세부 정보";
+
+/* Message Categories */
 "category.finance" = "금융";
 "category.orders" = "주문";
 "category.reminders" = "알림";

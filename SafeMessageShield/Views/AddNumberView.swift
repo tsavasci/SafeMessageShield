@@ -23,6 +23,7 @@ struct AddNumberView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var showingSuccessAlert = false
+    @State private var blockedValue = ""
     
     var body: some View {
         NavigationStack {
@@ -30,8 +31,8 @@ struct AddNumberView: View {
                 Section {
                     HStack {
                         // TextField'ı ViewModel'e bağla
-                        TextField(NSLocalizedString("phone.number", comment: ""), text: $viewModel.selectedPhoneNumber)
-                            .keyboardType(.phonePad)
+                        TextField(NSLocalizedString("phone.number.or.sender", comment: "Phone number or sender name"), text: $viewModel.selectedPhoneNumber)
+                            .keyboardType(.default)
                             .textContentType(.telephoneNumber)
                         
                         // Buton ViewModel'deki durumu değiştirsin
@@ -46,7 +47,7 @@ struct AddNumberView: View {
                 } header: {
                     Text(NSLocalizedString("number.info", comment: ""))
                 } footer: {
-                    Text(NSLocalizedString("number.info.footer", comment: ""))
+                    Text(NSLocalizedString("number.info.footer.extended", comment: "Numaralar, ülke kodları ve gönderici adlarını (MERKEZPRIME, VODAFONE, vb.) girebilirsiniz."))
                 }
                 
                 Section {
@@ -81,9 +82,7 @@ struct AddNumberView: View {
                     dismiss()
                 }
             } message: {
-                // Temizlenmiş numarayı göster
-                let cleanedNumber = viewModel.selectedPhoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
-                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), cleanedNumber))
+                Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), blockedValue))
             }
             // Picker'ın gösterilmesini ViewModel'deki duruma bağla
             .fullScreenCover(isPresented: $viewModel.isPickerPresented) {
@@ -95,33 +94,43 @@ struct AddNumberView: View {
     }
     
     private func addNumber() {
-        // Numarayı temizle: boşluklar, tire, parantez vb. kaldır, sadece rakamlar ve + kalsın
-        let cleanedNumber = viewModel.selectedPhoneNumber.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        let originalInput = viewModel.selectedPhoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Basit validasyon
-        guard !cleanedNumber.isEmpty else {
+        // Girişin boş olup olmadığını kontrol et
+        guard !originalInput.isEmpty else {
             alertMessage = NSLocalizedString("enter.phone.number", comment: "")
             showingAlert = true
             return
         }
         
-        // Numara zaten engellenmiş mi kontrol et (temizlenmiş numara ile)
-        if DataManager.shared.isNumberBlocked(cleanedNumber) {
+        let valueToBlock: String
+        // Giriş harf içeriyorsa, metin olarak kabul et (örn: VODAFONE)
+        if originalInput.rangeOfCharacter(from: .letters) != nil {
+            valueToBlock = originalInput.uppercased()
+        } else {
+            // Harf içermiyorsa, telefon numarası olarak kabul et ve temizle
+            valueToBlock = originalInput.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+        }
+        
+        // Temizlenmiş veya işlenmiş değerin hala boş olup olmadığını kontrol et
+        // (örn: sadece sembollerden oluşan bir giriş)
+        guard !valueToBlock.isEmpty else {
+            alertMessage = NSLocalizedString("invalid.entry", comment: "Geçersiz giriş. Lütfen bir telefon numarası veya gönderici adı girin.")
+            showingAlert = true
+            return
+        }
+
+        // Değer zaten engellenmiş mi kontrol et
+        if DataManager.shared.isNumberBlocked(valueToBlock) {
             alertMessage = NSLocalizedString("number.already.blocked", comment: "")
             showingAlert = true
             return
         }
         
-        // SwiftData modelini ekle
-        let blockedNumber = BlockedNumber(
-            phoneNumber: cleanedNumber,
-            addedAt: Date(),
-            reason: reason.isEmpty ? nil : reason
-        )
-        modelContext.insert(blockedNumber)
+        self.blockedValue = valueToBlock
         
-        // App Group'a da ekle (Extension'lar için)
-        DataManager.shared.addBlockedNumber(cleanedNumber)
+        // Centralize: add to both SwiftData and UserDefaults via DataManager
+        DataManager.shared.addBlockedNumber(valueToBlock, modelContext: modelContext)
         
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()

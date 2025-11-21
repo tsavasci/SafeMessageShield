@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "رقم الهاتف";
+"phone.number.or.sender" = "رقم الهاتف أو اسم المرسل";
+"invalid.entry" = "إدخال غير صالح. يرجى إدخال رقم هاتف أو اسم المرسل.";
 "reason.optional" = "السبب (اختياري)";
 "number.info" = "معلومات الرقم";
 "number.info.footer" = "أدخل يدويًا أو اختر من جهات الاتصال. مثال: +966501234567";
@@ -128,6 +130,20 @@
 "filter.category" = "الفئة";
 "filter.rule.explanation" = "الرسائل التي تحتوي على هذه الكلمة المفتاحية سيتم تصفيتها إلى الفئة المحددة.";
 "invalid.keyword" = "كلمة مفتاحية غير صالحة";
+
+/* Number Filter Rules */
+"number.filter.rules" = "قواعد تصفية الأرقام";
+"no.number.rules.title" = "لا توجد قواعد أرقام";
+"no.number.rules.message" = "أضف قواعد لتصفية الأرقام حسب البادئة أو اللاحقة أو الأرقام التي تحتوي عليها.";
+"rule.type.prefix" = "بادئة";
+"rule.type.suffix" = "لاحقة";
+"rule.type.contains" = "يحتوي على";
+"add.number.rule" = "إضافة قاعدة رقم";
+"rule.type" = "نوع القاعدة";
+"enter.value.numbers.only" = "القيمة (أرقام فقط)";
+"rule.details" = "تفاصيل القاعدة";
+
+/* Message Categories */
 "category.finance" = "المال";
 "category.orders" = "الطلبات";
 "category.reminders" = "التذكيرات";

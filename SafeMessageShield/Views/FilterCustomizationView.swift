@@ -13,6 +13,7 @@ struct FilterCustomizationView: View {
     @Query private var filterRules: [FilterRule]
     
     @State private var showingAddRule = false
+    @State private var showingNumberRules = false
     
     var body: some View {
         NavigationStack {
@@ -52,9 +53,18 @@ struct FilterCustomizationView: View {
                             .font(.title2)
                     }
                 }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingNumberRules = true }) {
+                        Image(systemName: "text.badge.minus")
+                            .font(.title2)
+                    }
+                }
             }
             .sheet(isPresented: $showingAddRule) {
                 AddFilterRuleView()
+            }
+            .sheet(isPresented: $showingNumberRules) {
+                FilterByNumberView()
             }
         }
     }
@@ -210,15 +220,8 @@ struct AddFilterRuleView: View {
             return
         }
         
-        // SwiftData'ya kaydet
-        let filterRule = FilterRule(
-            keyword: cleanedKeyword,
-            category: selectedCategory.rawValue
-        )
-        modelContext.insert(filterRule)
-        
-        // UserDefaults'a da kaydet (Extension erişimi için)
-        DataManager.shared.addFilterRule(keyword: cleanedKeyword, category: selectedCategory.rawValue)
+        // Centralize: let DataManager handle SwiftData insert + UserDefaults update
+        DataManager.shared.addFilterRule(keyword: cleanedKeyword, category: selectedCategory.rawValue, modelContext: modelContext)
         
         dismiss()
     }

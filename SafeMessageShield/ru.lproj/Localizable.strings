@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "Номер телефона";
+"phone.number.or.sender" = "№ телефона или отправитель";
+"invalid.entry" = "Неверный ввод. Введите номер телефона или имя отправителя.";
 "reason.optional" = "Причина (необязательно)";
 "number.info" = "Информация о номере";
 "number.info.footer" = "Введите вручную или выберите из контактов. Пример: +79161234567";
@@ -129,6 +131,20 @@
 "filter.category" = "Категория";
 "filter.rule.explanation" = "Сообщения, содержащие это ключевое слово, будут отфильтрованы в выбранную категорию.";
 "invalid.keyword" = "Неверное ключевое слово";
+
+/* Number Filter Rules */
+"number.filter.rules" = "Правила фильтрации номеров";
+"no.number.rules.title" = "Нет правил для номеров";
+"no.number.rules.message" = "Добавьте правила для фильтрации номеров по префиксу, суффиксу или содержащимся цифрам.";
+"rule.type.prefix" = "Префикс";
+"rule.type.suffix" = "Суффикс";
+"rule.type.contains" = "Содержит";
+"add.number.rule" = "Добавить правило для номера";
+"rule.type" = "Тип правила";
+"enter.value.numbers.only" = "Значение (только цифры)";
+"rule.details" = "Детали правила";
+
+/* Message Categories */
 "category.finance" = "Финансы";
 "category.orders" = "Заказы";
 "category.reminders" = "Напоминания";

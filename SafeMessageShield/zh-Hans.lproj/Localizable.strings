@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "电话号码";
+"phone.number.or.sender" = "电话号码或发件人姓名";
+"invalid.entry" = "无效条目。请输入电话号码或发件人姓名。";
 "reason.optional" = "原因（可选）";
 "number.info" = "号码信息";
 "number.info.footer" = "手动输入或从通讯录选择。例如：+8613812345678";
@@ -129,6 +131,20 @@
 "filter.category" = "类别";
 "filter.rule.explanation" = "包含此关键词的消息将被过滤到所选类别。";
 "invalid.keyword" = "无效的关键词";
+
+/* Number Filter Rules */
+"number.filter.rules" = "号码过滤规则";
+"no.number.rules.title" = "无号码规则";
+"no.number.rules.message" = "添加规则以根据号码的前缀、后缀或包含的数字进行过滤。";
+"rule.type.prefix" = "前缀";
+"rule.type.suffix" = "后缀";
+"rule.type.contains" = "包含";
+"add.number.rule" = "添加号码规则";
+"rule.type" = "规则类型";
+"enter.value.numbers.only" = "值（仅数字）";
+"rule.details" = "规则详情";
+
+/* Message Categories */
 "category.finance" = "金融";
 "category.orders" = "订单";
 "category.reminders" = "提醒";

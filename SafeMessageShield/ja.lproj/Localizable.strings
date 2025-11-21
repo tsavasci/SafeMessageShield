@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "電話番号";
+"phone.number.or.sender" = "電話番号または送信者名";
+"invalid.entry" = "無効な入力です。電話番号または送信者名を入力してください。";
 "reason.optional" = "理由（任意）";
 "number.info" = "番号情報";
 "number.info.footer" = "手動で入力するか、連絡先から選択します。例：+819012345678";
@@ -129,6 +131,20 @@
 "filter.category" = "カテゴリ";
 "filter.rule.explanation" = "このキーワードを含むメッセージは、選択したカテゴリにフィルタリングされます。";
 "invalid.keyword" = "無効なキーワード";
+
+/* Number Filter Rules */
+"number.filter.rules" = "番号フィルター規則";
+"no.number.rules.title" = "番号ルールがありません";
+"no.number.rules.message" = "プレフィックス、サフィックス、または含まれる数字によって番号をフィルターするルールを追加します。";
+"rule.type.prefix" = "プレフィックス";
+"rule.type.suffix" = "サフィックス";
+"rule.type.contains" = "含む";
+"add.number.rule" = "番号ルールを追加";
+"rule.type" = "ルールタイプ";
+"enter.value.numbers.only" = "値（数字のみ）";
+"rule.details" = "ルールの詳細";
+
+/* Message Categories */
 "category.finance" = "金融";
 "category.orders" = "注文";
 "category.reminders" = "リマインダー";

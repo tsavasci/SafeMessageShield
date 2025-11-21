@@ -110,13 +110,8 @@ struct AllowedNumbersView: View {
             return
         }
         
-        let allowedNumber = AllowedNumber(
-            phoneNumber: cleanedNumber,
-            addedAt: Date(),
-            reason: NSLocalizedString("added.from.contacts", comment: "")
-        )
-        modelContext.insert(allowedNumber)
-        DataManager.shared.addAllowedNumber(cleanedNumber)
+        // Centralize: persist both SwiftData and UserDefaults through DataManager
+        DataManager.shared.addAllowedNumber(cleanedNumber, modelContext: modelContext)
         
         lastAllowedNumber = cleanedNumber
         showingSuccessAlert = true
@@ -300,14 +295,8 @@ struct AddAllowedNumberView: View {
             return
         }
         
-        let allowedNumber = AllowedNumber(
-            phoneNumber: cleanedValue,
-            addedAt: Date(),
-            reason: reason.isEmpty ? nil : reason
-        )
-        
-        modelContext.insert(allowedNumber)
-        DataManager.shared.addAllowedNumber(cleanedValue)
+        // Centralize persistence through DataManager (will insert into SwiftData when modelContext provided)
+        DataManager.shared.addAllowedNumber(cleanedValue, modelContext: modelContext)
         
         dismiss()
     }

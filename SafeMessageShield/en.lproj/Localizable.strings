@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "Phone Number";
+"phone.number.or.sender" = "Phone No or Sender Name";
+"invalid.entry" = "Invalid entry. Please enter a phone number or a sender name.";
 "reason.optional" = "Reason (optional)";
 "number.info" = "Number Information";
 "number.info.footer" = "Enter manually or select from contacts. Example: +905551234567";
@@ -131,6 +133,18 @@
 "filter.category" = "Category";
 "filter.rule.explanation" = "Messages containing this keyword will be filtered to the selected category.";
 "invalid.keyword" = "Invalid keyword";
+
+/* Number Filter Rules */
+"number.filter.rules" = "Number Filter Rules";
+"no.number.rules.title" = "No Number Rules";
+"no.number.rules.message" = "Add rules to filter numbers by their prefix, suffix, or containing digits.";
+"rule.type.prefix" = "Prefix";
+"rule.type.suffix" = "Suffix";
+"rule.type.contains" = "Contains";
+"add.number.rule" = "Add Number Rule";
+"rule.type" = "Rule Type";
+"enter.value.numbers.only" = "Value (numbers only)";
+"rule.details" = "Rule Details";
 
 /* Message Categories */
 "category.finance" = "Finance";

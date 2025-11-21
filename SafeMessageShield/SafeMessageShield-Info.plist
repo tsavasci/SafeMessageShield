@@ -11,5 +11,16 @@
 <dict>
 	<key>NSContactsUsageDescription</key>
 	<string>SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>SafeMessageShield</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>safemessageshield</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -67,7 +67,7 @@ struct SettingsView: View {
                 } header: {
                     Text(NSLocalizedString("filter.customization", comment: ""))
                 }
-            
+
             Section {
                 VStack(alignment: .leading, spacing: 8) {
                     Label(NSLocalizedString("sms.filter.title", comment: ""), systemImage: "message.fill")

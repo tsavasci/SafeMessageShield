@@ -15,71 +15,20 @@ final class MessageFilterExtension: ILMessageFilterExtension {
 
     private func incrementStatistic(key: String) {
         let suiteName = "group.tsavasci.SafeMessageShield"
-
-        // 1) Öncelikle shared UserDefaults'a yazmayı dene
-        if let sharedDefaults = UserDefaults(suiteName: suiteName) {
-            let currentCount = sharedDefaults.integer(forKey: key)
-            let newCount = currentCount + 1
-            sharedDefaults.set(newCount, forKey: key)
-            sharedDefaults.set(Date(), forKey: "lastSMSFilterDate")
-            sharedDefaults.synchronize()  // best-effort
-
-            // Doğrulama: yazma gerçekten gerçekleşti mi?
-            let verify = sharedDefaults.integer(forKey: key)
-            if verify == newCount {
-                logger.info("✅ Updated \(key) via UserDefaults: \(newCount)")
-                return
-            } else {
-                logger.warning(
-                    "⚠️ Shared UserDefaults write didn't persist for key: \(key). Falling back to file."
-                )
-            }
-        } else {
+        // Keep this function extremely fast and non-blocking.
+        // Only try a lightweight UserDefaults write and return.
+        guard let sharedDefaults = UserDefaults(suiteName: suiteName) else {
             logger.error("❌ Could not access shared UserDefaults (suiteName: \(suiteName))")
+            return
         }
 
-        // 2) Fallback: App Group container içinde dosyaya yaz (JSON)
-        if let containerURL = FileManager.default.containerURL(
-            forSecurityApplicationGroupIdentifier: suiteName)
-        {
-            let statsFile = containerURL.appendingPathComponent("SafeMessageShield_stats.json")
-            var stats: [String: Any] = [:]
+        let current = sharedDefaults.integer(forKey: key)
+        let newCount = current + 1
+        // Fast set; avoid `synchronize()` and any file I/O to prevent timeouts.
+        sharedDefaults.set(newCount, forKey: key)
+        sharedDefaults.set(Date(), forKey: "lastSMSFilterDate")
 
-            // Mevcut dosyayı oku ve merge et
-            if let data = try? Data(contentsOf: statsFile),
-                let obj = try? JSONSerialization.jsonObject(with: data, options: [])
-                    as? [String: Any]
-            {
-                stats = obj
-            }
-
-            // Anahtar için mevcut değeri al, artır
-            let current = (stats[key] as? Int) ?? 0
-            let newCount = current + 1
-            stats[key] = newCount
-
-            // Tarihi ISO8601 formatında sakla
-            stats["lastSMSFilterDate"] = ISO8601DateFormatter().string(from: Date())
-
-            // JSON olarak yaz
-            if let newData = try? JSONSerialization.data(
-                withJSONObject: stats, options: [.prettyPrinted])
-            {
-                do {
-                    try newData.write(to: statsFile, options: .atomic)
-                    logger.info("✅ Fallback wrote \(key) to \(statsFile.path) -> \(newCount)")
-                } catch {
-                    logger.error(
-                        "❌ Fallback write failed for \(statsFile.path): \(error.localizedDescription)"
-                    )
-                }
-            } else {
-                logger.error("❌ Could not serialize stats for fallback write")
-            }
-        } else {
-            logger.error(
-                "❌ Could not access app group container for fallback (suiteName: \(suiteName))")
-        }
+        logger.debug("Updated stat \(key)=\(newCount) via shared UserDefaults")
     }
 }
 
@@ -136,6 +85,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         let allowedNumbers = sharedDefaults.array(forKey: "allowedNumbers") as? [String] ?? []
         let blockedNumbers = sharedDefaults.array(forKey: "blockedNumbers") as? [String] ?? []
         let filterRules = sharedDefaults.array(forKey: "filterRules") as? [[String: String]] ?? []
+        let numberFilterRules =
+            sharedDefaults.array(forKey: "numberFilterRules") as? [[String: String]] ?? []
 
         let cleanSender = sender.components(separatedBy: CharacterSet.decimalDigits.inverted)
             .joined()
@@ -145,7 +96,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         let messageBody = queryRequest.messageBody?.lowercased() ?? ""
 
         logger.debug(
-            "📋 Allowed numbers: \(allowedNumbers.count), Blocked numbers: \(blockedNumbers.count), Filter rules: \(filterRules.count)"
+            "📋 Allowed numbers: \(allowedNumbers.count), Blocked numbers: \(blockedNumbers.count), Filter rules: \(filterRules.count), Number filter rules: \(numberFilterRules.count)"
         )
 
         // 1. ÖNCELİK: Whitelist kontrolü - Güvenli numaralardaysa geçir
@@ -154,22 +105,20 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 separatedBy: CharacterSet.decimalDigits.inverted
             ).joined()
 
-            // Eğer sadece harf içeriyorsa (isim), direkt karşılaştır
+            // Eğer sadece harf içeriyorsa (isim), kesin ve case-insensitive karşılaştır
             if cleanAllowed.isEmpty {
-                // Bu bir isim (örn: "ARASKARGO", "MİGROS")
-                if senderUppercase.contains(allowedEntry) || allowedEntry.contains(senderUppercase)
-                {
+                // normalize and compare uppercase strings to avoid partial matches
+                let allowedUpper = allowedEntry.uppercased()
+                if senderUppercase == allowedUpper || senderUppercase.contains(allowedUpper) {
                     logger.info("✅ Allowed by whitelist (name): \(allowedEntry)")
-                    return (.none, .none)  // Mesajı geçir
+                    return (.none, .none)
                 }
             } else {
-                // Bu bir numara, numara karşılaştırması yap
-                if cleanSender == cleanAllowed || cleanSender.hasSuffix(cleanAllowed)
-                    || cleanAllowed.hasSuffix(cleanSender) || cleanSender.contains(cleanAllowed)
-                    || cleanAllowed.contains(cleanSender)
-                {
+                // Bu bir numara: daha sıkı eşleştirme yapıyoruz.
+                // Sadece tam eşleşme veya suffix eşleşmesi (ülke kodu/farklı formatlar için)
+                if cleanSender == cleanAllowed || cleanSender.hasSuffix(cleanAllowed) {
                     logger.info("✅ Allowed by whitelist (number): \(allowedEntry)")
-                    return (.none, .none)  // Mesajı geçir
+                    return (.none, .none)
                 }
             }
         }
@@ -200,13 +149,110 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             }
         }
 
+        // 2.5. Numara filtre kuralları kontrolü
+            // Helper functions to normalize and flexibly match prefixes/suffixes/contains
+            func digitsOnly(_ s: String) -> String {
+                return s.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+            }
+
+            func generateVariantsForSender(_ s: String) -> [String] {
+                var variants: [String] = [s]
+                if s.count > 1 { variants.append(String(s.dropFirst(1))) }
+                if s.count > 2 { variants.append(String(s.dropFirst(2))) }
+                if s.count > 3 { variants.append(String(s.dropFirst(3))) }
+                // unique
+                return Array(Set(variants))
+            }
+
+            func generateVariantsForRule(_ r: String) -> [String] {
+                var variants: [String] = [r]
+                if let first = r.first, first == "0" {
+                    variants.append(String(r.dropFirst(1)))
+                } else {
+                    variants.append("0" + r)
+                }
+                // also try with possible country code prefix attempt (e.g., add '90' or drop leading zeros handled above)
+                if r.count > 0 { variants.append("90" + r) }
+                return Array(Set(variants))
+            }
+
+            func matchesPrefix(ruleValue: String, sender: String) -> Bool {
+                let r = digitsOnly(ruleValue)
+                guard !r.isEmpty else { return false }
+                let sVariants = generateVariantsForSender(sender)
+                let rVariants = generateVariantsForRule(r)
+                for sv in sVariants {
+                    for rv in rVariants {
+                        if sv.hasPrefix(rv) { return true }
+                    }
+                }
+                return false
+            }
+
+            func matchesSuffix(ruleValue: String, sender: String) -> Bool {
+                let r = digitsOnly(ruleValue)
+                guard !r.isEmpty else { return false }
+                let sVariants = generateVariantsForSender(sender)
+                let rVariants = generateVariantsForRule(r)
+                for sv in sVariants {
+                    for rv in rVariants {
+                        if sv.hasSuffix(rv) { return true }
+                    }
+                }
+                return false
+            }
+
+            func matchesContains(ruleValue: String, sender: String) -> Bool {
+                let r = digitsOnly(ruleValue)
+                guard !r.isEmpty else { return false }
+                let sVariants = generateVariantsForSender(sender)
+                let rVariants = generateVariantsForRule(r)
+                for sv in sVariants {
+                    for rv in rVariants {
+                        if sv.contains(rv) { return true }
+                    }
+                }
+                return false
+            }
+
+            for rule in numberFilterRules {
+                if let prefix = rule["prefix"], matchesPrefix(ruleValue: prefix, sender: cleanSender) {
+                    incrementStatistic(key: "smsJunkCount")
+                    logger.info("🚫 Blocked as junk by number rule: prefix=\(prefix)")
+                    // record last junk sender for app UI to allow 'Not Junk' action
+                    sharedDefaults.set(sender, forKey: "lastJunkSender")
+                    return (.junk, .none)
+                }
+                if let suffix = rule["suffix"], matchesSuffix(ruleValue: suffix, sender: cleanSender) {
+                    incrementStatistic(key: "smsJunkCount")
+                    logger.info("🚫 Blocked as junk by number rule: suffix=\(suffix)")
+                    sharedDefaults.set(sender, forKey: "lastJunkSender")
+                    return (.junk, .none)
+                }
+                if let contains = rule["contains"], matchesContains(ruleValue: contains, sender: cleanSender) {
+                    incrementStatistic(key: "smsJunkCount")
+                    logger.info("🚫 Blocked as junk by number rule: contains=\(contains)")
+                    sharedDefaults.set(sender, forKey: "lastJunkSender")
+                    return (.junk, .none)
+                }
+            }
+
         // 3. Blocklist kontrolü - Engellenenlerdeyse spam olarak işaretle
         for blockedNumber in blockedNumbers {
             let cleanBlocked = blockedNumber.components(
                 separatedBy: CharacterSet.decimalDigits.inverted
             ).joined()
 
-            if cleanSender == cleanBlocked || cleanSender.hasSuffix(cleanBlocked)
+            // Eğer cleanBlocked boş ise (metin-tabanlı gönderici adı), case-insensitive tam eşleştirme yap
+            if cleanBlocked.isEmpty {
+                let blockedUpper = blockedNumber.uppercased()
+                if senderUppercase == blockedUpper {
+                    incrementStatistic(key: "smsJunkCount")
+                    logger.info("🚫 Blocked as junk (text sender): \(blockedNumber)")
+                    sharedDefaults.set(sender, forKey: "lastJunkSender")
+                    return (.junk, .none)
+                }
+            } else if cleanSender == cleanBlocked || cleanSender.hasSuffix(cleanBlocked)
                 || cleanBlocked.hasSuffix(cleanSender) || cleanSender.contains(cleanBlocked)
                 || cleanBlocked.contains(cleanSender)
             {
@@ -214,6 +260,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 // Junk sayacını artır
                 incrementStatistic(key: "smsJunkCount")
                 logger.info("🚫 Blocked as junk: number=\(blockedNumber)")
+                sharedDefaults.set(sender, forKey: "lastJunkSender")
 
                 return (.junk, .none)
             }

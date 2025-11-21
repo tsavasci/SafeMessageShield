@@ -17,6 +17,8 @@
 
 /* Add Number View */
 "phone.number" = "फ़ोन नंबर";
+"phone.number.or.sender" = "फ़ोन नंबर या भेजने वाले का नाम";
+"invalid.entry" = "अमान्य प्रविष्टि। कृपया एक फ़ोन नंबर या भेजने वाले का नाम दर्ज करें।";
 "reason.optional" = "कारण (वैकल्पिक)";
 "number.info" = "नंबर की जानकारी";
 "number.info.footer" = "मैन्युअल रूप से दर्ज करें या संपर्कों से चुनें। उदाहरण: +919876543210";
@@ -129,6 +131,20 @@
 "filter.category" = "श्रेणी";
 "filter.rule.explanation" = "इस कीवर्ड वाले संदेशों को चयनित श्रेणी में फ़िल्टर किया जाएगा।";
 "invalid.keyword" = "अमान्य कीवर्ड";
+
+/* Number Filter Rules */
+"number.filter.rules" = "नंबर फ़िल्टर नियम";
+"no.number.rules.title" = "कोई नंबर नियम नहीं";
+"no.number.rules.message" = "उनकी उपसर्ग, प्रत्यय, या содержащие अंकों के आधार पर नंबरों को फ़िल्ter करने के लिए नियम जोड़ें।";
+"rule.type.prefix" = "उपसर्ग";
+"rule.type.suffix" = "प्रत्यय";
+"rule.type.contains" = "शामिल है";
+"add.number.rule" = "नंबर नियम जोड़ें";
+"rule.type" = "नियम का प्रकार";
+"enter.value.numbers.only" = "मान (केवल अंक)";
+"rule.details" = "नियम विवरण";
+
+/* Message Categories */
 "category.finance" = "वित्त";
 "category.orders" = "आदेश";
 "category.reminders" = "अनुस्मारक";

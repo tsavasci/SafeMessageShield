@@ -29,6 +29,8 @@
 "enter.phone.number" = "Lütfen bir telefon numarası girin.";
 "number.already.blocked" = "Bu numara zaten engellenmiş.";
 "added.from.contacts" = "Rehberden Eklendi";
+"phone.number.or.sender" = "Telefon No veya Gönderen Adı";
+"invalid.entry" = "Geçersiz giriş. Lütfen bir telefon numarası veya gönderici adı girin.";
 
 /* Allowed Numbers */
 "allowed.numbers" = "Güvenli Numaralar";
@@ -113,7 +115,7 @@
 
 /* Common */
 "delete" = "Sil";
-"done" = "Tamam";
+"done" = "Bitti";
 "close" = "Kapat";
 "save" = "Kaydet";
 
@@ -131,6 +133,18 @@
 "filter.category" = "Kategori";
 "filter.rule.explanation" = "Bu kelimeyi içeren mesajlar seçilen kategoriye filtrelenecektir.";
 "invalid.keyword" = "Geçersiz anahtar kelime";
+
+/* Number Filter Rules */
+"number.filter.rules" = "Numara Filtre Kuralları";
+"no.number.rules.title" = "Numara Kuralı Yok";
+"no.number.rules.message" = "Numaraları başlangıç, bitiş veya içerdiği rakamlara göre filtrelemek için kurallar ekleyin.";
+"rule.type.prefix" = "İle Başlayan";
+"rule.type.suffix" = "İle Biten";
+"rule.type.contains" = "İçeren";
+"add.number.rule" = "Numara Kuralı Ekle";
+"rule.type" = "Kural Tipi";
+"enter.value.numbers.only" = "Değer (sadece rakam)";
+"rule.details" = "Kural Detayları";
 
 /* Message Categories */
 "category.finance" = "Finans";
