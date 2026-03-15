@@ -12,13 +12,17 @@ import os.log
 final class MessageFilterExtension: ILMessageFilterExtension {
     private let logger = Logger(
         subsystem: "tsavasci.SafeMessageShield.MessageFilter", category: "filtering")
+    private let suiteName = "group.tsavasci.SafeMessageShield"
+    private let allowedNumbersNormalizedKey = "allowedNumbersNormalized"
+    private let allowedSenderNamesNormalizedKey = "allowedSenderNamesNormalized"
+    private let blockedNumbersNormalizedKey = "blockedNumbersNormalized"
+    private let blockedSenderNamesNormalizedKey = "blockedSenderNamesNormalized"
 
     private func incrementStatistic(key: String) {
-        let suiteName = "group.tsavasci.SafeMessageShield"
         // Keep this function extremely fast and non-blocking.
         // Only try a lightweight UserDefaults write and return.
-        guard let sharedDefaults = UserDefaults(suiteName: suiteName) else {
-            logger.error("❌ Could not access shared UserDefaults (suiteName: \(suiteName))")
+        guard let sharedDefaults = UserDefaults(suiteName: self.suiteName) else {
+            logger.error("❌ Could not access shared UserDefaults (suiteName: \(self.suiteName))")
             return
         }
 
@@ -73,7 +77,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
     private func offlineAction(for queryRequest: ILMessageFilterQueryRequest) -> (
         ILMessageFilterAction, ILMessageFilterSubAction
     ) {
-        guard let sharedDefaults = UserDefaults(suiteName: "group.tsavasci.SafeMessageShield"),
+        guard let sharedDefaults = UserDefaults(suiteName: suiteName),
             let sender = queryRequest.sender
         else {
             logger.error("❌ Could not access shared defaults or sender is nil")
@@ -82,60 +86,80 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
 
         logger.debug("🔍 Sender: \(sender)")
 
-        let allowedNumbers = sharedDefaults.array(forKey: "allowedNumbers") as? [String] ?? []
-        let blockedNumbers = sharedDefaults.array(forKey: "blockedNumbers") as? [String] ?? []
+        let allowedNumbersRaw = sharedDefaults.array(forKey: "allowedNumbers") as? [String] ?? []
+        let blockedNumbersRaw = sharedDefaults.array(forKey: "blockedNumbers") as? [String] ?? []
         let filterRules = sharedDefaults.array(forKey: "filterRules") as? [[String: String]] ?? []
         let numberFilterRules =
             sharedDefaults.array(forKey: "numberFilterRules") as? [[String: String]] ?? []
 
-        let cleanSender = sender.components(separatedBy: CharacterSet.decimalDigits.inverted)
-            .joined()
+        let cleanSender = MessageFilterExtension.digitsOnly(sender)
         let senderUppercase = sender.uppercased()
 
         // Mesaj içeriğini al (varsa)
-        let messageBody = queryRequest.messageBody?.lowercased() ?? ""
+        let messageBody = queryRequest.messageBody ?? ""
 
         logger.debug(
-            "📋 Allowed numbers: \(allowedNumbers.count), Blocked numbers: \(blockedNumbers.count), Filter rules: \(filterRules.count), Number filter rules: \(numberFilterRules.count)"
+            "📋 Allowed numbers: \(allowedNumbersRaw.count), Blocked numbers: \(blockedNumbersRaw.count), Filter rules: \(filterRules.count), Number filter rules: \(numberFilterRules.count)"
         )
 
-        // 1. ÖNCELİK: Whitelist kontrolü - Güvenli numaralardaysa geçir
-        for allowedEntry in allowedNumbers {
-            let cleanAllowed = allowedEntry.components(
-                separatedBy: CharacterSet.decimalDigits.inverted
-            ).joined()
+        let allowedNumbersNormalized = sharedDefaults.array(forKey: allowedNumbersNormalizedKey) as? [String] ?? []
+        let allowedSenderNamesNormalized = sharedDefaults.array(forKey: allowedSenderNamesNormalizedKey) as? [String] ?? []
+        let blockedNumbersNormalized = sharedDefaults.array(forKey: blockedNumbersNormalizedKey) as? [String] ?? []
+        let blockedSenderNamesNormalized = sharedDefaults.array(forKey: blockedSenderNamesNormalizedKey) as? [String] ?? []
 
-            // Eğer sadece harf içeriyorsa (isim), kesin ve case-insensitive karşılaştır
-            if cleanAllowed.isEmpty {
-                // normalize and compare uppercase strings to avoid partial matches
-                let allowedUpper = allowedEntry.uppercased()
-                if senderUppercase == allowedUpper || senderUppercase.contains(allowedUpper) {
-                    logger.info("✅ Allowed by whitelist (name): \(allowedEntry)")
-                    return (.none, .none)
-                }
-            } else {
-                // Bu bir numara: daha sıkı eşleştirme yapıyoruz.
-                // Sadece tam eşleşme veya suffix eşleşmesi (ülke kodu/farklı formatlar için)
-                if cleanSender == cleanAllowed || cleanSender.hasSuffix(cleanAllowed) {
-                    logger.info("✅ Allowed by whitelist (number): \(allowedEntry)")
-                    return (.none, .none)
-                }
+        let (allowedNumbers, allowedNames) = MessageFilterExtension.useNormalizedIfAvailable(
+            numbers: allowedNumbersNormalized,
+            names: allowedSenderNamesNormalized,
+            fallback: allowedNumbersRaw
+        )
+        let (blockedNumbers, blockedNames) = MessageFilterExtension.useNormalizedIfAvailable(
+            numbers: blockedNumbersNormalized,
+            names: blockedSenderNamesNormalized,
+            fallback: blockedNumbersRaw
+        )
+
+        let allowedNumbersSet = Set(allowedNumbers)
+        let blockedNumbersSet = Set(blockedNumbers)
+        let allowedNamesSet = Set(allowedNames)
+        let blockedNamesSet = Set(blockedNames)
+
+        // 1. ÖNCELİK: Whitelist kontrolü - Güvenli numaralardaysa geçir
+        if !allowedNamesSet.isEmpty {
+            if allowedNamesSet.contains(senderUppercase) {
+                logger.info("✅ Allowed by whitelist (name exact): \(senderUppercase)")
+                return (.none, .none)
+            }
+            for allowedUpper in allowedNames where senderUppercase.contains(allowedUpper) {
+                logger.info("✅ Allowed by whitelist (name): \(allowedUpper)")
+                return (.none, .none)
             }
         }
 
-        // 2. Filtre Kuralları kontrolü - Mesaj içeriğine göre kategorize et
-        if !messageBody.isEmpty {
-            for rule in filterRules {
-                if let keyword = rule["keyword"],
-                    let category = rule["category"],
-                    messageBody.contains(keyword.lowercased())
+        if !allowedNumbersSet.isEmpty {
+            if allowedNumbersSet.contains(cleanSender) {
+                logger.info("✅ Allowed by whitelist (number exact): \(cleanSender)")
+                return (.none, .none)
+            }
+            for allowedDigits in allowedNumbers where cleanSender.hasSuffix(allowedDigits) {
+                logger.info("✅ Allowed by whitelist (number): \(allowedDigits)")
+                return (.none, .none)
+            }
+        }
+
+        // 2. Filtre Kuralları kontrolü - Gönderen veya mesaj içeriğine göre kategorize et
+        for rule in filterRules {
+            if let keyword = rule["keyword"], let category = rule["category"] {
+                if sender.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+                    || messageBody.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
                 {
                     // Kategoriyi belirle ve mesajı filtrele
                     let subAction = getSubAction(for: category)
 
                     // Kategorize edildi sayacını artır
                     incrementStatistic(key: "smsCategorizedCount")
-                    logger.info("📂 Categorized by rule: keyword=\(keyword), category=\(category)")
+                    logger.info(
+                        "📂 Categorized by rule: keyword=\(keyword) in sender or body, category=\(category)"
+                    )
 
                     // Transactional kategoriler için .transaction kullan
                     if category.hasPrefix("transactional") {
@@ -150,86 +174,21 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         }
 
         // 2.5. Numara filtre kuralları kontrolü
-            // Helper functions to normalize and flexibly match prefixes/suffixes/contains
-            func digitsOnly(_ s: String) -> String {
-                return s.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-            }
-
-            func generateVariantsForSender(_ s: String) -> [String] {
-                var variants: [String] = [s]
-                if s.count > 1 { variants.append(String(s.dropFirst(1))) }
-                if s.count > 2 { variants.append(String(s.dropFirst(2))) }
-                if s.count > 3 { variants.append(String(s.dropFirst(3))) }
-                // unique
-                return Array(Set(variants))
-            }
-
-            func generateVariantsForRule(_ r: String) -> [String] {
-                var variants: [String] = [r]
-                if let first = r.first, first == "0" {
-                    variants.append(String(r.dropFirst(1)))
-                } else {
-                    variants.append("0" + r)
-                }
-                // also try with possible country code prefix attempt (e.g., add '90' or drop leading zeros handled above)
-                if r.count > 0 { variants.append("90" + r) }
-                return Array(Set(variants))
-            }
-
-            func matchesPrefix(ruleValue: String, sender: String) -> Bool {
-                let r = digitsOnly(ruleValue)
-                guard !r.isEmpty else { return false }
-                let sVariants = generateVariantsForSender(sender)
-                let rVariants = generateVariantsForRule(r)
-                for sv in sVariants {
-                    for rv in rVariants {
-                        if sv.hasPrefix(rv) { return true }
-                    }
-                }
-                return false
-            }
-
-            func matchesSuffix(ruleValue: String, sender: String) -> Bool {
-                let r = digitsOnly(ruleValue)
-                guard !r.isEmpty else { return false }
-                let sVariants = generateVariantsForSender(sender)
-                let rVariants = generateVariantsForRule(r)
-                for sv in sVariants {
-                    for rv in rVariants {
-                        if sv.hasSuffix(rv) { return true }
-                    }
-                }
-                return false
-            }
-
-            func matchesContains(ruleValue: String, sender: String) -> Bool {
-                let r = digitsOnly(ruleValue)
-                guard !r.isEmpty else { return false }
-                let sVariants = generateVariantsForSender(sender)
-                let rVariants = generateVariantsForRule(r)
-                for sv in sVariants {
-                    for rv in rVariants {
-                        if sv.contains(rv) { return true }
-                    }
-                }
-                return false
-            }
-
             for rule in numberFilterRules {
-                if let prefix = rule["prefix"], matchesPrefix(ruleValue: prefix, sender: cleanSender) {
+                if let prefix = rule["prefix"], MessageFilterExtension.matchesPrefix(ruleValue: prefix, sender: cleanSender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: prefix=\(prefix)")
                     // record last junk sender for app UI to allow 'Not Junk' action
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let suffix = rule["suffix"], matchesSuffix(ruleValue: suffix, sender: cleanSender) {
+                if let suffix = rule["suffix"], MessageFilterExtension.matchesSuffix(ruleValue: suffix, sender: cleanSender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: suffix=\(suffix)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let contains = rule["contains"], matchesContains(ruleValue: contains, sender: cleanSender) {
+                if let contains = rule["contains"], MessageFilterExtension.matchesContains(ruleValue: contains, sender: cleanSender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: contains=\(contains)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
@@ -238,30 +197,33 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             }
 
         // 3. Blocklist kontrolü - Engellenenlerdeyse spam olarak işaretle
-        for blockedNumber in blockedNumbers {
-            let cleanBlocked = blockedNumber.components(
-                separatedBy: CharacterSet.decimalDigits.inverted
-            ).joined()
+        if !blockedNamesSet.isEmpty {
+            if blockedNamesSet.contains(senderUppercase) {
+                incrementStatistic(key: "smsJunkCount")
+                logger.info("🚫 Blocked as junk (text sender exact): \(senderUppercase)")
+                sharedDefaults.set(sender, forKey: "lastJunkSender")
+                return (.junk, .none)
+            }
+        }
 
-            // Eğer cleanBlocked boş ise (metin-tabanlı gönderici adı), case-insensitive tam eşleştirme yap
-            if cleanBlocked.isEmpty {
-                let blockedUpper = blockedNumber.uppercased()
-                if senderUppercase == blockedUpper {
-                    incrementStatistic(key: "smsJunkCount")
-                    logger.info("🚫 Blocked as junk (text sender): \(blockedNumber)")
-                    sharedDefaults.set(sender, forKey: "lastJunkSender")
-                    return (.junk, .none)
-                }
-            } else if cleanSender == cleanBlocked || cleanSender.hasSuffix(cleanBlocked)
-                || cleanBlocked.hasSuffix(cleanSender) || cleanSender.contains(cleanBlocked)
-                || cleanBlocked.contains(cleanSender)
+        for blockedName in blockedNames where senderUppercase.contains(blockedName) {
+            incrementStatistic(key: "smsJunkCount")
+            logger.info("🚫 Blocked as junk (text sender): \(blockedName)")
+            sharedDefaults.set(sender, forKey: "lastJunkSender")
+            return (.junk, .none)
+        }
+
+        for blockedDigits in blockedNumbers {
+            if blockedNumbersSet.contains(cleanSender)
+                || cleanSender.hasSuffix(blockedDigits)
+                || blockedDigits.hasSuffix(cleanSender)
+                || cleanSender.contains(blockedDigits)
+                || blockedDigits.contains(cleanSender)
             {
-
                 // Junk sayacını artır
                 incrementStatistic(key: "smsJunkCount")
-                logger.info("🚫 Blocked as junk: number=\(blockedNumber)")
+                logger.info("🚫 Blocked as junk: number=\(blockedDigits)")
                 sharedDefaults.set(sender, forKey: "lastJunkSender")
-
                 return (.junk, .none)
             }
         }
@@ -308,5 +270,89 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         ILMessageFilterAction, ILMessageFilterSubAction
     ) {
         return (.none, .none)
+    }
+
+    private static func digitsOnly(_ s: String) -> String {
+        return s.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+    }
+
+    private static func splitNumbersAndNames(_ values: [String]) -> (numbers: [String], names: [String]) {
+        var numbers: [String] = []
+        var names: [String] = []
+        for value in values {
+            if value.rangeOfCharacter(from: .letters) != nil {
+                let cleaned = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+                if !cleaned.isEmpty { names.append(cleaned) }
+            } else {
+                let cleaned = digitsOnly(value)
+                if !cleaned.isEmpty { numbers.append(cleaned) }
+            }
+        }
+        return (numbers, names)
+    }
+
+    private static func useNormalizedIfAvailable(numbers: [String], names: [String], fallback: [String]) -> (numbers: [String], names: [String]) {
+        if !numbers.isEmpty || !names.isEmpty {
+            return (numbers, names)
+        }
+        return splitNumbersAndNames(fallback)
+    }
+
+    private static func generateVariantsForSender(_ s: String) -> [String] {
+        var variants: [String] = [s]
+        if s.count > 1 { variants.append(String(s.dropFirst(1))) }
+        if s.count > 2 { variants.append(String(s.dropFirst(2))) }
+        if s.count > 3 { variants.append(String(s.dropFirst(3))) }
+        return Array(Set(variants))
+    }
+
+    private static func generateVariantsForRule(_ r: String) -> [String] {
+        var variants: [String] = [r]
+        if let first = r.first, first == "0" {
+            variants.append(String(r.dropFirst(1)))
+        } else {
+            variants.append("0" + r)
+        }
+        if r.count > 0 { variants.append("90" + r) }
+        return Array(Set(variants))
+    }
+
+    private static func matchesPrefix(ruleValue: String, sender: String) -> Bool {
+        let r = digitsOnly(ruleValue)
+        guard !r.isEmpty else { return false }
+        let sVariants = generateVariantsForSender(sender)
+        let rVariants = generateVariantsForRule(r)
+        for sv in sVariants {
+            for rv in rVariants {
+                if sv.hasPrefix(rv) { return true }
+            }
+        }
+        return false
+    }
+
+    private static func matchesSuffix(ruleValue: String, sender: String) -> Bool {
+        let r = digitsOnly(ruleValue)
+        guard !r.isEmpty else { return false }
+        let sVariants = generateVariantsForSender(sender)
+        let rVariants = generateVariantsForRule(r)
+        for sv in sVariants {
+            for rv in rVariants {
+                if sv.hasSuffix(rv) { return true }
+            }
+        }
+        return false
+    }
+
+    private static func matchesContains(ruleValue: String, sender: String) -> Bool {
+        let r = digitsOnly(ruleValue)
+        guard !r.isEmpty else { return false }
+        let sVariants = generateVariantsForSender(sender)
+        let rVariants = generateVariantsForRule(r)
+        for sv in sVariants {
+            for rv in rVariants {
+                if sv.contains(rv) { return true }
+            }
+        }
+        return false
     }
 }
