@@ -19,18 +19,18 @@ struct SyncDataView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("Sync Status")) {
-                    Text("Allowed: \(allowedModels.count)")
-                    Text("Blocked: \(blockedModels.count)")
-                    Text("Filter rules: \(ruleModels.count)")
-                    Text("Number filter rules: \(numberRuleModels.count)")
+                Section(header: Text(NSLocalizedString("sync.status", comment: ""))) {
+                    Text(String(format: NSLocalizedString("sync.allowed.count", comment: ""), allowedModels.count))
+                    Text(String(format: NSLocalizedString("sync.blocked.count", comment: ""), blockedModels.count))
+                    Text(String(format: NSLocalizedString("sync.filter.rules.count", comment: ""), ruleModels.count))
+                    Text(String(format: NSLocalizedString("sync.number.filter.rules.count", comment: ""), numberRuleModels.count))
                 }
 
                 Section {
                     Button(action: doSync) {
                         HStack {
                             Spacer()
-                            Text("Sync to App Group")
+                            Text(NSLocalizedString("sync.to.app.group", comment: ""))
                             Spacer()
                         }
                     }
@@ -42,10 +42,10 @@ struct SyncDataView: View {
                     }
                 }
             }
-            .navigationTitle("Sync Data")
+            .navigationTitle(NSLocalizedString("sync.data.title", comment: ""))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { dismiss() }
+                    Button(NSLocalizedString("close", comment: "")) { dismiss() }
                 }
             }
         }
@@ -53,7 +53,7 @@ struct SyncDataView: View {
 
     private func doSync() {
         DataManager.shared.syncFromSwiftData(allowed: allowedModels, blocked: blockedModels, filterRules: ruleModels, numberRules: numberRuleModels)
-        message = "Synced to App Group UserDefaults. Extensions can now read the data."
+        message = NSLocalizedString("sync.completed.message", comment: "")
 
         // small delay and dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {

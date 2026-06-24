@@ -5,7 +5,7 @@
 "tab.settings" = "Settings";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "Add Number";
 "blocked.count" = "%d numbers blocked";
 "no.blocked.title" = "No Blocked Numbers Yet";
@@ -200,3 +200,20 @@
 "category.promotion_others" = "Other Promotions";
 "category.group.transactional" = "Transactions";
 "category.group.promotional" = "Promotions";
+
+/* Reported Junk */
+"reported.junk" = "Reported Junk";
+"no.recent.junk" = "No recent junk sender";
+"last.filtered.sender" = "Last filtered sender";
+"mark.notjunk" = "Mark as Not Junk";
+"marked.notjunk.message" = "%@ marked as safe.";
+
+/* Sync Data */
+"sync.status" = "Sync Status";
+"sync.allowed.count" = "Allowed: %d";
+"sync.blocked.count" = "Blocked: %d";
+"sync.filter.rules.count" = "Filter rules: %d";
+"sync.number.filter.rules.count" = "Number filter rules: %d";
+"sync.to.app.group" = "Sync to App Group";
+"sync.data.title" = "Sync Data";
+"sync.completed.message" = "Synced to App Group UserDefaults. Extensions can now read the data.";

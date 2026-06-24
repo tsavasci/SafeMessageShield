@@ -5,7 +5,7 @@
 "tab.settings" = "Настройки";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "Добавить номер";
 "blocked.count" = "Заблокировано %d номеров";
 "no.blocked.title" = "Пока нет заблокированных номеров";
@@ -198,3 +198,25 @@
 "management.contacts.empty.title" = "Контакты не найдены";
 "management.contacts.empty.message" = "Контакты с номерами телефонов появятся здесь.";
 "unknown.sender" = "Неизвестно";
+
+/* Reported Junk */
+"reported.junk" = "Сообщенный спам";
+"no.recent.junk" = "Нет недавнего спам-отправителя";
+"last.filtered.sender" = "Последний отфильтрованный отправитель";
+"mark.notjunk" = "Пометить как не спам";
+"marked.notjunk.message" = "%@ помечен как безопасный.";
+
+/* Legacy Stats */
+"numbers.label" = "Номера";
+"total.label" = "Всего";
+"numbers.in.blocklist" = "Номера в списке блокировки";
+
+/* Sync Data */
+"sync.status" = "Статус синхронизации";
+"sync.allowed.count" = "Разрешено: %d";
+"sync.blocked.count" = "Заблокировано: %d";
+"sync.filter.rules.count" = "Правила фильтра: %d";
+"sync.number.filter.rules.count" = "Правила номеров: %d";
+"sync.to.app.group" = "Синхронизировать с App Group";
+"sync.data.title" = "Синхронизация данных";
+"sync.completed.message" = "Синхронизировано с UserDefaults App Group. Расширения теперь могут читать данные.";

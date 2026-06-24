@@ -5,7 +5,7 @@
 "tab.settings" = "الإعدادات";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "إضافة رقم";
 "blocked.count" = "تم حظر %d رقم";
 "no.blocked.title" = "لا توجد أرقام محظورة بعد";
@@ -197,3 +197,25 @@
 "management.contacts.empty.title" = "لم يتم العثور على جهات اتصال";
 "management.contacts.empty.message" = "ستظهر هنا جهات الاتصال التي تحتوي على أرقام هاتف.";
 "unknown.sender" = "غير معروف";
+
+/* Reported Junk */
+"reported.junk" = "رسائل مزعجة مُبلغ عنها";
+"no.recent.junk" = "لا يوجد مرسل مزعج حديث";
+"last.filtered.sender" = "آخر مرسل تمت فلترته";
+"mark.notjunk" = "تحديد كغير مزعج";
+"marked.notjunk.message" = "تم تحديد %@ كآمن.";
+
+/* Legacy Stats */
+"numbers.label" = "الأرقام";
+"total.label" = "الإجمالي";
+"numbers.in.blocklist" = "الأرقام في قائمة الحظر";
+
+/* Sync Data */
+"sync.status" = "حالة المزامنة";
+"sync.allowed.count" = "المسموح: %d";
+"sync.blocked.count" = "المحظور: %d";
+"sync.filter.rules.count" = "قواعد الفلترة: %d";
+"sync.number.filter.rules.count" = "قواعد فلترة الأرقام: %d";
+"sync.to.app.group" = "مزامنة مع App Group";
+"sync.data.title" = "مزامنة البيانات";
+"sync.completed.message" = "تمت المزامنة مع UserDefaults في App Group. يمكن للإضافات الآن قراءة البيانات.";

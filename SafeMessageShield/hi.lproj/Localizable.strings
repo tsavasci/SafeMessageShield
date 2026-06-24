@@ -5,7 +5,7 @@
 "tab.settings" = "सेटिंग्स";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "नंबर जोड़ें";
 "blocked.count" = "%d नंबर ब्लॉक किए गए";
 "no.blocked.title" = "अभी तक कोई नंबर ब्लॉक नहीं किया गया है";
@@ -198,3 +198,25 @@
 "management.contacts.empty.title" = "कोई संपर्क नहीं मिला";
 "management.contacts.empty.message" = "फ़ोन नंबर वाले संपर्क यहां दिखेंगे।";
 "unknown.sender" = "अज्ञात";
+
+/* Reported Junk */
+"reported.junk" = "रिपोर्ट किया गया जंक";
+"no.recent.junk" = "कोई हालिया जंक भेजने वाला नहीं";
+"last.filtered.sender" = "आखिरी फ़िल्टर किया गया भेजने वाला";
+"mark.notjunk" = "जंक नहीं के रूप में चिह्नित करें";
+"marked.notjunk.message" = "%@ को सुरक्षित चिह्नित किया गया.";
+
+/* Legacy Stats */
+"numbers.label" = "नंबर";
+"total.label" = "कुल";
+"numbers.in.blocklist" = "ब्लॉकलिस्ट में नंबर";
+
+/* Sync Data */
+"sync.status" = "सिंक स्थिति";
+"sync.allowed.count" = "अनुमत: %d";
+"sync.blocked.count" = "ब्लॉक किए गए: %d";
+"sync.filter.rules.count" = "फ़िल्टर नियम: %d";
+"sync.number.filter.rules.count" = "नंबर फ़िल्टर नियम: %d";
+"sync.to.app.group" = "App Group में सिंक करें";
+"sync.data.title" = "डेटा सिंक करें";
+"sync.completed.message" = "App Group UserDefaults में सिंक हो गया। एक्सटेंशन अब डेटा पढ़ सकते हैं।";

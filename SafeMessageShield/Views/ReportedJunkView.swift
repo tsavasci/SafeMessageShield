@@ -61,7 +61,11 @@ struct ReportedJunkView: View {
             }
             .onAppear(perform: loadLastSender)
             .alert(isPresented: $showingAlert) {
-                Alert(title: Text(NSLocalizedString("done", comment: "Done")), message: Text(message ?? ""), dismissButton: .default(Text("OK")))
+                Alert(
+                    title: Text(NSLocalizedString("done", comment: "Done")),
+                    message: Text(message ?? ""),
+                    dismissButton: .default(Text(NSLocalizedString("ok", comment: "OK")))
+                )
             }
         }
     }

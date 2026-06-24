@@ -62,9 +62,9 @@ struct SettingsView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("SafeMessageShield")
+                    Text(NSLocalizedString("app.title", comment: ""))
                         .font(.headline.weight(.semibold))
-                    Text(NSLocalizedString("app.version", comment: "") + " 1.0.0")
+                    Text(appVersionText)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -96,6 +96,18 @@ struct SettingsView: View {
                 )
             }
         }
+    }
+
+    private var appVersionText: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        let resolvedVersion = version ?? build ?? "-"
+
+        if let build, build != resolvedVersion {
+            return "\(NSLocalizedString("app.version", comment: "")) \(resolvedVersion) (\(build))"
+        }
+
+        return "\(NSLocalizedString("app.version", comment: "")) \(resolvedVersion)"
     }
 
     private func setupCard(title: String, message: String, systemImage: String, color: Color) -> some View {

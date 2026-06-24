@@ -5,7 +5,7 @@
 "tab.settings" = "設定";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "番号を追加";
 "blocked.count" = "%d 件の番号をブロック中";
 "no.blocked.title" = "ブロック中の番号はありません";
@@ -198,3 +198,25 @@
 "management.contacts.empty.title" = "連絡先が見つかりません";
 "management.contacts.empty.message" = "電話番号のある連絡先がここに表示されます。";
 "unknown.sender" = "不明";
+
+/* Reported Junk */
+"reported.junk" = "報告された迷惑";
+"no.recent.junk" = "最近の迷惑送信者はありません";
+"last.filtered.sender" = "最後にフィルタされた送信者";
+"mark.notjunk" = "迷惑ではないとしてマーク";
+"marked.notjunk.message" = "%@ を安全としてマークしました。";
+
+/* Legacy Stats */
+"numbers.label" = "番号";
+"total.label" = "合計";
+"numbers.in.blocklist" = "ブロックリスト内の番号";
+
+/* Sync Data */
+"sync.status" = "同期ステータス";
+"sync.allowed.count" = "許可: %d";
+"sync.blocked.count" = "ブロック: %d";
+"sync.filter.rules.count" = "フィルタールール: %d";
+"sync.number.filter.rules.count" = "番号フィルタールール: %d";
+"sync.to.app.group" = "App Groupに同期";
+"sync.data.title" = "データを同期";
+"sync.completed.message" = "App Group UserDefaultsに同期しました。拡張機能はデータを読み取れるようになりました。";

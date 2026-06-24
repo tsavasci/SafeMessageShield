@@ -5,7 +5,7 @@
 "tab.settings" = "Ayarlar";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "Numara Ekle";
 "blocked.count" = "%d numara engellendi";
 "no.blocked.title" = "Henüz Engellenmiş Numara Yok";
@@ -200,3 +200,20 @@
 "category.promotion_others" = "Diğer Promosyonlar";
 "category.group.transactional" = "Tüm İşlemler";
 "category.group.promotional" = "Tüm Promosyonlar";
+
+/* Reported Junk */
+"reported.junk" = "Bildirilen Junk";
+"no.recent.junk" = "Son junk gönderen yok";
+"last.filtered.sender" = "Son filtrelenen gönderen";
+"mark.notjunk" = "Junk Değil Olarak İşaretle";
+"marked.notjunk.message" = "%@ güvenli olarak işaretlendi.";
+
+/* Sync Data */
+"sync.status" = "Sync Durumu";
+"sync.allowed.count" = "Güvenli: %d";
+"sync.blocked.count" = "Engellenen: %d";
+"sync.filter.rules.count" = "Filtre kuralları: %d";
+"sync.number.filter.rules.count" = "Numara filtre kuralları: %d";
+"sync.to.app.group" = "App Group'a Senkronize Et";
+"sync.data.title" = "Veriyi Senkronize Et";
+"sync.completed.message" = "App Group UserDefaults'a senkronize edildi. Extension'lar artık veriyi okuyabilir.";

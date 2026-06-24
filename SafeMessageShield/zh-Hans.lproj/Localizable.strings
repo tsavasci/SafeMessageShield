@@ -5,7 +5,7 @@
 "tab.settings" = "设置";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "添加号码";
 "blocked.count" = "已拦截 %d 个号码";
 "no.blocked.title" = "暂无拦截号码";
@@ -198,3 +198,25 @@
 "management.contacts.empty.title" = "未找到联系人";
 "management.contacts.empty.message" = "包含电话号码的联系人会显示在这里。";
 "unknown.sender" = "未知";
+
+/* Reported Junk */
+"reported.junk" = "已报告垃圾";
+"no.recent.junk" = "没有最近的垃圾发送者";
+"last.filtered.sender" = "最近过滤的发送者";
+"mark.notjunk" = "标记为非垃圾";
+"marked.notjunk.message" = "%@ 已标记为安全。";
+
+/* Legacy Stats */
+"numbers.label" = "号码";
+"total.label" = "总计";
+"numbers.in.blocklist" = "阻止列表中的号码";
+
+/* Sync Data */
+"sync.status" = "同步状态";
+"sync.allowed.count" = "允许: %d";
+"sync.blocked.count" = "已阻止: %d";
+"sync.filter.rules.count" = "过滤规则: %d";
+"sync.number.filter.rules.count" = "号码过滤规则: %d";
+"sync.to.app.group" = "同步到 App Group";
+"sync.data.title" = "同步数据";
+"sync.completed.message" = "已同步到 App Group UserDefaults。扩展现在可以读取数据。";

@@ -5,7 +5,7 @@
 "tab.settings" = "Ajustes";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "Añadir Número";
 "blocked.count" = "%d números bloqueados";
 "no.blocked.title" = "Aún no hay números bloqueados";
@@ -197,3 +197,25 @@
 "management.contacts.empty.title" = "No se encontraron contactos";
 "management.contacts.empty.message" = "Los contactos con números de teléfono aparecerán aquí.";
 "unknown.sender" = "Desconocido";
+
+/* Reported Junk */
+"reported.junk" = "No deseado reportado";
+"no.recent.junk" = "No hay remitente no deseado reciente";
+"last.filtered.sender" = "Último remitente filtrado";
+"mark.notjunk" = "Marcar como no deseado";
+"marked.notjunk.message" = "%@ marcado como seguro.";
+
+/* Legacy Stats */
+"numbers.label" = "Números";
+"total.label" = "Total";
+"numbers.in.blocklist" = "Números en la lista de bloqueo";
+
+/* Sync Data */
+"sync.status" = "Estado de sincronización";
+"sync.allowed.count" = "Permitidos: %d";
+"sync.blocked.count" = "Bloqueados: %d";
+"sync.filter.rules.count" = "Reglas de filtro: %d";
+"sync.number.filter.rules.count" = "Reglas de número: %d";
+"sync.to.app.group" = "Sincronizar con App Group";
+"sync.data.title" = "Sincronizar datos";
+"sync.completed.message" = "Sincronizado con UserDefaults de App Group. Las extensiones ya pueden leer los datos.";

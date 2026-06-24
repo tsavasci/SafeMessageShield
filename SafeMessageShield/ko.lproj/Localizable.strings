@@ -5,7 +5,7 @@
 "tab.settings" = "설정";
 
 /* Main Screen */
-"app.title" = "SafeMessageShield";
+"app.title" = "SMS Shield";
 "add.number" = "번호 추가";
 "blocked.count" = "%d개의 번호 차단됨";
 "no.blocked.title" = "아직 차단된 번호 없음";
@@ -198,3 +198,25 @@
 "management.contacts.empty.title" = "연락처를 찾을 수 없음";
 "management.contacts.empty.message" = "전화번호가 있는 연락처가 여기에 표시됩니다.";
 "unknown.sender" = "알 수 없음";
+
+/* Reported Junk */
+"reported.junk" = "보고된 정크";
+"no.recent.junk" = "최근 정크 발신자가 없습니다";
+"last.filtered.sender" = "마지막으로 필터링된 발신자";
+"mark.notjunk" = "정크 아님으로 표시";
+"marked.notjunk.message" = "%@을(를) 안전함으로 표시했습니다.";
+
+/* Legacy Stats */
+"numbers.label" = "번호";
+"total.label" = "합계";
+"numbers.in.blocklist" = "차단 목록의 번호";
+
+/* Sync Data */
+"sync.status" = "동기화 상태";
+"sync.allowed.count" = "허용됨: %d";
+"sync.blocked.count" = "차단됨: %d";
+"sync.filter.rules.count" = "필터 규칙: %d";
+"sync.number.filter.rules.count" = "번호 필터 규칙: %d";
+"sync.to.app.group" = "App Group에 동기화";
+"sync.data.title" = "데이터 동기화";
+"sync.completed.message" = "App Group UserDefaults에 동기화되었습니다. 확장 프로그램이 이제 데이터를 읽을 수 있습니다.";
