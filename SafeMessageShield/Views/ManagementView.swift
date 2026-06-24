@@ -522,7 +522,7 @@ private struct ContactNumberSelectionView: View {
                 }
             }
             .task {
-                loadContacts()
+                await loadContacts()
             }
         }
     }
@@ -536,7 +536,20 @@ private struct ContactNumberSelectionView: View {
         }
     }
 
-    private func loadContacts() {
+    private func loadContacts() async {
+        let unknownSender = NSLocalizedString("unknown.sender", comment: "")
+        do {
+            let results = try await Task.detached(priority: .userInitiated) {
+                try Self.fetchContactNumbers(unknownSender: unknownSender)
+            }.value
+            contacts = results
+            errorMessage = nil
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    nonisolated private static func fetchContactNumbers(unknownSender: String) throws -> [ContactNumberOption] {
         var results: [ContactNumberOption] = []
         let store = CNContactStore()
         let keys: [CNKeyDescriptor] = [
@@ -548,23 +561,19 @@ private struct ContactNumberSelectionView: View {
         let request = CNContactFetchRequest(keysToFetch: keys)
         request.sortOrder = .userDefault
 
-        do {
-            try store.enumerateContacts(with: request) { contact, _ in
-                let name = displayName(for: contact)
-                for phone in contact.phoneNumbers {
-                    let phoneNumber = phone.value.stringValue
-                    guard !phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
-                    results.append(ContactNumberOption(displayName: name, phoneNumber: phoneNumber))
-                }
+        try store.enumerateContacts(with: request) { contact, _ in
+            let name = displayName(for: contact, unknownSender: unknownSender)
+            for phone in contact.phoneNumbers {
+                let phoneNumber = phone.value.stringValue
+                guard !phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { continue }
+                results.append(ContactNumberOption(displayName: name, phoneNumber: phoneNumber))
             }
-            contacts = results
-            errorMessage = nil
-        } catch {
-            errorMessage = error.localizedDescription
         }
+
+        return results
     }
 
-    private func displayName(for contact: CNContact) -> String {
+    nonisolated private static func displayName(for contact: CNContact, unknownSender: String) -> String {
         let fullName = [contact.givenName, contact.familyName]
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
@@ -573,11 +582,11 @@ private struct ContactNumberSelectionView: View {
         if !fullName.isEmpty { return fullName }
 
         let organization = contact.organizationName.trimmingCharacters(in: .whitespacesAndNewlines)
-        return organization.isEmpty ? NSLocalizedString("unknown.sender", comment: "") : organization
+        return organization.isEmpty ? unknownSender : organization
     }
 }
 
-private struct ContactNumberOption: Identifiable {
+private struct ContactNumberOption: Identifiable, Sendable {
     let id = UUID()
     let displayName: String
     let phoneNumber: String
