@@ -100,6 +100,45 @@
 "reset.statistics.message" = "Bu işlem tüm sayaçları sıfırlayacaktır. Engellenen numaralar etkilenmeyecektir.";
 "reset" = "Sıfırla";
 
+/* Dashboard */
+"dashboard.subtitle" = "Koruma merkezi";
+"dashboard.blocked.metric" = "Engellenen";
+"dashboard.allowed.metric" = "Güvenli";
+"dashboard.junk.metric" = "Junk SMS";
+"dashboard.rules.metric" = "Kurallar";
+"dashboard.quick.actions" = "Hızlı işlemler";
+"dashboard.last.junk" = "Son junk";
+"dashboard.filter.activity" = "Filtre aktivitesi";
+"dashboard.last.junk.sender" = "Son junk gönderen: %@";
+"dashboard.last.filter.activity" = "Son filtre aktivitesi: %@";
+"dashboard.categorized.messages" = "%d kategorize mesaj";
+"dashboard.no.filter.activity" = "Henüz filtre aktivitesi yok";
+"dashboard.setup.user.confirmed" = "Extension kurulumu sizin tarafınızdan tamamlandı işaretlendi";
+"dashboard.setup.title" = "Kurulum kontrol listesi";
+"dashboard.setup.progress" = "%d/3 hazır";
+"dashboard.setup.ios.settings" = "iOS extension'ları etkin";
+"dashboard.setup.ios.settings.subtitle" = "SMS filtreleme ve arama engellemeyi iOS Ayarları'ndan açın, sonra kurulumu tamamlandı olarak işaretleyin.";
+"dashboard.setup.data.synced" = "Filtre verisi senkronize";
+"dashboard.setup.no.sync" = "Liste veya kural değişikliğinden sonra extension verisini yenilemek için uygulamayı bir kez açın.";
+"dashboard.setup.last.sync" = "Son sync: %@";
+"dashboard.setup.filter.activity" = "Filtre aktivitesi algılandı";
+"dashboard.setup.waiting.activity" = "Henüz SMS filtrelenmedi; extension bir mesaj işlediğinde güncellenir.";
+
+/* Management */
+"management.title" = "Yönet";
+"management.subtitle" = "Engellenenleri, güvenli gönderenleri ve filtre kurallarını tek yerden düzenleyin.";
+"management.segment.blocked" = "Engel";
+"management.segment.allowed" = "Güven";
+"management.segment.keywords" = "Kelime";
+"management.segment.numbers" = "Num";
+"management.blocked.title" = "Engellenen gönderenler";
+"management.allowed.title" = "Güvenli gönderenler";
+"management.keywords.title" = "Kelime kuralları";
+"management.number.rules.title" = "Numara kuralları";
+"management.contacts.empty.title" = "Kişi bulunamadı";
+"management.contacts.empty.message" = "Telefon numarası olan kişiler burada görünür.";
+"unknown.sender" = "Bilinmeyen";
+
 /* Settings View */
 "settings.title" = "Ayarlar";
 "language" = "Dil";

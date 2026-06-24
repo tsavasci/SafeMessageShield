@@ -118,8 +118,11 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             fallback: blockedNumbersRaw
         )
 
-        let allowedNumbersSet = Set(allowedNumbers)
-        let blockedNumbersSet = Set(blockedNumbers)
+        let normalizedAllowedNumbers = allowedNumbers.map { MessageFilterExtension.digitsOnly($0) }.filter { !$0.isEmpty }
+        let normalizedBlockedNumbers = blockedNumbers.map { MessageFilterExtension.digitsOnly($0) }.filter { !$0.isEmpty }
+
+        let allowedNumbersSet = Set(normalizedAllowedNumbers)
+        let blockedNumbersSet = Set(normalizedBlockedNumbers)
         let allowedNamesSet = Set(allowedNames)
         let blockedNamesSet = Set(blockedNames)
 
@@ -140,7 +143,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 logger.info("✅ Allowed by whitelist (number exact): \(cleanSender)")
                 return (.none, .none)
             }
-            for allowedDigits in allowedNumbers where cleanSender.hasSuffix(allowedDigits) {
+            for allowedDigits in normalizedAllowedNumbers where cleanSender.hasSuffix(allowedDigits) {
                 logger.info("✅ Allowed by whitelist (number): \(allowedDigits)")
                 return (.none, .none)
             }
@@ -213,12 +216,10 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             return (.junk, .none)
         }
 
-        for blockedDigits in blockedNumbers {
+        for blockedDigits in normalizedBlockedNumbers {
             if blockedNumbersSet.contains(cleanSender)
-                || cleanSender.hasSuffix(blockedDigits)
-                || blockedDigits.hasSuffix(cleanSender)
-                || cleanSender.contains(blockedDigits)
-                || blockedDigits.contains(cleanSender)
+                || MessageFilterExtension.safeSuffixMatch(ruleValue: blockedDigits, sender: cleanSender)
+                || MessageFilterExtension.safeContainsMatch(ruleValue: blockedDigits, sender: cleanSender)
             {
                 // Junk sayacını artır
                 incrementStatistic(key: "smsJunkCount")
@@ -345,14 +346,28 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
 
     private static func matchesContains(ruleValue: String, sender: String) -> Bool {
         let r = digitsOnly(ruleValue)
-        guard !r.isEmpty else { return false }
+        guard isSafeContainsCandidate(r) else { return false }
         let sVariants = generateVariantsForSender(sender)
         let rVariants = generateVariantsForRule(r)
         for sv in sVariants {
             for rv in rVariants {
-                if sv.contains(rv) { return true }
+                if isSafeContainsCandidate(rv) && sv.contains(rv) { return true }
             }
         }
         return false
+    }
+
+    private static func safeSuffixMatch(ruleValue: String, sender: String) -> Bool {
+        guard ruleValue.count >= 7, sender.count >= 7 else { return false }
+        return sender.hasSuffix(ruleValue) || ruleValue.hasSuffix(sender)
+    }
+
+    private static func safeContainsMatch(ruleValue: String, sender: String) -> Bool {
+        guard isSafeContainsCandidate(ruleValue), isSafeContainsCandidate(sender) else { return false }
+        return sender.contains(ruleValue) || ruleValue.contains(sender)
+    }
+
+    private static func isSafeContainsCandidate(_ value: String) -> Bool {
+        value.count >= 7
     }
 }

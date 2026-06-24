@@ -18,10 +18,12 @@ class DataManager {
     private let blockedNumbersKey = "blockedNumbers"
     private let allowedNumbersKey = "allowedNumbers"
     private let filterRulesKey = "filterRules"
+    private let numberFilterRulesKey = "numberFilterRules"
     private let allowedNumbersNormalizedKey = "allowedNumbersNormalized"
     private let allowedSenderNamesNormalizedKey = "allowedSenderNamesNormalized"
     private let blockedNumbersNormalizedKey = "blockedNumbersNormalized"
     private let blockedSenderNamesNormalizedKey = "blockedSenderNamesNormalized"
+    private let lastAppGroupSyncDateKey = "lastAppGroupSyncDate"
 
     private init() {
         guard let defaults = UserDefaults(suiteName: kAppGroupIdentifier) else {
@@ -108,7 +110,7 @@ class DataManager {
 
     /// SwiftData uyumlu ekleme: isteğe bağlı `ModelContext` verildiğinde
     /// SwiftData modeline de ekler ve UserDefaults'u günceller.
-    func addBlockedNumber(_ phoneNumber: String, modelContext: ModelContext?) {
+    func addBlockedNumber(_ phoneNumber: String, reason: String? = nil, modelContext: ModelContext?) {
         guard let valueToBlock = processNumberOrSender(phoneNumber) else { return }
 
         // SwiftData tarafına ekle (eğer context verilmişse)
@@ -116,7 +118,7 @@ class DataManager {
             let descriptor = FetchDescriptor<BlockedNumber>(predicate: #Predicate { $0.phoneNumber == valueToBlock })
             do {
                 if try context.fetchCount(descriptor) == 0 {
-                    let blocked = BlockedNumber(phoneNumber: valueToBlock, addedAt: Date(), reason: nil)
+                    let blocked = BlockedNumber(phoneNumber: valueToBlock, addedAt: Date(), reason: normalizedReason(reason))
                     context.insert(blocked)
                 }
             } catch {
@@ -181,8 +183,21 @@ class DataManager {
         }
     }
 
-    func addAllowedNumber(_ value: String, modelContext: ModelContext?) {
+    func addAllowedNumber(_ value: String, reason: String? = nil, modelContext: ModelContext?) {
         guard let valueToAllow = processNumberOrSender(value) else { return }
+
+        if let context = modelContext {
+            let descriptor = FetchDescriptor<AllowedNumber>(predicate: #Predicate { $0.phoneNumber == valueToAllow })
+            do {
+                if try context.fetchCount(descriptor) == 0 {
+                    let allowed = AllowedNumber(phoneNumber: valueToAllow, addedAt: Date(), reason: normalizedReason(reason))
+                    context.insert(allowed)
+                }
+            } catch {
+                print("Failed to fetch count for allowed number: \(error)")
+            }
+        }
+
         var numbers = getAllowedNumbers()
 
         let exists = numbers.contains { existingValue in
@@ -194,8 +209,6 @@ class DataManager {
             userDefaults.set(numbers, forKey: allowedNumbersKey)
             updateAllowedNormalizedLists(from: numbers)
         }
-
-        // SwiftData tarafına ekleme gerekiyorsa UI katmanı yapmalıdır.
     }
 
     func removeAllowedNumber(_ value: String) {
@@ -233,6 +246,26 @@ class DataManager {
 
     func setFilterEnabled(_ enabled: Bool) {
         userDefaults.set(enabled, forKey: "filterEnabled")
+    }
+
+    func smsJunkCount() -> Int {
+        userDefaults.integer(forKey: "smsJunkCount")
+    }
+
+    func smsCategorizedCount() -> Int {
+        userDefaults.integer(forKey: "smsCategorizedCount")
+    }
+
+    func lastSMSFilterDate() -> Date? {
+        userDefaults.object(forKey: "lastSMSFilterDate") as? Date
+    }
+
+    func lastJunkSender() -> String? {
+        userDefaults.string(forKey: "lastJunkSender")
+    }
+
+    func lastAppGroupSyncDate() -> Date? {
+        userDefaults.object(forKey: lastAppGroupSyncDateKey) as? Date
     }
 
     // MARK: - Filter Rules Management
@@ -273,10 +306,8 @@ class DataManager {
         userDefaults.set(rules, forKey: filterRulesKey)
         
         // Number filter rules as dictionaries
-        let numberFilterRulesDict = numberRules.map { rule in
-            [rule.ruleType: rule.value]
-        }
-        userDefaults.set(numberFilterRulesDict, forKey: "numberFilterRules")
+        syncNumberFilterRules(from: numberRules)
+        userDefaults.set(Date(), forKey: lastAppGroupSyncDateKey)
     }
 
     /// SwiftData uyumlu filtre kuralı ekleme. Eğer `modelContext` verilirse
@@ -309,7 +340,46 @@ class DataManager {
     // MARK: - Number Filter Rules (prefix/suffix/contains)
 
     func getNumberFilterRules() -> [[String: String]] {
-        return userDefaults.array(forKey: "numberFilterRules") as? [[String: String]] ?? []
+        return userDefaults.array(forKey: numberFilterRulesKey) as? [[String: String]] ?? []
+    }
+
+    func syncNumberFilterRules(from numberRules: [NumberFilterRule]) {
+        let numberFilterRulesDict = numberRules.map { rule in
+            [rule.ruleType: rule.value]
+        }
+        userDefaults.set(numberFilterRulesDict, forKey: numberFilterRulesKey)
+    }
+
+    func addNumberFilterRule(ruleType: String, value: String, modelContext: ModelContext?) {
+        let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        guard !cleanedValue.isEmpty else { return }
+
+        if let context = modelContext {
+            let newRule = NumberFilterRule(ruleType: ruleType, value: cleanedValue)
+            context.insert(newRule)
+        }
+
+        var rules = getNumberFilterRules()
+        let newRule = [ruleType: cleanedValue]
+        let exists = rules.contains { rule in
+            rule[ruleType] == cleanedValue
+        }
+        if !exists {
+            rules.append(newRule)
+            userDefaults.set(rules, forKey: numberFilterRulesKey)
+        }
+    }
+
+    func removeNumberFilterRule(ruleType: String, value: String) {
+        let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var removedOne = false
+        var rules = getNumberFilterRules()
+        rules.removeAll { rule in
+            guard !removedOne, rule[ruleType] == cleanedValue else { return false }
+            removedOne = true
+            return true
+        }
+        userDefaults.set(rules, forKey: numberFilterRulesKey)
     }
 
     func getCategoryForMessage(_ messageBody: String) -> String? {
@@ -327,5 +397,10 @@ class DataManager {
         }
 
         return nil
+    }
+
+    private func normalizedReason(_ reason: String?) -> String? {
+        let cleaned = reason?.trimmingCharacters(in: .whitespacesAndNewlines)
+        return cleaned?.isEmpty == false ? cleaned : nil
     }
 }

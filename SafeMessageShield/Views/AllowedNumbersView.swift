@@ -22,28 +22,20 @@ struct AllowedNumbersView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            ShieldSurface {
+                VStack {
                 // Info Card
                 AllowedInfoCard()
                     .padding()
                 
                 // Allowed Numbers List
                 if allowedNumbers.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "checkmark.shield")
-                            .font(.system(size: 60))
-                            .foregroundStyle(.green)
-                        
-                        Text(NSLocalizedString("no.allowed.title", comment: ""))
-                            .font(.headline)
-                            .foregroundStyle(.secondary)
-                        
-                        Text(NSLocalizedString("no.allowed.message", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                    }
+                    ShieldEmptyState(
+                        title: NSLocalizedString("no.allowed.title", comment: ""),
+                        message: NSLocalizedString("no.allowed.message", comment: ""),
+                        systemImage: "checkmark.shield",
+                        color: ShieldTheme.Colors.success
+                    )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     VStack(alignment: .leading, spacing: 8) {
@@ -55,12 +47,15 @@ struct AllowedNumbersView: View {
                         List {
                             ForEach(allowedNumbers) { number in
                                 AllowedNumberRow(allowedNumber: number)
+                                    .listRowBackground(Color.clear)
                             }
                             .onDelete(perform: deleteNumbers)
                         }
-                        .listStyle(.insetGrouped)
+                        .listStyle(.plain)
+                        .scrollContentBackground(.hidden)
                     }
                 }
+            }
             }
             .navigationTitle(NSLocalizedString("allowed.numbers", comment: ""))
             .toolbar {
@@ -135,7 +130,7 @@ struct AllowedInfoCard: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: "info.circle.fill")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(ShieldTheme.Colors.primary)
                     .font(.title2)
                 Text(NSLocalizedString("allowed.info.title", comment: ""))
                     .font(.headline)
@@ -145,10 +140,9 @@ struct AllowedInfoCard: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
-        .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .padding()
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: ShieldTheme.Radius.large, style: .continuous))
     }
 }
 
@@ -206,42 +200,45 @@ struct AddAllowedNumberView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    Picker(NSLocalizedString("entry.type", comment: ""), selection: $entryType) {
-                        ForEach(EntryType.allCases, id: \.self) { type in
-                            Text(type.localizedName).tag(type)
+            ShieldSurface {
+                Form {
+                    Section {
+                        Picker(NSLocalizedString("entry.type", comment: ""), selection: $entryType) {
+                            ForEach(EntryType.allCases, id: \.self) { type in
+                                Text(type.localizedName).tag(type)
+                            }
                         }
-                    }
-                    .pickerStyle(.segmented)
-                } header: {
-                    Text(NSLocalizedString("what.to.add", comment: ""))
-                }
-                
-                Section {
-                    if entryType == .phoneNumber {
-                        TextField(NSLocalizedString("phone.number", comment: ""), text: $phoneNumber)
-                            .keyboardType(.phonePad)
-                    } else {
-                        TextField(NSLocalizedString("sender.name.example", comment: ""), text: $phoneNumber)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
+                        .pickerStyle(.segmented)
+                    } header: {
+                        Text(NSLocalizedString("what.to.add", comment: ""))
                     }
                     
-                    TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
-                } header: {
-                    Text(NSLocalizedString("number.info", comment: ""))
-                } footer: {
-                    Text(entryType == .phoneNumber ? 
-                         NSLocalizedString("phone.number.footer", comment: "") :
-                         NSLocalizedString("sender.name.footer", comment: ""))
+                    Section {
+                        if entryType == .phoneNumber {
+                            TextField(NSLocalizedString("phone.number", comment: ""), text: $phoneNumber)
+                                .keyboardType(.phonePad)
+                        } else {
+                            TextField(NSLocalizedString("sender.name.example", comment: ""), text: $phoneNumber)
+                                .textInputAutocapitalization(.never)
+                                .autocorrectionDisabled()
+                        }
+                        
+                        TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
+                    } header: {
+                        Text(NSLocalizedString("number.info", comment: ""))
+                    } footer: {
+                        Text(entryType == .phoneNumber ? 
+                             NSLocalizedString("phone.number.footer", comment: "") :
+                             NSLocalizedString("sender.name.footer", comment: ""))
+                    }
+                    
+                    Section {
+                        Text(NSLocalizedString("allowed.explanation", comment: ""))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
-                
-                Section {
-                    Text(NSLocalizedString("allowed.explanation", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle(NSLocalizedString("add.allowed.number", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -296,7 +293,7 @@ struct AddAllowedNumberView: View {
         }
         
         // Centralize persistence through DataManager (will insert into SwiftData when modelContext provided)
-        DataManager.shared.addAllowedNumber(cleanedValue, modelContext: modelContext)
+        DataManager.shared.addAllowedNumber(cleanedValue, reason: reason, modelContext: modelContext)
         
         dismiss()
     }

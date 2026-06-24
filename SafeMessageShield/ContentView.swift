@@ -20,9 +20,16 @@ struct ContentView: View {
 
     @State private var showingAddNumberSheet = false
     @State private var showingContactPicker = false
+    @State private var showingReportedJunk = false
     @State private var showingSuccessAlert = false
     @State private var lastBlockedNumber = ""
     @State private var selectedTab = 0
+    @State private var dashboardFilterEnabled = false
+    @State private var dashboardJunkCount = 0
+    @State private var dashboardCategorizedCount = 0
+    @State private var dashboardLastFilterDate: Date?
+    @State private var dashboardLastJunkSender: String?
+    @State private var dashboardLastSyncDate: Date?
 
     // ViewModel'i burada da kullanalım
     @StateObject private var contactViewModel = ContactPickerViewModel()
@@ -36,12 +43,11 @@ struct ContentView: View {
                 }
                 .tag(0)
 
-            // Güvenli Numaralar Sekmesi
-            AllowedNumbersView()
+            ManagementView()
                 .tabItem {
                     Label(
-                        NSLocalizedString("tab.allowed", comment: ""),
-                        systemImage: "checkmark.shield")
+                        NSLocalizedString("management.title", comment: ""),
+                        systemImage: "list.bullet.rectangle.portrait")
                 }
                 .tag(1)
 
@@ -65,78 +71,40 @@ struct ContentView: View {
 
     private var mainListView: some View {
         NavigationStack {
-            VStack {
-                // Durum Kartı
-                StatusCard()
-                    .padding()
-
-                // Engellenen Numaralar Listesi
-                if blockedNumbers.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "phone.down.circle")
-                            .font(.system(size: 60))
-                            .foregroundStyle(.gray)
-
-                        Text(NSLocalizedString("no.blocked.title", comment: ""))
-                            .font(.headline)
-                            .foregroundStyle(.secondary)
-
-                        Text(NSLocalizedString("no.blocked.message", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
+            ShieldSurface {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 18) {
+                        dashboardHeader
+                        protectionHeroCard
+                        setupChecklistCard
+                        metricsGrid
+                        quickActionsCard
+                        lastJunkCard
+                        recentBlockedSection
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(
-                            String(
-                                format: NSLocalizedString("blocked.count", comment: ""),
-                                blockedNumbers.count)
-                        )
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal)
-
-                        List {
-                            ForEach(blockedNumbers) { number in
-                                BlockedNumberRow(blockedNumber: number)
-                            }
-                            .onDelete(perform: deleteNumbers)
-                        }
-                        .listStyle(.insetGrouped)
-                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 14)
+                    .padding(.bottom, 32)
                 }
             }
-            .navigationTitle(NSLocalizedString("app.title", comment: ""))
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: { showingAddNumberSheet = true }) {
-                            Label(
-                                NSLocalizedString("menu.manual", comment: ""),
-                                systemImage: "square.and.pencil")
-                        }
-                        Button(action: { showingContactPicker = true }) {
-                            Label(
-                                NSLocalizedString("menu.contacts", comment: ""),
-                                systemImage: "person.crop.circle.badge.plus")
-                        }
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2)
-                    }
-                }
-            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingAddNumberSheet) {
                 AddNumberView()
             }
             .sheet(isPresented: $showingContactPicker) {
-                // ContactPicker'ı doğrudan buradan sunuyoruz
                 ContactPickerView()
                     .environmentObject(contactViewModel)
                     .ignoresSafeArea()
+            }
+            .sheet(isPresented: $showingReportedJunk) {
+                ReportedJunkView()
+            }
+            .onAppear {
+                refreshDashboard()
+            }
+            .onChange(of: selectedTab) { _, _ in
+                refreshDashboard()
             }
             .onChange(of: contactViewModel.selectedPhoneNumber) { oldValue, newValue in
                 // ViewModel'de numara değiştiğinde engelleme işlemini tetikle
@@ -153,6 +121,320 @@ struct ContentView: View {
                         lastBlockedNumber))
             }
         }
+    }
+
+    private var dashboardHeader: some View {
+        HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(NSLocalizedString("app.title", comment: ""))
+                    .font(.title2.weight(.bold))
+                Text(NSLocalizedString("dashboard.subtitle", comment: ""))
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            ShieldStatusPill(
+                title: dashboardFilterEnabled
+                    ? NSLocalizedString("protection.active", comment: "")
+                    : NSLocalizedString("protection.inactive", comment: ""),
+                color: dashboardFilterEnabled ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
+            )
+
+            Button(action: { selectedTab = 2 }) {
+                Image(systemName: "gearshape.fill")
+                    .font(.title3)
+                    .foregroundStyle(.primary)
+                    .padding(12)
+                    .background(.ultraThinMaterial, in: Circle())
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private var protectionHeroCard: some View {
+        ShieldCard(padding: 20) {
+            VStack(alignment: .leading, spacing: 18) {
+                HStack(alignment: .top) {
+                    ZStack {
+                        Circle()
+                            .fill(ShieldTheme.Colors.primaryGradient)
+                            .frame(width: 58, height: 58)
+                        Image(systemName: dashboardFilterEnabled ? "checkmark.shield.fill" : "exclamationmark.shield.fill")
+                            .font(.system(size: 28, weight: .semibold))
+                            .foregroundStyle(.white)
+                    }
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(dashboardFilterEnabled ? NSLocalizedString("protection.active", comment: "") : NSLocalizedString("protection.inactive", comment: ""))
+                            .font(.title3.weight(.bold))
+                        Text(dashboardFilterEnabled ? NSLocalizedString("dashboard.setup.user.confirmed", comment: "") : NSLocalizedString("enable.from.settings", comment: ""))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Spacer()
+                }
+
+                HStack(spacing: 10) {
+                    Button(action: openSettings) {
+                        Label(NSLocalizedString("open.settings", comment: ""), systemImage: "arrow.up.forward.app.fill")
+                            .font(.subheadline.weight(.semibold))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
+                            .background(ShieldTheme.Colors.primaryGradient)
+                            .foregroundStyle(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+
+                    Button(action: {
+                        DataManager.shared.setFilterEnabled(true)
+                        refreshDashboard()
+                    }) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.title3)
+                            .frame(width: 44, height: 44)
+                            .background(ShieldTheme.Colors.success.opacity(0.12), in: RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(ShieldTheme.Colors.success)
+                }
+            }
+        }
+    }
+
+    private var setupChecklistCard: some View {
+        ShieldCard {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    Text(NSLocalizedString("dashboard.setup.title", comment: ""))
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    ShieldStatusPill(
+                        title: setupCompletedCountText,
+                        color: setupCompletedCount == 3 ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
+                    )
+                }
+
+                VStack(spacing: 12) {
+                    setupRow(
+                        title: NSLocalizedString("dashboard.setup.ios.settings", comment: ""),
+                        subtitle: NSLocalizedString("dashboard.setup.ios.settings.subtitle", comment: ""),
+                        systemImage: "switch.2",
+                        isComplete: dashboardFilterEnabled
+                    )
+
+                    setupRow(
+                        title: NSLocalizedString("dashboard.setup.data.synced", comment: ""),
+                        subtitle: lastSyncText,
+                        systemImage: "arrow.triangle.2.circlepath",
+                        isComplete: dashboardLastSyncDate != nil
+                    )
+
+                    setupRow(
+                        title: NSLocalizedString("dashboard.setup.filter.activity", comment: ""),
+                        subtitle: dashboardLastFilterDate == nil ? NSLocalizedString("dashboard.setup.waiting.activity", comment: "") : filterActivityText,
+                        systemImage: "waveform.badge.magnifyingglass",
+                        isComplete: dashboardLastFilterDate != nil || dashboardJunkCount > 0 || dashboardCategorizedCount > 0
+                    )
+                }
+            }
+        }
+    }
+
+    private func setupRow(title: String, subtitle: String, systemImage: String, isComplete: Bool) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
+                .font(.headline)
+                .foregroundStyle(isComplete ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning)
+                .frame(width: 24)
+
+            Image(systemName: systemImage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: 24)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer()
+        }
+    }
+
+    private var metricsGrid: some View {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+            ShieldMetricCard(
+                title: NSLocalizedString("dashboard.blocked.metric", comment: ""),
+                value: "\(blockedNumbers.count)",
+                systemImage: "phone.down.fill",
+                color: ShieldTheme.Colors.danger
+            )
+            ShieldMetricCard(
+                title: NSLocalizedString("dashboard.allowed.metric", comment: ""),
+                value: "\(allowedNumbersList.count)",
+                systemImage: "checkmark.shield.fill",
+                color: ShieldTheme.Colors.success
+            )
+            ShieldMetricCard(
+                title: NSLocalizedString("dashboard.junk.metric", comment: ""),
+                value: "\(dashboardJunkCount)",
+                systemImage: "message.badge.filled.fill",
+                color: ShieldTheme.Colors.warning
+            )
+            ShieldMetricCard(
+                title: NSLocalizedString("dashboard.rules.metric", comment: ""),
+                value: "\(filterRulesList.count + numberFilterRulesList.count)",
+                systemImage: "slider.horizontal.3",
+                color: ShieldTheme.Colors.primary
+            )
+        }
+    }
+
+    private var quickActionsCard: some View {
+        ShieldCard {
+            VStack(alignment: .leading, spacing: 14) {
+                Text(NSLocalizedString("dashboard.quick.actions", comment: ""))
+                    .font(.headline.weight(.semibold))
+
+                VStack(spacing: 10) {
+                    HStack(spacing: 10) {
+                        ShieldActionButton(title: NSLocalizedString("menu.manual", comment: ""), systemImage: "square.and.pencil", color: ShieldTheme.Colors.danger) {
+                            showingAddNumberSheet = true
+                        }
+                        ShieldActionButton(title: NSLocalizedString("menu.contacts", comment: ""), systemImage: "person.crop.circle.badge.plus", color: ShieldTheme.Colors.primary) {
+                            showingContactPicker = true
+                        }
+                    }
+
+                    HStack(spacing: 10) {
+                        ShieldActionButton(title: NSLocalizedString("filter.customization", comment: ""), systemImage: "slider.horizontal.3", color: ShieldTheme.Colors.secondary) {
+                            selectedTab = 1
+                        }
+                        ShieldActionButton(title: NSLocalizedString("dashboard.last.junk", comment: ""), systemImage: "tray.full.fill", color: ShieldTheme.Colors.warning) {
+                            showingReportedJunk = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private var lastJunkCard: some View {
+        ShieldCard {
+            HStack(spacing: 14) {
+                Image(systemName: "waveform.badge.magnifyingglass")
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(ShieldTheme.Colors.secondary)
+                    .frame(width: 34)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(NSLocalizedString("dashboard.filter.activity", comment: ""))
+                        .font(.headline.weight(.semibold))
+                    Text(filterActivityText)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer()
+            }
+        }
+    }
+
+    private var recentBlockedSection: some View {
+        ShieldCard {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    Text(NSLocalizedString("tab.list", comment: ""))
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    Text(String(format: NSLocalizedString("blocked.count", comment: ""), blockedNumbers.count))
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+
+                if blockedNumbers.isEmpty {
+                    ShieldEmptyState(
+                        title: NSLocalizedString("no.blocked.title", comment: ""),
+                        message: NSLocalizedString("no.blocked.message", comment: ""),
+                        systemImage: "phone.down.circle",
+                        color: ShieldTheme.Colors.primary
+                    )
+                } else {
+                    VStack(spacing: 0) {
+                        ForEach(blockedNumbers) { number in
+                            HStack(spacing: 12) {
+                                Image(systemName: "minus.circle.fill")
+                                    .foregroundStyle(ShieldTheme.Colors.danger)
+                                BlockedNumberRow(blockedNumber: number)
+                                Spacer()
+                                Button(role: .destructive) {
+                                    deleteBlockedNumber(number)
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(ShieldTheme.Colors.danger)
+                                        .frame(width: 34, height: 34)
+                                        .background(ShieldTheme.Colors.danger.opacity(0.10), in: Circle())
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            .padding(.vertical, 8)
+
+                            if number.id != blockedNumbers.last?.id {
+                                Divider()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private var filterActivityText: String {
+        if let dashboardLastJunkSender {
+            return String(format: NSLocalizedString("dashboard.last.junk.sender", comment: ""), dashboardLastJunkSender)
+        }
+
+        if let dashboardLastFilterDate {
+            let formattedDate = dashboardLastFilterDate.formatted(date: .abbreviated, time: .shortened)
+            return String(format: NSLocalizedString("dashboard.last.filter.activity", comment: ""), formattedDate)
+        }
+
+        if dashboardCategorizedCount > 0 {
+            return String(format: NSLocalizedString("dashboard.categorized.messages", comment: ""), dashboardCategorizedCount)
+        }
+
+        return NSLocalizedString("dashboard.no.filter.activity", comment: "")
+    }
+
+    private var setupCompletedCount: Int {
+        var count = 0
+        if dashboardFilterEnabled { count += 1 }
+        if dashboardLastSyncDate != nil { count += 1 }
+        if dashboardLastFilterDate != nil || dashboardJunkCount > 0 || dashboardCategorizedCount > 0 { count += 1 }
+        return count
+    }
+
+    private var setupCompletedCountText: String {
+        String(format: NSLocalizedString("dashboard.setup.progress", comment: ""), setupCompletedCount)
+    }
+
+    private var lastSyncText: String {
+        guard let dashboardLastSyncDate else {
+            return NSLocalizedString("dashboard.setup.no.sync", comment: "")
+        }
+        let formattedDate = dashboardLastSyncDate.formatted(date: .abbreviated, time: .shortened)
+        return String(format: NSLocalizedString("dashboard.setup.last.sync", comment: ""), formattedDate)
     }
 
     private func addNumberFromContact(phoneNumber: String) {
@@ -186,13 +468,24 @@ struct ContentView: View {
         withAnimation {
             for index in offsets {
                 let number = blockedNumbers[index]
-                DataManager.shared.removeBlockedNumber(number.phoneNumber)
-                modelContext.delete(number)
+                deleteBlockedNumber(number)
             }
-
-            // Call Directory Extension'ı güncelle
-            reloadCallDirectory()
         }
+    }
+
+    private func deleteBlockedNumber(_ number: BlockedNumber) {
+        DataManager.shared.removeBlockedNumber(number.phoneNumber)
+        modelContext.delete(number)
+        reloadCallDirectory()
+    }
+
+    private func refreshDashboard() {
+        dashboardFilterEnabled = DataManager.shared.isFilterEnabled()
+        dashboardJunkCount = DataManager.shared.smsJunkCount()
+        dashboardCategorizedCount = DataManager.shared.smsCategorizedCount()
+        dashboardLastFilterDate = DataManager.shared.lastSMSFilterDate()
+        dashboardLastJunkSender = DataManager.shared.lastJunkSender()
+        dashboardLastSyncDate = DataManager.shared.lastAppGroupSyncDate()
     }
 
     private func reloadCallDirectory() {
@@ -200,6 +493,12 @@ struct ContentView: View {
             withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension"
         ) { error in
             // Silently handle reload
+        }
+    }
+
+    private func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 }

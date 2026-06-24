@@ -159,3 +159,42 @@
 "category.promotion_others" = "その他のプロモーション";
 "category.group.transactional" = "すべての取引";
 "category.group.promotional" = "すべてのプロモーション";
+
+/* Dashboard */
+"dashboard.subtitle" = "保護ハブ";
+"dashboard.blocked.metric" = "ブロック済み";
+"dashboard.allowed.metric" = "許可済み";
+"dashboard.junk.metric" = "迷惑SMS";
+"dashboard.rules.metric" = "ルール";
+"dashboard.quick.actions" = "クイック操作";
+"dashboard.last.junk" = "最新の迷惑";
+"dashboard.filter.activity" = "フィルター履歴";
+"dashboard.last.junk.sender" = "最新の迷惑送信者: %@";
+"dashboard.last.filter.activity" = "最新のフィルター履歴: %@";
+"dashboard.categorized.messages" = "%d 件の分類済みメッセージ";
+"dashboard.no.filter.activity" = "フィルター履歴はまだありません";
+"dashboard.setup.user.confirmed" = "拡張機能の設定を完了としてマークしました";
+"dashboard.setup.title" = "設定チェックリスト";
+"dashboard.setup.progress" = "%d/3 完了";
+"dashboard.setup.ios.settings" = "iOS拡張機能が有効";
+"dashboard.setup.ios.settings.subtitle" = "iOS設定でSMSフィルタリングと通話ブロックを有効にし、設定完了としてマークしてください。";
+"dashboard.setup.data.synced" = "フィルターデータ同期済み";
+"dashboard.setup.no.sync" = "リストやルールを変更した後、拡張機能データを更新するためにアプリを一度開いてください。";
+"dashboard.setup.last.sync" = "最終同期: %@";
+"dashboard.setup.filter.activity" = "フィルター活動を検出";
+"dashboard.setup.waiting.activity" = "まだSMSはフィルターされていません。拡張機能がメッセージを処理すると更新されます。";
+
+/* Management */
+"management.title" = "管理";
+"management.subtitle" = "ブロック、許可、フィルタールールを1か所で編集します。";
+"management.segment.blocked" = "拒否";
+"management.segment.allowed" = "許可";
+"management.segment.keywords" = "単語";
+"management.segment.numbers" = "番号";
+"management.blocked.title" = "ブロック済み送信者";
+"management.allowed.title" = "安全な送信者";
+"management.keywords.title" = "キーワードルール";
+"management.number.rules.title" = "番号ルール";
+"management.contacts.empty.title" = "連絡先が見つかりません";
+"management.contacts.empty.message" = "電話番号のある連絡先がここに表示されます。";
+"unknown.sender" = "不明";

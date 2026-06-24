@@ -159,3 +159,42 @@
 "category.promotion_others" = "अन्य प्रचार";
 "category.group.transactional" = "सभी लेनदेन";
 "category.group.promotional" = "सभी प्रचार";
+
+/* Dashboard */
+"dashboard.subtitle" = "सुरक्षा केंद्र";
+"dashboard.blocked.metric" = "ब्लॉक किए गए";
+"dashboard.allowed.metric" = "अनुमत";
+"dashboard.junk.metric" = "जंक SMS";
+"dashboard.rules.metric" = "नियम";
+"dashboard.quick.actions" = "त्वरित कार्य";
+"dashboard.last.junk" = "नवीनतम जंक";
+"dashboard.filter.activity" = "फ़िल्टर गतिविधि";
+"dashboard.last.junk.sender" = "नवीनतम जंक भेजने वाला: %@";
+"dashboard.last.filter.activity" = "नवीनतम फ़िल्टर गतिविधि: %@";
+"dashboard.categorized.messages" = "%d वर्गीकृत संदेश";
+"dashboard.no.filter.activity" = "अभी तक कोई फ़िल्टर गतिविधि नहीं";
+"dashboard.setup.user.confirmed" = "आपने एक्सटेंशन सेटअप को पूर्ण के रूप में चिह्नित किया है";
+"dashboard.setup.title" = "सेटअप चेकलिस्ट";
+"dashboard.setup.progress" = "%d/3 तैयार";
+"dashboard.setup.ios.settings" = "iOS एक्सटेंशन सक्षम";
+"dashboard.setup.ios.settings.subtitle" = "iOS सेटिंग्स में SMS फ़िल्टरिंग और कॉल ब्लॉकिंग सक्षम करें, फिर सेटअप को पूर्ण चिह्नित करें।";
+"dashboard.setup.data.synced" = "फ़िल्टर डेटा सिंक हुआ";
+"dashboard.setup.no.sync" = "सूचियों या नियमों को बदलने के बाद एक्सटेंशन डेटा अपडेट करने के लिए ऐप एक बार खोलें।";
+"dashboard.setup.last.sync" = "अंतिम सिंक: %@";
+"dashboard.setup.filter.activity" = "फ़िल्टर गतिविधि मिली";
+"dashboard.setup.waiting.activity" = "अभी तक कोई SMS फ़िल्टर नहीं हुआ; एक्सटेंशन द्वारा संदेश प्रोसेस होने पर यह अपडेट होगा।";
+
+/* Management */
+"management.title" = "प्रबंध";
+"management.subtitle" = "ब्लॉक, सुरक्षित भेजने वालों और फ़िल्टर नियमों को एक जगह संपादित करें।";
+"management.segment.blocked" = "ब्लॉक";
+"management.segment.allowed" = "सुरक्षित";
+"management.segment.keywords" = "शब्द";
+"management.segment.numbers" = "नंबर";
+"management.blocked.title" = "ब्लॉक किए गए भेजने वाले";
+"management.allowed.title" = "सुरक्षित भेजने वाले";
+"management.keywords.title" = "कीवर्ड नियम";
+"management.number.rules.title" = "नंबर नियम";
+"management.contacts.empty.title" = "कोई संपर्क नहीं मिला";
+"management.contacts.empty.message" = "फ़ोन नंबर वाले संपर्क यहां दिखेंगे।";
+"unknown.sender" = "अज्ञात";

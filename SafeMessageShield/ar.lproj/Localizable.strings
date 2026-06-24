@@ -158,3 +158,42 @@
 "category.promotion_others" = "عروض ترويجية أخرى";
 "category.group.transactional" = "جميع المعاملات";
 "category.group.promotional" = "جميع العروض الترويجية";
+
+/* Dashboard */
+"dashboard.subtitle" = "مركز الحماية";
+"dashboard.blocked.metric" = "محظور";
+"dashboard.allowed.metric" = "مسموح";
+"dashboard.junk.metric" = "رسائل مزعجة";
+"dashboard.rules.metric" = "القواعد";
+"dashboard.quick.actions" = "إجراءات سريعة";
+"dashboard.last.junk" = "آخر مزعج";
+"dashboard.filter.activity" = "نشاط الفلتر";
+"dashboard.last.junk.sender" = "آخر مرسل مزعج: %@";
+"dashboard.last.filter.activity" = "آخر نشاط للفلتر: %@";
+"dashboard.categorized.messages" = "%d رسائل مصنفة";
+"dashboard.no.filter.activity" = "لا يوجد نشاط فلترة بعد";
+"dashboard.setup.user.confirmed" = "تم وضع علامة على إعداد الإضافة كمكتمل من قبلك";
+"dashboard.setup.title" = "قائمة إعداد الحماية";
+"dashboard.setup.progress" = "%d/3 جاهز";
+"dashboard.setup.ios.settings" = "إضافات iOS مفعلة";
+"dashboard.setup.ios.settings.subtitle" = "فعّل فلترة الرسائل وحظر المكالمات من إعدادات iOS، ثم ضع علامة على الإعداد كمكتمل.";
+"dashboard.setup.data.synced" = "تمت مزامنة بيانات الفلتر";
+"dashboard.setup.no.sync" = "افتح التطبيق مرة واحدة بعد تغيير القوائم أو القواعد لتحديث بيانات الإضافة.";
+"dashboard.setup.last.sync" = "آخر مزامنة: %@";
+"dashboard.setup.filter.activity" = "تم اكتشاف نشاط فلترة";
+"dashboard.setup.waiting.activity" = "لم تتم فلترة أي رسالة بعد؛ سيتم التحديث بعد أن تعالج الإضافة رسالة.";
+
+/* Management */
+"management.title" = "إدارة";
+"management.subtitle" = "عدّل المرسلين المحظورين والآمنين وقواعد الفلترة من مكان واحد.";
+"management.segment.blocked" = "حظر";
+"management.segment.allowed" = "آمن";
+"management.segment.keywords" = "كلمات";
+"management.segment.numbers" = "أرقام";
+"management.blocked.title" = "المرسلون المحظورون";
+"management.allowed.title" = "المرسلون الآمنون";
+"management.keywords.title" = "قواعد الكلمات";
+"management.number.rules.title" = "قواعد الأرقام";
+"management.contacts.empty.title" = "لم يتم العثور على جهات اتصال";
+"management.contacts.empty.message" = "ستظهر هنا جهات الاتصال التي تحتوي على أرقام هاتف.";
+"unknown.sender" = "غير معروف";

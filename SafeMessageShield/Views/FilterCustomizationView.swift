@@ -17,32 +17,28 @@ struct FilterCustomizationView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            ShieldSurface {
+                VStack {
                 if filterRules.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.system(size: 60))
-                            .foregroundStyle(.blue)
-                        
-                        Text(NSLocalizedString("no.filter.rules.title", comment: ""))
-                            .font(.headline)
-                            .foregroundStyle(.secondary)
-                        
-                        Text(NSLocalizedString("no.filter.rules.message", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                    }
+                    ShieldEmptyState(
+                        title: NSLocalizedString("no.filter.rules.title", comment: ""),
+                        message: NSLocalizedString("no.filter.rules.message", comment: ""),
+                        systemImage: "slider.horizontal.3",
+                        color: ShieldTheme.Colors.primary
+                    )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
                         ForEach(filterRules) { rule in
                             FilterRuleRow(rule: rule)
+                                .listRowBackground(Color.clear)
                         }
                         .onDelete(perform: deleteRules)
                     }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
+            }
             }
             .navigationTitle(NSLocalizedString("filter.customization", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -92,7 +88,7 @@ struct FilterRuleRow: View {
         HStack(spacing: 12) {
             Image(systemName: category?.icon ?? "questionmark.circle")
                 .font(.title2)
-                .foregroundStyle(.blue)
+                .foregroundStyle(ShieldTheme.Colors.primary)
                 .frame(width: 30)
             
             VStack(alignment: .leading, spacing: 4) {
@@ -122,71 +118,74 @@ struct AddFilterRuleView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField(NSLocalizedString("filter.keyword.placeholder", comment: ""), text: $keyword)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                } header: {
-                    Text(NSLocalizedString("filter.keyword", comment: ""))
-                } footer: {
-                    Text(NSLocalizedString("filter.keyword.footer", comment: ""))
-                }
-                
-                Section {
-                    Picker(NSLocalizedString("filter.category", comment: ""), selection: $selectedCategory) {
-                        // Transactional kategoriler
-                        Section(header: Text(NSLocalizedString("category.group.transactional", comment: ""))) {
-                            ForEach([
-                                MessageCategory.transactionalFinance,
-                                .transactionalOrders,
-                                .transactionalReminders,
-                                .transactionalHealth,
-                                .transactionalWeather,
-                                .transactionalCarrier,
-                                .transactionalRewards,
-                                .transactionalPublicServices,
-                                .transactionalOthers
-                            ]) { category in
-                                HStack {
-                                    Image(systemName: category.icon)
-                                    Text(category.localizedName)
-                                }
-                                .tag(category)
-                            }
-                        }
-                        
-                        // Promotional kategoriler
-                        Section(header: Text(NSLocalizedString("category.group.promotional", comment: ""))) {
-                            ForEach([
-                                MessageCategory.promotionalOffers,
-                                .promotionalCoupons,
-                                .promotionalOthers
-                            ]) { category in
-                                HStack {
-                                    Image(systemName: category.icon)
-                                    Text(category.localizedName)
-                                }
-                                .tag(category)
-                            }
-                        }
-                    }
-                } header: {
-                    Text(NSLocalizedString("filter.category", comment: ""))
-                }
-                
-                Section {
-                    HStack {
-                        Image(systemName: selectedCategory.icon)
-                            .foregroundStyle(.blue)
-                        Text(selectedCategory.localizedName)
-                            .font(.headline)
+            ShieldSurface {
+                Form {
+                    Section {
+                        TextField(NSLocalizedString("filter.keyword.placeholder", comment: ""), text: $keyword)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                    } header: {
+                        Text(NSLocalizedString("filter.keyword", comment: ""))
+                    } footer: {
+                        Text(NSLocalizedString("filter.keyword.footer", comment: ""))
                     }
                     
-                    Text(NSLocalizedString("filter.rule.explanation", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    Section {
+                        Picker(NSLocalizedString("filter.category", comment: ""), selection: $selectedCategory) {
+                            // Transactional kategoriler
+                            Section(header: Text(NSLocalizedString("category.group.transactional", comment: ""))) {
+                                ForEach([
+                                    MessageCategory.transactionalFinance,
+                                    .transactionalOrders,
+                                    .transactionalReminders,
+                                    .transactionalHealth,
+                                    .transactionalWeather,
+                                    .transactionalCarrier,
+                                    .transactionalRewards,
+                                    .transactionalPublicServices,
+                                    .transactionalOthers
+                                ]) { category in
+                                    HStack {
+                                        Image(systemName: category.icon)
+                                        Text(category.localizedName)
+                                    }
+                                    .tag(category)
+                                }
+                            }
+                            
+                            // Promotional kategoriler
+                            Section(header: Text(NSLocalizedString("category.group.promotional", comment: ""))) {
+                                ForEach([
+                                    MessageCategory.promotionalOffers,
+                                    .promotionalCoupons,
+                                    .promotionalOthers
+                                ]) { category in
+                                    HStack {
+                                        Image(systemName: category.icon)
+                                        Text(category.localizedName)
+                                    }
+                                    .tag(category)
+                                }
+                            }
+                        }
+                    } header: {
+                        Text(NSLocalizedString("filter.category", comment: ""))
+                    }
+                    
+                    Section {
+                        HStack {
+                            Image(systemName: selectedCategory.icon)
+                                .foregroundStyle(ShieldTheme.Colors.primary)
+                            Text(selectedCategory.localizedName)
+                                .font(.headline)
+                        }
+                        
+                        Text(NSLocalizedString("filter.rule.explanation", comment: ""))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle(NSLocalizedString("add.filter.rule", comment: ""))
             .navigationBarTitleDisplayMode(.inline)

@@ -158,3 +158,42 @@
 "category.promotion_others" = "Otras Promociones";
 "category.group.transactional" = "Todas las Transacciones";
 "category.group.promotional" = "Todas las Promociones";
+
+/* Dashboard */
+"dashboard.subtitle" = "Centro de protección";
+"dashboard.blocked.metric" = "Bloqueados";
+"dashboard.allowed.metric" = "Permitidos";
+"dashboard.junk.metric" = "SMS no deseados";
+"dashboard.rules.metric" = "Reglas";
+"dashboard.quick.actions" = "Acciones rápidas";
+"dashboard.last.junk" = "Último no deseado";
+"dashboard.filter.activity" = "Actividad del filtro";
+"dashboard.last.junk.sender" = "Último remitente no deseado: %@";
+"dashboard.last.filter.activity" = "Última actividad del filtro: %@";
+"dashboard.categorized.messages" = "%d mensajes categorizados";
+"dashboard.no.filter.activity" = "Aún no hay actividad del filtro";
+"dashboard.setup.user.confirmed" = "Marcaste la configuración de la extensión como completada";
+"dashboard.setup.title" = "Lista de configuración";
+"dashboard.setup.progress" = "%d/3 listo";
+"dashboard.setup.ios.settings" = "Extensiones de iOS activadas";
+"dashboard.setup.ios.settings.subtitle" = "Activa el filtrado de SMS y el bloqueo de llamadas desde Ajustes de iOS y luego marca la configuración como completada.";
+"dashboard.setup.data.synced" = "Datos del filtro sincronizados";
+"dashboard.setup.no.sync" = "Abre la app una vez después de cambiar listas o reglas para actualizar los datos de la extensión.";
+"dashboard.setup.last.sync" = "Última sincronización: %@";
+"dashboard.setup.filter.activity" = "Actividad del filtro detectada";
+"dashboard.setup.waiting.activity" = "Aún no se ha filtrado ningún SMS; se actualizará cuando la extensión procese un mensaje.";
+
+/* Management */
+"management.title" = "Gestionar";
+"management.subtitle" = "Edita remitentes bloqueados, seguros y reglas de filtrado en un solo lugar.";
+"management.segment.blocked" = "Bloq";
+"management.segment.allowed" = "Seguro";
+"management.segment.keywords" = "Palab";
+"management.segment.numbers" = "Nums";
+"management.blocked.title" = "Remitentes bloqueados";
+"management.allowed.title" = "Remitentes seguros";
+"management.keywords.title" = "Reglas de palabras";
+"management.number.rules.title" = "Reglas de números";
+"management.contacts.empty.title" = "No se encontraron contactos";
+"management.contacts.empty.message" = "Los contactos con números de teléfono aparecerán aquí.";
+"unknown.sender" = "Desconocido";

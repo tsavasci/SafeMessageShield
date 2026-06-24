@@ -158,3 +158,42 @@
 "category.promotion_others" = "Autres Promotions";
 "category.group.transactional" = "Toutes les Transactions";
 "category.group.promotional" = "Toutes les Promotions";
+
+/* Dashboard */
+"dashboard.subtitle" = "Centre de protection";
+"dashboard.blocked.metric" = "Bloqués";
+"dashboard.allowed.metric" = "Autorisés";
+"dashboard.junk.metric" = "SMS indésirables";
+"dashboard.rules.metric" = "Règles";
+"dashboard.quick.actions" = "Actions rapides";
+"dashboard.last.junk" = "Dernier indésirable";
+"dashboard.filter.activity" = "Activité du filtre";
+"dashboard.last.junk.sender" = "Dernier expéditeur indésirable : %@";
+"dashboard.last.filter.activity" = "Dernière activité du filtre : %@";
+"dashboard.categorized.messages" = "%d messages catégorisés";
+"dashboard.no.filter.activity" = "Aucune activité de filtre pour le moment";
+"dashboard.setup.user.confirmed" = "La configuration de l’extension a été marquée comme terminée par vous";
+"dashboard.setup.title" = "Liste de configuration";
+"dashboard.setup.progress" = "%d/3 prêt";
+"dashboard.setup.ios.settings" = "Extensions iOS activées";
+"dashboard.setup.ios.settings.subtitle" = "Activez le filtrage SMS et le blocage d’appels dans les réglages iOS, puis marquez la configuration comme terminée.";
+"dashboard.setup.data.synced" = "Données de filtre synchronisées";
+"dashboard.setup.no.sync" = "Ouvrez l’app une fois après avoir modifié les listes ou règles pour actualiser les données de l’extension.";
+"dashboard.setup.last.sync" = "Dernière sync : %@";
+"dashboard.setup.filter.activity" = "Activité du filtre détectée";
+"dashboard.setup.waiting.activity" = "Aucun SMS n’a encore été filtré ; ceci se mettra à jour après le traitement d’un message par l’extension.";
+
+/* Management */
+"management.title" = "Gérer";
+"management.subtitle" = "Modifiez les expéditeurs bloqués, sûrs et les règles de filtrage au même endroit.";
+"management.segment.blocked" = "Bloc";
+"management.segment.allowed" = "Sûrs";
+"management.segment.keywords" = "Mots";
+"management.segment.numbers" = "Nums";
+"management.blocked.title" = "Expéditeurs bloqués";
+"management.allowed.title" = "Expéditeurs sûrs";
+"management.keywords.title" = "Règles par mots-clés";
+"management.number.rules.title" = "Règles de numéros";
+"management.contacts.empty.title" = "Aucun contact trouvé";
+"management.contacts.empty.message" = "Les contacts avec numéros de téléphone apparaîtront ici.";
+"unknown.sender" = "Inconnu";

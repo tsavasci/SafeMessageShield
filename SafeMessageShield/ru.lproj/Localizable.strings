@@ -159,3 +159,42 @@
 "category.promotion_others" = "Другие промоакции";
 "category.group.transactional" = "Все транзакции";
 "category.group.promotional" = "Все промоакции";
+
+/* Dashboard */
+"dashboard.subtitle" = "Центр защиты";
+"dashboard.blocked.metric" = "Заблокировано";
+"dashboard.allowed.metric" = "Разрешено";
+"dashboard.junk.metric" = "Спам SMS";
+"dashboard.rules.metric" = "Правила";
+"dashboard.quick.actions" = "Быстрые действия";
+"dashboard.last.junk" = "Последний спам";
+"dashboard.filter.activity" = "Активность фильтра";
+"dashboard.last.junk.sender" = "Последний спам-отправитель: %@";
+"dashboard.last.filter.activity" = "Последняя активность фильтра: %@";
+"dashboard.categorized.messages" = "%d категоризированных сообщений";
+"dashboard.no.filter.activity" = "Активности фильтра пока нет";
+"dashboard.setup.user.confirmed" = "Вы отметили настройку расширения как завершенную";
+"dashboard.setup.title" = "Контрольный список настройки";
+"dashboard.setup.progress" = "%d/3 готово";
+"dashboard.setup.ios.settings" = "Расширения iOS включены";
+"dashboard.setup.ios.settings.subtitle" = "Включите фильтрацию SMS и блокировку звонков в настройках iOS, затем отметьте настройку как завершенную.";
+"dashboard.setup.data.synced" = "Данные фильтра синхронизированы";
+"dashboard.setup.no.sync" = "Откройте приложение один раз после изменения списков или правил, чтобы обновить данные расширения.";
+"dashboard.setup.last.sync" = "Последняя синхронизация: %@";
+"dashboard.setup.filter.activity" = "Обнаружена активность фильтра";
+"dashboard.setup.waiting.activity" = "SMS еще не фильтровались; обновится после обработки сообщения расширением.";
+
+/* Management */
+"management.title" = "Управление";
+"management.subtitle" = "Редактируйте заблокированных, безопасных отправителей и правила фильтрации в одном месте.";
+"management.segment.blocked" = "Блок";
+"management.segment.allowed" = "Безоп";
+"management.segment.keywords" = "Слова";
+"management.segment.numbers" = "Ном.";
+"management.blocked.title" = "Заблокированные отправители";
+"management.allowed.title" = "Безопасные отправители";
+"management.keywords.title" = "Правила ключевых слов";
+"management.number.rules.title" = "Правила номеров";
+"management.contacts.empty.title" = "Контакты не найдены";
+"management.contacts.empty.message" = "Контакты с номерами телефонов появятся здесь.";
+"unknown.sender" = "Неизвестно";

@@ -14,148 +14,29 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    HStack {
-                        Image(systemName: "shield.checkered")
-                            .font(.largeTitle)
-                            .foregroundStyle(.blue)
-                        
-                        VStack(alignment: .leading) {
-                            Text("SafeMessageShield")
-                                .font(.headline)
-                            Text(NSLocalizedString("app.version", comment: "") + " 1.0.0")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+            ShieldSurface {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 16) {
+                        appHeader
+                        preferencesCard
+                        setupCard(
+                            title: NSLocalizedString("sms.filter.title", comment: ""),
+                            message: NSLocalizedString("sms.filter.instruction", comment: ""),
+                            systemImage: "message.fill",
+                            color: ShieldTheme.Colors.primary
+                        )
+                        setupCard(
+                            title: NSLocalizedString("call.block.title", comment: ""),
+                            message: NSLocalizedString("call.block.instruction", comment: ""),
+                            systemImage: "phone.fill",
+                            color: ShieldTheme.Colors.success
+                        )
+                        privacyCard
                     }
-                    .padding(.vertical, 8)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 14)
+                    .padding(.bottom, 32)
                 }
-                
-                // Dil Seçimi Bölümü
-                Section {
-                    Button(action: { showingLanguagePicker = true }) {
-                        HStack {
-                            Label(NSLocalizedString("language", comment: ""), systemImage: "globe")
-                            Spacer()
-                            if let currentLang = languageManager.supportedLanguages.first(where: { $0.code == languageManager.currentLanguage }) {
-                                Text(currentLang.nativeName)
-                                    .foregroundStyle(.secondary)
-                            }
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
-                                .font(.caption)
-                        }
-                    }
-                    .foregroundStyle(.primary)
-                } header: {
-                    Text(NSLocalizedString("language", comment: ""))
-                }
-                
-                // Filtre Özelleştirme Bölümü
-                Section {
-                    Button(action: { showingFilterCustomization = true }) {
-                        HStack {
-                            Label(NSLocalizedString("filter.customization", comment: ""), systemImage: "slider.horizontal.3")
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
-                                .font(.caption)
-                        }
-                    }
-                    .foregroundStyle(.primary)
-                } header: {
-                    Text(NSLocalizedString("filter.customization", comment: ""))
-                }
-
-            Section {
-                VStack(alignment: .leading, spacing: 8) {
-                    Label(NSLocalizedString("sms.filter.title", comment: ""), systemImage: "message.fill")
-                        .font(.headline)
-                    
-                    Text(NSLocalizedString("sms.filter.instruction", comment: ""))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                                        
-                    Button(action: {
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.right.circle.fill")
-                            Text(NSLocalizedString("open.settings", comment: ""))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                }
-                .padding(.vertical, 4)
-            } header: {
-                Text(NSLocalizedString("sms.filtering.title", comment: ""))
-            }
-            
-            Section {
-                VStack(alignment: .leading, spacing: 8) {
-                    Label(NSLocalizedString("call.block.title", comment: ""), systemImage: "phone.fill")
-                        .font(.headline)
-                    
-                    Text(NSLocalizedString("call.block.instruction", comment: ""))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    
-                    Button(action: {
-                        if let url = URL(string: UIApplication.openSettingsURLString) {
-                            UIApplication.shared.open(url)
-                        }
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.right.circle.fill")
-                            Text(NSLocalizedString("open.settings", comment: ""))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                }
-                .padding(.vertical, 4)
-            } header: {
-                Text(NSLocalizedString("call.blocking.title", comment: ""))
-            }
-            
-            Section {
-                HStack {
-                    Text(NSLocalizedString("privacy.focused", comment: ""))
-                    Spacer()
-                    Text(NSLocalizedString("privacy.description", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                
-                HStack {
-                    Text(NSLocalizedString("offline.works", comment: ""))
-                    Spacer()
-                    Text(NSLocalizedString("offline.description", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                HStack {
-                    Text(NSLocalizedString("always.protected", comment: ""))
-                    Spacer()
-                    Text(NSLocalizedString("always.description", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            } header: {
-                Text(NSLocalizedString("about", comment: ""))
-            } footer: {
-                Text(NSLocalizedString("privacy.footer", comment: ""))
-            }
             }
             .navigationTitle(NSLocalizedString("settings.title", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -165,6 +46,161 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showingFilterCustomization) {
             FilterCustomizationView()
+        }
+    }
+
+    private var appHeader: some View {
+        ShieldCard {
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle()
+                        .fill(ShieldTheme.Colors.primaryGradient)
+                        .frame(width: 54, height: 54)
+                    Image(systemName: "shield.checkered")
+                        .font(.title2.weight(.semibold))
+                        .foregroundStyle(.white)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("SafeMessageShield")
+                        .font(.headline.weight(.semibold))
+                    Text(NSLocalizedString("app.version", comment: "") + " 1.0.0")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+            }
+        }
+    }
+
+    private var preferencesCard: some View {
+        ShieldCard {
+            VStack(spacing: 0) {
+                settingsRow(
+                    title: NSLocalizedString("language", comment: ""),
+                    subtitle: currentLanguageName,
+                    systemImage: "globe",
+                    color: ShieldTheme.Colors.primary,
+                    action: { showingLanguagePicker = true }
+                )
+
+                Divider().padding(.leading, 42)
+
+                settingsRow(
+                    title: NSLocalizedString("filter.customization", comment: ""),
+                    subtitle: NSLocalizedString("number.filter.rules", comment: ""),
+                    systemImage: "slider.horizontal.3",
+                    color: ShieldTheme.Colors.secondary,
+                    action: { showingFilterCustomization = true }
+                )
+            }
+        }
+    }
+
+    private func setupCard(title: String, message: String, systemImage: String, color: Color) -> some View {
+        ShieldCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Label(title, systemImage: systemImage)
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(color)
+
+                Text(message)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Button(action: openSettings) {
+                    Label(NSLocalizedString("open.settings", comment: ""), systemImage: "arrow.up.forward.app.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous)
+                                .stroke(color.opacity(0.20), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(color)
+            }
+        }
+    }
+
+    private var privacyCard: some View {
+        ShieldCard {
+            VStack(alignment: .leading, spacing: 14) {
+                Text(NSLocalizedString("about", comment: ""))
+                    .font(.headline.weight(.semibold))
+
+                VStack(spacing: 12) {
+                    infoRow(title: NSLocalizedString("privacy.focused", comment: ""), subtitle: NSLocalizedString("privacy.description", comment: ""), systemImage: "lock.shield.fill")
+                    infoRow(title: NSLocalizedString("offline.works", comment: ""), subtitle: NSLocalizedString("offline.description", comment: ""), systemImage: "wifi.slash")
+                    infoRow(title: NSLocalizedString("always.protected", comment: ""), subtitle: NSLocalizedString("always.description", comment: ""), systemImage: "bolt.shield.fill")
+                }
+
+                Text(NSLocalizedString("privacy.footer", comment: ""))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+
+    private func settingsRow(title: String, subtitle: String, systemImage: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Image(systemName: systemImage)
+                    .font(.headline)
+                    .foregroundStyle(color)
+                    .frame(width: 30)
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title)
+                        .font(.subheadline.weight(.semibold))
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(.vertical, 10)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func infoRow(title: String, subtitle: String, systemImage: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: systemImage)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(ShieldTheme.Colors.success)
+                .frame(width: 26)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Spacer()
+        }
+    }
+
+    private var currentLanguageName: String {
+        languageManager.supportedLanguages.first(where: { $0.code == languageManager.currentLanguage })?.nativeName ?? languageManager.currentLanguage
+    }
+
+    private func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 }

@@ -100,6 +100,45 @@
 "reset.statistics.message" = "This will reset all counters. Blocked numbers will not be affected.";
 "reset" = "Reset";
 
+/* Dashboard */
+"dashboard.subtitle" = "Protection hub";
+"dashboard.blocked.metric" = "Blocked";
+"dashboard.allowed.metric" = "Allowed";
+"dashboard.junk.metric" = "Junk SMS";
+"dashboard.rules.metric" = "Rules";
+"dashboard.quick.actions" = "Quick actions";
+"dashboard.last.junk" = "Last junk";
+"dashboard.filter.activity" = "Filter activity";
+"dashboard.last.junk.sender" = "Last junk sender: %@";
+"dashboard.last.filter.activity" = "Last filter activity: %@";
+"dashboard.categorized.messages" = "%d categorized messages";
+"dashboard.no.filter.activity" = "No filter activity yet";
+"dashboard.setup.user.confirmed" = "Extension setup marked as complete by you";
+"dashboard.setup.title" = "Setup checklist";
+"dashboard.setup.progress" = "%d/3 ready";
+"dashboard.setup.ios.settings" = "iOS extensions enabled";
+"dashboard.setup.ios.settings.subtitle" = "Enable SMS filtering and call blocking from iOS Settings, then mark setup as complete.";
+"dashboard.setup.data.synced" = "Filter data synced";
+"dashboard.setup.no.sync" = "Open the app once after changing lists or rules to refresh extension data.";
+"dashboard.setup.last.sync" = "Last sync: %@";
+"dashboard.setup.filter.activity" = "Filter activity detected";
+"dashboard.setup.waiting.activity" = "No SMS has been filtered yet; this updates after the extension handles a message.";
+
+/* Management */
+"management.title" = "Manage";
+"management.subtitle" = "Edit blocked senders, safe senders, and filtering rules in one place.";
+"management.segment.blocked" = "Block";
+"management.segment.allowed" = "Allow";
+"management.segment.keywords" = "Words";
+"management.segment.numbers" = "Nums";
+"management.blocked.title" = "Blocked senders";
+"management.allowed.title" = "Safe senders";
+"management.keywords.title" = "Keyword rules";
+"management.number.rules.title" = "Number rules";
+"management.contacts.empty.title" = "No contacts found";
+"management.contacts.empty.message" = "Contacts with phone numbers will appear here.";
+"unknown.sender" = "Unknown";
+
 /* Settings View */
 "settings.title" = "Settings";
 "language" = "Language";

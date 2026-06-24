@@ -159,3 +159,42 @@
 "category.promotion_others" = "其他促销";
 "category.group.transactional" = "所有交易";
 "category.group.promotional" = "所有促销";
+
+/* Dashboard */
+"dashboard.subtitle" = "保护中心";
+"dashboard.blocked.metric" = "已屏蔽";
+"dashboard.allowed.metric" = "已允许";
+"dashboard.junk.metric" = "垃圾短信";
+"dashboard.rules.metric" = "规则";
+"dashboard.quick.actions" = "快捷操作";
+"dashboard.last.junk" = "最近垃圾";
+"dashboard.filter.activity" = "过滤活动";
+"dashboard.last.junk.sender" = "最近垃圾发送者：%@";
+"dashboard.last.filter.activity" = "最近过滤活动：%@";
+"dashboard.categorized.messages" = "%d 条已分类消息";
+"dashboard.no.filter.activity" = "暂无过滤活动";
+"dashboard.setup.user.confirmed" = "你已将扩展设置标记为完成";
+"dashboard.setup.title" = "设置检查清单";
+"dashboard.setup.progress" = "%d/3 已就绪";
+"dashboard.setup.ios.settings" = "iOS 扩展已启用";
+"dashboard.setup.ios.settings.subtitle" = "请在 iOS 设置中启用短信过滤和来电拦截，然后标记设置完成。";
+"dashboard.setup.data.synced" = "过滤数据已同步";
+"dashboard.setup.no.sync" = "更改列表或规则后，请打开一次应用以刷新扩展数据。";
+"dashboard.setup.last.sync" = "上次同步：%@";
+"dashboard.setup.filter.activity" = "检测到过滤活动";
+"dashboard.setup.waiting.activity" = "尚未过滤任何短信；扩展处理消息后会更新。";
+
+/* Management */
+"management.title" = "管理";
+"management.subtitle" = "在一个位置编辑已屏蔽、可信发送者和过滤规则。";
+"management.segment.blocked" = "屏蔽";
+"management.segment.allowed" = "可信";
+"management.segment.keywords" = "词语";
+"management.segment.numbers" = "号码";
+"management.blocked.title" = "已屏蔽发送者";
+"management.allowed.title" = "可信发送者";
+"management.keywords.title" = "关键词规则";
+"management.number.rules.title" = "号码规则";
+"management.contacts.empty.title" = "未找到联系人";
+"management.contacts.empty.message" = "包含电话号码的联系人会显示在这里。";
+"unknown.sender" = "未知";

@@ -17,30 +17,28 @@ struct FilterByNumberView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
+            ShieldSurface {
+                VStack {
                 if numberRules.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "phone.arrow.down.left")
-                            .font(.system(size: 48))
-                            .foregroundStyle(.blue)
-                        Text(NSLocalizedString("no.number.rules.title", comment: ""))
-                            .font(.headline)
-                            .foregroundStyle(.secondary)
-                        Text(NSLocalizedString("no.number.rules.message", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                    }
+                    ShieldEmptyState(
+                        title: NSLocalizedString("no.number.rules.title", comment: ""),
+                        message: NSLocalizedString("no.number.rules.message", comment: ""),
+                        systemImage: "phone.arrow.down.left",
+                        color: ShieldTheme.Colors.secondary
+                    )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
                         ForEach(numberRules) { rule in
                             FilterNumberRow(rule: rule)
+                                .listRowBackground(Color.clear)
                         }
                         .onDelete(perform: delete)
                     }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
+            }
             }
             .navigationTitle(NSLocalizedString("number.filter.rules", comment: ""))
             .toolbar {
@@ -65,6 +63,7 @@ struct FilterByNumberView: View {
         withAnimation {
             for index in offsets {
                 let rule = numberRules[index]
+                DataManager.shared.removeNumberFilterRule(ruleType: rule.ruleType, value: rule.value)
                 modelContext.delete(rule)
             }
         }
@@ -112,20 +111,23 @@ struct AddNumberFilterRuleView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    Picker(NSLocalizedString("rule.type", comment: "Rule Type"), selection: $ruleType) {
-                        Text(NSLocalizedString("rule.type.prefix", comment: "Prefix")).tag("prefix")
-                        Text(NSLocalizedString("rule.type.suffix", comment: "Suffix")).tag("suffix")
-                        Text(NSLocalizedString("rule.type.contains", comment: "Contains")).tag("contains")
-                    }
-                    .pickerStyle(.segmented)
+            ShieldSurface {
+                Form {
+                    Section {
+                        Picker(NSLocalizedString("rule.type", comment: "Rule Type"), selection: $ruleType) {
+                            Text(NSLocalizedString("rule.type.prefix", comment: "Prefix")).tag("prefix")
+                            Text(NSLocalizedString("rule.type.suffix", comment: "Suffix")).tag("suffix")
+                            Text(NSLocalizedString("rule.type.contains", comment: "Contains")).tag("contains")
+                        }
+                        .pickerStyle(.segmented)
 
-                    TextField(NSLocalizedString("enter.value.numbers.only", comment: "Enter value (numbers only)"), text: $value)
-                        .keyboardType(.numberPad)
-                } header: {
-                    Text(NSLocalizedString("rule.details", comment: "Rule Details"))
+                        TextField(NSLocalizedString("enter.value.numbers.only", comment: "Enter value (numbers only)"), text: $value)
+                            .keyboardType(.numberPad)
+                    } header: {
+                        Text(NSLocalizedString("rule.details", comment: "Rule Details"))
+                    }
                 }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle(NSLocalizedString("add.number.rule", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -147,8 +149,7 @@ struct AddNumberFilterRuleView: View {
         let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         guard !cleanedValue.isEmpty else { return }
 
-        let newRule = NumberFilterRule(ruleType: ruleType, value: cleanedValue)
-        modelContext.insert(newRule)
+        DataManager.shared.addNumberFilterRule(ruleType: ruleType, value: cleanedValue, modelContext: modelContext)
         
         dismiss()
     }

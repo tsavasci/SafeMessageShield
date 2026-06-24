@@ -158,3 +158,42 @@
 "category.promotion_others" = "Andere Promotionen";
 "category.group.transactional" = "Alle Transaktionen";
 "category.group.promotional" = "Alle Promotionen";
+
+/* Dashboard */
+"dashboard.subtitle" = "Schutzzentrale";
+"dashboard.blocked.metric" = "Blockiert";
+"dashboard.allowed.metric" = "Erlaubt";
+"dashboard.junk.metric" = "Junk-SMS";
+"dashboard.rules.metric" = "Regeln";
+"dashboard.quick.actions" = "Schnellaktionen";
+"dashboard.last.junk" = "Letzte Junk";
+"dashboard.filter.activity" = "Filteraktivität";
+"dashboard.last.junk.sender" = "Letzter Junk-Absender: %@";
+"dashboard.last.filter.activity" = "Letzte Filteraktivität: %@";
+"dashboard.categorized.messages" = "%d kategorisierte Nachrichten";
+"dashboard.no.filter.activity" = "Noch keine Filteraktivität";
+"dashboard.setup.user.confirmed" = "Die Einrichtung der Erweiterung wurde von Ihnen als abgeschlossen markiert";
+"dashboard.setup.title" = "Einrichtungs-Checkliste";
+"dashboard.setup.progress" = "%d/3 bereit";
+"dashboard.setup.ios.settings" = "iOS-Erweiterungen aktiviert";
+"dashboard.setup.ios.settings.subtitle" = "Aktivieren Sie SMS-Filterung und Anrufblockierung in den iOS-Einstellungen und markieren Sie die Einrichtung danach als abgeschlossen.";
+"dashboard.setup.data.synced" = "Filterdaten synchronisiert";
+"dashboard.setup.no.sync" = "Öffnen Sie die App nach Änderungen an Listen oder Regeln einmal, um die Erweiterungsdaten zu aktualisieren.";
+"dashboard.setup.last.sync" = "Letzte Synchronisierung: %@";
+"dashboard.setup.filter.activity" = "Filteraktivität erkannt";
+"dashboard.setup.waiting.activity" = "Noch keine SMS gefiltert; dies wird aktualisiert, sobald die Erweiterung eine Nachricht verarbeitet.";
+
+/* Management */
+"management.title" = "Verwalten";
+"management.subtitle" = "Bearbeiten Sie blockierte Absender, sichere Absender und Filterregeln an einem Ort.";
+"management.segment.blocked" = "Block";
+"management.segment.allowed" = "Sicher";
+"management.segment.keywords" = "Wörter";
+"management.segment.numbers" = "Nr.";
+"management.blocked.title" = "Blockierte Absender";
+"management.allowed.title" = "Sichere Absender";
+"management.keywords.title" = "Keyword-Regeln";
+"management.number.rules.title" = "Nummernregeln";
+"management.contacts.empty.title" = "Keine Kontakte gefunden";
+"management.contacts.empty.message" = "Kontakte mit Telefonnummern werden hier angezeigt.";
+"unknown.sender" = "Unbekannt";

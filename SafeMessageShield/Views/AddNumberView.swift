@@ -27,41 +27,47 @@ struct AddNumberView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    HStack {
-                        // TextField'ı ViewModel'e bağla
-                        TextField(NSLocalizedString("phone.number.or.sender", comment: "Phone number or sender name"), text: $viewModel.selectedPhoneNumber)
-                            .keyboardType(.default)
-                            .textContentType(.telephoneNumber)
-                        
-                        // Buton ViewModel'deki durumu değiştirsin
-                        Button(action: { checkContactsPermission() }) {
-                            Image(systemName: "person.crop.circle.badge.plus")
-                                .font(.title2)
-                                .foregroundStyle(.blue)
+            ShieldSurface {
+                Form {
+                    Section {
+                        HStack {
+                            // TextField'ı ViewModel'e bağla
+                            TextField(NSLocalizedString("phone.number.or.sender", comment: "Phone number or sender name"), text: $viewModel.selectedPhoneNumber)
+                                .keyboardType(.default)
+                                .textContentType(.telephoneNumber)
+                            
+                            // Buton ViewModel'deki durumu değiştirsin
+                            Button(action: { checkContactsPermission() }) {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                    .font(.title2)
+                                    .foregroundStyle(ShieldTheme.Colors.primary)
+                            }
                         }
+                        
+                        TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
+                    } header: {
+                        Text(NSLocalizedString("number.info", comment: ""))
+                    } footer: {
+                        Text(NSLocalizedString("number.info.footer.extended", comment: "Numaralar, ülke kodları ve gönderici adlarını (MERKEZPRIME, VODAFONE, vb.) girebilirsiniz."))
                     }
                     
-                    TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
-                } header: {
-                    Text(NSLocalizedString("number.info", comment: ""))
-                } footer: {
-                    Text(NSLocalizedString("number.info.footer.extended", comment: "Numaralar, ülke kodları ve gönderici adlarını (MERKEZPRIME, VODAFONE, vb.) girebilirsiniz."))
-                }
-                
-                Section {
-                    Button(action: addNumber) {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "plus.circle.fill")
-                            Text(NSLocalizedString("block.number", comment: ""))
-                            Spacer()
+                    Section {
+                        Button(action: addNumber) {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "plus.circle.fill")
+                                Text(NSLocalizedString("block.number", comment: ""))
+                                Spacer()
+                            }
+                            .font(.subheadline.weight(.semibold))
                         }
+                        .listRowBackground(ShieldTheme.Colors.danger.opacity(0.10))
+                        .foregroundStyle(ShieldTheme.Colors.danger)
+                        // Butonun durumunu ViewModel'deki numaraya göre belirle
+                        .disabled(viewModel.selectedPhoneNumber.isEmpty)
                     }
-                    // Butonun durumunu ViewModel'deki numaraya göre belirle
-                    .disabled(viewModel.selectedPhoneNumber.isEmpty)
                 }
+                .scrollContentBackground(.hidden)
             }
             .navigationTitle(NSLocalizedString("add.number", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
@@ -130,7 +136,7 @@ struct AddNumberView: View {
         self.blockedValue = valueToBlock
         
         // Centralize: add to both SwiftData and UserDefaults via DataManager
-        DataManager.shared.addBlockedNumber(valueToBlock, modelContext: modelContext)
+        DataManager.shared.addBlockedNumber(valueToBlock, reason: reason, modelContext: modelContext)
         
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()
@@ -213,6 +219,20 @@ struct ContactPickerView: UIViewControllerRepresentable {
                     // Picker'ı kapat
                     self.viewModel.isPickerPresented = false
                 }
+            }
+        }
+
+        func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+            guard let firstPhoneNumber = contact.phoneNumbers.first?.value.stringValue else {
+                DispatchQueue.main.async {
+                    self.viewModel.isPickerPresented = false
+                }
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.viewModel.selectedPhoneNumber = firstPhoneNumber
+                self.viewModel.isPickerPresented = false
             }
         }
         

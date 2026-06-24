@@ -1,6 +1,10 @@
 import SwiftUI
+import SwiftData
 
 struct ReportedJunkView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+
     @State private var lastSender: String? = nil
     @State private var message: String? = nil
     @State private var showingAlert = false
@@ -50,7 +54,9 @@ struct ReportedJunkView: View {
             .navigationTitle(NSLocalizedString("reported.junk", comment: "Reported Junk"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") { }
+                    Button(NSLocalizedString("close", comment: "Close")) {
+                        dismiss()
+                    }
                 }
             }
             .onAppear(perform: loadLastSender)
@@ -70,7 +76,7 @@ struct ReportedJunkView: View {
         // clean number to canonical form
         let cleaned = sender.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         // Add to allowed numbers
-        DataManager.shared.addAllowedNumber(cleaned)
+        DataManager.shared.addAllowedNumber(cleaned, modelContext: modelContext)
         // Optionally remove from blocked list
         DataManager.shared.removeBlockedNumber(cleaned)
         // Clear last sender
