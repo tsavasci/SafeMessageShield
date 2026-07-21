@@ -106,9 +106,9 @@ Kullanıcının işaretlediği "istenmeyen" SMS veya numaralardan gelen mesajlar
 
 ## 🧱 6. Veritabanı (Shared Container Yapısı)
 
-App Group ID: group.com.companyname.smsfilter
+App Group ID: group.tsavasci.SafeMessageShield
 
-📂 /Library/Application Support/group.com.companyname.smsfilter/
+📂 /Library/Application Support/group.tsavasci.SafeMessageShield/
 ├── blacklist.sqlite
 ├── preferences.plist
 └── logs/
@@ -205,4 +205,3 @@ App Group ID: group.com.companyname.smsfilter
 - [WWDC20: Filtering Unwanted Messages](https://developer.apple.com/videos/play/wwdc2020/10168/)
 
 ---
-

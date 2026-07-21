@@ -11,6 +11,7 @@ struct SettingsView: View {
     @ObservedObject private var languageManager = LanguageManager.shared
     @State private var showingLanguagePicker = false
     @State private var showingFilterCustomization = false
+    @State private var showingReportedJunk = false
     
     var body: some View {
         NavigationStack {
@@ -46,6 +47,9 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showingFilterCustomization) {
             FilterCustomizationView()
+        }
+        .sheet(isPresented: $showingReportedJunk) {
+            ReportedJunkView()
         }
     }
 
@@ -93,6 +97,16 @@ struct SettingsView: View {
                     systemImage: "slider.horizontal.3",
                     color: ShieldTheme.Colors.secondary,
                     action: { showingFilterCustomization = true }
+                )
+
+                Divider().padding(.leading, 42)
+
+                settingsRow(
+                    title: NSLocalizedString("reported.junk", comment: ""),
+                    subtitle: NSLocalizedString("last.filtered.sender", comment: ""),
+                    systemImage: "arrow.uturn.backward.circle",
+                    color: ShieldTheme.Colors.warning,
+                    action: { showingReportedJunk = true }
                 )
             }
         }

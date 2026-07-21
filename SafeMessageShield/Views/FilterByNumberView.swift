@@ -139,7 +139,7 @@ struct AddNumberFilterRuleView: View {
                     Button(NSLocalizedString("add", comment: "")) {
                         addRule()
                     }
-                    .disabled(value.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .disabled(value.components(separatedBy: CharacterSet.decimalDigits.inverted).joined().count < 3)
                 }
             }
         }
@@ -149,7 +149,12 @@ struct AddNumberFilterRuleView: View {
         let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
         guard !cleanedValue.isEmpty else { return }
 
-        DataManager.shared.addNumberFilterRule(ruleType: ruleType, value: cleanedValue, modelContext: modelContext)
+        guard cleanedValue.count >= 3 else { return }
+        DataManager.shared.addNumberFilterRule(
+            ruleType: ruleType,
+            value: cleanedValue,
+            modelContext: modelContext
+        )
         
         dismiss()
     }

@@ -6,9 +6,11 @@ Bu belge, SafeMessageShield projesini Xcode'da tam olarak yapılandırmak için 
 
 ---
 
-## ⚠️ ÖNEMLİ: Extension Target'ları Manuel Olarak Oluşturulmalı
+## ⚠️ ÖNEMLİ: Extension Target'ları Projede Hazırdır
 
-Xcode, extension target'larını kod üzerinden oluşturamaz. Aşağıdaki adımları **manuel olarak** takip etmelisiniz.
+`MessageFilterExtension` ve `CallDirectoryExtension` target'ları projeye eklenmiştir.
+Aşağıdaki adımlarda yeni target oluşturmak yerine mevcut target'ların signing,
+bundle ID ve App Group ayarlarını doğrulayın.
 
 ---
 
@@ -35,26 +37,15 @@ Xcode, extension target'larını kod üzerinden oluşturamaz. Aşağıdaki adım
 
 ---
 
-## 📝 ADIM 2: Message Filter Extension Oluştur
+## 📝 ADIM 2: Message Filter Extension'ı Doğrula
 
-### 2.1 Yeni Target Ekle
-1. **File > New > Target...**
-2. **iOS** sekmesinde **"Message Filter Extension"** seçin
-3. **Next** tıklayın
-4. Ayarlar:
-   - Product Name: `MessageFilterExtension`
-   - Language: Swift
-   - Project: SafeMessageShield
-   - Embed in Application: SafeMessageShield
-5. **Finish** tıklayın
-6. Activate scheme sorularsa **Cancel** (ana app'i çalıştıracağız)
+### 2.1 Mevcut Target
+Project Navigator'da `MessageFilterExtension` target'ının bulunduğunu ve
+`SafeMessageShield` uygulamasına gömüldüğünü doğrulayın.
 
-### 2.2 Dosyaları Değiştir
-1. Xcode'un otomatik oluşturduğu dosyaları silin:
-   - `MessageFilterExtension.swift` (varsa)
-2. Project Navigator'da şu dosyayı bulun:
-   - `MessageFilterExtension/MessageFilterExtension.swift` (repository'deki)
-3. Bu dosyanın içeriğinin doğru olduğundan emin olun
+### 2.2 Kaynak Dosyaları
+Target'ın `MessageFilterExtension/MessageFilterExtension.swift` ve
+`MessageFilterExtension/MessageFilterMatcher.swift` dosyalarını derlediğini doğrulayın.
 
 ### 2.3 Bundle ID ve Capabilities
 1. **MessageFilterExtension** target'ını seçin
@@ -78,23 +69,15 @@ Xcode, extension target'larını kod üzerinden oluşturamaz. Aşağıdaki adım
 
 ---
 
-## 📝 ADIM 3: Call Directory Extension Oluştur
+## 📝 ADIM 3: Call Directory Extension'ı Doğrula
 
-### 3.1 Yeni Target Ekle
-1. **File > New > Target...**
-2. **iOS** sekmesinde **"Call Directory Extension"** seçin
-3. **Next** tıklayın
-4. Ayarlar:
-   - Product Name: `CallDirectoryExtension`
-   - Language: Swift
-   - Project: SafeMessageShield
-   - Embed in Application: SafeMessageShield
-5. **Finish** tıklayın
-6. Activate scheme sorularsa **Cancel**
+### 3.1 Mevcut Target
+Project Navigator'da `CallDirectoryExtension` target'ının bulunduğunu ve
+`SafeMessageShield` uygulamasına gömüldüğünü doğrulayın.
 
-### 3.2 Dosyaları Değiştir
-1. Xcode'un otomatik oluşturduğu `CallDirectoryHandler.swift` dosyasını silin
-2. Repository'deki `CallDirectoryExtension/CallDirectoryHandler.swift` dosyasını kullanın
+### 3.2 Kaynak Dosyaları
+Target'ın `CallDirectoryExtension/CallDirectoryHandler.swift` dosyasını derlediğini
+doğrulayın.
 
 ### 3.3 Bundle ID ve Capabilities
 1. **CallDirectoryExtension** target'ını seçin
@@ -157,7 +140,7 @@ CallDirectoryExtension/
 Tüm target'lar için (Ana App, Message Filter, Call Directory):
 1. **Build Settings** sekmesine gidin
 2. "iOS Deployment Target" araması yapın
-3. Değeri **iOS 16.0** veya üstü yapın
+3. Değeri **iOS 18.0** veya üstü yapın
 
 ### 5.2 Swift Version
 1. **Build Settings** sekmesinde

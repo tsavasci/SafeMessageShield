@@ -12,7 +12,7 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
 
     override func beginRequest(with context: CXCallDirectoryExtensionContext) {
         context.delegate = self
-        
+
         addAllBlockingPhoneNumbers(to: context)
         context.completeRequest()
     }
@@ -23,26 +23,25 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
         }
         
         let blockedNumbers = sharedDefaults.array(forKey: "blockedNumbers") as? [String] ?? []
-        var phoneNumbers: [CXCallDirectoryPhoneNumber] = []
+        var phoneNumbers: Set<CXCallDirectoryPhoneNumber> = []
         
         for number in blockedNumbers {
-            var cleanNumber = number.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+            let cleanNumber = PhoneNumberNormalizer.normalize(number)
             
-            // Türk numarası formatı: 0 ile başlayan 11 haneyi 90xxx formatına çevir
-            if cleanNumber.hasPrefix("0") && cleanNumber.count == 11 {
-                cleanNumber = "90" + cleanNumber.dropFirst()
-            }
-            
-            if let phoneNumber = CXCallDirectoryPhoneNumber(cleanNumber) {
-                phoneNumbers.append(phoneNumber)
+            // E.164 en fazla 15 hanedir. Çok kısa ve hatalı değerleri CallKit'e verme.
+            if PhoneNumberNormalizer.isValidCallDirectoryNumber(cleanNumber),
+               let phoneNumber = CXCallDirectoryPhoneNumber(cleanNumber),
+               phoneNumber > 0 {
+                phoneNumbers.insert(phoneNumber)
             }
         }
-        
-        phoneNumbers.sort()
-        
-        for phoneNumber in phoneNumbers {
+
+        for phoneNumber in phoneNumbers.sorted() {
             context.addBlockingEntry(withNextSequentialPhoneNumber: phoneNumber)
         }
+
+        sharedDefaults.set(Date(), forKey: "lastCallDirectoryLoadDate")
+        sharedDefaults.removeObject(forKey: "lastCallDirectoryError")
     }
 
     private func addOrRemoveIncrementalBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
@@ -61,6 +60,7 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
 
 extension CallDirectoryHandler: CXCallDirectoryExtensionContextDelegate {
     func requestFailed(for extensionContext: CXCallDirectoryExtensionContext, withError error: Error) {
-        // Error handling
+        UserDefaults(suiteName: "group.tsavasci.SafeMessageShield")?
+            .set(error.localizedDescription, forKey: "lastCallDirectoryError")
     }
 }

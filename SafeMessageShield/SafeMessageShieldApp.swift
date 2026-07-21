@@ -53,9 +53,11 @@ struct SafeMessageShieldApp: App {
                let senderParam = queryItems.first(where: { $0.name == "sender" })?.value
             {
                 let cleaned = senderParam.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-                if !cleaned.isEmpty {
-                    DataManager.shared.addAllowedNumber(cleaned)
-                    DataManager.shared.removeBlockedNumber(cleaned)
+                let value = senderParam.rangeOfCharacter(from: .letters) == nil ? cleaned : senderParam
+                if !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    let context = sharedModelContainer.mainContext
+                    DataManager.shared.addAllowedNumber(value, modelContext: context)
+                    DataManager.shared.removeBlockedNumber(value, modelContext: context)
                 }
             }
         }

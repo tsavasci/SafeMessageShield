@@ -92,8 +92,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         let numberFilterRules =
             sharedDefaults.array(forKey: "numberFilterRules") as? [[String: String]] ?? []
 
-        let cleanSender = MessageFilterExtension.digitsOnly(sender)
-        let senderUppercase = sender.uppercased()
+        let cleanSender = MessageFilterMatcher.normalizedPhoneNumber(sender)
+        let senderUppercase = MessageFilterMatcher.normalizedSenderName(sender)
 
         // Mesaj içeriğini al (varsa)
         let messageBody = queryRequest.messageBody ?? ""
@@ -118,8 +118,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             fallback: blockedNumbersRaw
         )
 
-        let normalizedAllowedNumbers = allowedNumbers.map { MessageFilterExtension.digitsOnly($0) }.filter { !$0.isEmpty }
-        let normalizedBlockedNumbers = blockedNumbers.map { MessageFilterExtension.digitsOnly($0) }.filter { !$0.isEmpty }
+        let normalizedAllowedNumbers = allowedNumbers.map(MessageFilterMatcher.normalizedPhoneNumber).filter { !$0.isEmpty }
+        let normalizedBlockedNumbers = blockedNumbers.map(MessageFilterMatcher.normalizedPhoneNumber).filter { !$0.isEmpty }
 
         let allowedNumbersSet = Set(normalizedAllowedNumbers)
         let blockedNumbersSet = Set(normalizedBlockedNumbers)
@@ -132,7 +132,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 logger.info("✅ Allowed by whitelist (name exact): \(senderUppercase)")
                 return (.none, .none)
             }
-            for allowedUpper in allowedNames where senderUppercase.contains(allowedUpper) {
+            for allowedUpper in allowedNames where MessageFilterMatcher.senderNamesMatch(stored: allowedUpper, sender: sender) {
                 logger.info("✅ Allowed by whitelist (name): \(allowedUpper)")
                 return (.none, .none)
             }
@@ -143,55 +143,28 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 logger.info("✅ Allowed by whitelist (number exact): \(cleanSender)")
                 return (.none, .none)
             }
-            for allowedDigits in normalizedAllowedNumbers where cleanSender.hasSuffix(allowedDigits) {
+            for allowedDigits in allowedNumbers where MessageFilterMatcher.numbersMatch(stored: allowedDigits, sender: sender) {
                 logger.info("✅ Allowed by whitelist (number): \(allowedDigits)")
                 return (.none, .none)
             }
         }
 
-        // 2. Filtre Kuralları kontrolü - Gönderen veya mesaj içeriğine göre kategorize et
-        for rule in filterRules {
-            if let keyword = rule["keyword"], let category = rule["category"] {
-                if sender.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
-                    || messageBody.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
-                {
-                    // Kategoriyi belirle ve mesajı filtrele
-                    let subAction = getSubAction(for: category)
-
-                    // Kategorize edildi sayacını artır
-                    incrementStatistic(key: "smsCategorizedCount")
-                    logger.info(
-                        "📂 Categorized by rule: keyword=\(keyword) in sender or body, category=\(category)"
-                    )
-
-                    // Transactional kategoriler için .transaction kullan
-                    if category.hasPrefix("transactional") {
-                        return (.transaction, subAction)
-                    }
-                    // Promotional kategoriler için .promotion kullan
-                    else if category.hasPrefix("promotional") {
-                        return (.promotion, subAction)
-                    }
-                }
-            }
-        }
-
-        // 2.5. Numara filtre kuralları kontrolü
+        // 2. Numara filtre kuralları kontrolü
             for rule in numberFilterRules {
-                if let prefix = rule["prefix"], MessageFilterExtension.matchesPrefix(ruleValue: prefix, sender: cleanSender) {
+                if let prefix = rule["prefix"], MessageFilterMatcher.numberRuleMatches(type: "prefix", value: prefix, sender: sender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: prefix=\(prefix)")
                     // record last junk sender for app UI to allow 'Not Junk' action
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let suffix = rule["suffix"], MessageFilterExtension.matchesSuffix(ruleValue: suffix, sender: cleanSender) {
+                if let suffix = rule["suffix"], MessageFilterMatcher.numberRuleMatches(type: "suffix", value: suffix, sender: sender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: suffix=\(suffix)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let contains = rule["contains"], MessageFilterExtension.matchesContains(ruleValue: contains, sender: cleanSender) {
+                if let contains = rule["contains"], MessageFilterMatcher.numberRuleMatches(type: "contains", value: contains, sender: sender) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: contains=\(contains)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
@@ -199,7 +172,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                 }
             }
 
-        // 3. Blocklist kontrolü - Engellenenlerdeyse spam olarak işaretle
+        // 3. Blocklist kontrolü - açık kullanıcı kararı kategori kurallarından önce gelir.
         if !blockedNamesSet.isEmpty {
             if blockedNamesSet.contains(senderUppercase) {
                 incrementStatistic(key: "smsJunkCount")
@@ -209,7 +182,7 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
             }
         }
 
-        for blockedName in blockedNames where senderUppercase.contains(blockedName) {
+        for blockedName in blockedNames where MessageFilterMatcher.senderNamesMatch(stored: blockedName, sender: sender) {
             incrementStatistic(key: "smsJunkCount")
             logger.info("🚫 Blocked as junk (text sender): \(blockedName)")
             sharedDefaults.set(sender, forKey: "lastJunkSender")
@@ -218,14 +191,32 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
 
         for blockedDigits in normalizedBlockedNumbers {
             if blockedNumbersSet.contains(cleanSender)
-                || MessageFilterExtension.safeSuffixMatch(ruleValue: blockedDigits, sender: cleanSender)
-                || MessageFilterExtension.safeContainsMatch(ruleValue: blockedDigits, sender: cleanSender)
-            {
+                || MessageFilterMatcher.numbersMatch(stored: blockedDigits, sender: sender) {
                 // Junk sayacını artır
                 incrementStatistic(key: "smsJunkCount")
                 logger.info("🚫 Blocked as junk: number=\(blockedDigits)")
                 sharedDefaults.set(sender, forKey: "lastJunkSender")
                 return (.junk, .none)
+            }
+        }
+
+        // 4. Filtre kuralları - açık whitelist/blocklist kararından sonra kategorize et.
+        for rule in filterRules {
+            if let keyword = rule["keyword"], let category = rule["category"] {
+                if sender.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+                    || messageBody.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+                {
+                    let subAction = getSubAction(for: category)
+                    incrementStatistic(key: "smsCategorizedCount")
+                    logger.info(
+                        "📂 Categorized by rule: keyword=\(keyword) in sender or body, category=\(category)"
+                    )
+                    if category.hasPrefix("transactional") {
+                        return (.transaction, subAction)
+                    } else if category.hasPrefix("promotional") {
+                        return (.promotion, subAction)
+                    }
+                }
             }
         }
 
@@ -273,19 +264,15 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         return (.none, .none)
     }
 
-    private static func digitsOnly(_ s: String) -> String {
-        return s.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-    }
-
     private static func splitNumbersAndNames(_ values: [String]) -> (numbers: [String], names: [String]) {
         var numbers: [String] = []
         var names: [String] = []
         for value in values {
             if value.rangeOfCharacter(from: .letters) != nil {
-                let cleaned = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+                let cleaned = MessageFilterMatcher.normalizedSenderName(value)
                 if !cleaned.isEmpty { names.append(cleaned) }
             } else {
-                let cleaned = digitsOnly(value)
+                let cleaned = MessageFilterMatcher.normalizedPhoneNumber(value)
                 if !cleaned.isEmpty { numbers.append(cleaned) }
             }
         }
@@ -299,75 +286,4 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         return splitNumbersAndNames(fallback)
     }
 
-    private static func generateVariantsForSender(_ s: String) -> [String] {
-        var variants: [String] = [s]
-        if s.count > 1 { variants.append(String(s.dropFirst(1))) }
-        if s.count > 2 { variants.append(String(s.dropFirst(2))) }
-        if s.count > 3 { variants.append(String(s.dropFirst(3))) }
-        return Array(Set(variants))
-    }
-
-    private static func generateVariantsForRule(_ r: String) -> [String] {
-        var variants: [String] = [r]
-        if let first = r.first, first == "0" {
-            variants.append(String(r.dropFirst(1)))
-        } else {
-            variants.append("0" + r)
-        }
-        if r.count > 0 { variants.append("90" + r) }
-        return Array(Set(variants))
-    }
-
-    private static func matchesPrefix(ruleValue: String, sender: String) -> Bool {
-        let r = digitsOnly(ruleValue)
-        guard !r.isEmpty else { return false }
-        let sVariants = generateVariantsForSender(sender)
-        let rVariants = generateVariantsForRule(r)
-        for sv in sVariants {
-            for rv in rVariants {
-                if sv.hasPrefix(rv) { return true }
-            }
-        }
-        return false
-    }
-
-    private static func matchesSuffix(ruleValue: String, sender: String) -> Bool {
-        let r = digitsOnly(ruleValue)
-        guard !r.isEmpty else { return false }
-        let sVariants = generateVariantsForSender(sender)
-        let rVariants = generateVariantsForRule(r)
-        for sv in sVariants {
-            for rv in rVariants {
-                if sv.hasSuffix(rv) { return true }
-            }
-        }
-        return false
-    }
-
-    private static func matchesContains(ruleValue: String, sender: String) -> Bool {
-        let r = digitsOnly(ruleValue)
-        guard isSafeContainsCandidate(r) else { return false }
-        let sVariants = generateVariantsForSender(sender)
-        let rVariants = generateVariantsForRule(r)
-        for sv in sVariants {
-            for rv in rVariants {
-                if isSafeContainsCandidate(rv) && sv.contains(rv) { return true }
-            }
-        }
-        return false
-    }
-
-    private static func safeSuffixMatch(ruleValue: String, sender: String) -> Bool {
-        guard ruleValue.count >= 7, sender.count >= 7 else { return false }
-        return sender.hasSuffix(ruleValue) || ruleValue.hasSuffix(sender)
-    }
-
-    private static func safeContainsMatch(ruleValue: String, sender: String) -> Bool {
-        guard isSafeContainsCandidate(ruleValue), isSafeContainsCandidate(sender) else { return false }
-        return sender.contains(ruleValue) || ruleValue.contains(sender)
-    }
-
-    private static func isSafeContainsCandidate(_ value: String) -> Bool {
-        value.count >= 7
-    }
 }

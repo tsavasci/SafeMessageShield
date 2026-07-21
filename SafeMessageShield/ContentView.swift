@@ -492,7 +492,9 @@ struct ContentView: View {
         CXCallDirectoryManager.sharedInstance.reloadExtension(
             withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension"
         ) { error in
-            // Silently handle reload
+            DispatchQueue.main.async {
+                DataManager.shared.recordCallDirectoryReloadError(error)
+            }
         }
     }
 
@@ -507,6 +509,7 @@ struct ContentView: View {
 struct StatusCard: View {
     @State private var isFilterEnabled = false
     @State private var showInstructions = false
+    @State private var callDirectoryError: String?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -616,6 +619,13 @@ struct StatusCard: View {
                         .foregroundStyle(.secondary)
                 }
             }
+
+            if let callDirectoryError {
+                Text(callDirectoryError)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
         .padding()
         .background(Color(.systemGray6))
@@ -626,17 +636,23 @@ struct StatusCard: View {
     }
 
     private func checkFilterStatus() {
-        // Extension'ların etkinleştirilip etkinleştirilmediğini kontrol etmek
-        // iOS gerçekte extension durumunu API ile vermediği için kullanıcıya bilgi veriyoruz
-        isFilterEnabled = DataManager.shared.isFilterEnabled()
+        // Message Filter durumu API ile okunamıyor. Kullanıcı onayını, CallKit'in
+        // gerçek etkinlik durumuyla birlikte değerlendir.
+        let messageFilterConfirmed = DataManager.shared.isFilterEnabled()
+        callDirectoryError = DataManager.shared.lastCallDirectoryError()
+        CXCallDirectoryManager.sharedInstance.getEnabledStatusForExtension(
+            withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension"
+        ) { status, _ in
+            DispatchQueue.main.async {
+                isFilterEnabled = messageFilterConfirmed && status == .enabled
+            }
+        }
     }
 
     private func markAsEnabled() {
         DataManager.shared.setFilterEnabled(true)
-        withAnimation {
-            isFilterEnabled = true
-            showInstructions = false
-        }
+        showInstructions = false
+        checkFilterStatus()
     }
 
     private func openSettings() {

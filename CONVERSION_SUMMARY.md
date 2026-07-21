@@ -18,7 +18,7 @@
 - 🔄 **Güncellendi**: `SafeMessageShieldApp.swift` - BlockedNumber modeli ile güncelendi
 - ✅ **Eklendi**: `SafeMessageShield.entitlements` - App Groups yetkilendirmesi
 
-### 5. Extension'lar (Manuel kurulum gerekli)
+### 5. Extension'lar
 - ✅ **Eklendi**: `MessageFilterExtension/MessageFilterExtension.swift` - SMS filtreleme
 - ✅ **Eklendi**: `MessageFilterExtension/Info.plist` - Extension yapılandırması
 - ✅ **Eklendi**: `CallDirectoryExtension/CallDirectoryHandler.swift` - Numara engelleme
@@ -35,9 +35,9 @@
 
 ### Kullanıcı Özellikleri
 1. **Numara Engelleme**: Kullanıcılar istenmeyen numaraları engelleyebilir
-2. **SMS Filtreleme**: Spam ve promosyon mesajları otomatik filtrelenir
-3. **Akıllı Analiz**: AI bazlı içerik analizi (cihaz içi)
-4. **Transaction Koruması**: Banka, OTP gibi önemli mesajlar korunur
+2. **SMS Filtreleme**: Blocklist ve kullanıcı tanımlı kurallarla mesajlar filtrelenir
+3. **Kural Bazlı Analiz**: Anahtar kelimeler cihaz içinde değerlendirilir
+4. **Whitelist Koruması**: Güvenilir numara ve gönderici adları filtre dışında tutulur
 5. **Gizlilik**: Tüm veriler cihazda, hiçbir veri sunucuya gönderilmez
 
 ### Teknik Özellikler
@@ -51,15 +51,14 @@
 
 ## 🔧 Yapılması Gerekenler
 
-### Xcode'da Manuel Kurulum (ZORUNLU)
-Extension target'ları Xcode'dan manuel olarak oluşturulmalıdır:
+### Xcode Target Doğrulaması
+Extension target'ları projeye eklenmiştir. Xcode'da aşağıdaki kimlik ve signing
+ayarları doğrulanmalıdır:
 
 1. **Message Filter Extension Target**
-   - File > New > Target > Message Filter Extension
    - Bundle ID: `tsavasci.SafeMessageShield.MessageFilterExtension`
 
 2. **Call Directory Extension Target**
-   - File > New > Target > Call Directory Extension
    - Bundle ID: `tsavasci.SafeMessageShield.CallDirectoryExtension`
 
 3. **App Groups Capability**
@@ -74,7 +73,7 @@ Extension target'ları Xcode'dan manuel olarak oluşturulmalıdır:
 
 ### Gereksinimler
 - ⚠️ **Fiziksel iOS cihaz gerekli** (Simulator'da SMS filtreleme çalışmaz)
-- iOS 16.0+
+- iOS 18.0+
 - Apple Developer hesabı (ücretsiz hesap yeterli)
 
 ### iOS Cihazda Etkinleştirme
@@ -88,7 +87,7 @@ Extension target'ları Xcode'dan manuel olarak oluşturulmalıdır:
 - Spam mesajı gönder → Junk klasörüne düşmeli
 - Engellenmiş numaradan mesaj → Bildirim gelmemeli
 - Normal mesaj → Normal gelme li
-- OTP/Banka mesajı → Korunmalı
+- Whitelist'teki OTP/Banka göndericisi → Normal gelmeli
 
 ---
 
@@ -142,7 +141,7 @@ SafeMessageShield/
 ## 🚀 Sonraki Adımlar
 
 ### Hemen Yapılacaklar
-1. Xcode'da extension target'larını oluştur
+1. Xcode'da mevcut extension target'larının signing ayarlarını doğrula
 2. App Groups capability'sini ekle
 3. Bundle ID'leri ayarla
 4. Fiziksel cihazda test et
@@ -160,7 +159,7 @@ SafeMessageShield/
 ## 📞 Notlar
 
 ### Önemli Hatırlatmalar
-1. Extension'lar **manuel olarak** Xcode'dan oluşturulmalı
+1. Extension target'larının signing ve App Group ayarları doğrulanmalı
 2. **Fiziksel cihaz** test için zorunlu
 3. iOS Ayarlar'dan **manuel etkinleştirme** gerekli
 4. App Store'a göndermeden önce **Privacy Manifest** ekle
@@ -192,8 +191,8 @@ Basit bir örnek SwiftUI uygulamasından, tam özellikli bir SMS filtreleme ve n
 - ✅ Message Filter Extension
 - ✅ Call Directory Extension
 - ✅ App Groups veri paylaşımı
-- ✅ Spam tespiti algoritması
-- ✅ Transaction mesaj koruması
+- ✅ Blocklist ve kullanıcı kuralı tabanlı filtreleme
+- ✅ Whitelist önceliği
 - ✅ Kullanıcı gizliliği odaklı tasarım
 - ✅ Apple App Store uyumluluğu
 

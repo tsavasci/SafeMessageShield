@@ -43,8 +43,8 @@ class DataManager {
         if trimmedInput.rangeOfCharacter(from: .letters) != nil {
             valueToProcess = trimmedInput.uppercased()
         } else {
-            // Harf içermiyorsa, telefon numarası olarak kabul et ve temizle
-            valueToProcess = trimmedInput.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+            // Telefon numaralarını bütün bileşenlerde aynı rakam-only biçimde sakla.
+            valueToProcess = PhoneNumberNormalizer.normalize(trimmedInput)
         }
         
         return valueToProcess.isEmpty ? nil : valueToProcess
@@ -53,9 +53,12 @@ class DataManager {
     private func isSenderName(_ input: String) -> Bool {
         return input.rangeOfCharacter(from: .letters) != nil
     }
-    
-    private func digitsOnly(_ input: String) -> String {
-        return input.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
+
+    private func valuesAreEquivalent(_ lhs: String, _ rhs: String) -> Bool {
+        guard let left = processNumberOrSender(lhs), let right = processNumberOrSender(rhs) else {
+            return false
+        }
+        return left.caseInsensitiveCompare(right) == .orderedSame
     }
     
     private func updateAllowedNormalizedLists(from values: [String]) {
@@ -67,7 +70,7 @@ class DataManager {
                 let cleaned = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
                 if !cleaned.isEmpty { names.append(cleaned) }
             } else {
-                let cleaned = digitsOnly(value)
+                let cleaned = PhoneNumberNormalizer.normalize(value)
                 if !cleaned.isEmpty { numbers.append(cleaned) }
             }
         }
@@ -85,7 +88,7 @@ class DataManager {
                 let cleaned = value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
                 if !cleaned.isEmpty { names.append(cleaned) }
             } else {
-                let cleaned = digitsOnly(value)
+                let cleaned = PhoneNumberNormalizer.normalize(value)
                 if !cleaned.isEmpty { numbers.append(cleaned) }
             }
         }
@@ -101,7 +104,7 @@ class DataManager {
     func addBlockedNumber(_ phoneNumber: String) {
         guard let valueToBlock = processNumberOrSender(phoneNumber) else { return }
         var numbers = getBlockedNumbers()
-        if !numbers.contains(where: { $0.caseInsensitiveCompare(valueToBlock) == .orderedSame }) {
+        if !numbers.contains(where: { valuesAreEquivalent($0, valueToBlock) }) {
             numbers.append(valueToBlock)
             userDefaults.set(numbers, forKey: blockedNumbersKey)
             updateBlockedNormalizedLists(from: numbers)
@@ -128,7 +131,7 @@ class DataManager {
 
         // UserDefaults güncellemesini tek yerden yap
         var numbers = getBlockedNumbers()
-        if !numbers.contains(where: { $0.caseInsensitiveCompare(valueToBlock) == .orderedSame }) {
+        if !numbers.contains(where: { valuesAreEquivalent($0, valueToBlock) }) {
             numbers.append(valueToBlock)
             userDefaults.set(numbers, forKey: blockedNumbersKey)
             updateBlockedNormalizedLists(from: numbers)
@@ -138,7 +141,7 @@ class DataManager {
     func removeBlockedNumber(_ phoneNumber: String) {
         guard let valueToRemove = processNumberOrSender(phoneNumber) else { return }
         var numbers = getBlockedNumbers()
-        numbers.removeAll { $0.caseInsensitiveCompare(valueToRemove) == .orderedSame }
+        numbers.removeAll { valuesAreEquivalent($0, valueToRemove) }
         userDefaults.set(numbers, forKey: blockedNumbersKey)
         updateBlockedNormalizedLists(from: numbers)
     }
@@ -151,14 +154,26 @@ class DataManager {
 
         // UserDefaults güncelle
         var numbers = getBlockedNumbers()
-        numbers.removeAll { $0.caseInsensitiveCompare(valueToRemove) == .orderedSame }
+        numbers.removeAll { valuesAreEquivalent($0, valueToRemove) }
         userDefaults.set(numbers, forKey: blockedNumbersKey)
         updateBlockedNormalizedLists(from: numbers)
+
+        guard let context = modelContext else { return }
+        let descriptor = FetchDescriptor<BlockedNumber>(
+            predicate: #Predicate { $0.phoneNumber == valueToRemove }
+        )
+        do {
+            for model in try context.fetch(descriptor) {
+                context.delete(model)
+            }
+        } catch {
+            print("Failed to remove blocked number from SwiftData: \(error)")
+        }
     }
 
     func isNumberBlocked(_ phoneNumber: String) -> Bool {
         guard let valueToCompare = processNumberOrSender(phoneNumber) else { return false }
-        return getBlockedNumbers().contains { $0.caseInsensitiveCompare(valueToCompare) == .orderedSame }
+        return getBlockedNumbers().contains { valuesAreEquivalent($0, valueToCompare) }
     }
 
     // MARK: - Allowed Numbers Management (Whitelist)
@@ -173,7 +188,7 @@ class DataManager {
 
         // Değer zaten listede mi kontrol et (case-insensitive)
         let exists = numbers.contains { existingValue in
-            existingValue.uppercased() == valueToAllow.uppercased()
+            valuesAreEquivalent(existingValue, valueToAllow)
         }
 
         if !exists {
@@ -201,7 +216,7 @@ class DataManager {
         var numbers = getAllowedNumbers()
 
         let exists = numbers.contains { existingValue in
-            existingValue.uppercased() == valueToAllow.uppercased()
+            valuesAreEquivalent(existingValue, valueToAllow)
         }
 
         if !exists {
@@ -217,11 +232,28 @@ class DataManager {
 
         // Case-insensitive silme
         numbers.removeAll { existingValue in
-            existingValue.uppercased() == valueToRemove.uppercased()
+            valuesAreEquivalent(existingValue, valueToRemove)
         }
 
         userDefaults.set(numbers, forKey: allowedNumbersKey)
         updateAllowedNormalizedLists(from: numbers)
+    }
+
+    func removeAllowedNumber(_ value: String, modelContext: ModelContext?) {
+        guard let valueToRemove = processNumberOrSender(value) else { return }
+        removeAllowedNumber(valueToRemove)
+
+        guard let context = modelContext else { return }
+        let descriptor = FetchDescriptor<AllowedNumber>(
+            predicate: #Predicate { $0.phoneNumber == valueToRemove }
+        )
+        do {
+            for model in try context.fetch(descriptor) {
+                context.delete(model)
+            }
+        } catch {
+            print("Failed to remove allowed number from SwiftData: \(error)")
+        }
     }
 
     func isNumberAllowed(_ value: String) -> Bool {
@@ -230,7 +262,7 @@ class DataManager {
 
         // Case-insensitive kontrol
         return allowedNumbers.contains { existingValue in
-            existingValue.uppercased() == valueToCompare.uppercased()
+            valuesAreEquivalent(existingValue, valueToCompare)
         }
     }
 
@@ -268,6 +300,19 @@ class DataManager {
         userDefaults.object(forKey: lastAppGroupSyncDateKey) as? Date
     }
 
+    func recordCallDirectoryReloadError(_ error: Error?) {
+        if let error {
+            userDefaults.set(error.localizedDescription, forKey: "lastCallDirectoryError")
+        } else {
+            userDefaults.removeObject(forKey: "lastCallDirectoryError")
+            userDefaults.set(Date(), forKey: "lastCallDirectoryReloadDate")
+        }
+    }
+
+    func lastCallDirectoryError() -> String? {
+        userDefaults.string(forKey: "lastCallDirectoryError")
+    }
+
     // MARK: - Filter Rules Management
 
     func getFilterRules() -> [[String: String]] {
@@ -290,12 +335,20 @@ class DataManager {
     /// Sync SwiftData model arrays into App Group UserDefaults so extensions can read them.
     func syncFromSwiftData(allowed: [AllowedNumber], blocked: [BlockedNumber], filterRules: [FilterRule], numberRules: [NumberFilterRule]) {
         // Allowed numbers as plain strings
-        let allowedStrings = allowed.map { $0.phoneNumber }
+        let allowedStrings = allowed.compactMap { model -> String? in
+            guard let normalized = processNumberOrSender(model.phoneNumber) else { return nil }
+            if model.phoneNumber != normalized { model.phoneNumber = normalized }
+            return normalized
+        }
         userDefaults.set(allowedStrings, forKey: allowedNumbersKey)
         updateAllowedNormalizedLists(from: allowedStrings)
 
         // Blocked numbers as plain strings
-        let blockedStrings = blocked.map { $0.phoneNumber }
+        let blockedStrings = blocked.compactMap { model -> String? in
+            guard let normalized = processNumberOrSender(model.phoneNumber) else { return nil }
+            if model.phoneNumber != normalized { model.phoneNumber = normalized }
+            return normalized
+        }
         userDefaults.set(blockedStrings, forKey: blockedNumbersKey)
         updateBlockedNormalizedLists(from: blockedStrings)
 
@@ -351,35 +404,28 @@ class DataManager {
     }
 
     func addNumberFilterRule(ruleType: String, value: String, modelContext: ModelContext?) {
-        let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        guard !cleanedValue.isEmpty else { return }
-
-        if let context = modelContext {
-            let newRule = NumberFilterRule(ruleType: ruleType, value: cleanedValue)
-            context.insert(newRule)
+        let cleanedValue = PhoneNumberNormalizer.normalize(value)
+        guard ["prefix", "suffix", "contains"].contains(ruleType), cleanedValue.count >= 3 else {
+            return
         }
 
         var rules = getNumberFilterRules()
-        let newRule = [ruleType: cleanedValue]
-        let exists = rules.contains { rule in
-            rule[ruleType] == cleanedValue
+        let exists = rules.contains { $0[ruleType] == cleanedValue }
+        guard !exists else { return }
+
+        if let context = modelContext {
+            context.insert(NumberFilterRule(ruleType: ruleType, value: cleanedValue))
         }
-        if !exists {
-            rules.append(newRule)
-            userDefaults.set(rules, forKey: numberFilterRulesKey)
-        }
+
+        rules.append([ruleType: cleanedValue])
+        userDefaults.set(rules, forKey: "numberFilterRules")
     }
 
     func removeNumberFilterRule(ruleType: String, value: String) {
-        let cleanedValue = value.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var removedOne = false
+        let cleanedValue = PhoneNumberNormalizer.normalize(value)
         var rules = getNumberFilterRules()
-        rules.removeAll { rule in
-            guard !removedOne, rule[ruleType] == cleanedValue else { return false }
-            removedOne = true
-            return true
-        }
-        userDefaults.set(rules, forKey: numberFilterRulesKey)
+        rules.removeAll { $0[ruleType] == cleanedValue }
+        userDefaults.set(rules, forKey: "numberFilterRules")
     }
 
     func getCategoryForMessage(_ messageBody: String) -> String? {

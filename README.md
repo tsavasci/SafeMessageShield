@@ -9,7 +9,7 @@ iOS için SMS Filtreleme ve Telefon Engelleme Uygulaması
 - ✅ **Manuel Numara Ekleme**: Telefon numaralarını kolayca manuel olarak girin
 - ✅ **Rehber Entegrasyonu**: Rehberinizden doğrudan numara seçerek engelleyin
 - ✅ **Gizlilik Odaklı**: Tüm veriler cihazda saklanır, sunucuya hiçbir veri gönderilmez
-- ✅ **Sürekli Koruma**: Uygulama kapalıyken bile çalışır (kill-safe)
+- ✅ **Sürekli Koruma**: Uygulama cihazda yüklü ve extension'lar etkin olduğu sürece uygulama kapalıyken de çalışır
 - ✅ **Sıfır Gecikme**: Anında filtreleme ve engelleme
 - ✅ **Modern UI**: SwiftUI ile tasarlanmış kullanıcı dostu arayüz
 
@@ -26,8 +26,8 @@ iOS için SMS Filtreleme ve Telefon Engelleme Uygulaması
 2. **Message Filter Extension**
    - Framework: `IdentityLookup`
    - Gelen SMS'leri filtreler
-   - Spam ve promosyon tespiti
-   - Transaction mesajlarını korur
+   - Kullanıcının tanımladığı kelime kurallarıyla promosyon/işlem kategorileri
+   - Whitelist ile güvenilir gönderenleri korur
 
 3. **Call Directory Extension**
    - Framework: `CallKit`
@@ -40,7 +40,7 @@ iOS için SMS Filtreleme ve Telefon Engelleme Uygulaması
 
 ## 📋 Gereksinimler
 
-- iOS 16.0+
+- iOS 18.0+
 - Xcode 15.0+
 - Swift 5.9+
 - Fiziksel iOS cihaz (Simulator'da SMS filtreleme test edilemez)
@@ -70,19 +70,13 @@ Her target için (Ana App, Message Filter, Call Directory):
 3. "App Groups" ekleyin
 4. Container olarak `group.tsavasci.SafeMessageShield` ekleyin
 
-### 4. Extension Target'larını Oluşturun
+### 4. Extension Target'larını Doğrulayın
 
-#### Message Filter Extension:
-1. File > New > Target
-2. iOS > Message Filter Extension seçin
-3. Product Name: `MessageFilterExtension`
-4. `MessageFilterExtension.swift` dosyasını kullanın
+Proje `MessageFilterExtension`, `CallDirectoryExtension` ve `SafeMessageShieldTests`
+target'larını hazır içerir. Xcode'da bundle ID, signing team ve App Group üyeliklerini
+doğrulayın.
 
-#### Call Directory Extension:
-1. File > New > Target
-2. iOS > Call Directory Extension seçin
-3. Product Name: `CallDirectoryExtension`
-4. `CallDirectoryHandler.swift` dosyasını kullanın
+Yeni target oluşturmanız gerekmez.
 
 ### 5. Derleyin ve Çalıştırın
 
@@ -139,7 +133,7 @@ Her target için (Ana App, Message Filter, Call Directory):
 - Hiçbir bildirim veya rahatsızlık yaşamazsınız
 
 **Önemli Not:**
-- Her iki özellik de uygulama kapalıyken/silinmiş halde bile çalışır
+- Her iki özellik de uygulama cihazda yüklüyken, uygulama kapalı olsa bile çalışır
 - Extension'lar iOS tarafından otomatik olarak tetiklenir
 - İnternet bağlantısı gerektirmez, tamamen offline çalışır
 
@@ -153,6 +147,17 @@ Her target için (Ana App, Message Filter, Call Directory):
 - ✅ Tracking YOK
 
 ## 🧪 Test
+
+### Otomatik Testler
+
+`SafeMessageShieldTests` target'ı telefon normalizasyonu, alfabetik gönderici
+eşleşmeleri ve numara filtre kurallarını doğrular:
+
+```bash
+xcodebuild -project SafeMessageShield.xcodeproj \
+  -scheme SafeMessageShield \
+  -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
+```
 
 ### Manuel Test Senaryoları
 

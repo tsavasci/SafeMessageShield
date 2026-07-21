@@ -152,7 +152,9 @@ struct AddNumberView: View {
     
     private func reloadCallDirectory() {
         CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
-            // Silently handle reload
+            DispatchQueue.main.async {
+                DataManager.shared.recordCallDirectoryReloadError(error)
+            }
         }
     }
 

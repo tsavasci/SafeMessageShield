@@ -104,11 +104,8 @@ Edit the CSS variables in `styles.css`:
 ```
 
 ### Multi-Language Support
-Currently the site is in Turkish. To add English version:
-1. Create `en/index.html`
-2. Copy content from `index.html`
-3. Translate all text
-4. Add language switcher in navigation
+Landing pages are available in 11 languages. Legal pages are currently available
+in Turkish and English; other language pages link to the Turkish legal text.
 
 ## 📱 Sections
 
@@ -124,8 +121,8 @@ Currently the site is in Turkish. To add English version:
 
 - [ ] Add real App Store URL (when approved)
 - [ ] Add actual app screenshots to phone mockup
-- [ ] Create `privacy-policy.html` page
-- [ ] Create `terms.html` page
+- [x] Create privacy policy pages (Turkish and English)
+- [x] Create terms pages (Turkish and English)
 - [ ] Add Twitter/GitHub social links (if desired)
 - [ ] Set up Google Analytics (optional)
 - [ ] Test on all devices and browsers

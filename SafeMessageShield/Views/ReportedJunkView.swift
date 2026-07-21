@@ -4,7 +4,6 @@ import SwiftData
 struct ReportedJunkView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-
     @State private var lastSender: String? = nil
     @State private var message: String? = nil
     @State private var showingAlert = false
@@ -77,12 +76,12 @@ struct ReportedJunkView: View {
 
     private func markNotJunk() {
         guard let sender = lastSender else { return }
-        // clean number to canonical form
-        let cleaned = sender.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let digits = sender.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let value = sender.rangeOfCharacter(from: .letters) == nil ? digits : sender
         // Add to allowed numbers
-        DataManager.shared.addAllowedNumber(cleaned, modelContext: modelContext)
+        DataManager.shared.addAllowedNumber(value, modelContext: modelContext)
         // Optionally remove from blocked list
-        DataManager.shared.removeBlockedNumber(cleaned)
+        DataManager.shared.removeBlockedNumber(value, modelContext: modelContext)
         // Clear last sender
         if let ud = UserDefaults(suiteName: suite) {
             ud.removeObject(forKey: "lastJunkSender")
