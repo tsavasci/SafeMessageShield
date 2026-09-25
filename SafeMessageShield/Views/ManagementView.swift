@@ -134,7 +134,7 @@ struct ManagementView: View {
             ) {
                 ForEach(blockedNumbers) { number in
                     managementRow(
-                        title: number.phoneNumber,
+                        title: PhoneNumberService.shared.displayString(forStored: number.phoneNumber),
                         subtitle: languageManager.formatted(number.addedAt, date: .abbreviated, time: .omitted),
                         systemImage: "minus.circle.fill",
                         color: ShieldTheme.Colors.danger
@@ -155,7 +155,7 @@ struct ManagementView: View {
             ) {
                 ForEach(allowedNumbers) { number in
                     managementRow(
-                        title: number.phoneNumber,
+                        title: PhoneNumberService.shared.displayString(forStored: number.phoneNumber),
                         subtitle: languageManager.formatted(number.addedAt, date: .abbreviated, time: .omitted),
                         systemImage: "checkmark.circle.fill",
                         color: ShieldTheme.Colors.success

@@ -88,7 +88,7 @@
 "management.segment.blocked" = "Block";
 "management.segment.allowed" = "Allow";
 "management.segment.keywords" = "Words";
-"management.segment.numbers" = "Nums";
+"management.segment.numbers" = "Numbers";
 "management.blocked.title" = "Blocked senders";
 "management.allowed.title" = "Safe senders";
 "management.keywords.title" = "Keyword rules";

@@ -102,6 +102,21 @@ nonisolated final class PhoneNumberService: @unchecked Sendable {
         }
     }
 
+    /// Saklanan değeri listelerde okunaklı gösterir (örn. "905551234567" → "+90 555 123 45 67").
+    /// Kısa numaralar, gönderici adları ve çözümlenemeyen değerler olduğu gibi döner.
+    func displayString(forStored stored: String) -> String {
+        let digits = PhoneNumberNormalizer.digitsOnly(stored)
+        guard stored.rangeOfCharacter(from: .letters) == nil,
+              digits.count > PhoneNumberNormalizer.shortCodeMaxLength
+        else { return stored }
+
+        lock.lock()
+        defer { lock.unlock() }
+        guard let parsed = try? utility.parse("+" + digits) else { return stored }
+        // Sağdan sola dillerde "+" yanlış tarafa geçmesin diye soldan sağa yalıtılır
+        return "\u{2066}\(utility.format(parsed, toType: .international))\u{2069}"
+    }
+
     /// Uzantıların yerel numaraları çözebilmesi için ülke bilgisi
     func dialingRegion(for regionCode: String) -> DialingRegion? {
         lock.lock()

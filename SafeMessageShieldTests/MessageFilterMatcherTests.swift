@@ -131,6 +131,13 @@ final class PhoneNumberServiceTests: XCTestCase {
         XCTAssertEqual(entry.displayValue, "905551234567")
     }
 
+    func testStoredNumbersAreFormattedForDisplay() {
+        XCTAssertEqual(service.displayString(forStored: "908501234567"), "\u{2066}+90 850 123 4567\u{2069}")
+        XCTAssertEqual(service.displayString(forStored: "4567"), "4567")
+        XCTAssertEqual(service.displayString(forStored: "VODAFONE"), "VODAFONE")
+        XCTAssertEqual(service.displayString(forStored: "12345678"), "12345678")
+    }
+
     func testDialingRegionComesFromMetadata() {
         XCTAssertEqual(service.dialingRegion(for: "TR"), DialingRegion(regionCode: "TR", countryCode: "90", nationalPrefix: "0"))
         XCTAssertEqual(service.dialingRegion(for: "RU")?.nationalPrefix, "8")

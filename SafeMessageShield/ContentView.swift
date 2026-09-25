@@ -169,7 +169,7 @@ struct ContentView: View {
                     pendingDeletion = nil
                 }
             } message: { number in
-                Text(String(format: NSLocalizedString("delete.confirm.message", comment: ""), number.phoneNumber))
+                Text(String(format: NSLocalizedString("delete.confirm.message", comment: ""), PhoneNumberService.shared.displayString(forStored: number.phoneNumber)))
             }
         }
     }
@@ -547,7 +547,7 @@ struct ContentView: View {
         reloadCallDirectory()
 
         // Geri bildirim için (listede saklandığı biçimle aynı göster)
-        lastBlockedNumber = entry.displayValue
+        lastBlockedNumber = PhoneNumberService.shared.displayString(forStored: entry.storageValue)
         showingSuccessAlert = true
 
         // ViewModel'i sıfırla
@@ -600,7 +600,7 @@ struct BlockedNumberRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(blockedNumber.phoneNumber)
+            Text(PhoneNumberService.shared.displayString(forStored: blockedNumber.phoneNumber))
                 .font(.headline)
 
             HStack {

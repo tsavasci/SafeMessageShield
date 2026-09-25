@@ -136,7 +136,7 @@ struct AddNumberView: View {
         }
 
         // Kullanıcıya listede saklandığı biçimle aynı değeri göster
-        self.blockedValue = entry.displayValue
+        self.blockedValue = PhoneNumberService.shared.displayString(forStored: entry.storageValue)
 
         // Centralize: add to both SwiftData and UserDefaults via DataManager
         DataManager.shared.addBlockedNumber(entry.storageValue, reason: reason, modelContext: modelContext)
