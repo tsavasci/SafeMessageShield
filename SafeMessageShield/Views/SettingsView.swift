@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject private var languageManager = LanguageManager.shared
+    @ObservedObject private var regionManager = RegionManager.shared
     @State private var showingLanguagePicker = false
+    @State private var showingCountryPicker = false
     @State private var showingFilterCustomization = false
     @State private var showingReportedJunk = false
     
@@ -45,11 +47,16 @@ struct SettingsView: View {
         .sheet(isPresented: $showingLanguagePicker) {
             LanguagePickerView()
         }
+        .sheet(isPresented: $showingCountryPicker) {
+            CountryPickerView(selection: $regionManager.regionCode)
+        }
         .sheet(isPresented: $showingFilterCustomization) {
             FilterCustomizationView()
+                .appLanguageEnvironment()
         }
         .sheet(isPresented: $showingReportedJunk) {
             ReportedJunkView()
+                .appLanguageEnvironment()
         }
     }
 
@@ -92,8 +99,18 @@ struct SettingsView: View {
                 Divider().padding(.leading, 42)
 
                 settingsRow(
+                    title: NSLocalizedString("default.country", comment: ""),
+                    subtitle: currentCountryText,
+                    systemImage: "phone.badge.waveform",
+                    color: ShieldTheme.Colors.success,
+                    action: { showingCountryPicker = true }
+                )
+
+                Divider().padding(.leading, 42)
+
+                settingsRow(
                     title: NSLocalizedString("filter.customization", comment: ""),
-                    subtitle: NSLocalizedString("number.filter.rules", comment: ""),
+                    subtitle: NSLocalizedString("management.keywords.title", comment: ""),
                     systemImage: "slider.horizontal.3",
                     color: ShieldTheme.Colors.secondary,
                     action: { showingFilterCustomization = true }
@@ -196,6 +213,7 @@ struct SettingsView: View {
                     .foregroundStyle(.tertiary)
             }
             .padding(.vertical, 10)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
@@ -218,6 +236,12 @@ struct SettingsView: View {
 
             Spacer()
         }
+    }
+
+    /// Örn. "🇹🇷 Türkiye (+90)"
+    private var currentCountryText: String {
+        guard let region = regionManager.region else { return regionManager.regionCode }
+        return "\(region.flag) \(region.localizedName(locale: languageManager.locale)) (\(region.dialCode))"
     }
 
     private var currentLanguageName: String {

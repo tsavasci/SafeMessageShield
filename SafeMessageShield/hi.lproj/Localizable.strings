@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "सूची";
-"tab.allowed" = "सुरक्षित";
-"tab.statistics" = "आँकड़े";
+"tab.list" = "होम";
 "tab.settings" = "सेटिंग्स";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "नंबर जोड़ें";
-"blocked.count" = "%d नंबर ब्लॉक किए गए";
 "no.blocked.title" = "अभी तक कोई नंबर ब्लॉक नहीं किया गया है";
-"no.blocked.message" = "जिन नंबरों को आप ब्लॉक करना चाहते हैं, उन्हें जोड़ने के लिए ऊपर दिए गए + बटन पर टैप करें";
+"no.blocked.message" = "जिन नंबरों को आप ब्लॉक करना चाहते हैं, उन्हें क्विक एक्शन या प्रबंधन टैब से जोड़ें";
 
 /* Add Number Menu */
 "menu.manual" = "मैन्युअल रूप से दर्ज करें";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "फ़ोन नंबर";
 "phone.number.or.sender" = "फ़ोन नंबर या भेजने वाले का नाम";
-"invalid.entry" = "अमान्य प्रविष्टि। कृपया एक फ़ोन नंबर या भेजने वाले का नाम दर्ज करें।";
 "reason.optional" = "कारण (वैकल्पिक)";
 "number.info" = "नंबर की जानकारी";
-"number.info.footer" = "मैन्युअल रूप से दर्ज करें या संपर्कों से चुनें। उदाहरण: +919876543210";
+"number.info.footer.extended" = "देश चुनें या + से शुरू होने वाला पूरा नंबर दर्ज करें (जैसे +919876543210)। छोटे नंबर (जैसे 4567) और प्रेषक नाम (जैसे VODAFONE) भी समर्थित हैं।";
 "block.number" = "नंबर ब्लॉक करें";
 "cancel" = "रद्द करें";
 "alert" = "चेतावनी";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "नंबर सफलतापूर्वक ब्लॉक किया गया: %@";
 "enter.phone.number" = "कृपया एक फ़ोन नंबर दर्ज करें।";
 "number.already.blocked" = "यह नंबर पहले से ही ब्लॉक है।";
-"added.from.contacts" = "संपर्कों से जोड़ा गया";
 
 /* Allowed Numbers */
-"allowed.numbers" = "सुरक्षित नंबर";
 "no.allowed.title" = "अभी तक कोई सुरक्षित नंबर नहीं";
 "no.allowed.message" = "इस सूची में जोड़े गए नंबरों के संदेश कभी फ़िल्टर नहीं होंगे";
-"allowed.count" = "%d सुरक्षित नंबर";
 "add.allowed.number" = "सुरक्षित नंबर जोड़ें";
-"number.allowed.success" = "नंबर सुरक्षित सूची में जोड़ा गया: %@";
 "number.already.allowed" = "यह नंबर पहले से सुरक्षित सूची में है।";
-"allowed.info.title" = "सुरक्षित नंबर क्या हैं?";
-"allowed.info.message" = "इस सूची में जोड़े गए नंबर कभी फ़िल्टर या ब्लॉक नहीं होंगे। आप ऐसे नंबर जोड़ सकते हैं जो आपके संपर्कों में नहीं हैं लेकिन आप जानते हैं कि वे सुरक्षित हैं।";
 "allowed.explanation" = "यह नंबर सुरक्षित सूची में जोड़ा जाएगा और इसके संदेश कभी फ़िल्टर नहीं होंगे।";
 "add" = "जोड़ें";
 "error" = "त्रुटि";
-"invalid.phone.number" = "अमान्य फ़ोन नंबर";
 "entry.type" = "प्रविष्टि प्रकार";
 "what.to.add" = "क्या जोड़ना चाहते हैं?";
 "sender.name" = "प्रेषक का नाम";
 "sender.name.example" = "उदा: इंडियापोस्ट, AMAZON";
-"phone.number.footer" = "आप अंतर्राष्ट्रीय प्रारूप का उपयोग कर सकते हैं। उदा: +91551234567";
+"phone.number.footer" = "देश चुनें या + से शुरू होने वाला पूरा नंबर दर्ज करें (जैसे +919876543210)।";
 "sender.name.footer" = "SMS में प्रेषक के रूप में दिखाई देने वाला नाम दर्ज करें। केस असंवेदनशील।";
 "invalid.sender.name" = "अमान्य प्रेषक नाम";
 
 /* Status Card */
 "protection.active" = "सुरक्षा सक्रिय";
 "protection.inactive" = "एक्सटेंशन सक्षम करें";
-"sms.filtering" = "एसएमएस फ़िल्टरिंग सक्रिय";
 "enable.from.settings" = "iOS सेटिंग्स से सक्षम करें";
-"how.to.enable" = "कैसे सक्षम करें?";
-"hide.instructions" = "निर्देश छिपाएँ";
-"sms.filter.title" = "📱 एसएमएस फ़िल्टरिंग:";
-"sms.filter.instruction" = "सेटिंग्स → संदेश → अज्ञात और स्पैम → SafeMessageShield चालू करें";
-"call.block.title" = "📞 कॉल ब्लॉकिंग:";
-"call.block.instruction" = "सेटिंग्स → फ़ोन → कॉल ब्लॉकिंग और पहचान → SafeMessageShield चालू करें";
+"sms.filter.title" = "एसएमएस फ़िल्टरिंग";
+"sms.filter.instruction" = "सेटिंग्स → संदेश → अज्ञात और स्पैम → SMS Shield चालू करें";
+"call.block.title" = "कॉल ब्लॉकिंग";
+"call.block.instruction" = "सेटिंग्स → फ़ोन → कॉल ब्लॉकिंग और पहचान → SMS Shield चालू करें";
 "open.settings" = "iOS सेटिंग्स खोलें";
 "extensions.enabled" = "मैंने एक्सटेंशन सक्षम कर दिए हैं";
-"extensions.active" = "एक्सटेंशन सक्रिय। स्पैम संदेश फ़िल्टर किए जाएंगे!";
-
-/* Statistics View */
-"statistics.title" = "आँकड़े";
-"total.protection" = "कुल सुरक्षा";
-"sms.label" = "एसएमएस";
-"calls.label" = "कॉल";
-"blocked.label" = "ब्लॉक किया गया";
-"sms.filtering.title" = "एसएमएस फ़िल्टरिंग";
-"call.blocking.title" = "कॉल ब्लॉकिंग";
-"blocked.numbers.title" = "ब्लॉक किए गए नंबर";
-"active.protection.title" = "सक्रिय सुरक्षा";
-"last.activity" = "अंतिम: %@";
-"no.activity" = "अभी तक कोई गतिविधि नहीं";
-"auto.blocked" = "iOS द्वारा स्वचालित रूप से ब्लॉक किया गया";
-"total.in.list" = "सूची में कुल नंबर";
-"days.count" = "%d दिन";
-"since.install" = "जबसे आपने ऐप इंस्टॉल किया है";
-"how.it.works" = "यह कैसे काम करता है?";
-"stats.info" = "एसएमएस फ़िल्टरिंग गणना एक्सटेंशन द्वारा ब्लॉक किए गए संदेशों का एक वास्तविक समय का रिकॉर्ड है। कॉल ब्लॉकिंग iOS द्वारा स्वचालित रूप से की जाती है और सटीक गणना उपलब्ध नहीं है।";
-"pull.to.refresh" = "ताज़ा करने के लिए नीचे खींचें";
-
-"blocked.sms" = "अवरोधित SMS";
-"blocked.sms.subtitle" = "स्पैम फ़ोल्डर में भेजा गया";
-"categorized.sms" = "वर्गीकृत SMS";
-"categorized.sms.subtitle" = "कीवर्ड द्वारा फ़िल्टर किया गया";
-"total.filtered.sms" = "कुल फ़िल्टर किए गए SMS";
-"reset.statistics.title" = "सांख्यिकी रीसेट करें";
-"reset.statistics.message" = "यह सभी काउंटर रीसेट कर देगा। अवरोधित नंबर प्रभावित नहीं होंगे।";
-"reset" = "रीसेट करें";
 
 /* Settings View */
 "settings.title" = "सेटिंग्स";
@@ -115,7 +71,6 @@
 "delete" = "हटाएं";
 "done" = "हो गया";
 "close" = "बंद करें";
-"save" = "सहेजें";
 
 /* Privacy */
 "privacy.footer" = "यह ऐप कोई संदेश सामग्री या व्यक्तिगत डेटा सर्वर को नहीं भेजता है। सभी फ़िल्टरिंग और ब्लॉकिंग कार्य आपके डिवाइस पर होते हैं।";
@@ -206,17 +161,16 @@
 "mark.notjunk" = "जंक नहीं के रूप में चिह्नित करें";
 "marked.notjunk.message" = "%@ को सुरक्षित चिह्नित किया गया.";
 
-/* Legacy Stats */
-"numbers.label" = "नंबर";
-"total.label" = "कुल";
-"numbers.in.blocklist" = "ब्लॉकलिस्ट में नंबर";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "जिन नंबरों को ब्लॉक करना है, उन्हें जोड़ने के लिए ऊपर दाईं ओर + पर टैप करें";
+"delete.confirm.title" = "यह आइटम हटाएँ?";
+"delete.confirm.message" = "“%@” आपकी सूची से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।";
+"contacts.permission.denied" = "ब्लॉक करने के लिए नंबर चुनने हेतु SMS Shield को आपके संपर्कों तक पहुँच चाहिए। आप सेटिंग्स में पहुँच की अनुमति दे सकते हैं।";
+"contacts.permission.error" = "एक अनपेक्षित त्रुटि हुई। कृपया सेटिंग्स में संपर्क पहुँच जाँचें।";
 
-/* Sync Data */
-"sync.status" = "सिंक स्थिति";
-"sync.allowed.count" = "अनुमत: %d";
-"sync.blocked.count" = "ब्लॉक किए गए: %d";
-"sync.filter.rules.count" = "फ़िल्टर नियम: %d";
-"sync.number.filter.rules.count" = "नंबर फ़िल्टर नियम: %d";
-"sync.to.app.group" = "App Group में सिंक करें";
-"sync.data.title" = "डेटा सिंक करें";
-"sync.completed.message" = "App Group UserDefaults में सिंक हो गया। एक्सटेंशन अब डेटा पढ़ सकते हैं।";
+/* Country selection */
+"default.country" = "डिफ़ॉल्ट देश";
+"country.select" = "देश चुनें";
+"country.search" = "देश या कोड खोजें";
+"country.accessibility" = "देश: %1$@, %2$@";
+"number.invalid.for.country" = "यह नंबर %@ के लिए मान्य नहीं है। चुना गया देश जाँचें या + से शुरू होने वाला पूरा नंबर दर्ज करें।";

@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "列表";
-"tab.allowed" = "安全";
-"tab.statistics" = "统计";
+"tab.list" = "首页";
 "tab.settings" = "设置";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "添加号码";
-"blocked.count" = "已拦截 %d 个号码";
 "no.blocked.title" = "暂无拦截号码";
-"no.blocked.message" = "点击上方 + 按钮添加您想拦截的号码";
+"no.blocked.message" = "通过快捷操作或“管理”标签添加您想拦截的号码";
 
 /* Add Number Menu */
 "menu.manual" = "手动输入";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "电话号码";
 "phone.number.or.sender" = "电话号码或发件人姓名";
-"invalid.entry" = "无效条目。请输入电话号码或发件人姓名。";
 "reason.optional" = "原因（可选）";
 "number.info" = "号码信息";
-"number.info.footer" = "手动输入或从通讯录选择。例如：+8613812345678";
+"number.info.footer.extended" = "选择国家/地区，或输入以 + 开头的完整号码（例如 +8613812345678）。也支持短号码（例如 4567）和发件人名称（例如 VODAFONE）。";
 "block.number" = "拦截号码";
 "cancel" = "取消";
 "alert" = "提醒";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "号码拦截成功: %@";
 "enter.phone.number" = "请输入电话号码。";
 "number.already.blocked" = "该号码已被拦截。";
-"added.from.contacts" = "从通讯录添加";
 
 /* Allowed Numbers */
-"allowed.numbers" = "安全号码";
 "no.allowed.title" = "还没有安全号码";
 "no.allowed.message" = "您添加到此列表的号码发送的消息将不会被过滤";
-"allowed.count" = "%d个安全号码";
 "add.allowed.number" = "添加安全号码";
-"number.allowed.success" = "号码已添加到安全列表: %@";
 "number.already.allowed" = "此号码已在安全列表中。";
-"allowed.info.title" = "什么是安全号码？";
-"allowed.info.message" = "您添加到此列表的号码将永远不会被过滤或阻止。您可以添加不在联系人中但您知道是安全的号码。";
 "allowed.explanation" = "此号码将添加到安全列表，其消息将不会被过滤。";
 "add" = "添加";
 "error" = "错误";
-"invalid.phone.number" = "无效的电话号码";
 "entry.type" = "输入类型";
 "what.to.add" = "要添加什么？";
 "sender.name" = "发件人姓名";
 "sender.name.example" = "例如: 顺丰快递、AMAZON";
-"phone.number.footer" = "可以使用国际格式。例如: +86551234567";
+"phone.number.footer" = "选择国家/地区，或输入以 + 开头的完整号码（例如 +8613812345678）。";
 "sender.name.footer" = "输入在短信中显示为发件人的名称。不区分大小写。";
 "invalid.sender.name" = "无效的发件人姓名";
 
 /* Status Card */
 "protection.active" = "保护已开启";
 "protection.inactive" = "请启用扩展";
-"sms.filtering" = "短信过滤已开启";
 "enable.from.settings" = "从iOS设置中启用";
-"how.to.enable" = "如何启用？";
-"hide.instructions" = "隐藏说明";
-"sms.filter.title" = "📱 短信过滤：";
-"sms.filter.instruction" = "设置 → 信息 → 未知与过滤信息 → 开启 SafeMessageShield";
-"call.block.title" = "📞 来电拦截：";
-"call.block.instruction" = "设置 → 电话 → 来电阻止与身份识别 → 开启 SafeMessageShield";
+"sms.filter.title" = "短信过滤";
+"sms.filter.instruction" = "设置 → 信息 → 未知与过滤信息 → 开启 SMS Shield";
+"call.block.title" = "来电拦截";
+"call.block.instruction" = "设置 → 电话 → 来电阻止与身份识别 → 开启 SMS Shield";
 "open.settings" = "打开iOS设置";
 "extensions.enabled" = "我已启用扩展";
-"extensions.active" = "扩展已激活。垃圾信息将被过滤！";
-
-/* Statistics View */
-"statistics.title" = "统计";
-"total.protection" = "全面防护";
-"sms.label" = "短信";
-"calls.label" = "来电";
-"blocked.label" = "已拦截";
-"sms.filtering.title" = "短信过滤";
-"call.blocking.title" = "来电拦截";
-"blocked.numbers.title" = "已拦截号码";
-"active.protection.title" = "防护天数";
-"last.activity" = "上次活动: %@";
-"no.activity" = "暂无活动";
-"auto.blocked" = "由iOS自动拦截";
-"total.in.list" = "列表中的总号码数";
-"days.count" = "%d 天";
-"since.install" = "自您安装应用以来";
-"how.it.works" = "工作原理";
-"stats.info" = "短信过滤计数是扩展程序拦截消息的实时记录。来电拦截由iOS自动完成，无法获取确切数量。";
-"pull.to.refresh" = "下拉刷新";
-
-"blocked.sms" = "已拦截短信";
-"blocked.sms.subtitle" = "已发送到垃圾邮件文件夹";
-"categorized.sms" = "已分类短信";
-"categorized.sms.subtitle" = "按关键词过滤";
-"total.filtered.sms" = "总过滤短信";
-"reset.statistics.title" = "重置统计";
-"reset.statistics.message" = "这将重置所有计数器。已拦截的号码不会受到影响。";
-"reset" = "重置";
 
 /* Settings View */
 "settings.title" = "设置";
@@ -115,7 +71,6 @@
 "delete" = "删除";
 "done" = "完成";
 "close" = "关闭";
-"save" = "保存";
 
 /* Privacy */
 "privacy.footer" = "本应用不会向服务器发送任何消息内容或个人数据。所有过滤和拦截操作都在您的设备上进行。";
@@ -206,17 +161,16 @@
 "mark.notjunk" = "标记为非垃圾";
 "marked.notjunk.message" = "%@ 已标记为安全。";
 
-/* Legacy Stats */
-"numbers.label" = "号码";
-"total.label" = "总计";
-"numbers.in.blocklist" = "阻止列表中的号码";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "点击右上角的 + 添加您想拦截的号码";
+"delete.confirm.title" = "删除此项？";
+"delete.confirm.message" = "“%@”将从您的列表中移除。此操作无法撤销。";
+"contacts.permission.denied" = "SMS Shield 需要访问您的通讯录，以便您选择要拦截的号码。您可以在“设置”中允许访问。";
+"contacts.permission.error" = "发生意外错误。请在“设置”中检查通讯录访问权限。";
 
-/* Sync Data */
-"sync.status" = "同步状态";
-"sync.allowed.count" = "允许: %d";
-"sync.blocked.count" = "已阻止: %d";
-"sync.filter.rules.count" = "过滤规则: %d";
-"sync.number.filter.rules.count" = "号码过滤规则: %d";
-"sync.to.app.group" = "同步到 App Group";
-"sync.data.title" = "同步数据";
-"sync.completed.message" = "已同步到 App Group UserDefaults。扩展现在可以读取数据。";
+/* Country selection */
+"default.country" = "默认国家/地区";
+"country.select" = "选择国家/地区";
+"country.search" = "搜索国家/地区或区号";
+"country.accessibility" = "国家/地区：%1$@，%2$@";
+"number.invalid.for.country" = "此号码对%@无效。请检查所选国家/地区，或输入以 + 开头的完整号码。";

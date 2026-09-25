@@ -92,7 +92,10 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         let numberFilterRules =
             sharedDefaults.array(forKey: "numberFilterRules") as? [[String: String]] ?? []
 
-        let cleanSender = MessageFilterMatcher.normalizedPhoneNumber(sender)
+        // Yerel biçimde gelen göndereni (örn. "0555…") kullanıcının seçtiği ülkeye göre çöz
+        let region = DialingRegion.load(from: sharedDefaults)
+        let senderCandidates = MessageFilterMatcher.senderCandidates(sender, region: region)
+        let cleanSender = PhoneNumberNormalizer.normalize(sender, region: region)
         let senderUppercase = MessageFilterMatcher.normalizedSenderName(sender)
 
         // Mesaj içeriğini al (varsa)
@@ -122,7 +125,6 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         let normalizedBlockedNumbers = blockedNumbers.map(MessageFilterMatcher.normalizedPhoneNumber).filter { !$0.isEmpty }
 
         let allowedNumbersSet = Set(normalizedAllowedNumbers)
-        let blockedNumbersSet = Set(normalizedBlockedNumbers)
         let allowedNamesSet = Set(allowedNames)
         let blockedNamesSet = Set(blockedNames)
 
@@ -139,11 +141,11 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         }
 
         if !allowedNumbersSet.isEmpty {
-            if allowedNumbersSet.contains(cleanSender) {
+            if !allowedNumbersSet.isDisjoint(with: senderCandidates) {
                 logger.info("✅ Allowed by whitelist (number exact): \(cleanSender)")
                 return (.none, .none)
             }
-            for allowedDigits in allowedNumbers where MessageFilterMatcher.numbersMatch(stored: allowedDigits, sender: sender) {
+            for allowedDigits in allowedNumbers where MessageFilterMatcher.numbersMatch(stored: allowedDigits, sender: sender, region: region) {
                 logger.info("✅ Allowed by whitelist (number): \(allowedDigits)")
                 return (.none, .none)
             }
@@ -151,20 +153,20 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
 
         // 2. Numara filtre kuralları kontrolü
             for rule in numberFilterRules {
-                if let prefix = rule["prefix"], MessageFilterMatcher.numberRuleMatches(type: "prefix", value: prefix, sender: sender) {
+                if let prefix = rule["prefix"], MessageFilterMatcher.numberRuleMatches(type: "prefix", value: prefix, sender: sender, region: region) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: prefix=\(prefix)")
                     // record last junk sender for app UI to allow 'Not Junk' action
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let suffix = rule["suffix"], MessageFilterMatcher.numberRuleMatches(type: "suffix", value: suffix, sender: sender) {
+                if let suffix = rule["suffix"], MessageFilterMatcher.numberRuleMatches(type: "suffix", value: suffix, sender: sender, region: region) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: suffix=\(suffix)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
-                if let contains = rule["contains"], MessageFilterMatcher.numberRuleMatches(type: "contains", value: contains, sender: sender) {
+                if let contains = rule["contains"], MessageFilterMatcher.numberRuleMatches(type: "contains", value: contains, sender: sender, region: region) {
                     incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: contains=\(contains)")
                     sharedDefaults.set(sender, forKey: "lastJunkSender")
@@ -190,8 +192,8 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         }
 
         for blockedDigits in normalizedBlockedNumbers {
-            if blockedNumbersSet.contains(cleanSender)
-                || MessageFilterMatcher.numbersMatch(stored: blockedDigits, sender: sender) {
+            if senderCandidates.contains(blockedDigits)
+                || MessageFilterMatcher.numbersMatch(stored: blockedDigits, sender: sender, region: region) {
                 // Junk sayacını artır
                 incrementStatistic(key: "smsJunkCount")
                 logger.info("🚫 Blocked as junk: number=\(blockedDigits)")
@@ -256,12 +258,6 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         default:
             return .none
         }
-    }
-
-    private func networkAction(for networkResponse: ILNetworkResponse) -> (
-        ILMessageFilterAction, ILMessageFilterSubAction
-    ) {
-        return (.none, .none)
     }
 
     private static func splitNumbersAndNames(_ values: [String]) -> (numbers: [String], names: [String]) {

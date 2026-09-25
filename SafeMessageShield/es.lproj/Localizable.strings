@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "Lista";
-"tab.allowed" = "Seguro";
-"tab.statistics" = "Estadísticas";
+"tab.list" = "Inicio";
 "tab.settings" = "Ajustes";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "Añadir Número";
-"blocked.count" = "%d números bloqueados";
 "no.blocked.title" = "Aún no hay números bloqueados";
-"no.blocked.message" = "Toca el botón + de arriba para añadir los números que quieras bloquear";
+"no.blocked.message" = "Añade los números que quieras bloquear desde las acciones rápidas o la pestaña Gestionar";
 
 /* Add Number Menu */
 "menu.manual" = "Entrada Manual";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "Número de Teléfono";
 "phone.number.or.sender" = "Nº de teléfono o remitente";
-"invalid.entry" = "Entrada no válida. Por favor, introduzca un número de teléfono o un nombre de remitente.";
 "reason.optional" = "Razón (opcional)";
 "number.info" = "Información del Número";
-"number.info.footer" = "Introduce manualmente o selecciona desde los contactos. Ejemplo: +34600123456";
+"number.info.footer.extended" = "Elige el país o introduce el número completo empezando por + (p. ej. +34600123456). También se admiten números cortos (p. ej. 4567) y nombres de remitente (p. ej. VODAFONE).";
 "block.number" = "Bloquear Número";
 "cancel" = "Cancelar";
 "alert" = "Alerta";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "Número bloqueado con éxito: %@";
 "enter.phone.number" = "Por favor, introduce un número de teléfono.";
 "number.already.blocked" = "Este número ya está bloqueado.";
-"added.from.contacts" = "Añadido desde Contactos";
 
 /* Allowed Numbers */
-"allowed.numbers" = "Números seguros";
 "no.allowed.title" = "Aún no hay números seguros";
 "no.allowed.message" = "Los mensajes de números que agregues a esta lista nunca serán filtrados";
-"allowed.count" = "%d números en lista segura";
 "add.allowed.number" = "Agregar número seguro";
-"number.allowed.success" = "Número agregado a lista segura: %@";
 "number.already.allowed" = "Este número ya está en la lista segura.";
-"allowed.info.title" = "¿Qué son los números seguros?";
-"allowed.info.message" = "Los números que agregues a esta lista nunca serán filtrados o bloqueados. Puedes agregar números que no están en tus contactos pero que sabes que son seguros.";
 "allowed.explanation" = "Este número se agregará a la lista segura y sus mensajes nunca serán filtrados.";
 "add" = "Agregar";
 "error" = "Error";
-"invalid.phone.number" = "Número de teléfono inválido";
 "entry.type" = "Tipo de entrada";
 "what.to.add" = "¿Qué desea agregar?";
 "sender.name" = "Nombre del remitente";
 "sender.name.example" = "ej: CORREOS, AMAZON";
-"phone.number.footer" = "Puede usar formato internacional. ej: +34551234567";
+"phone.number.footer" = "Elige el país o introduce el número completo empezando por + (p. ej. +34600123456).";
 "sender.name.footer" = "Ingrese el nombre que aparece como remitente en SMS. No distingue mayúsculas.";
 "invalid.sender.name" = "Nombre de remitente inválido";
 
 /* Status Card */
 "protection.active" = "Protección Activa";
 "protection.inactive" = "Activar Extensiones";
-"sms.filtering" = "Filtrado de SMS activo";
 "enable.from.settings" = "Activar desde Ajustes de iOS";
-"how.to.enable" = "¿Cómo Activar?";
-"hide.instructions" = "Ocultar Instrucciones";
-"sms.filter.title" = "📱 Filtrado de SMS:";
-"sms.filter.instruction" = "Ajustes → Mensajes → Desconocido y Spam → Activa SafeMessageShield";
-"call.block.title" = "📞 Bloqueo de Llamadas:";
-"call.block.instruction" = "Ajustes → Teléfono → Bloqueo e Identificación de Llamadas → Activa SafeMessageShield";
+"sms.filter.title" = "Filtrado de SMS";
+"sms.filter.instruction" = "Ajustes → Mensajes → Desconocido y Spam → Activa SMS Shield";
+"call.block.title" = "Bloqueo de Llamadas";
+"call.block.instruction" = "Ajustes → Teléfono → Bloqueo e Identificación de Llamadas → Activa SMS Shield";
 "open.settings" = "Abrir Ajustes de iOS";
 "extensions.enabled" = "He Activado las Extensiones";
-"extensions.active" = "Extensiones activas. ¡Los mensajes de spam serán filtrados!";
-
-/* Statistics View */
-"statistics.title" = "Estadísticas";
-"total.protection" = "Protección Total";
-"sms.label" = "SMS";
-"calls.label" = "Llamadas";
-"blocked.label" = "Bloqueado";
-"sms.filtering.title" = "Filtrado de SMS";
-"call.blocking.title" = "Bloqueo de Llamadas";
-"blocked.numbers.title" = "Números Bloqueados";
-"active.protection.title" = "Protección Activa";
-"last.activity" = "Última: %@";
-"no.activity" = "Aún no hay actividad";
-"auto.blocked" = "Bloqueado automáticamente por iOS";
-"total.in.list" = "Total de números en la lista";
-"days.count" = "%d días";
-"since.install" = "Desde que instalaste la app";
-"how.it.works" = "¿Cómo Funciona?";
-"stats.info" = "El recuento de filtrado de SMS es un registro en tiempo real de los mensajes bloqueados por la extensión. El bloqueo de llamadas lo realiza iOS automáticamente y el recuento exacto no está disponible.";
-"pull.to.refresh" = "Desliza hacia abajo para actualizar";
-
-"blocked.sms" = "SMS bloqueados";
-"blocked.sms.subtitle" = "Enviados a carpeta de spam";
-"categorized.sms" = "SMS categorizados";
-"categorized.sms.subtitle" = "Filtrados por palabras clave";
-"total.filtered.sms" = "Total SMS filtrados";
-"reset.statistics.title" = "Restablecer estadísticas";
-"reset.statistics.message" = "Esto restablecerá todos los contadores. Los números bloqueados no se verán afectados.";
-"reset" = "Restablecer";
 
 /* Settings View */
 "settings.title" = "Ajustes";
@@ -115,7 +71,6 @@
 "delete" = "Eliminar";
 "done" = "Hecho";
 "close" = "Cerrar";
-"save" = "Guardar";
 
 /* Privacy */
 "privacy.footer" = "Esta aplicación no envía ningún contenido de mensajes ni datos personales a servidores. Todas las operaciones de filtrado y bloqueo ocurren en su dispositivo.";
@@ -189,7 +144,7 @@
 "management.segment.blocked" = "Bloq";
 "management.segment.allowed" = "Seguro";
 "management.segment.keywords" = "Palab";
-"management.segment.numbers" = "Nums";
+"management.segment.numbers" = "Núm.";
 "management.blocked.title" = "Remitentes bloqueados";
 "management.allowed.title" = "Remitentes seguros";
 "management.keywords.title" = "Reglas de palabras";
@@ -205,17 +160,16 @@
 "mark.notjunk" = "Marcar como no deseado";
 "marked.notjunk.message" = "%@ marcado como seguro.";
 
-/* Legacy Stats */
-"numbers.label" = "Números";
-"total.label" = "Total";
-"numbers.in.blocklist" = "Números en la lista de bloqueo";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "Toca + arriba a la derecha para añadir los números que quieras bloquear";
+"delete.confirm.title" = "¿Eliminar este elemento?";
+"delete.confirm.message" = "«%@» se eliminará de tu lista. Esta acción no se puede deshacer.";
+"contacts.permission.denied" = "SMS Shield necesita acceder a tus contactos para que puedas elegir números que bloquear. Puedes permitir el acceso en Ajustes.";
+"contacts.permission.error" = "Se ha producido un error inesperado. Comprueba el acceso a los contactos en Ajustes.";
 
-/* Sync Data */
-"sync.status" = "Estado de sincronización";
-"sync.allowed.count" = "Permitidos: %d";
-"sync.blocked.count" = "Bloqueados: %d";
-"sync.filter.rules.count" = "Reglas de filtro: %d";
-"sync.number.filter.rules.count" = "Reglas de número: %d";
-"sync.to.app.group" = "Sincronizar con App Group";
-"sync.data.title" = "Sincronizar datos";
-"sync.completed.message" = "Sincronizado con UserDefaults de App Group. Las extensiones ya pueden leer los datos.";
+/* Country selection */
+"default.country" = "País predeterminado";
+"country.select" = "Seleccionar país";
+"country.search" = "Buscar país o prefijo";
+"country.accessibility" = "País: %1$@, %2$@";
+"number.invalid.for.country" = "Este número no es válido para %@. Comprueba el país seleccionado o introduce el número completo empezando por +.";

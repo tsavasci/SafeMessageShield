@@ -24,15 +24,27 @@ struct AddNumberView: View {
     @State private var alertMessage = ""
     @State private var showingSuccessAlert = false
     @State private var blockedValue = ""
-    
+    // Ülke kodu olmadan yazılan numaraların ait olduğu ülke; en son seçilen ülkeyle başlar
+    @State private var regionCode = RegionManager.shared.lastUsedRegionCode
+
     var body: some View {
         NavigationStack {
             ShieldSurface {
                 Form {
                     Section {
                         HStack {
+                            // Gönderici adı yazılırken ülke seçimi anlamsız, gizle
+                            if viewModel.selectedPhoneNumber.rangeOfCharacter(from: .letters) == nil {
+                                CountryCodeButton(regionCode: $regionCode)
+                                    // Seçimi bir sonraki form için hatırla
+                                    .onChange(of: regionCode) { _, newValue in
+                                        RegionManager.shared.lastUsedRegionCode = newValue
+                                    }
+                            }
+
                             // TextField'ı ViewModel'e bağla
-                            TextField(NSLocalizedString("phone.number.or.sender", comment: "Phone number or sender name"), text: $viewModel.selectedPhoneNumber)
+                            TextField(NSLocalizedString("phone.number.or.sender", comment: "Phone number or sender name"), text: $viewModel.selectedPhoneNumber, axis: .vertical)
+                                .lineLimit(1...2)
                                 .keyboardType(.default)
                                 .textContentType(.telephoneNumber)
                             
@@ -42,6 +54,7 @@ struct AddNumberView: View {
                                     .font(.title2)
                                     .foregroundStyle(ShieldTheme.Colors.primary)
                             }
+                            .accessibilityLabel(NSLocalizedString("menu.contacts", comment: ""))
                         }
                         
                         TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
@@ -84,11 +97,15 @@ struct AddNumberView: View {
                 Text(alertMessage)
             }
             .alert(NSLocalizedString("success", comment: ""), isPresented: $showingSuccessAlert) {
-                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {
-                    dismiss()
-                }
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) { }
             } message: {
                 Text(String(format: NSLocalizedString("number.blocked.success", comment: ""), blockedValue))
+            }
+            // Uyarının içinden çağrılan dismiss() yok sayılabiliyor; sayfayı uyarı kapandıktan sonra kapat
+            .onChange(of: showingSuccessAlert) { _, isPresented in
+                if !isPresented {
+                    dismiss()
+                }
             }
             // Picker'ın gösterilmesini ViewModel'deki duruma bağla
             .fullScreenCover(isPresented: $viewModel.isPickerPresented) {
@@ -100,54 +117,35 @@ struct AddNumberView: View {
     }
     
     private func addNumber() {
-        let originalInput = viewModel.selectedPhoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        // Girişin boş olup olmadığını kontrol et
-        guard !originalInput.isEmpty else {
-            alertMessage = NSLocalizedString("enter.phone.number", comment: "")
-            showingAlert = true
-            return
-        }
-        
-        let valueToBlock: String
-        // Giriş harf içeriyorsa, metin olarak kabul et (örn: VODAFONE)
-        if originalInput.rangeOfCharacter(from: .letters) != nil {
-            valueToBlock = originalInput.uppercased()
-        } else {
-            // Harf içermiyorsa, telefon numarası olarak kabul et ve temizle
-            valueToBlock = originalInput.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
-        }
-        
-        // Temizlenmiş veya işlenmiş değerin hala boş olup olmadığını kontrol et
-        // (örn: sadece sembollerden oluşan bir giriş)
-        guard !valueToBlock.isEmpty else {
-            alertMessage = NSLocalizedString("invalid.entry", comment: "Geçersiz giriş. Lütfen bir telefon numarası veya gönderici adı girin.")
+        // Numara, kısa numara veya gönderici adı olarak çöz; numarayı seçili ülkeye göre doğrula
+        let entry: PhoneNumberEntry
+        switch RegionManager.shared.entry(for: viewModel.selectedPhoneNumber, regionCode: regionCode) {
+        case .success(let value):
+            entry = value
+        case .failure(let error):
+            alertMessage = RegionManager.shared.message(for: error, regionCode: regionCode)
             showingAlert = true
             return
         }
 
         // Değer zaten engellenmiş mi kontrol et
-        if DataManager.shared.isNumberBlocked(valueToBlock) {
+        if DataManager.shared.isNumberBlocked(entry.storageValue) {
             alertMessage = NSLocalizedString("number.already.blocked", comment: "")
             showingAlert = true
             return
         }
-        
-        self.blockedValue = valueToBlock
-        
+
+        // Kullanıcıya listede saklandığı biçimle aynı değeri göster
+        self.blockedValue = entry.displayValue
+
         // Centralize: add to both SwiftData and UserDefaults via DataManager
-        DataManager.shared.addBlockedNumber(valueToBlock, reason: reason, modelContext: modelContext)
+        DataManager.shared.addBlockedNumber(entry.storageValue, reason: reason, modelContext: modelContext)
         
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()
         
-        // Başarı mesajı göster
+        // Başarı mesajı göster; sayfa, uyarıdaki Tamam butonuyla kapanır
         showingSuccessAlert = true
-        
-        // Kısa bir delay ile kapat (kullanıcı mesajı görsün)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            dismiss()
-        }
     }
     
     private func reloadCallDirectory() {
@@ -167,7 +165,7 @@ struct AddNumberView: View {
                     if granted {
                         viewModel.isPickerPresented = true
                     } else {
-                        alertMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+                        alertMessage = NSLocalizedString("contacts.permission.denied", comment: "")
                         showingAlert = true
                     }
                 }
@@ -175,13 +173,13 @@ struct AddNumberView: View {
         case .authorized:
             viewModel.isPickerPresented = true
         case .denied, .restricted:
-            alertMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+            alertMessage = NSLocalizedString("contacts.permission.denied", comment: "")
             showingAlert = true
         case .limited:
             // Limited access - picker can still be opened but with restrictions
             viewModel.isPickerPresented = true
         @unknown default:
-            alertMessage = "Beklenmeyen bir hata oluştu. Lütfen rehber erişim ayarlarını kontrol edin."
+            alertMessage = NSLocalizedString("contacts.permission.error", comment: "")
             showingAlert = true
         }
     }

@@ -161,19 +161,24 @@ struct ShieldActionButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 10) {
+            // Icon sits above the title so long single words (e.g. "Customization")
+            // get the full button width instead of being truncated.
+            VStack(alignment: .leading, spacing: 6) {
                 Image(systemName: systemImage)
                     .font(.headline)
-                    .frame(width: 22)
+                    .foregroundStyle(color)
                 Text(title)
                     .font(.subheadline.weight(.semibold))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 0)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .foregroundStyle(.primary)
             .padding(.horizontal, 14)
-            .frame(height: 48)
+            .padding(.vertical, 10)
+            .frame(minHeight: 48)
             .background(color.opacity(0.10), in: RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous)
@@ -226,6 +231,7 @@ struct ShieldSegmentedPicker<Selection: Hashable>: View {
                     VStack(spacing: 5) {
                         Image(systemName: item.systemImage)
                             .font(.subheadline.weight(.semibold))
+                            .accessibilityHidden(true)
                         Text(item.title)
                             .font(.caption2.weight(.semibold))
                             .lineLimit(1)
@@ -242,6 +248,12 @@ struct ShieldSegmentedPicker<Selection: Hashable>: View {
                     .clipShape(RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
                 }
                 .buttonStyle(.plain)
+                // Expose only the title; some SF Symbols (e.g. checkmark.shield) otherwise
+                // leak a "selected" trait into the button regardless of the actual selection.
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(item.title)
+                .accessibilityAddTraits(selection == item.selection ? [.isButton, .isSelected] : .isButton)
+                .accessibilityRemoveTraits(selection == item.selection ? [] : .isSelected)
             }
         }
         .padding(6)

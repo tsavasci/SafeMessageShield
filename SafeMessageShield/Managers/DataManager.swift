@@ -428,23 +428,6 @@ class DataManager {
         userDefaults.set(rules, forKey: "numberFilterRules")
     }
 
-    func getCategoryForMessage(_ messageBody: String) -> String? {
-        let rules = getFilterRules()
-        let lowercasedMessage = messageBody.lowercased()
-
-        // Mesaj içinde anahtar kelime var mı kontrol et
-        for rule in rules {
-            if let keyword = rule["keyword"],
-                let category = rule["category"],
-                lowercasedMessage.contains(keyword.lowercased())
-            {
-                return category
-            }
-        }
-
-        return nil
-    }
-
     private func normalizedReason(_ reason: String?) -> String? {
         let cleaned = reason?.trimmingCharacters(in: .whitespacesAndNewlines)
         return cleaned?.isEmpty == false ? cleaned : nil

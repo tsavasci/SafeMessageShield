@@ -55,6 +55,7 @@ struct FilterByNumberView: View {
             }
             .sheet(isPresented: $showingAdd) {
                 AddNumberFilterRuleView()
+                    .appLanguageEnvironment()
             }
         }
     }

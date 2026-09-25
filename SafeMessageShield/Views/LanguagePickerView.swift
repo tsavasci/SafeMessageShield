@@ -53,6 +53,8 @@ struct LanguagePickerView: View {
                 }
             }
         }
+        // Sheet açıkken dil değişirse yazı yönü de hemen güncellensin
+        .appLanguageEnvironment()
     }
 }
 

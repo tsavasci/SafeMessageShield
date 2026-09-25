@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "Liste";
-"tab.allowed" = "Güvenli";
-"tab.statistics" = "İstatistikler";
+"tab.list" = "Ana Sayfa";
 "tab.settings" = "Ayarlar";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "Numara Ekle";
-"blocked.count" = "%d numara engellendi";
 "no.blocked.title" = "Henüz Engellenmiş Numara Yok";
-"no.blocked.message" = "Engellemek istediğiniz numaraları eklemek için üstteki + butonuna basın";
+"no.blocked.message" = "Engellemek istediğiniz numaraları Hızlı İşlemler'den veya Yönet sekmesinden ekleyin";
 
 /* Add Number Menu */
 "menu.manual" = "Manuel Ekle";
@@ -19,7 +16,7 @@
 "phone.number" = "Telefon Numarası";
 "reason.optional" = "Sebep (opsiyonel)";
 "number.info" = "Numara Bilgileri";
-"number.info.footer" = "Manuel girin veya rehberden seçin. Örnek: +905551234567";
+"number.info.footer.extended" = "Ülkeyi seçin ya da numarayı + ile başlayarak tam girin (ör. +905551234567). Kısa numaralar (ör. 4567) ve gönderici adları (ör. VODAFONE) da desteklenir.";
 "block.number" = "Numarayı Engelle";
 "cancel" = "İptal";
 "alert" = "Uyarı";
@@ -28,101 +25,58 @@
 "number.blocked.success" = "Numara başarıyla engellendi: %@";
 "enter.phone.number" = "Lütfen bir telefon numarası girin.";
 "number.already.blocked" = "Bu numara zaten engellenmiş.";
-"added.from.contacts" = "Rehberden Eklendi";
 "phone.number.or.sender" = "Telefon No veya Gönderen Adı";
-"invalid.entry" = "Geçersiz giriş. Lütfen bir telefon numarası veya gönderici adı girin.";
 
 /* Allowed Numbers */
-"allowed.numbers" = "Güvenli Numaralar";
 "no.allowed.title" = "Henüz Güvenli Numara Yok";
 "no.allowed.message" = "Bu listeye eklediğiniz numaralardan gelen mesajlar asla filtrelenmez";
-"allowed.count" = "%d numara güvenli listede";
 "add.allowed.number" = "Güvenli Numara Ekle";
-"number.allowed.success" = "Numara güvenli listeye eklendi: %@";
 "number.already.allowed" = "Bu numara zaten güvenli listede.";
-"allowed.info.title" = "Güvenli Numaralar Nedir?";
-"allowed.info.message" = "Bu listeye eklediğiniz numaralar hiçbir zaman filtrelenmez veya engellenmez. Rehberinizde olmayan ama güvenli olduğunu bildiğiniz numaraları buraya ekleyebilirsiniz.";
 "allowed.explanation" = "Bu numara güvenli listeye eklenecek ve mesajları asla filtrelenmeyecek.";
 "add" = "Ekle";
 "error" = "Hata";
-"invalid.phone.number" = "Geçersiz telefon numarası";
 "entry.type" = "Giriş Tipi";
 "what.to.add" = "Ne Eklemek İstiyorsunuz?";
 "sender.name" = "Gönderen Adı";
 "sender.name.example" = "Örn: ARASKARGO, MİGROS";
-"phone.number.footer" = "Numara girerken uluslararası format kullanabilirsiniz. Örn: +905551234567";
+"phone.number.footer" = "Ülkeyi seçin ya da numarayı + ile başlayarak tam girin (ör. +905551234567).";
 "sender.name.footer" = "SMS'te gönderen olarak görünen ismi girin. Büyük/küçük harf farkı yoktur.";
 "invalid.sender.name" = "Geçersiz gönderen adı";
 
 /* Status Card */
 "protection.active" = "Koruma Aktif";
-"protection.inactive" = "Extension'ları Etkinleştirin";
-"sms.filtering" = "SMS'ler filtreleniyor";
+"protection.inactive" = "Uzantıları Etkinleştirin";
 "enable.from.settings" = "iOS Ayarlar'dan etkinleştirin";
-"how.to.enable" = "Nasıl Etkinleştirilir?";
-"hide.instructions" = "Talimatları Gizle";
-"sms.filter.title" = "📱 SMS Filtreleme:";
-"sms.filter.instruction" = "Ayarlar → Mesajlar → Bilinmeyen & İstenmeyen → SafeMessageShield AÇ";
-"call.block.title" = "📞 Numara Engelleme:";
-"call.block.instruction" = "Ayarlar → Telefon → Engelleme ve Kimlik Tanımlama → SafeMessageShield AÇ";
+"sms.filter.title" = "SMS Filtreleme";
+"sms.filter.instruction" = "Ayarlar → Mesajlar → Bilinmeyen & İstenmeyen → SMS Shield AÇ";
+"call.block.title" = "Numara Engelleme";
+"call.block.instruction" = "Ayarlar → Telefon → Engelleme ve Kimlik Tanımlama → SMS Shield AÇ";
 "open.settings" = "iOS Ayarlarını Aç";
-"extensions.enabled" = "Extension'ları Etkinleştirdim";
-"extensions.active" = "Extension'lar aktif. Spam mesajlar filtrelenecek!";
-
-/* Statistics View */
-"statistics.title" = "İstatistikler";
-"total.protection" = "Toplam Koruma";
-"sms.label" = "SMS";
-"calls.label" = "Aramalar";
-"blocked.label" = "Engellendi";
-"numbers.label" = "Numara";
-"total.label" = "Toplam";
-"sms.filtering.title" = "SMS Filtreleme";
-"blocked.sms" = "Engellenen SMS";
-"blocked.sms.subtitle" = "İstenmeyen klasörüne gönderildi";
-"categorized.sms" = "Kategorize Edilen SMS";
-"categorized.sms.subtitle" = "Anahtar kelimelere göre filtrelendi";
-"total.filtered.sms" = "Toplam Filtrelenen SMS";
-"call.blocking.title" = "Arama Engelleme";
-"blocked.numbers.title" = "Engellenen Numaralar";
-"active.protection.title" = "Aktif Koruma";
-"last.activity" = "Son: %@";
-"no.activity" = "Henüz aktivite yok";
-"auto.blocked" = "iOS tarafından otomatik engellendi";
-"numbers.in.blocklist" = "Kara listedeki numara sayısı";
-"total.in.list" = "Listedeki toplam numara";
-"days.count" = "%d gün";
-"since.install" = "Uygulamayı yüklediğinizden beri";
-"how.it.works" = "Nasıl Çalışır?";
-"stats.info" = "SMS filtreleme sayısı, extension tarafından engellenen mesajların gerçek zamanlı kaydıdır. Arama engelleme iOS tarafından otomatik yapılır ve tam sayı mevcut değildir.";
-"pull.to.refresh" = "Yenilemek için aşağı çekin";
-"reset.statistics.title" = "İstatistikleri Sıfırla";
-"reset.statistics.message" = "Bu işlem tüm sayaçları sıfırlayacaktır. Engellenen numaralar etkilenmeyecektir.";
-"reset" = "Sıfırla";
+"extensions.enabled" = "Uzantıları Etkinleştirdim";
 
 /* Dashboard */
 "dashboard.subtitle" = "Koruma merkezi";
 "dashboard.blocked.metric" = "Engellenen";
 "dashboard.allowed.metric" = "Güvenli";
-"dashboard.junk.metric" = "Junk SMS";
+"dashboard.junk.metric" = "İstenmeyen SMS";
 "dashboard.rules.metric" = "Kurallar";
 "dashboard.quick.actions" = "Hızlı işlemler";
-"dashboard.last.junk" = "Son junk";
+"dashboard.last.junk" = "Son istenmeyen";
 "dashboard.filter.activity" = "Filtre aktivitesi";
-"dashboard.last.junk.sender" = "Son junk gönderen: %@";
+"dashboard.last.junk.sender" = "Son istenmeyen gönderen: %@";
 "dashboard.last.filter.activity" = "Son filtre aktivitesi: %@";
 "dashboard.categorized.messages" = "%d kategorize mesaj";
 "dashboard.no.filter.activity" = "Henüz filtre aktivitesi yok";
-"dashboard.setup.user.confirmed" = "Extension kurulumu sizin tarafınızdan tamamlandı işaretlendi";
+"dashboard.setup.user.confirmed" = "Uzantı kurulumu sizin tarafınızdan tamamlandı işaretlendi";
 "dashboard.setup.title" = "Kurulum kontrol listesi";
 "dashboard.setup.progress" = "%d/3 hazır";
-"dashboard.setup.ios.settings" = "iOS extension'ları etkin";
+"dashboard.setup.ios.settings" = "iOS uzantıları etkin";
 "dashboard.setup.ios.settings.subtitle" = "SMS filtreleme ve arama engellemeyi iOS Ayarları'ndan açın, sonra kurulumu tamamlandı olarak işaretleyin.";
 "dashboard.setup.data.synced" = "Filtre verisi senkronize";
-"dashboard.setup.no.sync" = "Liste veya kural değişikliğinden sonra extension verisini yenilemek için uygulamayı bir kez açın.";
-"dashboard.setup.last.sync" = "Son sync: %@";
+"dashboard.setup.no.sync" = "Liste veya kural değişikliğinden sonra uzantı verisini yenilemek için uygulamayı bir kez açın.";
+"dashboard.setup.last.sync" = "Son senkronizasyon: %@";
 "dashboard.setup.filter.activity" = "Filtre aktivitesi algılandı";
-"dashboard.setup.waiting.activity" = "Henüz SMS filtrelenmedi; extension bir mesaj işlediğinde güncellenir.";
+"dashboard.setup.waiting.activity" = "Henüz SMS filtrelenmedi; uzantı bir mesaj işlediğinde güncellenir.";
 
 /* Management */
 "management.title" = "Yönet";
@@ -156,7 +110,6 @@
 "delete" = "Sil";
 "done" = "Bitti";
 "close" = "Kapat";
-"save" = "Kaydet";
 
 /* Privacy */
 "privacy.footer" = "Bu uygulama hiçbir mesaj içeriğini veya kişisel verilerinizi sunucuya göndermez. Tüm filtreleme ve engelleme işlemleri cihazınızda gerçekleşir.";
@@ -202,18 +155,22 @@
 "category.group.promotional" = "Tüm Promosyonlar";
 
 /* Reported Junk */
-"reported.junk" = "Bildirilen Junk";
-"no.recent.junk" = "Son junk gönderen yok";
+"reported.junk" = "Bildirilen İstenmeyenler";
+"no.recent.junk" = "Son istenmeyen gönderen yok";
 "last.filtered.sender" = "Son filtrelenen gönderen";
-"mark.notjunk" = "Junk Değil Olarak İşaretle";
+"mark.notjunk" = "İstenmeyen Değil Olarak İşaretle";
 "marked.notjunk.message" = "%@ güvenli olarak işaretlendi.";
 
-/* Sync Data */
-"sync.status" = "Sync Durumu";
-"sync.allowed.count" = "Güvenli: %d";
-"sync.blocked.count" = "Engellenen: %d";
-"sync.filter.rules.count" = "Filtre kuralları: %d";
-"sync.number.filter.rules.count" = "Numara filtre kuralları: %d";
-"sync.to.app.group" = "App Group'a Senkronize Et";
-"sync.data.title" = "Veriyi Senkronize Et";
-"sync.completed.message" = "App Group UserDefaults'a senkronize edildi. Extension'lar artık veriyi okuyabilir.";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "Engellemek istediğiniz numaraları eklemek için sağ üstteki + butonuna dokunun";
+"delete.confirm.title" = "Bu öğe silinsin mi?";
+"delete.confirm.message" = "“%@” listenizden kaldırılacak. Bu işlem geri alınamaz.";
+"contacts.permission.denied" = "Engellemek istediğiniz numaraları seçebilmeniz için SMS Shield'ın rehberinize erişmesi gerekir. Erişime Ayarlar'dan izin verebilirsiniz.";
+"contacts.permission.error" = "Beklenmeyen bir hata oluştu. Lütfen Ayarlar'dan rehber erişimini kontrol edin.";
+
+/* Country selection */
+"default.country" = "Varsayılan ülke";
+"country.select" = "Ülke Seçin";
+"country.search" = "Ülke veya kod ara";
+"country.accessibility" = "Ülke: %1$@, %2$@";
+"number.invalid.for.country" = "Bu numara %@ için geçerli değil. Seçili ülkeyi kontrol edin veya numarayı + ile başlayarak tam girin.";

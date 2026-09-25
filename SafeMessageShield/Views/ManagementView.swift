@@ -14,12 +14,14 @@ struct ManagementView: View {
     @Query private var allowedNumbers: [AllowedNumber]
     @Query private var filterRules: [FilterRule]
     @Query(sort: \NumberFilterRule.addedAt, order: .reverse) private var numberRules: [NumberFilterRule]
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     @State private var selectedSegment: ManagementSegment = .blocked
     @State private var showingAddBlocked = false
     @State private var showingAddAllowed = false
     @State private var showingAddKeywordRule = false
     @State private var showingAddNumberRule = false
+    @State private var pendingDeletion: PendingDeletion?
 
     var body: some View {
         NavigationStack {
@@ -43,19 +45,42 @@ struct ManagementView: View {
                         Image(systemName: "plus.circle.fill")
                             .font(.title3)
                     }
+                    .accessibilityLabel(NSLocalizedString("add", comment: ""))
                 }
             }
             .sheet(isPresented: $showingAddBlocked) {
                 AddBlockedSenderView()
+                    .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingAddAllowed) {
                 AddAllowedNumberView()
+                    .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingAddKeywordRule) {
                 AddFilterRuleView()
+                    .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingAddNumberRule) {
                 AddNumberFilterRuleView()
+                    .appLanguageEnvironment()
+            }
+            .alert(
+                NSLocalizedString("delete.confirm.title", comment: ""),
+                isPresented: Binding(
+                    get: { pendingDeletion != nil },
+                    set: { if !$0 { pendingDeletion = nil } }
+                ),
+                presenting: pendingDeletion
+            ) { deletion in
+                Button(NSLocalizedString("delete", comment: ""), role: .destructive) {
+                    deletion.perform()
+                    pendingDeletion = nil
+                }
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel) {
+                    pendingDeletion = nil
+                }
+            } message: { deletion in
+                Text(String(format: NSLocalizedString("delete.confirm.message", comment: ""), deletion.title))
             }
         }
     }
@@ -103,14 +128,14 @@ struct ManagementView: View {
                 title: NSLocalizedString("management.blocked.title", comment: ""),
                 count: blockedNumbers.count,
                 emptyTitle: NSLocalizedString("no.blocked.title", comment: ""),
-                emptyMessage: NSLocalizedString("no.blocked.message", comment: ""),
+                emptyMessage: NSLocalizedString("no.blocked.message.manage", comment: ""),
                 emptyIcon: "phone.down.circle",
                 emptyColor: ShieldTheme.Colors.danger
             ) {
                 ForEach(blockedNumbers) { number in
                     managementRow(
                         title: number.phoneNumber,
-                        subtitle: number.addedAt.formatted(date: .abbreviated, time: .omitted),
+                        subtitle: languageManager.formatted(number.addedAt, date: .abbreviated, time: .omitted),
                         systemImage: "minus.circle.fill",
                         color: ShieldTheme.Colors.danger
                     ) {
@@ -131,7 +156,7 @@ struct ManagementView: View {
                 ForEach(allowedNumbers) { number in
                     managementRow(
                         title: number.phoneNumber,
-                        subtitle: number.addedAt.formatted(date: .abbreviated, time: .omitted),
+                        subtitle: languageManager.formatted(number.addedAt, date: .abbreviated, time: .omitted),
                         systemImage: "checkmark.circle.fill",
                         color: ShieldTheme.Colors.success
                     ) {
@@ -244,7 +269,10 @@ struct ManagementView: View {
 
             Spacer()
 
-            Button(role: .destructive, action: deleteAction) {
+            Button(role: .destructive) {
+                // Silmeden önce kullanıcıdan onay al
+                pendingDeletion = PendingDeletion(title: title, perform: deleteAction)
+            } label: {
                 Image(systemName: "trash")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(ShieldTheme.Colors.danger)
@@ -252,6 +280,7 @@ struct ManagementView: View {
                     .background(ShieldTheme.Colors.danger.opacity(0.10), in: Circle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(NSLocalizedString("delete", comment: ""))
         }
         .padding(.vertical, 10)
         .overlay(alignment: .bottom) {
@@ -323,6 +352,8 @@ private struct AddBlockedSenderView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     @State private var showingContactPicker = false
+    // Ülke kodu olmadan yazılan numaraların ait olduğu ülke; en son seçilen ülkeyle başlar
+    @State private var regionCode = RegionManager.shared.lastUsedRegionCode
 
     var body: some View {
         NavigationStack {
@@ -330,7 +361,17 @@ private struct AddBlockedSenderView: View {
                 Form {
                     Section {
                         HStack {
-                            TextField(NSLocalizedString("phone.number.or.sender", comment: ""), text: $sender)
+                            // Gönderici adı yazılırken ülke seçimi anlamsız, gizle
+                            if sender.rangeOfCharacter(from: .letters) == nil {
+                                CountryCodeButton(regionCode: $regionCode)
+                                    // Seçimi bir sonraki form için hatırla
+                                    .onChange(of: regionCode) { _, newValue in
+                                        RegionManager.shared.lastUsedRegionCode = newValue
+                                    }
+                            }
+
+                            TextField(NSLocalizedString("phone.number.or.sender", comment: ""), text: $sender, axis: .vertical)
+                                .lineLimit(1...2)
                                 .keyboardType(.default)
                                 .textContentType(.telephoneNumber)
                                 .textInputAutocapitalization(.characters)
@@ -341,6 +382,7 @@ private struct AddBlockedSenderView: View {
                                     .foregroundStyle(ShieldTheme.Colors.primary)
                             }
                             .buttonStyle(.plain)
+                            .accessibilityLabel(NSLocalizedString("menu.contacts", comment: ""))
                         }
 
                         TextField(NSLocalizedString("reason.optional", comment: ""), text: $reason)
@@ -383,38 +425,30 @@ private struct AddBlockedSenderView: View {
                 } onCancel: {
                     showingContactPicker = false
                 }
+                .appLanguageEnvironment()
             }
         }
     }
 
     private func addBlockedSender() {
-        let originalInput = sender.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !originalInput.isEmpty else {
-            errorMessage = NSLocalizedString("enter.phone.number", comment: "")
+        // Numara, kısa numara veya gönderici adı olarak çöz; numarayı seçili ülkeye göre doğrula
+        let entry: PhoneNumberEntry
+        switch RegionManager.shared.entry(for: sender, regionCode: regionCode) {
+        case .success(let value):
+            entry = value
+        case .failure(let error):
+            errorMessage = RegionManager.shared.message(for: error, regionCode: regionCode)
             showingError = true
             return
         }
 
-        let normalizedValue: String
-        if originalInput.rangeOfCharacter(from: .letters) != nil {
-            normalizedValue = originalInput.uppercased()
-        } else {
-            normalizedValue = originalInput.replacingOccurrences(of: "[^0-9+]", with: "", options: .regularExpression)
-        }
-
-        guard !normalizedValue.isEmpty else {
-            errorMessage = NSLocalizedString("invalid.entry", comment: "")
-            showingError = true
-            return
-        }
-
-        if DataManager.shared.isNumberBlocked(normalizedValue) {
+        if DataManager.shared.isNumberBlocked(entry.storageValue) {
             errorMessage = NSLocalizedString("number.already.blocked", comment: "")
             showingError = true
             return
         }
 
-        DataManager.shared.addBlockedNumber(normalizedValue, reason: reason, modelContext: modelContext)
+        DataManager.shared.addBlockedNumber(entry.storageValue, reason: reason, modelContext: modelContext)
         reloadCallDirectory()
         dismiss()
     }
@@ -434,7 +468,7 @@ private struct AddBlockedSenderView: View {
                     if granted {
                         showingContactPicker = true
                     } else {
-                        errorMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+                        errorMessage = NSLocalizedString("contacts.permission.denied", comment: "")
                         showingError = true
                     }
                 }
@@ -442,10 +476,10 @@ private struct AddBlockedSenderView: View {
         case .authorized, .limited:
             showingContactPicker = true
         case .denied, .restricted:
-            errorMessage = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar."
+            errorMessage = NSLocalizedString("contacts.permission.denied", comment: "")
             showingError = true
         @unknown default:
-            errorMessage = "Beklenmeyen bir hata oluştu. Lütfen rehber erişim ayarlarını kontrol edin."
+            errorMessage = NSLocalizedString("contacts.permission.error", comment: "")
             showingError = true
         }
     }
@@ -584,6 +618,12 @@ private struct ContactNumberSelectionView: View {
         let organization = contact.organizationName.trimmingCharacters(in: .whitespacesAndNewlines)
         return organization.isEmpty ? unknownSender : organization
     }
+}
+
+/// Onay bekleyen silme işlemi: gösterilecek başlık ve onaylanınca çalışacak eylem
+private struct PendingDeletion {
+    let title: String
+    let perform: () -> Void
 }
 
 private struct ContactNumberOption: Identifiable, Sendable {

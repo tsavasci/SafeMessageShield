@@ -21,6 +21,9 @@ struct ContentView: View {
     @State private var showingAddNumberSheet = false
     @State private var showingContactPicker = false
     @State private var showingReportedJunk = false
+    @State private var showingFilterCustomization = false
+    @State private var pendingDeletion: BlockedNumber?
+    @State private var contactErrorMessage: String?
     @State private var showingSuccessAlert = false
     @State private var lastBlockedNumber = ""
     @State private var selectedTab = 0
@@ -59,6 +62,9 @@ struct ContentView: View {
                 .tag(2)
         }
         .onAppear {
+            // Varsayılan ülkeyi App Group'a yaz; uzantılar yerel numaraları buna göre çözer
+            _ = RegionManager.shared
+
             // Perform a one-time sync from SwiftData -> App Group so extensions can read current data
             if !didInitialSync {
                 DataManager.shared.syncFromSwiftData(allowed: allowedNumbersList, blocked: blockedNumbers, filterRules: filterRulesList, numberRules: numberFilterRulesList)
@@ -91,14 +97,21 @@ struct ContentView: View {
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingAddNumberSheet) {
                 AddNumberView()
+                    .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingContactPicker) {
                 ContactPickerView()
+                    .appLanguageEnvironment()
                     .environmentObject(contactViewModel)
                     .ignoresSafeArea()
             }
             .sheet(isPresented: $showingReportedJunk) {
                 ReportedJunkView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingFilterCustomization) {
+                FilterCustomizationView()
+                    .appLanguageEnvironment()
             }
             .onAppear {
                 refreshDashboard()
@@ -119,6 +132,35 @@ struct ContentView: View {
                     String(
                         format: NSLocalizedString("number.blocked.success", comment: ""),
                         lastBlockedNumber))
+            }
+            .alert(
+                NSLocalizedString("error", comment: ""),
+                isPresented: Binding(
+                    get: { contactErrorMessage != nil },
+                    set: { if !$0 { contactErrorMessage = nil } }
+                )
+            ) {
+                Button(NSLocalizedString("ok", comment: ""), role: .cancel) {}
+            } message: {
+                Text(contactErrorMessage ?? "")
+            }
+            .alert(
+                NSLocalizedString("delete.confirm.title", comment: ""),
+                isPresented: Binding(
+                    get: { pendingDeletion != nil },
+                    set: { if !$0 { pendingDeletion = nil } }
+                ),
+                presenting: pendingDeletion
+            ) { number in
+                Button(NSLocalizedString("delete", comment: ""), role: .destructive) {
+                    deleteBlockedNumber(number)
+                    pendingDeletion = nil
+                }
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel) {
+                    pendingDeletion = nil
+                }
+            } message: { number in
+                Text(String(format: NSLocalizedString("delete.confirm.message", comment: ""), number.phoneNumber))
             }
         }
     }
@@ -150,6 +192,7 @@ struct ContentView: View {
                     .background(.ultraThinMaterial, in: Circle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(NSLocalizedString("settings.title", comment: ""))
         }
     }
 
@@ -201,6 +244,9 @@ struct ContentView: View {
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(ShieldTheme.Colors.success)
+                    .accessibilityLabel(NSLocalizedString("extensions.enabled", comment: ""))
+                    // Onay ikonu (checkmark) sistem tarafından "seçili" olarak okunmasın
+                    .accessibilityRemoveTraits(.isSelected)
                 }
             }
         }
@@ -314,15 +360,18 @@ struct ContentView: View {
                             showingContactPicker = true
                         }
                     }
+                    // Keep both buttons in a row the same height when a label wraps
+                    .fixedSize(horizontal: false, vertical: true)
 
                     HStack(spacing: 10) {
                         ShieldActionButton(title: NSLocalizedString("filter.customization", comment: ""), systemImage: "slider.horizontal.3", color: ShieldTheme.Colors.secondary) {
-                            selectedTab = 1
+                            showingFilterCustomization = true
                         }
                         ShieldActionButton(title: NSLocalizedString("dashboard.last.junk", comment: ""), systemImage: "tray.full.fill", color: ShieldTheme.Colors.warning) {
                             showingReportedJunk = true
                         }
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
@@ -354,12 +403,15 @@ struct ContentView: View {
         ShieldCard {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
-                    Text(NSLocalizedString("tab.list", comment: ""))
+                    Text(NSLocalizedString("management.blocked.title", comment: ""))
                         .font(.headline.weight(.semibold))
                     Spacer()
-                    Text(String(format: NSLocalizedString("blocked.count", comment: ""), blockedNumbers.count))
+                    Text("\(blockedNumbers.count)")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial, in: Capsule())
                 }
 
                 if blockedNumbers.isEmpty {
@@ -378,7 +430,7 @@ struct ContentView: View {
                                 BlockedNumberRow(blockedNumber: number)
                                 Spacer()
                                 Button(role: .destructive) {
-                                    deleteBlockedNumber(number)
+                                    pendingDeletion = number
                                 } label: {
                                     Image(systemName: "trash")
                                         .font(.subheadline.weight(.semibold))
@@ -387,6 +439,7 @@ struct ContentView: View {
                                         .background(ShieldTheme.Colors.danger.opacity(0.10), in: Circle())
                                 }
                                 .buttonStyle(.plain)
+                                .accessibilityLabel(NSLocalizedString("delete", comment: ""))
                             }
                             .padding(.vertical, 8)
 
@@ -406,7 +459,7 @@ struct ContentView: View {
         }
 
         if let dashboardLastFilterDate {
-            let formattedDate = dashboardLastFilterDate.formatted(date: .abbreviated, time: .shortened)
+            let formattedDate = languageManager.formatted(dashboardLastFilterDate, date: .abbreviated, time: .shortened)
             return String(format: NSLocalizedString("dashboard.last.filter.activity", comment: ""), formattedDate)
         }
 
@@ -433,16 +486,22 @@ struct ContentView: View {
         guard let dashboardLastSyncDate else {
             return NSLocalizedString("dashboard.setup.no.sync", comment: "")
         }
-        let formattedDate = dashboardLastSyncDate.formatted(date: .abbreviated, time: .shortened)
+        let formattedDate = languageManager.formatted(dashboardLastSyncDate, date: .abbreviated, time: .shortened)
         return String(format: NSLocalizedString("dashboard.setup.last.sync", comment: ""), formattedDate)
     }
 
     private func addNumberFromContact(phoneNumber: String) {
-        // Numarayı temizle: boşluklar, tire, parantez vb. kaldır, sadece rakamlar ve + kalsın
-        let cleanedNumber = phoneNumber.replacingOccurrences(
-            of: "[^0-9+]", with: "", options: .regularExpression)
-
-        guard !cleanedNumber.isEmpty else { return }
+        // Rehberdeki numara yerel biçimde olabilir; varsayılan ülkeye göre uluslararası biçime çevir
+        let entry: PhoneNumberEntry
+        switch RegionManager.shared.entry(for: phoneNumber) {
+        case .success(let value):
+            entry = value
+        case .failure(let error):
+            contactErrorMessage = RegionManager.shared.message(for: error)
+            contactViewModel.selectedPhoneNumber = ""
+            return
+        }
+        let cleanedNumber = entry.storageValue
 
         // Temizlenmiş numara ile kontrol et
         if DataManager.shared.isNumberBlocked(cleanedNumber) {
@@ -456,21 +515,12 @@ struct ContentView: View {
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()
 
-        // Geri bildirim için
-        lastBlockedNumber = cleanedNumber
+        // Geri bildirim için (listede saklandığı biçimle aynı göster)
+        lastBlockedNumber = entry.displayValue
         showingSuccessAlert = true
 
         // ViewModel'i sıfırla
         contactViewModel.selectedPhoneNumber = ""
-    }
-
-    private func deleteNumbers(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                let number = blockedNumbers[index]
-                deleteBlockedNumber(number)
-            }
-        }
     }
 
     private func deleteBlockedNumber(_ number: BlockedNumber) {
@@ -505,163 +555,6 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Status Card
-struct StatusCard: View {
-    @State private var isFilterEnabled = false
-    @State private var showInstructions = false
-    @State private var callDirectoryError: String?
-
-    var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Image(
-                    systemName: isFilterEnabled
-                        ? "checkmark.shield.fill" : "exclamationmark.shield.fill"
-                )
-                .font(.system(size: 40))
-                .foregroundStyle(isFilterEnabled ? .green : .orange)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(
-                        isFilterEnabled
-                            ? NSLocalizedString("protection.active", comment: "")
-                            : NSLocalizedString("protection.inactive", comment: "")
-                    )
-                    .font(.headline)
-                    Text(
-                        isFilterEnabled
-                            ? NSLocalizedString("sms.filtering", comment: "")
-                            : NSLocalizedString("enable.from.settings", comment: "")
-                    )
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                Button(action: { checkFilterStatus() }) {
-                    Image(systemName: "arrow.clockwise")
-                        .font(.title3)
-                        .foregroundStyle(.blue)
-                }
-            }
-
-            if !isFilterEnabled {
-                Button(action: { showInstructions.toggle() }) {
-                    HStack {
-                        Image(systemName: "info.circle.fill")
-                        Text(
-                            showInstructions
-                                ? NSLocalizedString("hide.instructions", comment: "")
-                                : NSLocalizedString("how.to.enable", comment: ""))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-
-                if showInstructions {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(NSLocalizedString("sms.filter.title", comment: ""))
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                        Text(NSLocalizedString("sms.filter.instruction", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-
-                        Divider()
-
-                        Text(NSLocalizedString("call.block.title", comment: ""))
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                        Text(NSLocalizedString("call.block.instruction", comment: ""))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-
-                        Button(action: openSettings) {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "gear")
-                                Text(NSLocalizedString("open.settings", comment: ""))
-                                Spacer()
-                            }
-                            .padding(8)
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                        }
-
-                        Button(action: { markAsEnabled() }) {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "checkmark.circle")
-                                Text(NSLocalizedString("extensions.enabled", comment: ""))
-                                Spacer()
-                            }
-                            .padding(8)
-                            .background(Color.orange)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                        }
-                    }
-                    .padding()
-                    .background(Color(.systemGray5))
-                    .cornerRadius(8)
-                }
-            } else {
-                HStack {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(.green)
-                    Text(NSLocalizedString("extensions.active", comment: ""))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-
-            if let callDirectoryError {
-                Text(callDirectoryError)
-                    .font(.caption)
-                    .foregroundStyle(.red)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
-        .onAppear {
-            checkFilterStatus()
-        }
-    }
-
-    private func checkFilterStatus() {
-        // Message Filter durumu API ile okunamıyor. Kullanıcı onayını, CallKit'in
-        // gerçek etkinlik durumuyla birlikte değerlendir.
-        let messageFilterConfirmed = DataManager.shared.isFilterEnabled()
-        callDirectoryError = DataManager.shared.lastCallDirectoryError()
-        CXCallDirectoryManager.sharedInstance.getEnabledStatusForExtension(
-            withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension"
-        ) { status, _ in
-            DispatchQueue.main.async {
-                isFilterEnabled = messageFilterConfirmed && status == .enabled
-            }
-        }
-    }
-
-    private func markAsEnabled() {
-        DataManager.shared.setFilterEnabled(true)
-        showInstructions = false
-        checkFilterStatus()
-    }
-
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-}
-
 // MARK: - Blocked Number Row
 struct BlockedNumberRow: View {
     let blockedNumber: BlockedNumber
@@ -672,7 +565,7 @@ struct BlockedNumberRow: View {
                 .font(.headline)
 
             HStack {
-                Text(blockedNumber.addedAt, style: .date)
+                Text(blockedNumber.addedAt, format: .dateTime.day().month(.abbreviated).year())
                     .font(.caption)
                     .foregroundStyle(.secondary)
 

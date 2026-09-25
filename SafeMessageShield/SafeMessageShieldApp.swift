@@ -36,6 +36,7 @@ struct SafeMessageShieldApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .appLanguageEnvironment()
                 .onOpenURL { url in
                     handleDeepLink(url)
                 }
@@ -52,8 +53,13 @@ struct SafeMessageShieldApp: App {
                let queryItems = components.queryItems,
                let senderParam = queryItems.first(where: { $0.name == "sender" })?.value
             {
-                let cleaned = senderParam.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-                let value = senderParam.rangeOfCharacter(from: .letters) == nil ? cleaned : senderParam
+                // Gönderen yerel biçimde gelmiş olabilir; varsayılan ülkeye göre çöz
+                let value: String
+                if case .success(let entry) = RegionManager.shared.entry(for: senderParam) {
+                    value = entry.storageValue
+                } else {
+                    value = senderParam
+                }
                 if !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     let context = sharedModelContainer.mainContext
                     DataManager.shared.addAllowedNumber(value, modelContext: context)

@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		F2579FCB2EBCCE580025CC5D /* CallDirectoryExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2579FC42EBCCE580025CC5D /* CallDirectoryExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F2579FDD2EBCCE830025CC5D /* MessageFilterExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F30000122F00000100000012 /* MessageFilterExtension/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* MessageFilterExtension/MessageFilterMatcher.swift */; };
+		F30000122F00000100000012 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 		F30000212F00000100000021 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
 		F30000222F00000100000022 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
 		F30000232F00000100000023 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
 		F30000242F00000100000024 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
+		F30000312F00000100000031 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
+		F30000322F00000100000032 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
+		F30000432F00000100000043 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000412F00000100000041 /* PhoneNumberKit */; };
+		F30000442F00000100000044 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000422F00000100000042 /* PhoneNumberKit */; };
+		F30000332F00000100000033 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,14 +54,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F2579FB72EBCCC9C0025CC5D /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		F2579FC42EBCCE580025CC5D /* CallDirectoryExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CallDirectoryExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessageFilterExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2579FE72EBCCEDE0025CC5D /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		F2F8BFE52EBB545100BF757A /* SafeMessageShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeMessageShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30000102F00000100000010 /* SafeMessageShieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeMessageShieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F30000112F00000100000011 /* MessageFilterExtension/MessageFilterMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFilterExtension/MessageFilterMatcher.swift; sourceTree = SOURCE_ROOT; };
+		F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/MessageFilterMatcher.swift; sourceTree = SOURCE_ROOT; };
 		F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/PhoneNumberNormalizer.swift; sourceTree = SOURCE_ROOT; };
+		F30000302F00000100000030 /* Shared/PhoneNumberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/PhoneNumberService.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -108,16 +112,6 @@
 			path = SafeMessageShield;
 			sourceTree = "<group>";
 		};
-		F2F8C0062EBB58D600BF757A /* MessageFilterExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MessageFilterExtension;
-			sourceTree = "<group>";
-		};
-		F2F8C0172EBB5A9A00BF757A /* CallDirectoryExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CallDirectoryExtension;
-			sourceTree = "<group>";
-		};
 		F30000132F00000100000013 /* SafeMessageShieldTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SafeMessageShieldTests;
@@ -144,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30000432F00000100000043 /* PhoneNumberKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,33 +146,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30000442F00000100000044 /* PhoneNumberKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F2579FB02EBCCC470025CC5D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F2579FE72EBCCEDE0025CC5D /* Messages.framework */,
-				F2579FB72EBCCC9C0025CC5D /* CallKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F2F8BFDC2EBB545100BF757A = {
 			isa = PBXGroup;
 			children = (
 				F2F8BFE72EBB545100BF757A /* SafeMessageShield */,
 				F30000132F00000100000013 /* SafeMessageShieldTests */,
-				F30000112F00000100000011 /* MessageFilterExtension/MessageFilterMatcher.swift */,
-				F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */,
-				F2F8C0062EBB58D600BF757A /* MessageFilterExtension */,
-				F2F8C0172EBB5A9A00BF757A /* CallDirectoryExtension */,
+				F30000502F00000100000050 /* Shared */,
 				F2579FC52EBCCE580025CC5D /* CallDirectoryExtension */,
 				F2579FD72EBCCE830025CC5D /* MessageFilterExtension */,
-				F2579FB02EBCCC470025CC5D /* Frameworks */,
 				F2F8BFE62EBB545100BF757A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -191,6 +174,16 @@
 				F30000102F00000100000010 /* SafeMessageShieldTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F30000502F00000100000050 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */,
+				F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */,
+				F30000302F00000100000030 /* Shared/PhoneNumberService.swift */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +253,7 @@
 			);
 			name = SafeMessageShield;
 			packageProductDependencies = (
+				F30000412F00000100000041 /* PhoneNumberKit */,
 			);
 			productName = SafeMessageShield;
 			productReference = F2F8BFE52EBB545100BF757A /* SafeMessageShield.app */;
@@ -282,6 +276,7 @@
 			);
 			name = SafeMessageShieldTests;
 			packageProductDependencies = (
+				F30000422F00000100000042 /* PhoneNumberKit */,
 			);
 			productName = SafeMessageShieldTests;
 			productReference = F30000102F00000100000010 /* SafeMessageShieldTests.xctest */;
@@ -330,6 +325,9 @@
 			);
 			mainGroup = F2F8BFDC2EBB545100BF757A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F30000402F00000100000040 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F2F8BFE62EBB545100BF757A /* Products */;
 			projectDirPath = "";
@@ -388,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F30000222F00000100000022 /* Shared/PhoneNumberNormalizer.swift in Sources */,
+				F30000332F00000100000033 /* Shared/MessageFilterMatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F30000212F00000100000021 /* Shared/PhoneNumberNormalizer.swift in Sources */,
+				F30000312F00000100000031 /* Shared/PhoneNumberService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,8 +403,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F30000122F00000100000012 /* MessageFilterExtension/MessageFilterMatcher.swift in Sources */,
+				F30000122F00000100000012 /* Shared/MessageFilterMatcher.swift in Sources */,
 				F30000242F00000100000024 /* Shared/PhoneNumberNormalizer.swift in Sources */,
+				F30000322F00000100000032 /* Shared/PhoneNumberService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +434,7 @@
 				DEVELOPMENT_TEAM = T54PTGTNBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CallDirectoryExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CallDirectoryExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -449,7 +450,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -462,7 +463,7 @@
 				DEVELOPMENT_TEAM = T54PTGTNBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CallDirectoryExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CallDirectoryExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -478,7 +479,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -491,7 +492,7 @@
 				DEVELOPMENT_TEAM = T54PTGTNBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MessageFilterExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MessageFilterExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,7 +508,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -520,7 +521,7 @@
 				DEVELOPMENT_TEAM = T54PTGTNBU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MessageFilterExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MessageFilterExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -536,7 +537,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -596,7 +597,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -658,7 +659,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -683,7 +684,7 @@
 				INFOPLIST_FILE = "SafeMessageShield/SafeMessageShield-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSContactsUsageDescription = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar.";
+				INFOPLIST_KEY_NSContactsUsageDescription = "SMS Shield uses your contacts only on this device so you can pick numbers to block or allow.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -694,6 +695,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -724,7 +726,7 @@
 				INFOPLIST_FILE = "SafeMessageShield/SafeMessageShield-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSContactsUsageDescription = "SafeMessageShield, engellemek istediğiniz numaraları rehberinizden seçebilmeniz için rehber erişimine ihtiyaç duyar.";
+				INFOPLIST_KEY_NSContactsUsageDescription = "SMS Shield uses your contacts only on this device so you can pick numbers to block or allow.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -735,6 +737,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -837,6 +840,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F30000402F00000100000040 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PhoneNumberKit/PhoneNumberKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.11;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F30000412F00000100000041 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F30000402F00000100000040 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+		F30000422F00000100000042 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F30000402F00000100000040 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F2F8BFDD2EBB545100BF757A /* Project object */;
 }

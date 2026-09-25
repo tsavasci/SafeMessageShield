@@ -12,45 +12,56 @@ struct ReportedJunkView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                if let sender = lastSender {
-                    Text(NSLocalizedString("last.filtered.sender", comment: "Last filtered sender"))
-                        .font(.headline)
-                    Text(sender)
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding()
+            ShieldSurface {
+                VStack(spacing: 16) {
+                    if let sender = lastSender {
+                        ShieldCard {
+                            VStack(spacing: 14) {
+                                Text(NSLocalizedString("last.filtered.sender", comment: "Last filtered sender"))
+                                    .font(.headline.weight(.semibold))
+                                Text(sender)
+                                    .font(.title3.weight(.semibold))
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.center)
 
-                    Button(action: markNotJunk) {
-                        HStack {
-                            Image(systemName: "checkmark.shield")
-                            Text(NSLocalizedString("mark.notjunk", comment: "Mark as Not Junk"))
+                                Button(action: markNotJunk) {
+                                    Label(NSLocalizedString("mark.notjunk", comment: "Mark as Not Junk"), systemImage: "checkmark.shield.fill")
+                                        .font(.subheadline.weight(.semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 44)
+                                        .background(ShieldTheme.Colors.primaryGradient)
+                                        .foregroundStyle(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
+                                }
+                                .buttonStyle(.plain)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    } else {
+                        ShieldCard {
+                            ShieldEmptyState(
+                                title: NSLocalizedString("no.recent.junk", comment: "No recent junk sender"),
+                                message: NSLocalizedString("dashboard.setup.waiting.activity", comment: ""),
+                                systemImage: "tray",
+                                color: ShieldTheme.Colors.warning
+                            )
+                        }
                     }
-                } else {
-                    Text(NSLocalizedString("no.recent.junk", comment: "No recent junk sender"))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
 
-                if let msg = message {
-                    Text(msg)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 8)
-                }
+                    if let msg = message {
+                        Text(msg)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
 
-                Spacer()
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 14)
             }
-            .padding()
             .navigationTitle(NSLocalizedString("reported.junk", comment: "Reported Junk"))
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(NSLocalizedString("close", comment: "Close")) {
@@ -76,8 +87,13 @@ struct ReportedJunkView: View {
 
     private func markNotJunk() {
         guard let sender = lastSender else { return }
-        let digits = sender.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        let value = sender.rangeOfCharacter(from: .letters) == nil ? digits : sender
+        // Gönderen yerel biçimde gelmiş olabilir; varsayılan ülkeye göre çöz, çözülemezse olduğu gibi kullan
+        let value: String
+        if case .success(let entry) = RegionManager.shared.entry(for: sender) {
+            value = entry.storageValue
+        } else {
+            value = sender
+        }
         // Add to allowed numbers
         DataManager.shared.addAllowedNumber(value, modelContext: modelContext)
         // Optionally remove from blocked list

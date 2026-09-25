@@ -46,8 +46,37 @@ class LanguageManager: ObservableObject {
         Bundle.setLanguage(currentLanguage)
     }
     
-    func localizedString(_ key: String) -> String {
-        return NSLocalizedString(key, comment: "")
+    /// Uygulama içinde seçilen dile ait locale (tarih/sayı biçimlendirme için)
+    var locale: Locale {
+        Locale(identifier: currentLanguage)
+    }
+
+    /// Arapça gibi sağdan sola yazılan diller için arayüz yönü
+    var layoutDirection: LayoutDirection {
+        Locale.Language(identifier: currentLanguage).characterDirection == .rightToLeft ? .rightToLeft : .leftToRight
+    }
+
+    /// Tarihi cihaz bölgesi yerine uygulama diline göre biçimlendirir
+    func formatted(_ date: Date, date dateStyle: Date.FormatStyle.DateStyle, time timeStyle: Date.FormatStyle.TimeStyle) -> String {
+        date.formatted(Date.FormatStyle(date: dateStyle, time: timeStyle, locale: locale))
+    }
+}
+
+/// Seçilen uygulama dilinin locale ve yazı yönünü görünüme uygular
+private struct AppLanguageEnvironment: ViewModifier {
+    @ObservedObject private var languageManager = LanguageManager.shared
+
+    func body(content: Content) -> some View {
+        content
+            .environment(\.locale, languageManager.locale)
+            .environment(\.layoutDirection, languageManager.layoutDirection)
+    }
+}
+
+extension View {
+    /// Tarih metinleri ve yazı yönü (RTL) uygulama içinde seçilen dili izlesin
+    func appLanguageEnvironment() -> some View {
+        modifier(AppLanguageEnvironment())
     }
 }
 

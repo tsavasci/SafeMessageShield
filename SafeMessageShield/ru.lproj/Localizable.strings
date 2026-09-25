@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "Список";
-"tab.allowed" = "Безопасные";
-"tab.statistics" = "Статистика";
+"tab.list" = "Главная";
 "tab.settings" = "Настройки";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "Добавить номер";
-"blocked.count" = "Заблокировано %d номеров";
 "no.blocked.title" = "Пока нет заблокированных номеров";
-"no.blocked.message" = "Нажмите кнопку + выше, чтобы добавить номера, которые вы хотите заблокировать";
+"no.blocked.message" = "Добавляйте номера для блокировки через быстрые действия или вкладку «Управление»";
 
 /* Add Number Menu */
 "menu.manual" = "Ввести вручную";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "Номер телефона";
 "phone.number.or.sender" = "№ телефона или отправитель";
-"invalid.entry" = "Неверный ввод. Введите номер телефона или имя отправителя.";
 "reason.optional" = "Причина (необязательно)";
 "number.info" = "Информация о номере";
-"number.info.footer" = "Введите вручную или выберите из контактов. Пример: +79161234567";
+"number.info.footer.extended" = "Выберите страну или введите полный номер, начиная с + (например, +79161234567). Короткие номера (например, 4567) и имена отправителей (например, VODAFONE) также поддерживаются.";
 "block.number" = "Заблокировать номер";
 "cancel" = "Отмена";
 "alert" = "Внимание";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "Номер успешно заблокирован: %@";
 "enter.phone.number" = "Пожалуйста, введите номер телефона.";
 "number.already.blocked" = "Этот номер уже заблокирован.";
-"added.from.contacts" = "Добавлено из контактов";
 
 /* Allowed Numbers */
-"allowed.numbers" = "Безопасные номера";
 "no.allowed.title" = "Пока нет безопасных номеров";
 "no.allowed.message" = "Сообщения от номеров, которые вы добавите в этот список, никогда не будут фильтроваться";
-"allowed.count" = "%d номеров в безопасном списке";
 "add.allowed.number" = "Добавить безопасный номер";
-"number.allowed.success" = "Номер добавлен в безопасный список: %@";
 "number.already.allowed" = "Этот номер уже в безопасном списке.";
-"allowed.info.title" = "Что такое безопасные номера?";
-"allowed.info.message" = "Номера, которые вы добавите в этот список, никогда не будут фильтроваться или блокироваться. Вы можете добавлять номера, которых нет в ваших контактах, но вы знаете, что они безопасны.";
 "allowed.explanation" = "Этот номер будет добавлен в безопасный список, и его сообщения никогда не будут фильтроваться.";
 "add" = "Добавить";
 "error" = "Ошибка";
-"invalid.phone.number" = "Неверный номер телефона";
 "entry.type" = "Тип записи";
 "what.to.add" = "Что добавить?";
 "sender.name" = "Имя отправителя";
 "sender.name.example" = "напр: ПОЧТАРОССИИ, AMAZON";
-"phone.number.footer" = "Можно использовать международный формат. напр: +7551234567";
+"phone.number.footer" = "Выберите страну или введите полный номер, начиная с + (например, +79161234567).";
 "sender.name.footer" = "Введите имя, которое отображается как отправитель в SMS. Регистр не важен.";
 "invalid.sender.name" = "Неверное имя отправителя";
 
 /* Status Card */
 "protection.active" = "Защита активна";
 "protection.inactive" = "Включите расширения";
-"sms.filtering" = "Фильтрация SMS активна";
 "enable.from.settings" = "Включить в настройках iOS";
-"how.to.enable" = "Как включить?";
-"hide.instructions" = "Скрыть инструкции";
-"sms.filter.title" = "📱 Фильтрация SMS:";
-"sms.filter.instruction" = "Настройки → Сообщения → Неизвестные и спам → Включить SafeMessageShield";
-"call.block.title" = "📞 Блокировка вызовов:";
-"call.block.instruction" = "Настройки → Телефон → Блокировка и идентификация вызовов → Включить SafeMessageShield";
+"sms.filter.title" = "Фильтрация SMS";
+"sms.filter.instruction" = "Настройки → Сообщения → Неизвестные и спам → Включить SMS Shield";
+"call.block.title" = "Блокировка вызовов";
+"call.block.instruction" = "Настройки → Телефон → Блокировка и идентификация вызовов → Включить SMS Shield";
 "open.settings" = "Открыть настройки iOS";
 "extensions.enabled" = "Я включил расширения";
-"extensions.active" = "Расширения активны. Спам-сообщения будут отфильтрованы!";
-
-/* Statistics View */
-"statistics.title" = "Статистика";
-"total.protection" = "Общая защита";
-"sms.label" = "SMS";
-"calls.label" = "Звонки";
-"blocked.label" = "Заблокировано";
-"sms.filtering.title" = "Фильтрация SMS";
-"call.blocking.title" = "Блокировка вызовов";
-"blocked.numbers.title" = "Заблокированные номера";
-"active.protection.title" = "Активная защита";
-"last.activity" = "Последнее: %@";
-"no.activity" = "Пока нет активности";
-"auto.blocked" = "Автоматически заблокировано iOS";
-"total.in.list" = "Всего номеров в списке";
-"days.count" = "%d дней";
-"since.install" = "С момента установки приложения";
-"how.it.works" = "Как это работает?";
-"stats.info" = "Количество отфильтрованных SMS — это запись в реальном времени о сообщениях, заблокированных расширением. Блокировка вызовов выполняется iOS автоматически, и точное количество недоступно.";
-"pull.to.refresh" = "Потяните вниз для обновления";
-
-"blocked.sms" = "Заблокированные SMS";
-"blocked.sms.subtitle" = "Отправлено в папку со спамом";
-"categorized.sms" = "Категоризированные SMS";
-"categorized.sms.subtitle" = "Отфильтровано по ключевым словам";
-"total.filtered.sms" = "Всего отфильтрованных SMS";
-"reset.statistics.title" = "Сбросить статистику";
-"reset.statistics.message" = "Это сбросит все счетчики. Заблокированные номера не будут затронуты.";
-"reset" = "Сбросить";
 
 /* Settings View */
 "settings.title" = "Настройки";
@@ -115,7 +71,6 @@
 "delete" = "Удалить";
 "done" = "Готово";
 "close" = "Закрыть";
-"save" = "Сохранить";
 
 /* Privacy */
 "privacy.footer" = "Это приложение не отправляет содержимое сообщений или личные данные на серверы. Все операции фильтрации и блокировки выполняются на вашем устройстве.";
@@ -206,17 +161,16 @@
 "mark.notjunk" = "Пометить как не спам";
 "marked.notjunk.message" = "%@ помечен как безопасный.";
 
-/* Legacy Stats */
-"numbers.label" = "Номера";
-"total.label" = "Всего";
-"numbers.in.blocklist" = "Номера в списке блокировки";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "Нажмите + в правом верхнем углу, чтобы добавить номера для блокировки";
+"delete.confirm.title" = "Удалить этот элемент?";
+"delete.confirm.message" = "«%@» будет удалён из списка. Это действие нельзя отменить.";
+"contacts.permission.denied" = "SMS Shield нужен доступ к контактам, чтобы вы могли выбрать номера для блокировки. Разрешить доступ можно в Настройках.";
+"contacts.permission.error" = "Произошла непредвиденная ошибка. Проверьте доступ к контактам в Настройках.";
 
-/* Sync Data */
-"sync.status" = "Статус синхронизации";
-"sync.allowed.count" = "Разрешено: %d";
-"sync.blocked.count" = "Заблокировано: %d";
-"sync.filter.rules.count" = "Правила фильтра: %d";
-"sync.number.filter.rules.count" = "Правила номеров: %d";
-"sync.to.app.group" = "Синхронизировать с App Group";
-"sync.data.title" = "Синхронизация данных";
-"sync.completed.message" = "Синхронизировано с UserDefaults App Group. Расширения теперь могут читать данные.";
+/* Country selection */
+"default.country" = "Страна по умолчанию";
+"country.select" = "Выберите страну";
+"country.search" = "Поиск страны или кода";
+"country.accessibility" = "Страна: %1$@, %2$@";
+"number.invalid.for.country" = "Этот номер недействителен для страны «%@». Проверьте выбранную страну или введите полный номер, начиная с +.";

@@ -10,8 +10,9 @@ import SwiftData
 
 struct FilterCustomizationView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @Query private var filterRules: [FilterRule]
-    
+
     @State private var showingAddRule = false
     @State private var showingNumberRules = false
     
@@ -43,24 +44,32 @@ struct FilterCustomizationView: View {
             .navigationTitle(NSLocalizedString("filter.customization", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showingAddRule = true }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(NSLocalizedString("close", comment: "")) {
+                        dismiss()
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: { showingNumberRules = true }) {
                         Image(systemName: "text.badge.minus")
                             .font(.title2)
                     }
+                    .accessibilityLabel(NSLocalizedString("number.filter.rules", comment: ""))
+
+                    Button(action: { showingAddRule = true }) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.title2)
+                    }
+                    .accessibilityLabel(NSLocalizedString("add.filter.rule", comment: ""))
                 }
             }
             .sheet(isPresented: $showingAddRule) {
                 AddFilterRuleView()
+                    .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingNumberRules) {
                 FilterByNumberView()
+                    .appLanguageEnvironment()
             }
         }
     }

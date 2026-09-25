@@ -1,0 +1,3 @@
+/* Localized Info.plist values */
+"CFBundleDisplayName" = "SMS Shield";
+"NSContactsUsageDescription" = "يستخدم SMS Shield جهات الاتصال على هذا الجهاز فقط لتتمكن من اختيار الأرقام التي تريد حظرها أو السماح بها.";

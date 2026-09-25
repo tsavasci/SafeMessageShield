@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "القائمة";
-"tab.allowed" = "آمن";
-"tab.statistics" = "الإحصائيات";
+"tab.list" = "الرئيسية";
 "tab.settings" = "الإعدادات";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "إضافة رقم";
-"blocked.count" = "تم حظر %d رقم";
 "no.blocked.title" = "لا توجد أرقام محظورة بعد";
-"no.blocked.message" = "اضغط على زر + أعلاه لإضافة الأرقام التي تريد حظرها";
+"no.blocked.message" = "أضف الأرقام التي تريد حظرها من الإجراءات السريعة أو من علامة التبويب إدارة";
 
 /* Add Number Menu */
 "menu.manual" = "إدخال يدوي";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "رقم الهاتف";
 "phone.number.or.sender" = "رقم الهاتف أو اسم المرسل";
-"invalid.entry" = "إدخال غير صالح. يرجى إدخال رقم هاتف أو اسم المرسل.";
 "reason.optional" = "السبب (اختياري)";
 "number.info" = "معلومات الرقم";
-"number.info.footer" = "أدخل يدويًا أو اختر من جهات الاتصال. مثال: +966501234567";
+"number.info.footer.extended" = "اختر الدولة أو أدخل الرقم كاملاً بدءًا بـ + (مثل ⁦+966501234567⁩). الأرقام القصيرة (مثل 4567) وأسماء المرسلين (مثل VODAFONE) مدعومة أيضًا.";
 "block.number" = "حظر الرقم";
 "cancel" = "إلغاء";
 "alert" = "تنبيه";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "تم حظر الرقم بنجاح: %@";
 "enter.phone.number" = "الرجاء إدخال رقم هاتف.";
 "number.already.blocked" = "هذا الرقم محظور بالفعل.";
-"added.from.contacts" = "تمت الإضافة من جهات الاتصال";
 
 /* Allowed Numbers */
-"allowed.numbers" = "أرقام آمنة";
 "no.allowed.title" = "لا توجد أرقام آمنة بعد";
 "no.allowed.message" = "الرسائل من الأرقام التي تضيفها إلى هذه القائمة لن يتم تصفيتها أبدًا";
-"allowed.count" = "%d رقم في القائمة الآمنة";
 "add.allowed.number" = "إضافة رقم آمن";
-"number.allowed.success" = "تمت إضافة الرقم إلى القائمة الآمنة: %@";
 "number.already.allowed" = "هذا الرقم موجود بالفعل في القائمة الآمنة.";
-"allowed.info.title" = "ما هي الأرقام الآمنة؟";
-"allowed.info.message" = "الأرقام التي تضيفها إلى هذه القائمة لن يتم تصفيتها أو حظرها أبدًا. يمكنك إضافة أرقام ليست في جهات الاتصال الخاصة بك ولكنك تعلم أنها آمنة.";
 "allowed.explanation" = "سيتم إضافة هذا الرقم إلى القائمة الآمنة ولن يتم تصفية رسائله أبدًا.";
 "add" = "إضافة";
 "error" = "خطأ";
-"invalid.phone.number" = "رقم هاتف غير صالح";
 "entry.type" = "نوع الإدخال";
 "what.to.add" = "ماذا تريد أن تضيف؟";
 "sender.name" = "اسم المرسل";
 "sender.name.example" = "مثال: بريد السعودية، AMAZON";
-"phone.number.footer" = "يمكنك استخدام التنسيق الدولي. مثال: +966551234567";
+"phone.number.footer" = "اختر الدولة أو أدخل الرقم كاملاً بدءًا بـ + (مثل ⁦+966501234567⁩).";
 "sender.name.footer" = "أدخل الاسم الذي يظهر كمرسل في الرسالة القصيرة. غير حساس لحالة الأحرف.";
 "invalid.sender.name" = "اسم مرسل غير صالح";
 
 /* Status Card */
 "protection.active" = "الحماية مفعلة";
 "protection.inactive" = "تفعيل الإضافات";
-"sms.filtering" = "تصفية الرسائل القصيرة مفعلة";
 "enable.from.settings" = "تفعيل من إعدادات iOS";
-"how.to.enable" = "كيفية التفعيل؟";
-"hide.instructions" = "إخفاء التعليمات";
-"sms.filter.title" = "📱 تصفية الرسائل القصيرة:";
-"sms.filter.instruction" = "الإعدادات ← الرسائل ← غير معروف ومزعج ← تشغيل SafeMessageShield";
-"call.block.title" = "📞 حظر المكالمات:";
-"call.block.instruction" = "الإعدادات ← الهاتف ← حظر المكالمات والتعرف عليها ← تشغيل SafeMessageShield";
+"sms.filter.title" = "تصفية الرسائل القصيرة";
+"sms.filter.instruction" = "الإعدادات ← الرسائل ← غير معروف ومزعج ← تشغيل SMS Shield";
+"call.block.title" = "حظر المكالمات";
+"call.block.instruction" = "الإعدادات ← الهاتف ← حظر المكالمات والتعرف عليها ← تشغيل SMS Shield";
 "open.settings" = "فتح إعدادات iOS";
 "extensions.enabled" = "لقد قمت بتفعيل الإضافات";
-"extensions.active" = "الإضافات مفعلة. سيتم تصفية الرسائل المزعجة!";
-
-/* Statistics View */
-"statistics.title" = "الإحصائيات";
-"total.protection" = "الحماية الكاملة";
-"sms.label" = "رسائل";
-"calls.label" = "مكالمات";
-"blocked.label" = "محظور";
-"sms.filtering.title" = "تصفية الرسائل";
-"call.blocking.title" = "حظر المكالمات";
-"blocked.numbers.title" = "الأرقام المحظورة";
-"active.protection.title" = "الحماية النشطة";
-"last.activity" = "آخر نشاط: %@";
-"no.activity" = "لا يوجد نشاط بعد";
-"auto.blocked" = "محظور تلقائيًا بواسطة iOS";
-"total.in.list" = "إجمالي الأرقام في القائمة";
-"days.count" = "%d يوم";
-"since.install" = "منذ تثبيت التطبيق";
-"how.it.works" = "كيف يعمل؟";
-"stats.info" = "عدد تصفية الرسائل القصيرة هو سجل في الوقت الفعلي للرسائل التي حظرتها الإضافة. يتم حظر المكالمات تلقائيًا بواسطة iOS والعدد الدقيق غير متاح.";
-"pull.to.refresh" = "اسحب للأسفل للتحديث";
-
-"blocked.sms" = "الرسائل المحظورة";
-"blocked.sms.subtitle" = "تم إرسالها إلى مجلد البريد العشوائي";
-"categorized.sms" = "الرسائل المصنفة";
-"categorized.sms.subtitle" = "تمت تصفيتها حسب الكلمات الرئيسية";
-"total.filtered.sms" = "إجمالي الرسائل المفلترة";
-"reset.statistics.title" = "إعادة تعيين الإحصائيات";
-"reset.statistics.message" = "سيؤدي هذا إلى إعادة تعيين جميع العدادات. لن تتأثر الأرقام المحظورة.";
-"reset" = "إعادة تعيين";
 
 /* Settings View */
 "settings.title" = "الإعدادات";
@@ -115,14 +71,13 @@
 "delete" = "حذف";
 "done" = "تم";
 "close" = "إغلاق";
-"save" = "حفظ";
 
 /* Privacy */
 "privacy.footer" = "لا يرسل هذا التطبيق أي محتوى رسائل أو بيانات شخصية إلى الخوادم. تتم جميع عمليات التصفية والحظر على جهازك.";
 /* Filter Customization */
 "filter.customization" = "تخصيص الفلتر";
 "no.filter.rules.title" = "لا توجد قواعد تصفية بعد";
-"no.filter.rules.message" = "اضغط على زر + لإنشاء قواعد تصفية مخصصة بناءً على كلمات رسائل مفتاحية";
+"no.filter.rules.message" = "اضغط على زر + لإنشاء قواعد تصفية مخصصة بناءً على كلمات مفتاحية في الرسائل";
 "add.filter.rule" = "إضافة قاعدة تصفية";
 "filter.keyword" = "كلمة مفتاحية في الرسالة";
 "filter.keyword.placeholder" = "مثال: checkup، بنك، عرض";
@@ -205,17 +160,16 @@
 "mark.notjunk" = "تحديد كغير مزعج";
 "marked.notjunk.message" = "تم تحديد %@ كآمن.";
 
-/* Legacy Stats */
-"numbers.label" = "الأرقام";
-"total.label" = "الإجمالي";
-"numbers.in.blocklist" = "الأرقام في قائمة الحظر";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "اضغط على + في أعلى اليمين لإضافة الأرقام التي تريد حظرها";
+"delete.confirm.title" = "هل تريد حذف هذا العنصر؟";
+"delete.confirm.message" = "ستتم إزالة \"%@\" من قائمتك. لا يمكن التراجع عن هذا الإجراء.";
+"contacts.permission.denied" = "يحتاج SMS Shield إلى الوصول إلى جهات الاتصال لتتمكن من اختيار الأرقام التي تريد حظرها. يمكنك السماح بالوصول من الإعدادات.";
+"contacts.permission.error" = "حدث خطأ غير متوقع. يرجى التحقق من الوصول إلى جهات الاتصال في الإعدادات.";
 
-/* Sync Data */
-"sync.status" = "حالة المزامنة";
-"sync.allowed.count" = "المسموح: %d";
-"sync.blocked.count" = "المحظور: %d";
-"sync.filter.rules.count" = "قواعد الفلترة: %d";
-"sync.number.filter.rules.count" = "قواعد فلترة الأرقام: %d";
-"sync.to.app.group" = "مزامنة مع App Group";
-"sync.data.title" = "مزامنة البيانات";
-"sync.completed.message" = "تمت المزامنة مع UserDefaults في App Group. يمكن للإضافات الآن قراءة البيانات.";
+/* Country selection */
+"default.country" = "الدولة الافتراضية";
+"country.select" = "اختر الدولة";
+"country.search" = "ابحث عن دولة أو رمز";
+"country.accessibility" = "الدولة: %1$@، %2$@";
+"number.invalid.for.country" = "هذا الرقم غير صالح لـ %@. تحقق من الدولة المحددة أو أدخل الرقم كاملاً بدءًا بـ +.";

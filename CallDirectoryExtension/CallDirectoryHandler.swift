@@ -44,18 +44,6 @@ class CallDirectoryHandler: CXCallDirectoryProvider {
         sharedDefaults.removeObject(forKey: "lastCallDirectoryError")
     }
 
-    private func addOrRemoveIncrementalBlockingPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Incremental update not supported
-    }
-
-    private func addAllIdentificationPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Caller identification not used
-    }
-
-    private func addOrRemoveIncrementalIdentificationPhoneNumbers(to context: CXCallDirectoryExtensionContext) {
-        // Incremental identification not supported
-    }
-
 }
 
 extension CallDirectoryHandler: CXCallDirectoryExtensionContextDelegate {

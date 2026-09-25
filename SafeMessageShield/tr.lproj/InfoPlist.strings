@@ -1,0 +1,3 @@
+/* Localized Info.plist values */
+"CFBundleDisplayName" = "SMS Shield";
+"NSContactsUsageDescription" = "SMS Shield, engellemek veya izin vermek istediğiniz numaraları seçebilmeniz için rehberinizi yalnızca bu cihazda kullanır.";

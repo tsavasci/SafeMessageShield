@@ -1,15 +1,12 @@
 /* Tab Bar */
-"tab.list" = "リスト";
-"tab.allowed" = "安全";
-"tab.statistics" = "統計";
+"tab.list" = "ホーム";
 "tab.settings" = "設定";
 
 /* Main Screen */
 "app.title" = "SMS Shield";
 "add.number" = "番号を追加";
-"blocked.count" = "%d 件の番号をブロック中";
 "no.blocked.title" = "ブロック中の番号はありません";
-"no.blocked.message" = "上の + ボタンをタップしてブロックしたい番号を追加してください";
+"no.blocked.message" = "クイックアクションまたは「管理」タブからブロックしたい番号を追加してください";
 
 /* Add Number Menu */
 "menu.manual" = "手動で入力";
@@ -18,10 +15,9 @@
 /* Add Number View */
 "phone.number" = "電話番号";
 "phone.number.or.sender" = "電話番号または送信者名";
-"invalid.entry" = "無効な入力です。電話番号または送信者名を入力してください。";
 "reason.optional" = "理由（任意）";
 "number.info" = "番号情報";
-"number.info.footer" = "手動で入力するか、連絡先から選択します。例：+819012345678";
+"number.info.footer.extended" = "国/地域を選択するか、+ から始まる完全な番号を入力してください（例：+819012345678）。短縮番号（例：4567）や送信者名（例：VODAFONE）にも対応しています。";
 "block.number" = "番号をブロック";
 "cancel" = "キャンセル";
 "alert" = "警告";
@@ -30,73 +26,33 @@
 "number.blocked.success" = "番号のブロックに成功しました: %@";
 "enter.phone.number" = "電話番号を入力してください。";
 "number.already.blocked" = "この番号はすでにブロックされています。";
-"added.from.contacts" = "連絡先から追加済み";
 
 /* Allowed Numbers */
-"allowed.numbers" = "安全な番号";
 "no.allowed.title" = "まだ安全な番号がありません";
 "no.allowed.message" = "このリストに追加した番号からのメッセージはフィルタリングされません";
-"allowed.count" = "%d件の安全な番号";
 "add.allowed.number" = "安全な番号を追加";
-"number.allowed.success" = "番号が安全リストに追加されました: %@";
 "number.already.allowed" = "この番号はすでに安全リストにあります。";
-"allowed.info.title" = "安全な番号とは？";
-"allowed.info.message" = "このリストに追加した番号は、フィルタリングやブロックされることはありません。連絡先にないが安全だとわかっている番号を追加できます。";
 "allowed.explanation" = "この番号は安全リストに追加され、そのメッセージはフィルタリングされません。";
 "add" = "追加";
 "error" = "エラー";
-"invalid.phone.number" = "無効な電話番号";
 "entry.type" = "エントリータイプ";
 "what.to.add" = "何を追加しますか？";
 "sender.name" = "送信者名";
 "sender.name.example" = "例: ヤマト運輸、AMAZON";
-"phone.number.footer" = "国際形式を使用できます。例: +815551234567";
+"phone.number.footer" = "国/地域を選択するか、+ から始まる完全な番号を入力してください（例：+819012345678）。";
 "sender.name.footer" = "SMSで送信者として表示される名前を入力してください。大文字小文字は区別されません。";
 "invalid.sender.name" = "無効な送信者名";
 
 /* Status Card */
 "protection.active" = "保護が有効です";
 "protection.inactive" = "機能拡張を有効にする";
-"sms.filtering" = "SMSフィルタリングが有効です";
 "enable.from.settings" = "iOSの設定から有効にしてください";
-"how.to.enable" = "有効にするには？";
-"hide.instructions" = "手順を隠す";
-"sms.filter.title" = "📱 SMSフィルタリング:";
-"sms.filter.instruction" = "設定 → メッセージ → 不明な差出人/迷惑メッセージ → SafeMessageShieldをオン";
-"call.block.title" = "📞 着信拒否:";
-"call.block.instruction" = "設定 → 電話 → 着信拒否設定と着信ID → SafeMessageShieldをオン";
+"sms.filter.title" = "SMSフィルタリング";
+"sms.filter.instruction" = "設定 → メッセージ → 不明な差出人/迷惑メッセージ → SMS Shieldをオン";
+"call.block.title" = "着信拒否";
+"call.block.instruction" = "設定 → 電話 → 着信拒否設定と着信ID → SMS Shieldをオン";
 "open.settings" = "iOSの設定を開く";
 "extensions.enabled" = "機能拡張を有効にしました";
-"extensions.active" = "機能拡張が有効です。迷惑メッセージはフィルタリングされます！";
-
-/* Statistics View */
-"statistics.title" = "統計";
-"total.protection" = "合計保護";
-"sms.label" = "SMS";
-"calls.label" = "通話";
-"blocked.label" = "ブロック済み";
-"sms.filtering.title" = "SMSフィルタリング";
-"call.blocking.title" = "着信拒否";
-"blocked.numbers.title" = "ブロックした番号";
-"active.protection.title" = "有効な保護";
-"last.activity" = "最終: %@";
-"no.activity" = "まだアクティビティがありません";
-"auto.blocked" = "iOSにより自動的にブロック";
-"total.in.list" = "リスト内の合計番号";
-"days.count" = "%d 日";
-"since.install" = "アプリをインストールしてからの日数";
-"how.it.works" = "仕組み";
-"stats.info" = "SMSフィルタリング数は、機能拡張によってブロックされたメッセージのリアルタイムの記録です。着信拒否はiOSによって自動的に行われるため、正確な数にはアクセスできません。";
-"pull.to.refresh" = "下に引いて更新";
-
-"blocked.sms" = "ブロックされたSMS";
-"blocked.sms.subtitle" = "迷惑メールフォルダに送信";
-"categorized.sms" = "分類されたSMS";
-"categorized.sms.subtitle" = "キーワードでフィルタリング";
-"total.filtered.sms" = "合計フィルタリングされたSMS";
-"reset.statistics.title" = "統計をリセット";
-"reset.statistics.message" = "これによりすべてのカウンターがリセットされます。ブロックされた番号は影響を受けません。";
-"reset" = "リセット";
 
 /* Settings View */
 "settings.title" = "設定";
@@ -115,7 +71,6 @@
 "delete" = "削除";
 "done" = "完了";
 "close" = "閉じる";
-"save" = "保存";
 
 /* Privacy */
 "privacy.footer" = "このアプリは、メッセージの内容や個人データをサーバーに送信しません。すべてのフィルタリングとブロック操作は、お使いのデバイス上で行われます。";
@@ -206,17 +161,16 @@
 "mark.notjunk" = "迷惑ではないとしてマーク";
 "marked.notjunk.message" = "%@ を安全としてマークしました。";
 
-/* Legacy Stats */
-"numbers.label" = "番号";
-"total.label" = "合計";
-"numbers.in.blocklist" = "ブロックリスト内の番号";
+/* Confirmations & permissions */
+"no.blocked.message.manage" = "右上の + をタップしてブロックしたい番号を追加してください";
+"delete.confirm.title" = "この項目を削除しますか？";
+"delete.confirm.message" = "「%@」がリストから削除されます。この操作は取り消せません。";
+"contacts.permission.denied" = "ブロックする番号を選択するには、SMS Shield に連絡先へのアクセスを許可する必要があります。「設定」でアクセスを許可できます。";
+"contacts.permission.error" = "予期しないエラーが発生しました。「設定」で連絡先へのアクセスを確認してください。";
 
-/* Sync Data */
-"sync.status" = "同期ステータス";
-"sync.allowed.count" = "許可: %d";
-"sync.blocked.count" = "ブロック: %d";
-"sync.filter.rules.count" = "フィルタールール: %d";
-"sync.number.filter.rules.count" = "番号フィルタールール: %d";
-"sync.to.app.group" = "App Groupに同期";
-"sync.data.title" = "データを同期";
-"sync.completed.message" = "App Group UserDefaultsに同期しました。拡張機能はデータを読み取れるようになりました。";
+/* Country selection */
+"default.country" = "デフォルトの国/地域";
+"country.select" = "国/地域を選択";
+"country.search" = "国/地域または番号を検索";
+"country.accessibility" = "国/地域：%1$@、%2$@";
+"number.invalid.for.country" = "この番号は%@では無効です。選択した国/地域を確認するか、+ から始まる完全な番号を入力してください。";
