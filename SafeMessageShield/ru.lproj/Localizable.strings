@@ -135,6 +135,8 @@
 "dashboard.setup.progress" = "%d/3 готово";
 "dashboard.setup.ios.settings" = "Расширения iOS включены";
 "dashboard.setup.ios.settings.subtitle" = "Включите фильтрацию SMS и блокировку звонков в настройках iOS, затем отметьте настройку как завершенную.";
+"dashboard.setup.step.done" = "Выполнено";
+"dashboard.setup.step.pending" = "Ожидает";
 "dashboard.setup.data.synced" = "Данные фильтра синхронизированы";
 "dashboard.setup.no.sync" = "Откройте приложение один раз после изменения списков или правил, чтобы обновить данные расширения.";
 "dashboard.setup.last.sync" = "Последняя синхронизация: %@";

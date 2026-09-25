@@ -135,6 +135,8 @@
 "dashboard.setup.progress" = "%d/3 已就绪";
 "dashboard.setup.ios.settings" = "iOS 扩展已启用";
 "dashboard.setup.ios.settings.subtitle" = "请在 iOS 设置中启用短信过滤和来电拦截，然后标记设置完成。";
+"dashboard.setup.step.done" = "已完成";
+"dashboard.setup.step.pending" = "待完成";
 "dashboard.setup.data.synced" = "过滤数据已同步";
 "dashboard.setup.no.sync" = "更改列表或规则后，请打开一次应用以刷新扩展数据。";
 "dashboard.setup.last.sync" = "上次同步：%@";

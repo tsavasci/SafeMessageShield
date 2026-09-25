@@ -135,6 +135,8 @@
 "dashboard.setup.progress" = "%d/3 完了";
 "dashboard.setup.ios.settings" = "iOS拡張機能が有効";
 "dashboard.setup.ios.settings.subtitle" = "iOS設定でSMSフィルタリングと通話ブロックを有効にし、設定完了としてマークしてください。";
+"dashboard.setup.step.done" = "完了";
+"dashboard.setup.step.pending" = "未完了";
 "dashboard.setup.data.synced" = "フィルターデータ同期済み";
 "dashboard.setup.no.sync" = "リストやルールを変更した後、拡張機能データを更新するためにアプリを一度開いてください。";
 "dashboard.setup.last.sync" = "最終同期: %@";

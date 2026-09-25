@@ -134,6 +134,8 @@
 "dashboard.setup.progress" = "%d/3 جاهز";
 "dashboard.setup.ios.settings" = "إضافات iOS مفعلة";
 "dashboard.setup.ios.settings.subtitle" = "فعّل فلترة الرسائل وحظر المكالمات من إعدادات iOS، ثم ضع علامة على الإعداد كمكتمل.";
+"dashboard.setup.step.done" = "مكتمل";
+"dashboard.setup.step.pending" = "قيد الانتظار";
 "dashboard.setup.data.synced" = "تمت مزامنة بيانات الفلتر";
 "dashboard.setup.no.sync" = "افتح التطبيق مرة واحدة بعد تغيير القوائم أو القواعد لتحديث بيانات الإضافة.";
 "dashboard.setup.last.sync" = "آخر مزامنة: %@";

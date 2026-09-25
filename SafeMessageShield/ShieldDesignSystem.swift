@@ -136,6 +136,7 @@ struct ShieldMetricCard: View {
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(color)
                     .frame(width: 28, height: 28, alignment: .leading)
+                    .accessibilityHidden(true)
 
                 Text(value)
                     .font(.title2.weight(.bold))
@@ -149,6 +150,8 @@ struct ShieldMetricCard: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            // VoiceOver değeri ve başlığı tek öğe olarak okusun (ör. "0, Engellenen")
+            .accessibilityElement(children: .combine)
         }
     }
 }
@@ -167,6 +170,7 @@ struct ShieldActionButton: View {
                 Image(systemName: systemImage)
                     .font(.headline)
                     .foregroundStyle(color)
+                    .accessibilityHidden(true)
                 Text(title)
                     .font(.subheadline.weight(.semibold))
                     .lineLimit(2)
@@ -200,6 +204,7 @@ struct ShieldEmptyState: View {
             Image(systemName: systemImage)
                 .font(.system(size: 42, weight: .semibold))
                 .foregroundStyle(color.opacity(0.7))
+                .accessibilityHidden(true)
 
             Text(title)
                 .font(.headline)

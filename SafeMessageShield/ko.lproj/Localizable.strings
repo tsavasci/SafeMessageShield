@@ -135,6 +135,8 @@
 "dashboard.setup.progress" = "%d/3 준비됨";
 "dashboard.setup.ios.settings" = "iOS 확장 활성화됨";
 "dashboard.setup.ios.settings.subtitle" = "iOS 설정에서 SMS 필터링과 전화 차단을 활성화한 뒤 설정 완료로 표시하세요.";
+"dashboard.setup.step.done" = "완료";
+"dashboard.setup.step.pending" = "대기 중";
 "dashboard.setup.data.synced" = "필터 데이터 동기화됨";
 "dashboard.setup.no.sync" = "목록이나 규칙을 변경한 뒤 확장 데이터를 새로 고치려면 앱을 한 번 여세요.";
 "dashboard.setup.last.sync" = "마지막 동기화: %@";

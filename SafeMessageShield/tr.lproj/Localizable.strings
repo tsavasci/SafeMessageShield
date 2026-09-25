@@ -74,6 +74,8 @@
 "dashboard.setup.progress" = "%d/3 hazır";
 "dashboard.setup.ios.settings" = "iOS uzantıları etkin";
 "dashboard.setup.ios.settings.subtitle" = "SMS filtreleme ve arama engellemeyi iOS Ayarları'ndan açın, sonra kurulumu tamamlandı olarak işaretleyin.";
+"dashboard.setup.step.done" = "Tamamlandı";
+"dashboard.setup.step.pending" = "Bekliyor";
 "dashboard.setup.data.synced" = "Filtre verisi senkronize";
 "dashboard.setup.no.sync" = "Liste veya kural değişikliğinden sonra uzantı verisini yenilemek için uygulamayı bir kez açın.";
 "dashboard.setup.last.sync" = "Son senkronizasyon: %@";

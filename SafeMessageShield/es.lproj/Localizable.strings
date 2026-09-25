@@ -134,6 +134,8 @@
 "dashboard.setup.progress" = "%d/3 listo";
 "dashboard.setup.ios.settings" = "Extensiones de iOS activadas";
 "dashboard.setup.ios.settings.subtitle" = "Activa el filtrado de SMS y el bloqueo de llamadas desde Ajustes de iOS y luego marca la configuración como completada.";
+"dashboard.setup.step.done" = "Completado";
+"dashboard.setup.step.pending" = "Pendiente";
 "dashboard.setup.data.synced" = "Datos del filtro sincronizados";
 "dashboard.setup.no.sync" = "Abre la app una vez después de cambiar listas o reglas para actualizar los datos de la extensión.";
 "dashboard.setup.last.sync" = "Última sincronización: %@";

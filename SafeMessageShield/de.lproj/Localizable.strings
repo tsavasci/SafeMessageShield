@@ -134,6 +134,8 @@
 "dashboard.setup.progress" = "%d/3 bereit";
 "dashboard.setup.ios.settings" = "iOS-Erweiterungen aktiviert";
 "dashboard.setup.ios.settings.subtitle" = "Aktivieren Sie SMS-Filterung und Anrufblockierung in den iOS-Einstellungen und markieren Sie die Einrichtung danach als abgeschlossen.";
+"dashboard.setup.step.done" = "Erledigt";
+"dashboard.setup.step.pending" = "Ausstehend";
 "dashboard.setup.data.synced" = "Filterdaten synchronisiert";
 "dashboard.setup.no.sync" = "Öffnen Sie die App nach Änderungen an Listen oder Regeln einmal, um die Erweiterungsdaten zu aktualisieren.";
 "dashboard.setup.last.sync" = "Letzte Synchronisierung: %@";

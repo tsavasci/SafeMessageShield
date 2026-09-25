@@ -135,6 +135,8 @@
 "dashboard.setup.progress" = "%d/3 तैयार";
 "dashboard.setup.ios.settings" = "iOS एक्सटेंशन सक्षम";
 "dashboard.setup.ios.settings.subtitle" = "iOS सेटिंग्स में SMS फ़िल्टरिंग और कॉल ब्लॉकिंग सक्षम करें, फिर सेटअप को पूर्ण चिह्नित करें।";
+"dashboard.setup.step.done" = "पूर्ण";
+"dashboard.setup.step.pending" = "लंबित";
 "dashboard.setup.data.synced" = "फ़िल्टर डेटा सिंक हुआ";
 "dashboard.setup.no.sync" = "सूचियों या नियमों को बदलने के बाद एक्सटेंशन डेटा अपडेट करने के लिए ऐप एक बार खोलें।";
 "dashboard.setup.last.sync" = "अंतिम सिंक: %@";

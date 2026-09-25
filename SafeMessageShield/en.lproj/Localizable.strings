@@ -74,6 +74,8 @@
 "dashboard.setup.progress" = "%d/3 ready";
 "dashboard.setup.ios.settings" = "iOS extensions enabled";
 "dashboard.setup.ios.settings.subtitle" = "Enable SMS filtering and call blocking from iOS Settings, then mark setup as complete.";
+"dashboard.setup.step.done" = "Completed";
+"dashboard.setup.step.pending" = "Pending";
 "dashboard.setup.data.synced" = "Filter data synced";
 "dashboard.setup.no.sync" = "Open the app once after changing lists or rules to refresh extension data.";
 "dashboard.setup.last.sync" = "Last sync: %@";

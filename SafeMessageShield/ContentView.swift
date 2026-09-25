@@ -218,6 +218,7 @@ struct ContentView: View {
                             .font(.system(size: 28, weight: .semibold))
                             .foregroundStyle(.white)
                     }
+                    .accessibilityHidden(true)
 
                     VStack(alignment: .leading, spacing: 6) {
                         Text(protectionActive ? NSLocalizedString("protection.active", comment: "") : NSLocalizedString("protection.inactive", comment: ""))
@@ -278,7 +279,10 @@ struct ContentView: View {
                 VStack(spacing: 12) {
                     setupRow(
                         title: NSLocalizedString("dashboard.setup.ios.settings", comment: ""),
-                        subtitle: NSLocalizedString("dashboard.setup.ios.settings.subtitle", comment: ""),
+                        // Adım tamamlanınca "işaretleyin" talimatı yerine durumu göster
+                        subtitle: protectionActive
+                            ? NSLocalizedString("dashboard.setup.user.confirmed", comment: "")
+                            : NSLocalizedString("dashboard.setup.ios.settings.subtitle", comment: ""),
                         systemImage: "switch.2",
                         isComplete: protectionActive
                     )
@@ -307,11 +311,13 @@ struct ContentView: View {
                 .font(.headline)
                 .foregroundStyle(isComplete ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning)
                 .frame(width: 24)
+                .accessibilityHidden(true)
 
             Image(systemName: systemImage)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
                 .frame(width: 24)
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(title)
@@ -324,6 +330,13 @@ struct ContentView: View {
 
             Spacer()
         }
+        // Adım tek öğe olarak okunsun; durum ikon yerine metinle bildirilsin
+        .accessibilityElement(children: .combine)
+        .accessibilityValue(
+            isComplete
+                ? NSLocalizedString("dashboard.setup.step.done", comment: "")
+                : NSLocalizedString("dashboard.setup.step.pending", comment: "")
+        )
     }
 
     private var metricsGrid: some View {
@@ -394,6 +407,7 @@ struct ContentView: View {
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(ShieldTheme.Colors.secondary)
                     .frame(width: 34)
+                    .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(NSLocalizedString("dashboard.filter.activity", comment: ""))
@@ -437,6 +451,7 @@ struct ContentView: View {
                             HStack(spacing: 12) {
                                 Image(systemName: "minus.circle.fill")
                                     .foregroundStyle(ShieldTheme.Colors.danger)
+                                    .accessibilityHidden(true)
                                 BlockedNumberRow(blockedNumber: number)
                                 Spacer()
                                 Button(role: .destructive) {
