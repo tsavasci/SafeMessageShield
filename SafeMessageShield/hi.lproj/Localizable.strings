@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "सुरक्षा सक्रिय";
 "protection.inactive" = "एक्सटेंशन सक्षम करें";
+"protection.status.on" = "सक्रिय";
+"protection.status.off" = "निष्क्रिय";
 "enable.from.settings" = "iOS सेटिंग्स से सक्षम करें";
 "sms.filter.title" = "एसएमएस फ़िल्टरिंग";
-"sms.filter.instruction" = "सेटिंग्स → संदेश → अज्ञात और स्पैम → SMS Shield चालू करें";
+"sms.filter.instruction" = "सेटिंग्स → ऐप्स → संदेश → अज्ञात और स्पैम → SMS Shield चालू करें";
 "call.block.title" = "कॉल ब्लॉकिंग";
-"call.block.instruction" = "सेटिंग्स → फ़ोन → कॉल ब्लॉकिंग और पहचान → SMS Shield चालू करें";
+"call.block.instruction" = "सेटिंग्स → ऐप्स → फ़ोन → कॉल ब्लॉकिंग और पहचान → SMS Shield चालू करें";
 "open.settings" = "iOS सेटिंग्स खोलें";
 "extensions.enabled" = "मैंने एक्सटेंशन सक्षम कर दिए हैं";
 

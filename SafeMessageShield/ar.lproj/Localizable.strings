@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "الحماية مفعلة";
 "protection.inactive" = "تفعيل الإضافات";
+"protection.status.on" = "مفعّلة";
+"protection.status.off" = "غير مفعّلة";
 "enable.from.settings" = "تفعيل من إعدادات iOS";
 "sms.filter.title" = "تصفية الرسائل القصيرة";
-"sms.filter.instruction" = "الإعدادات ← الرسائل ← غير معروف ومزعج ← تشغيل SMS Shield";
+"sms.filter.instruction" = "الإعدادات ← التطبيقات ← الرسائل ← غير معروف ومزعج ← تشغيل SMS Shield";
 "call.block.title" = "حظر المكالمات";
-"call.block.instruction" = "الإعدادات ← الهاتف ← حظر المكالمات والتعرف عليها ← تشغيل SMS Shield";
+"call.block.instruction" = "الإعدادات ← التطبيقات ← الهاتف ← حظر المكالمات والتعرف عليها ← تشغيل SMS Shield";
 "open.settings" = "فتح إعدادات iOS";
 "extensions.enabled" = "لقد قمت بتفعيل الإضافات";
 

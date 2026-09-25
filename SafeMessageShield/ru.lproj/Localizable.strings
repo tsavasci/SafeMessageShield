@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "Защита активна";
 "protection.inactive" = "Включите расширения";
+"protection.status.on" = "Активна";
+"protection.status.off" = "Неактивна";
 "enable.from.settings" = "Включить в настройках iOS";
 "sms.filter.title" = "Фильтрация SMS";
-"sms.filter.instruction" = "Настройки → Сообщения → Неизвестные и спам → Включить SMS Shield";
+"sms.filter.instruction" = "Настройки → Приложения → Сообщения → Неизвестные и спам → Включить SMS Shield";
 "call.block.title" = "Блокировка вызовов";
-"call.block.instruction" = "Настройки → Телефон → Блокировка и идентификация вызовов → Включить SMS Shield";
+"call.block.instruction" = "Настройки → Приложения → Телефон → Блокировка и идентификация вызовов → Включить SMS Shield";
 "open.settings" = "Открыть настройки iOS";
 "extensions.enabled" = "Я включил расширения";
 

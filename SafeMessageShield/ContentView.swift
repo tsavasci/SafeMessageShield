@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @Query private var blockedNumbers: [BlockedNumber]
     @Query private var allowedNumbersList: [AllowedNumber]
     @Query private var filterRulesList: [FilterRule]
@@ -28,6 +29,8 @@ struct ContentView: View {
     @State private var lastBlockedNumber = ""
     @State private var selectedTab = 0
     @State private var dashboardFilterEnabled = false
+    /// Sistemden okunan arama engelleme uzantısı durumu; belirlenemezse nil
+    @State private var callBlockingEnabled: Bool?
     @State private var dashboardJunkCount = 0
     @State private var dashboardCategorizedCount = 0
     @State private var dashboardLastFilterDate: Date?
@@ -119,6 +122,12 @@ struct ContentView: View {
             .onChange(of: selectedTab) { _, _ in
                 refreshDashboard()
             }
+            .onChange(of: scenePhase) { _, newPhase in
+                // Kullanıcı iOS Ayarlar'dan döndüğünde durumu tazele
+                if newPhase == .active {
+                    refreshDashboard()
+                }
+            }
             .onChange(of: contactViewModel.selectedPhoneNumber) { oldValue, newValue in
                 // ViewModel'de numara değiştiğinde engelleme işlemini tetikle
                 if !newValue.isEmpty && newValue != oldValue {
@@ -178,10 +187,11 @@ struct ContentView: View {
             Spacer()
 
             ShieldStatusPill(
-                title: dashboardFilterEnabled
-                    ? NSLocalizedString("protection.active", comment: "")
-                    : NSLocalizedString("protection.inactive", comment: ""),
-                color: dashboardFilterEnabled ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
+                // Kısa durum etiketi; kartın başlığıyla aynı metni tekrar etmesin
+                title: protectionActive
+                    ? NSLocalizedString("protection.status.on", comment: "")
+                    : NSLocalizedString("protection.status.off", comment: ""),
+                color: protectionActive ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
             )
 
             Button(action: { selectedTab = 2 }) {
@@ -204,15 +214,15 @@ struct ContentView: View {
                         Circle()
                             .fill(ShieldTheme.Colors.primaryGradient)
                             .frame(width: 58, height: 58)
-                        Image(systemName: dashboardFilterEnabled ? "checkmark.shield.fill" : "exclamationmark.shield.fill")
+                        Image(systemName: protectionActive ? "checkmark.shield.fill" : "exclamationmark.shield.fill")
                             .font(.system(size: 28, weight: .semibold))
                             .foregroundStyle(.white)
                     }
 
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(dashboardFilterEnabled ? NSLocalizedString("protection.active", comment: "") : NSLocalizedString("protection.inactive", comment: ""))
+                        Text(protectionActive ? NSLocalizedString("protection.active", comment: "") : NSLocalizedString("protection.inactive", comment: ""))
                             .font(.title3.weight(.bold))
-                        Text(dashboardFilterEnabled ? NSLocalizedString("dashboard.setup.user.confirmed", comment: "") : NSLocalizedString("enable.from.settings", comment: ""))
+                        Text(protectionActive ? NSLocalizedString("dashboard.setup.user.confirmed", comment: "") : NSLocalizedString("enable.from.settings", comment: ""))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
@@ -222,7 +232,7 @@ struct ContentView: View {
                 }
 
                 HStack(spacing: 10) {
-                    Button(action: openSettings) {
+                    Button(action: openRelevantSettings) {
                         Label(NSLocalizedString("open.settings", comment: ""), systemImage: "arrow.up.forward.app.fill")
                             .font(.subheadline.weight(.semibold))
                             .frame(maxWidth: .infinity)
@@ -270,7 +280,7 @@ struct ContentView: View {
                         title: NSLocalizedString("dashboard.setup.ios.settings", comment: ""),
                         subtitle: NSLocalizedString("dashboard.setup.ios.settings.subtitle", comment: ""),
                         systemImage: "switch.2",
-                        isComplete: dashboardFilterEnabled
+                        isComplete: protectionActive
                     )
 
                     setupRow(
@@ -472,10 +482,16 @@ struct ContentView: View {
 
     private var setupCompletedCount: Int {
         var count = 0
-        if dashboardFilterEnabled { count += 1 }
+        if protectionActive { count += 1 }
         if dashboardLastSyncDate != nil { count += 1 }
         if dashboardLastFilterDate != nil || dashboardJunkCount > 0 || dashboardCategorizedCount > 0 { count += 1 }
         return count
+    }
+
+    /// Kullanıcı onayı tek başına yetmez; sistem arama engellemeyi kapalı bildiriyorsa koruma aktif sayılmaz.
+    /// (SMS filtresinin durumunu okuyan herkese açık bir API yok, o kısım kullanıcı onayına dayanır.)
+    private var protectionActive: Bool {
+        dashboardFilterEnabled && callBlockingEnabled != false
     }
 
     private var setupCompletedCountText: String {
@@ -536,11 +552,15 @@ struct ContentView: View {
         dashboardLastFilterDate = DataManager.shared.lastSMSFilterDate()
         dashboardLastJunkSender = DataManager.shared.lastJunkSender()
         dashboardLastSyncDate = DataManager.shared.lastAppGroupSyncDate()
+
+        Task {
+            callBlockingEnabled = await SystemSettingsNavigator.callBlockingEnabledStatus()
+        }
     }
 
     private func reloadCallDirectory() {
         CXCallDirectoryManager.sharedInstance.reloadExtension(
-            withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension"
+            withIdentifier: SystemSettingsNavigator.callDirectoryExtensionIdentifier
         ) { error in
             DispatchQueue.main.async {
                 DataManager.shared.recordCallDirectoryReloadError(error)
@@ -548,9 +568,13 @@ struct ContentView: View {
         }
     }
 
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
+    /// Arama engelleme kapalıysa doğrudan CallKit'in ayar ekranını açar; açıksa
+    /// kullanıcıyı SMS filtresi talimatlarının bulunduğu Ayarlar sekmesine götürür.
+    private func openRelevantSettings() {
+        if callBlockingEnabled != true {
+            SystemSettingsNavigator.openCallBlockingSettings()
+        } else {
+            selectedTab = 2
         }
     }
 }

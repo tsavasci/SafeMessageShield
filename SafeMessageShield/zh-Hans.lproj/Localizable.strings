@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "保护已开启";
 "protection.inactive" = "请启用扩展";
+"protection.status.on" = "已开启";
+"protection.status.off" = "未开启";
 "enable.from.settings" = "从iOS设置中启用";
 "sms.filter.title" = "短信过滤";
-"sms.filter.instruction" = "设置 → 信息 → 未知与过滤信息 → 开启 SMS Shield";
+"sms.filter.instruction" = "设置 → App → 信息 → 未知与过滤信息 → 开启 SMS Shield";
 "call.block.title" = "来电拦截";
-"call.block.instruction" = "设置 → 电话 → 来电阻止与身份识别 → 开启 SMS Shield";
+"call.block.instruction" = "设置 → App → 电话 → 来电阻止与身份识别 → 开启 SMS Shield";
 "open.settings" = "打开iOS设置";
 "extensions.enabled" = "我已启用扩展";
 

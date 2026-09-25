@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "Koruma Aktif";
 "protection.inactive" = "Uzantıları Etkinleştirin";
-"enable.from.settings" = "iOS Ayarlar'dan etkinleştirin";
+"protection.status.on" = "Aktif";
+"protection.status.off" = "Pasif";
+"enable.from.settings" = "iOS Ayarları'ndan etkinleştirin";
 "sms.filter.title" = "SMS Filtreleme";
-"sms.filter.instruction" = "Ayarlar → Mesajlar → Bilinmeyen & İstenmeyen → SMS Shield AÇ";
+"sms.filter.instruction" = "Ayarlar → Uygulamalar → Mesajlar → Bilinmeyen ve İstenmeyen → SMS Shield AÇ";
 "call.block.title" = "Numara Engelleme";
-"call.block.instruction" = "Ayarlar → Telefon → Engelleme ve Kimlik Tanımlama → SMS Shield AÇ";
+"call.block.instruction" = "Ayarlar → Uygulamalar → Telefon → Arama Engelleme ve Kimlik Belirleme → SMS Shield AÇ";
 "open.settings" = "iOS Ayarlarını Aç";
 "extensions.enabled" = "Uzantıları Etkinleştirdim";
 

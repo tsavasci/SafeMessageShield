@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "保護が有効です";
 "protection.inactive" = "機能拡張を有効にする";
+"protection.status.on" = "有効";
+"protection.status.off" = "無効";
 "enable.from.settings" = "iOSの設定から有効にしてください";
 "sms.filter.title" = "SMSフィルタリング";
-"sms.filter.instruction" = "設定 → メッセージ → 不明な差出人/迷惑メッセージ → SMS Shieldをオン";
+"sms.filter.instruction" = "設定 → アプリ → メッセージ → 不明な差出人/迷惑メッセージ → SMS Shieldをオン";
 "call.block.title" = "着信拒否";
-"call.block.instruction" = "設定 → 電話 → 着信拒否設定と着信ID → SMS Shieldをオン";
+"call.block.instruction" = "設定 → アプリ → 電話 → 着信拒否設定と着信ID → SMS Shieldをオン";
 "open.settings" = "iOSの設定を開く";
 "extensions.enabled" = "機能拡張を有効にしました";
 

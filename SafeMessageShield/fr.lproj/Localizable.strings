@@ -46,11 +46,13 @@
 /* Status Card */
 "protection.active" = "Protection active";
 "protection.inactive" = "Activer les extensions";
+"protection.status.on" = "Active";
+"protection.status.off" = "Inactive";
 "enable.from.settings" = "Activer depuis les paramètres iOS";
 "sms.filter.title" = "Filtrage SMS";
-"sms.filter.instruction" = "Réglages → Messages → Inconnus et spam → ACTIVER SMS Shield";
+"sms.filter.instruction" = "Réglages → Apps → Messages → Inconnus et spam → ACTIVER SMS Shield";
 "call.block.title" = "Blocage d'appels";
-"call.block.instruction" = "Réglages → Téléphone → Blocage et identification → ACTIVER SMS Shield";
+"call.block.instruction" = "Réglages → Apps → Téléphone → Blocage et identification → ACTIVER SMS Shield";
 "open.settings" = "Ouvrir les réglages iOS";
 "extensions.enabled" = "J'ai activé les extensions";
 

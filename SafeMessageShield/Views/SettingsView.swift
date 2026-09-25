@@ -26,13 +26,15 @@ struct SettingsView: View {
                             title: NSLocalizedString("sms.filter.title", comment: ""),
                             message: NSLocalizedString("sms.filter.instruction", comment: ""),
                             systemImage: "message.fill",
-                            color: ShieldTheme.Colors.primary
+                            color: ShieldTheme.Colors.primary,
+                            action: SystemSettingsNavigator.openAppSettings
                         )
                         setupCard(
                             title: NSLocalizedString("call.block.title", comment: ""),
                             message: NSLocalizedString("call.block.instruction", comment: ""),
                             systemImage: "phone.fill",
-                            color: ShieldTheme.Colors.success
+                            color: ShieldTheme.Colors.success,
+                            action: SystemSettingsNavigator.openCallBlockingSettings
                         )
                         privacyCard
                     }
@@ -141,7 +143,7 @@ struct SettingsView: View {
         return "\(NSLocalizedString("app.version", comment: "")) \(resolvedVersion)"
     }
 
-    private func setupCard(title: String, message: String, systemImage: String, color: Color) -> some View {
+    private func setupCard(title: String, message: String, systemImage: String, color: Color, action: @escaping () -> Void) -> some View {
         ShieldCard {
             VStack(alignment: .leading, spacing: 12) {
                 Label(title, systemImage: systemImage)
@@ -153,7 +155,7 @@ struct SettingsView: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Button(action: openSettings) {
+                Button(action: action) {
                     Label(NSLocalizedString("open.settings", comment: ""), systemImage: "arrow.up.forward.app.fill")
                         .font(.subheadline.weight(.semibold))
                         .frame(maxWidth: .infinity)
@@ -246,12 +248,6 @@ struct SettingsView: View {
 
     private var currentLanguageName: String {
         languageManager.supportedLanguages.first(where: { $0.code == languageManager.currentLanguage })?.nativeName ?? languageManager.currentLanguage
-    }
-
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
     }
 }
 
