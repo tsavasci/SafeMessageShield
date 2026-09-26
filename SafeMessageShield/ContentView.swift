@@ -517,8 +517,13 @@ struct ContentView: View {
         guard let dashboardLastSyncDate else {
             return NSLocalizedString("dashboard.setup.no.sync", comment: "")
         }
-        let formattedDate = languageManager.formatted(dashboardLastSyncDate, date: .abbreviated, time: .shortened)
-        return String(format: NSLocalizedString("dashboard.setup.last.sync", comment: ""), formattedDate)
+        // Göreli zaman ("şimdi", "5 dakika önce"); dakikaya yuvarlanır ki son bir dakika "şimdi" olsun
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = languageManager.locale
+        formatter.dateTimeStyle = .named
+        let elapsedMinutes = (dashboardLastSyncDate.timeIntervalSinceNow / 60).rounded(.towardZero)
+        let relativeText = formatter.localizedString(fromTimeInterval: elapsedMinutes * 60)
+        return String(format: NSLocalizedString("dashboard.setup.last.sync", comment: ""), relativeText)
     }
 
     private func addNumberFromContact(phoneNumber: String) {
