@@ -123,7 +123,7 @@
 "dashboard.junk.metric" = "Junk-SMS";
 "dashboard.rules.metric" = "Regeln";
 "dashboard.quick.actions" = "Schnellaktionen";
-"dashboard.last.junk" = "Letzte Junk";
+"dashboard.last.junk" = "Letzte Junk-SMS";
 "dashboard.filter.activity" = "Filteraktivität";
 "dashboard.last.junk.sender" = "Letzter Junk-Absender: %@";
 "dashboard.last.filter.activity" = "Letzte Filteraktivität: %@";
@@ -145,13 +145,13 @@
 /* Management */
 "management.title" = "Verwalten";
 "management.subtitle" = "Bearbeiten Sie blockierte Absender, sichere Absender und Filterregeln an einem Ort.";
-"management.segment.blocked" = "Sperre";
+"management.segment.blocked" = "Gesperrt";
 "management.segment.allowed" = "Sicher";
 "management.segment.keywords" = "Wörter";
-"management.segment.numbers" = "Nr.";
+"management.segment.numbers" = "Nummern";
 "management.blocked.title" = "Blockierte Absender";
 "management.allowed.title" = "Sichere Absender";
-"management.keywords.title" = "Keyword-Regeln";
+"management.keywords.title" = "Stichwortregeln";
 "management.number.rules.title" = "Nummernregeln";
 "management.contacts.empty.title" = "Keine Kontakte gefunden";
 "management.contacts.empty.message" = "Kontakte mit Telefonnummern werden hier angezeigt.";

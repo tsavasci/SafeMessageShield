@@ -14,7 +14,7 @@
 
 /* Add Number View */
 "phone.number" = "Номер телефона";
-"phone.number.or.sender" = "№ телефона или отправитель";
+"phone.number.or.sender" = "Номер или отправитель";
 "reason.optional" = "Причина (необязательно)";
 "number.info" = "Информация о номере";
 "number.info.footer.extended" = "Выберите страну или введите полный номер, начиная с + (например, +79161234567). Короткие номера (например, 4567) и имена отправителей (например, VODAFONE) также поддерживаются.";
@@ -147,9 +147,9 @@
 "management.title" = "Управление";
 "management.subtitle" = "Редактируйте заблокированных, безопасных отправителей и правила фильтрации в одном месте.";
 "management.segment.blocked" = "Блок";
-"management.segment.allowed" = "Безоп";
+"management.segment.allowed" = "Надёжные";
 "management.segment.keywords" = "Слова";
-"management.segment.numbers" = "Ном.";
+"management.segment.numbers" = "Номера";
 "management.blocked.title" = "Заблокированные отправители";
 "management.allowed.title" = "Безопасные отправители";
 "management.keywords.title" = "Правила ключевых слов";

@@ -145,10 +145,10 @@
 /* Management */
 "management.title" = "Gestionar";
 "management.subtitle" = "Edita remitentes bloqueados, seguros y reglas de filtrado en un solo lugar.";
-"management.segment.blocked" = "Bloq";
-"management.segment.allowed" = "Seguro";
-"management.segment.keywords" = "Palab";
-"management.segment.numbers" = "Núm.";
+"management.segment.blocked" = "Bloqueados";
+"management.segment.allowed" = "Seguros";
+"management.segment.keywords" = "Palabras";
+"management.segment.numbers" = "Números";
 "management.blocked.title" = "Remitentes bloqueados";
 "management.allowed.title" = "Remitentes seguros";
 "management.keywords.title" = "Reglas de palabras";

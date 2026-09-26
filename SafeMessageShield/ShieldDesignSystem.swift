@@ -236,6 +236,8 @@ struct ShieldSegmentedPicker<Selection: Hashable>: View {
                     VStack(spacing: 5) {
                         Image(systemName: item.systemImage)
                             .font(.subheadline.weight(.semibold))
+                            // Sabit yükseklik: farklı sembollerde başlıklar aynı hizada kalsın
+                            .frame(height: 20)
                             .accessibilityHidden(true)
                         Text(item.title)
                             .font(.caption2.weight(.semibold))

@@ -77,7 +77,7 @@
 /* Privacy */
 "privacy.footer" = "Cette application n'envoie aucun contenu de message ou donnée personnelle aux serveurs. Toutes les opérations de filtrage et de blocage se produisent sur votre appareil.";
 /* Filter Customization */
-"filter.customization" = "Personnalisation des Filtres";
+"filter.customization" = "Réglage des filtres";
 "no.filter.rules.title" = "Pas encore de règles de filtre";
 "no.filter.rules.message" = "Appuyez sur le bouton + pour créer des règles de filtrage personnalisées basées sur des mots-clés de messages";
 "add.filter.rule" = "Ajouter une règle de filtre";
@@ -145,10 +145,10 @@
 /* Management */
 "management.title" = "Gérer";
 "management.subtitle" = "Modifiez les expéditeurs bloqués, sûrs et les règles de filtrage au même endroit.";
-"management.segment.blocked" = "Bloc";
+"management.segment.blocked" = "Bloqués";
 "management.segment.allowed" = "Sûrs";
 "management.segment.keywords" = "Mots";
-"management.segment.numbers" = "N°";
+"management.segment.numbers" = "Numéros";
 "management.blocked.title" = "Expéditeurs bloqués";
 "management.allowed.title" = "Expéditeurs sûrs";
 "management.keywords.title" = "Règles par mots-clés";
