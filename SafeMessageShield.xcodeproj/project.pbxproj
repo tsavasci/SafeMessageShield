@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F2579FCB2EBCCE580025CC5D /* CallDirectoryExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2579FC42EBCCE580025CC5D /* CallDirectoryExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F2579FDD2EBCCE830025CC5D /* MessageFilterExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F263AC67306EECD900AE3CCA /* SMSReportExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F263AC5D306EECD900AE3CCA /* SMSReportExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F30000122F00000100000012 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 		F30000212F00000100000021 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
 		F30000222F00000100000022 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
@@ -16,9 +17,9 @@
 		F30000242F00000100000024 /* Shared/PhoneNumberNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000202F00000100000020 /* Shared/PhoneNumberNormalizer.swift */; };
 		F30000312F00000100000031 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
 		F30000322F00000100000032 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
+		F30000332F00000100000033 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 		F30000432F00000100000043 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000412F00000100000041 /* PhoneNumberKit */; };
 		F30000442F00000100000044 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000422F00000100000042 /* PhoneNumberKit */; };
-		F30000332F00000100000033 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,13 @@
 			remoteGlobalIDString = F2579FD52EBCCE830025CC5D;
 			remoteInfo = MessageFilterExtension;
 		};
+		F263AC65306EECD900AE3CCA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2F8BFDD2EBB545100BF757A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F263AC5C306EECD900AE3CCA;
+			remoteInfo = SMSReportExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +54,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				F2579FDD2EBCCE830025CC5D /* MessageFilterExtension.appex in Embed Foundation Extensions */,
+				F263AC67306EECD900AE3CCA /* SMSReportExtension.appex in Embed Foundation Extensions */,
 				F2579FCB2EBCCE580025CC5D /* CallDirectoryExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -56,6 +65,7 @@
 /* Begin PBXFileReference section */
 		F2579FC42EBCCE580025CC5D /* CallDirectoryExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CallDirectoryExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MessageFilterExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F263AC5D306EECD900AE3CCA /* SMSReportExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SMSReportExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F8BFE52EBB545100BF757A /* SafeMessageShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeMessageShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30000102F00000100000010 /* SafeMessageShieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeMessageShieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/MessageFilterMatcher.swift; sourceTree = SOURCE_ROOT; };
@@ -77,6 +87,13 @@
 				Info.plist,
 			);
 			target = F2579FD52EBCCE830025CC5D /* MessageFilterExtension */;
+		};
+		F263AC6B306EECD900AE3CCA /* Exceptions for "SMSReportExtension" folder in "SMSReportExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F263AC5C306EECD900AE3CCA /* SMSReportExtension */;
 		};
 		F30000012F00000100000001 /* Exceptions for "SafeMessageShield" folder in "SafeMessageShield" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -104,6 +121,14 @@
 			path = MessageFilterExtension;
 			sourceTree = "<group>";
 		};
+		F263AC5E306EECD900AE3CCA /* SMSReportExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F263AC6B306EECD900AE3CCA /* Exceptions for "SMSReportExtension" folder in "SMSReportExtension" target */,
+			);
+			path = SMSReportExtension;
+			sourceTree = "<group>";
+		};
 		F2F8BFE72EBB545100BF757A /* SafeMessageShield */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -128,6 +153,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F2579FD32EBCCE830025CC5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F263AC5A306EECD900AE3CCA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -161,6 +193,7 @@
 				F30000502F00000100000050 /* Shared */,
 				F2579FC52EBCCE580025CC5D /* CallDirectoryExtension */,
 				F2579FD72EBCCE830025CC5D /* MessageFilterExtension */,
+				F263AC5E306EECD900AE3CCA /* SMSReportExtension */,
 				F2F8BFE62EBB545100BF757A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,6 +205,7 @@
 				F2579FC42EBCCE580025CC5D /* CallDirectoryExtension.appex */,
 				F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */,
 				F30000102F00000100000010 /* SafeMessageShieldTests.xctest */,
+				F263AC5D306EECD900AE3CCA /* SMSReportExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,6 +267,28 @@
 			productReference = F2579FD62EBCCE830025CC5D /* MessageFilterExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		F263AC5C306EECD900AE3CCA /* SMSReportExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F263AC6A306EECD900AE3CCA /* Build configuration list for PBXNativeTarget "SMSReportExtension" */;
+			buildPhases = (
+				F263AC59306EECD900AE3CCA /* Sources */,
+				F263AC5A306EECD900AE3CCA /* Frameworks */,
+				F263AC5B306EECD900AE3CCA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F263AC5E306EECD900AE3CCA /* SMSReportExtension */,
+			);
+			name = SMSReportExtension;
+			packageProductDependencies = (
+			);
+			productName = SMSReportExtension;
+			productReference = F263AC5D306EECD900AE3CCA /* SMSReportExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F2F8BFE42EBB545100BF757A /* SafeMessageShield */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2F8BFF22EBB545200BF757A /* Build configuration list for PBXNativeTarget "SafeMessageShield" */;
@@ -247,6 +303,7 @@
 			dependencies = (
 				F2579FCA2EBCCE580025CC5D /* PBXTargetDependency */,
 				F2579FDC2EBCCE830025CC5D /* PBXTargetDependency */,
+				F263AC66306EECD900AE3CCA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F2F8BFE72EBB545100BF757A /* SafeMessageShield */,
@@ -289,7 +346,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2600;
+				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					F2579FC32EBCCE580025CC5D = {
@@ -297,6 +354,9 @@
 					};
 					F2579FD52EBCCE830025CC5D = {
 						CreatedOnToolsVersion = 26.0.1;
+					};
+					F263AC5C306EECD900AE3CCA = {
+						CreatedOnToolsVersion = 27.0;
 					};
 					F2F8BFE42EBB545100BF757A = {
 						CreatedOnToolsVersion = 26.0.1;
@@ -337,6 +397,7 @@
 				F2579FC32EBCCE580025CC5D /* CallDirectoryExtension */,
 				F2579FD52EBCCE830025CC5D /* MessageFilterExtension */,
 				F30000172F00000100000017 /* SafeMessageShieldTests */,
+				F263AC5C306EECD900AE3CCA /* SMSReportExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -350,6 +411,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F2579FD42EBCCE830025CC5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F263AC5B306EECD900AE3CCA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -390,6 +458,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F263AC59306EECD900AE3CCA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2F8BFE12EBB545100BF757A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,6 +496,11 @@
 			isa = PBXTargetDependency;
 			target = F2579FD52EBCCE830025CC5D /* MessageFilterExtension */;
 			targetProxy = F2579FDB2EBCCE830025CC5D /* PBXContainerItemProxy */;
+		};
+		F263AC66306EECD900AE3CCA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F263AC5C306EECD900AE3CCA /* SMSReportExtension */;
+			targetProxy = F263AC65306EECD900AE3CCA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -541,6 +621,66 @@
 			};
 			name = Release;
 		};
+		F263AC68306EECD900AE3CCA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SMSReportExtension/SMSReportExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T54PTGTNBU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SMSReportExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.SMSReportExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F263AC69306EECD900AE3CCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SMSReportExtension/SMSReportExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T54PTGTNBU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SMSReportExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SMS Shield";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.SMSReportExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		F2F8BFF02EBB545200BF757A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -597,7 +737,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -659,7 +799,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -695,7 +835,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -737,7 +876,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -808,6 +946,15 @@
 			buildConfigurations = (
 				F2579FE02EBCCE830025CC5D /* Debug */,
 				F2579FE12EBCCE830025CC5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F263AC6A306EECD900AE3CCA /* Build configuration list for PBXNativeTarget "SMSReportExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F263AC68306EECD900AE3CCA /* Debug */,
+				F263AC69306EECD900AE3CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

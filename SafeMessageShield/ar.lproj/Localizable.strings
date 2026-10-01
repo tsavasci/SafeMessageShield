@@ -120,18 +120,10 @@
 "dashboard.subtitle" = "مركز الحماية";
 "dashboard.blocked.metric" = "محظور";
 "dashboard.allowed.metric" = "مسموح";
-"dashboard.junk.metric" = "رسائل مزعجة";
-"dashboard.rules.metric" = "القواعد";
 "dashboard.quick.actions" = "إجراءات سريعة";
-"dashboard.last.junk" = "آخر مزعج";
-"dashboard.filter.activity" = "نشاط الفلتر";
-"dashboard.last.junk.sender" = "آخر مرسل مزعج: %@";
-"dashboard.last.filter.activity" = "آخر نشاط للفلتر: %@";
-"dashboard.categorized.messages" = "%d رسائل مصنفة";
-"dashboard.no.filter.activity" = "لا يوجد نشاط فلترة بعد";
 "dashboard.setup.user.confirmed" = "تم وضع علامة على إعداد الإضافة كمكتمل من قبلك";
 "dashboard.setup.title" = "قائمة إعداد الحماية";
-"dashboard.setup.progress" = "%d/3 جاهز";
+"dashboard.setup.progress" = "%d/2 جاهز";
 "dashboard.setup.ios.settings" = "إضافات iOS مفعلة";
 "dashboard.setup.ios.settings.subtitle" = "فعّل فلترة الرسائل وحظر المكالمات من إعدادات iOS، ثم ضع علامة على الإعداد كمكتمل.";
 "dashboard.setup.step.done" = "مكتمل";
@@ -139,8 +131,6 @@
 "dashboard.setup.data.synced" = "تمت مزامنة بيانات الفلتر";
 "dashboard.setup.no.sync" = "افتح التطبيق مرة واحدة بعد تغيير القوائم أو القواعد لتحديث بيانات الإضافة.";
 "dashboard.setup.last.sync" = "آخر مزامنة: %@";
-"dashboard.setup.filter.activity" = "تم اكتشاف نشاط فلترة";
-"dashboard.setup.waiting.activity" = "لم تتم فلترة أي رسالة بعد؛ سيتم التحديث بعد أن تعالج الإضافة رسالة.";
 
 /* Management */
 "management.title" = "إدارة";
@@ -158,11 +148,16 @@
 "unknown.sender" = "غير معروف";
 
 /* Reported Junk */
-"reported.junk" = "رسائل مزعجة مُبلغ عنها";
-"no.recent.junk" = "لا يوجد مرسل مزعج حديث";
-"last.filtered.sender" = "آخر مرسل تمت فلترته";
-"mark.notjunk" = "تحديد كغير مزعج";
-"marked.notjunk.message" = "تم تحديد %@ كآمن.";
+"reported.junk" = "الإبلاغ عن رسائل مزعجة";
+"reported.junk.subtitle" = "أبلغ عن الرسائل المزعجة من الرسائل والهاتف";
+"reported.guide.how.title" = "طريقة الإبلاغ";
+"reported.guide.step1" = "من الإعدادات > التطبيقات > الهاتف > الإبلاغ عن الرسائل/المكالمات، اختر SMS Shield.";
+"reported.guide.step2" = "في الرسائل، اضغط على «الإبلاغ عن رسالة غير مرغوب فيها» في محادثة مع مرسل غير معروف. للمكالمات، اسحب الرقم لليسار في الأحدث واضغط إبلاغ.";
+"reported.guide.step3" = "أكّد في شاشة SMS Shield. سيحظر iOS المرسل.";
+"reported.guide.blocked.title" = "أين المرسلون المُبلَّغ عنهم؟";
+"reported.guide.blocked.message" = "حفاظًا على الخصوصية، لا يسمح iOS لـ SMS Shield بالاطلاع على البلاغات. تتم إضافة المرسلين المُبلَّغ عنهم إلى جهات الاتصال المحظورة في iPhone: الإعدادات > التطبيقات > الهاتف > جهات الاتصال المحظورة. يمكنك إلغاء الحظر من هناك.";
+"reported.guide.app.title" = "الحظر في SMS Shield";
+"reported.guide.app.message" = "لرؤية مرسل في قائمة هذا التطبيق واستخدام قواعد التصفية، أضفه من هنا.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "اضغط على + في أعلى اليمين لإضافة الأرقام التي تريد حظرها";

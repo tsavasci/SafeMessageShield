@@ -122,7 +122,7 @@ struct SettingsView: View {
 
                 settingsRow(
                     title: NSLocalizedString("reported.junk", comment: ""),
-                    subtitle: NSLocalizedString("last.filtered.sender", comment: ""),
+                    subtitle: NSLocalizedString("reported.junk.subtitle", comment: ""),
                     systemImage: "arrow.uturn.backward.circle",
                     color: ShieldTheme.Colors.warning,
                     action: { showingReportedJunk = true }

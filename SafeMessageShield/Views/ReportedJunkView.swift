@@ -1,64 +1,53 @@
 import SwiftUI
-import SwiftData
 
+/// Mesajlar/Telefon'dan bildirme rehberi.
+/// iOS, bildirme eklentisinin uygulamayla veri paylaşmasına izin vermez; bu yüzden bildirilen
+/// göndericiler burada listelenemez. Eklenti engellemeyi iOS'a bırakır (Engellenen Kişiler).
 struct ReportedJunkView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
-    @State private var lastSender: String? = nil
-    @State private var message: String? = nil
-    @State private var showingAlert = false
-
-    private let suite = "group.tsavasci.SafeMessageShield"
+    @State private var showingAddNumberSheet = false
 
     var body: some View {
         NavigationStack {
             ShieldSurface {
-                VStack(spacing: 16) {
-                    if let sender = lastSender {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 16) {
                         ShieldCard {
-                            VStack(spacing: 14) {
-                                Text(NSLocalizedString("last.filtered.sender", comment: "Last filtered sender"))
+                            VStack(alignment: .leading, spacing: 14) {
+                                Text(NSLocalizedString("reported.guide.how.title", comment: ""))
                                     .font(.headline.weight(.semibold))
-                                Text(sender)
-                                    .font(.title3.weight(.semibold))
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.center)
-
-                                Button(action: markNotJunk) {
-                                    Label(NSLocalizedString("mark.notjunk", comment: "Mark as Not Junk"), systemImage: "checkmark.shield.fill")
-                                        .font(.subheadline.weight(.semibold))
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 44)
-                                        .background(ShieldTheme.Colors.primaryGradient)
-                                        .foregroundStyle(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
-                                }
-                                .buttonStyle(.plain)
+                                stepRow(number: 1, text: NSLocalizedString("reported.guide.step1", comment: ""))
+                                stepRow(number: 2, text: NSLocalizedString("reported.guide.step2", comment: ""))
+                                stepRow(number: 3, text: NSLocalizedString("reported.guide.step3", comment: ""))
                             }
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                    } else {
+
+                        infoCard(
+                            title: NSLocalizedString("reported.guide.blocked.title", comment: ""),
+                            message: NSLocalizedString("reported.guide.blocked.message", comment: ""),
+                            systemImage: "hand.raised.slash.fill",
+                            color: ShieldTheme.Colors.danger
+                        )
+
                         ShieldCard {
-                            ShieldEmptyState(
-                                title: NSLocalizedString("no.recent.junk", comment: "No recent junk sender"),
-                                message: NSLocalizedString("dashboard.setup.waiting.activity", comment: ""),
-                                systemImage: "tray",
-                                color: ShieldTheme.Colors.warning
-                            )
+                            VStack(alignment: .leading, spacing: 12) {
+                                infoContent(
+                                    title: NSLocalizedString("reported.guide.app.title", comment: ""),
+                                    message: NSLocalizedString("reported.guide.app.message", comment: ""),
+                                    systemImage: "shield.lefthalf.filled",
+                                    color: ShieldTheme.Colors.primary
+                                )
+                                ShieldActionButton(title: NSLocalizedString("menu.manual", comment: ""), systemImage: "square.and.pencil", color: ShieldTheme.Colors.danger) {
+                                    showingAddNumberSheet = true
+                                }
+                            }
                         }
                     }
-
-                    if let msg = message {
-                        Text(msg)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
-
-                    Spacer()
+                    .padding(.horizontal, 20)
+                    .padding(.top, 14)
+                    .padding(.bottom, 32)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 14)
             }
             .navigationTitle(NSLocalizedString("reported.junk", comment: "Reported Junk"))
             .navigationBarTitleDisplayMode(.inline)
@@ -69,42 +58,51 @@ struct ReportedJunkView: View {
                     }
                 }
             }
-            .onAppear(perform: loadLastSender)
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text(NSLocalizedString("done", comment: "Done")),
-                    message: Text(message ?? ""),
-                    dismissButton: .default(Text(NSLocalizedString("ok", comment: "OK")))
-                )
+            .sheet(isPresented: $showingAddNumberSheet) {
+                AddNumberView()
+                    .appLanguageEnvironment()
             }
         }
     }
 
-    private func loadLastSender() {
-        guard let ud = UserDefaults(suiteName: suite) else { return }
-        lastSender = ud.string(forKey: "lastJunkSender")
+    private func stepRow(number: Int, text: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text("\(number)")
+                .font(.caption.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 24, height: 24)
+                .background(ShieldTheme.Colors.primary, in: Circle())
+                .accessibilityHidden(true)
+            Text(text)
+                .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+        }
     }
 
-    private func markNotJunk() {
-        guard let sender = lastSender else { return }
-        // Gönderen yerel biçimde gelmiş olabilir; varsayılan ülkeye göre çöz, çözülemezse olduğu gibi kullan
-        let value: String
-        if case .success(let entry) = RegionManager.shared.entry(for: sender) {
-            value = entry.storageValue
-        } else {
-            value = sender
+    private func infoCard(title: String, message: String, systemImage: String, color: Color) -> some View {
+        ShieldCard {
+            infoContent(title: title, message: message, systemImage: systemImage, color: color)
         }
-        // Add to allowed numbers
-        DataManager.shared.addAllowedNumber(value, modelContext: modelContext)
-        // Optionally remove from blocked list
-        DataManager.shared.removeBlockedNumber(value, modelContext: modelContext)
-        // Clear last sender
-        if let ud = UserDefaults(suiteName: suite) {
-            ud.removeObject(forKey: "lastJunkSender")
+    }
+
+    private func infoContent(title: String, message: String, systemImage: String, color: Color) -> some View {
+        HStack(alignment: .top, spacing: 14) {
+            Image(systemName: systemImage)
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(color)
+                .frame(width: 30)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline.weight(.semibold))
+                Text(message)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
         }
-        message = String(format: NSLocalizedString("marked.notjunk.message", comment: "Marked as not junk"), sender)
-        showingAlert = true
-        lastSender = nil
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -121,18 +121,10 @@
 "dashboard.subtitle" = "Центр защиты";
 "dashboard.blocked.metric" = "Заблокировано";
 "dashboard.allowed.metric" = "Разрешено";
-"dashboard.junk.metric" = "Спам SMS";
-"dashboard.rules.metric" = "Правила";
 "dashboard.quick.actions" = "Быстрые действия";
-"dashboard.last.junk" = "Последний спам";
-"dashboard.filter.activity" = "Активность фильтра";
-"dashboard.last.junk.sender" = "Последний спам-отправитель: %@";
-"dashboard.last.filter.activity" = "Последняя активность фильтра: %@";
-"dashboard.categorized.messages" = "%d категоризированных сообщений";
-"dashboard.no.filter.activity" = "Активности фильтра пока нет";
 "dashboard.setup.user.confirmed" = "Вы отметили настройку расширения как завершенную";
 "dashboard.setup.title" = "Контрольный список настройки";
-"dashboard.setup.progress" = "%d/3 готово";
+"dashboard.setup.progress" = "%d/2 готово";
 "dashboard.setup.ios.settings" = "Расширения iOS включены";
 "dashboard.setup.ios.settings.subtitle" = "Включите фильтрацию SMS и блокировку звонков в настройках iOS, затем отметьте настройку как завершенную.";
 "dashboard.setup.step.done" = "Выполнено";
@@ -140,8 +132,6 @@
 "dashboard.setup.data.synced" = "Данные фильтра синхронизированы";
 "dashboard.setup.no.sync" = "Откройте приложение один раз после изменения списков или правил, чтобы обновить данные расширения.";
 "dashboard.setup.last.sync" = "Последняя синхронизация: %@";
-"dashboard.setup.filter.activity" = "Обнаружена активность фильтра";
-"dashboard.setup.waiting.activity" = "SMS еще не фильтровались; обновится после обработки сообщения расширением.";
 
 /* Management */
 "management.title" = "Управление";
@@ -159,11 +149,16 @@
 "unknown.sender" = "Неизвестно";
 
 /* Reported Junk */
-"reported.junk" = "Сообщенный спам";
-"no.recent.junk" = "Нет недавнего спам-отправителя";
-"last.filtered.sender" = "Последний отфильтрованный отправитель";
-"mark.notjunk" = "Пометить как не спам";
-"marked.notjunk.message" = "%@ помечен как безопасный.";
+"reported.junk" = "Сообщить о спаме";
+"reported.junk.subtitle" = "Сообщайте о спаме из Сообщений и Телефона";
+"reported.guide.how.title" = "Как сообщить";
+"reported.guide.step1" = "В Настройки > Приложения > Телефон > Сообщения о SMS/вызовах выберите SMS Shield.";
+"reported.guide.step2" = "В Сообщениях нажмите «Сообщить о спаме» в разговоре с неизвестным отправителем. Для вызовов смахните номер влево в «Недавних» и нажмите «Сообщить».";
+"reported.guide.step3" = "Подтвердите на экране SMS Shield. iOS заблокирует отправителя.";
+"reported.guide.blocked.title" = "Где отправители, о которых я сообщил?";
+"reported.guide.blocked.message" = "Ради конфиденциальности iOS не позволяет SMS Shield видеть отчёты. Отправители добавляются в заблокированные контакты iPhone: Настройки > Приложения > Телефон > Заблокированные контакты. Там их можно разблокировать.";
+"reported.guide.app.title" = "Заблокировать в SMS Shield";
+"reported.guide.app.message" = "Чтобы видеть отправителя в списке этого приложения и применять правила фильтра, добавьте его здесь.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Нажмите + в правом верхнем углу, чтобы добавить номера для блокировки";

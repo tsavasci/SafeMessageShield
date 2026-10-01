@@ -60,18 +60,10 @@
 "dashboard.subtitle" = "Koruma merkezi";
 "dashboard.blocked.metric" = "Engellenen";
 "dashboard.allowed.metric" = "Güvenli";
-"dashboard.junk.metric" = "İstenmeyen SMS";
-"dashboard.rules.metric" = "Kurallar";
 "dashboard.quick.actions" = "Hızlı işlemler";
-"dashboard.last.junk" = "Son istenmeyen";
-"dashboard.filter.activity" = "Filtre aktivitesi";
-"dashboard.last.junk.sender" = "Son istenmeyen gönderen: %@";
-"dashboard.last.filter.activity" = "Son filtre aktivitesi: %@";
-"dashboard.categorized.messages" = "%d kategorize mesaj";
-"dashboard.no.filter.activity" = "Henüz filtre aktivitesi yok";
 "dashboard.setup.user.confirmed" = "Uzantı kurulumu sizin tarafınızdan tamamlandı işaretlendi";
 "dashboard.setup.title" = "Kurulum kontrol listesi";
-"dashboard.setup.progress" = "%d/3 hazır";
+"dashboard.setup.progress" = "%d/2 hazır";
 "dashboard.setup.ios.settings" = "iOS uzantıları etkin";
 "dashboard.setup.ios.settings.subtitle" = "SMS filtreleme ve arama engellemeyi iOS Ayarları'ndan açın, sonra kurulumu tamamlandı olarak işaretleyin.";
 "dashboard.setup.step.done" = "Tamamlandı";
@@ -79,8 +71,6 @@
 "dashboard.setup.data.synced" = "Filtre verisi senkronize";
 "dashboard.setup.no.sync" = "Liste veya kural değişikliğinden sonra uzantı verisini yenilemek için uygulamayı bir kez açın.";
 "dashboard.setup.last.sync" = "Son senkronizasyon: %@";
-"dashboard.setup.filter.activity" = "Filtre aktivitesi algılandı";
-"dashboard.setup.waiting.activity" = "Henüz SMS filtrelenmedi; uzantı bir mesaj işlediğinde güncellenir.";
 
 /* Management */
 "management.title" = "Yönet";
@@ -159,11 +149,16 @@
 "category.group.promotional" = "Tüm Promosyonlar";
 
 /* Reported Junk */
-"reported.junk" = "Bildirilen İstenmeyenler";
-"no.recent.junk" = "Son istenmeyen gönderen yok";
-"last.filtered.sender" = "Son filtrelenen gönderen";
-"mark.notjunk" = "İstenmeyen Değil Olarak İşaretle";
-"marked.notjunk.message" = "%@ güvenli olarak işaretlendi.";
+"reported.junk" = "İstenmeyen Bildir";
+"reported.junk.subtitle" = "Mesajlar ve Telefon'dan spam bildirin";
+"reported.guide.how.title" = "Nasıl bildirilir";
+"reported.guide.step1" = "Ayarlar > Uygulamalar > Telefon > SMS/Arama Bildirme bölümünden SMS Shield'ı seçin.";
+"reported.guide.step2" = "Mesajlar'da bilinmeyen bir gönderenle olan konuşmada “Gereksiz Olarak Bildir”e dokunun. Aramalar için Son Aramalar'da numarayı sola kaydırıp Bildir'e dokunun.";
+"reported.guide.step3" = "SMS Shield ekranında onaylayın. iOS göndereni engeller.";
+"reported.guide.blocked.title" = "Bildirilenler nerede?";
+"reported.guide.blocked.message" = "Gizlilik nedeniyle iOS, bildirimleri SMS Shield'ın görmesine izin vermez. Bildirilen göndericiler iPhone'unuzun engellenen kişilerine eklenir: Ayarlar > Uygulamalar > Telefon > Engellenen Kişiler. Engeli oradan kaldırabilirsiniz.";
+"reported.guide.app.title" = "SMS Shield'da engelle";
+"reported.guide.app.message" = "Bir göndereni bu uygulamanın listesinde görmek ve filtre kurallarınızla kullanmak için buradan ekleyin.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Engellemek istediğiniz numaraları eklemek için sağ üstteki + butonuna dokunun";

@@ -121,18 +121,10 @@
 "dashboard.subtitle" = "सुरक्षा केंद्र";
 "dashboard.blocked.metric" = "ब्लॉक किए गए";
 "dashboard.allowed.metric" = "अनुमत";
-"dashboard.junk.metric" = "जंक SMS";
-"dashboard.rules.metric" = "नियम";
 "dashboard.quick.actions" = "त्वरित कार्य";
-"dashboard.last.junk" = "नवीनतम जंक";
-"dashboard.filter.activity" = "फ़िल्टर गतिविधि";
-"dashboard.last.junk.sender" = "नवीनतम जंक भेजने वाला: %@";
-"dashboard.last.filter.activity" = "नवीनतम फ़िल्टर गतिविधि: %@";
-"dashboard.categorized.messages" = "%d वर्गीकृत संदेश";
-"dashboard.no.filter.activity" = "अभी तक कोई फ़िल्टर गतिविधि नहीं";
 "dashboard.setup.user.confirmed" = "आपने एक्सटेंशन सेटअप को पूर्ण के रूप में चिह्नित किया है";
 "dashboard.setup.title" = "सेटअप चेकलिस्ट";
-"dashboard.setup.progress" = "%d/3 तैयार";
+"dashboard.setup.progress" = "%d/2 तैयार";
 "dashboard.setup.ios.settings" = "iOS एक्सटेंशन सक्षम";
 "dashboard.setup.ios.settings.subtitle" = "iOS सेटिंग्स में SMS फ़िल्टरिंग और कॉल ब्लॉकिंग सक्षम करें, फिर सेटअप को पूर्ण चिह्नित करें।";
 "dashboard.setup.step.done" = "पूर्ण";
@@ -140,8 +132,6 @@
 "dashboard.setup.data.synced" = "फ़िल्टर डेटा सिंक हुआ";
 "dashboard.setup.no.sync" = "सूचियों या नियमों को बदलने के बाद एक्सटेंशन डेटा अपडेट करने के लिए ऐप एक बार खोलें।";
 "dashboard.setup.last.sync" = "अंतिम सिंक: %@";
-"dashboard.setup.filter.activity" = "फ़िल्टर गतिविधि मिली";
-"dashboard.setup.waiting.activity" = "अभी तक कोई SMS फ़िल्टर नहीं हुआ; एक्सटेंशन द्वारा संदेश प्रोसेस होने पर यह अपडेट होगा।";
 
 /* Management */
 "management.title" = "प्रबंध";
@@ -159,11 +149,16 @@
 "unknown.sender" = "अज्ञात";
 
 /* Reported Junk */
-"reported.junk" = "रिपोर्ट किया गया जंक";
-"no.recent.junk" = "कोई हालिया जंक भेजने वाला नहीं";
-"last.filtered.sender" = "आखिरी फ़िल्टर किया गया भेजने वाला";
-"mark.notjunk" = "जंक नहीं के रूप में चिह्नित करें";
-"marked.notjunk.message" = "%@ को सुरक्षित चिह्नित किया गया.";
+"reported.junk" = "जंक रिपोर्ट करें";
+"reported.junk.subtitle" = "संदेश और फ़ोन से स्पैम रिपोर्ट करें";
+"reported.guide.how.title" = "रिपोर्ट कैसे करें";
+"reported.guide.step1" = "सेटिंग्स > ऐप्स > फ़ोन > SMS/कॉल रिपोर्टिंग में SMS Shield चुनें।";
+"reported.guide.step2" = "संदेश में किसी अज्ञात प्रेषक की बातचीत में “जंक रिपोर्ट करें” पर टैप करें। कॉल के लिए, हालिया में नंबर को बाईं ओर स्वाइप करें और रिपोर्ट पर टैप करें।";
+"reported.guide.step3" = "SMS Shield स्क्रीन पर पुष्टि करें। iOS प्रेषक को ब्लॉक कर देगा।";
+"reported.guide.blocked.title" = "रिपोर्ट किए गए प्रेषक कहाँ हैं?";
+"reported.guide.blocked.message" = "गोपनीयता के कारण iOS, SMS Shield को रिपोर्ट देखने नहीं देता। रिपोर्ट किए गए प्रेषक आपके iPhone के ब्लॉक किए गए संपर्कों में जोड़े जाते हैं: सेटिंग्स > ऐप्स > फ़ोन > ब्लॉक किए गए संपर्क। आप वहाँ से अनब्लॉक कर सकते हैं।";
+"reported.guide.app.title" = "SMS Shield में ब्लॉक करें";
+"reported.guide.app.message" = "किसी प्रेषक को इस ऐप की सूची में देखने और अपने फ़िल्टर नियम लागू करने के लिए, उसे यहाँ जोड़ें।";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "जिन नंबरों को ब्लॉक करना है, उन्हें जोड़ने के लिए ऊपर दाईं ओर + पर टैप करें";

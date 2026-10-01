@@ -120,18 +120,10 @@
 "dashboard.subtitle" = "Schutzzentrale";
 "dashboard.blocked.metric" = "Blockiert";
 "dashboard.allowed.metric" = "Erlaubt";
-"dashboard.junk.metric" = "Junk-SMS";
-"dashboard.rules.metric" = "Regeln";
 "dashboard.quick.actions" = "Schnellaktionen";
-"dashboard.last.junk" = "Letzte Junk-SMS";
-"dashboard.filter.activity" = "Filteraktivität";
-"dashboard.last.junk.sender" = "Letzter Junk-Absender: %@";
-"dashboard.last.filter.activity" = "Letzte Filteraktivität: %@";
-"dashboard.categorized.messages" = "%d kategorisierte Nachrichten";
-"dashboard.no.filter.activity" = "Noch keine Filteraktivität";
 "dashboard.setup.user.confirmed" = "Die Einrichtung der Erweiterung wurde von Ihnen als abgeschlossen markiert";
 "dashboard.setup.title" = "Einrichtungs-Checkliste";
-"dashboard.setup.progress" = "%d/3 bereit";
+"dashboard.setup.progress" = "%d/2 bereit";
 "dashboard.setup.ios.settings" = "iOS-Erweiterungen aktiviert";
 "dashboard.setup.ios.settings.subtitle" = "Aktivieren Sie SMS-Filterung und Anrufblockierung in den iOS-Einstellungen und markieren Sie die Einrichtung danach als abgeschlossen.";
 "dashboard.setup.step.done" = "Erledigt";
@@ -139,8 +131,6 @@
 "dashboard.setup.data.synced" = "Filterdaten synchronisiert";
 "dashboard.setup.no.sync" = "Öffnen Sie die App nach Änderungen an Listen oder Regeln einmal, um die Erweiterungsdaten zu aktualisieren.";
 "dashboard.setup.last.sync" = "Letzte Synchronisierung: %@";
-"dashboard.setup.filter.activity" = "Filteraktivität erkannt";
-"dashboard.setup.waiting.activity" = "Noch keine SMS gefiltert; dies wird aktualisiert, sobald die Erweiterung eine Nachricht verarbeitet.";
 
 /* Management */
 "management.title" = "Verwalten";
@@ -158,11 +148,16 @@
 "unknown.sender" = "Unbekannt";
 
 /* Reported Junk */
-"reported.junk" = "Gemeldeter Junk";
-"no.recent.junk" = "Kein aktueller Junk-Absender";
-"last.filtered.sender" = "Letzter gefilterter Absender";
-"mark.notjunk" = "Als kein Junk markieren";
-"marked.notjunk.message" = "%@ wurde als sicher markiert.";
+"reported.junk" = "Werbung melden";
+"reported.junk.subtitle" = "Spam aus Nachrichten und Telefon melden";
+"reported.guide.how.title" = "So meldest du";
+"reported.guide.step1" = "Wähle unter Einstellungen > Apps > Telefon > SMS-/Anrufmeldung SMS Shield aus.";
+"reported.guide.step2" = "Tippe in Nachrichten in einer Unterhaltung mit einem unbekannten Absender auf „Als Werbung melden“. Bei Anrufen in „Anrufliste“ nach links wischen und „Melden“ tippen.";
+"reported.guide.step3" = "Bestätige im SMS Shield-Bildschirm. iOS blockiert den Absender.";
+"reported.guide.blocked.title" = "Wo sind gemeldete Absender?";
+"reported.guide.blocked.message" = "Aus Datenschutzgründen lässt iOS SMS Shield keine Meldungen sehen. Gemeldete Absender werden den blockierten Kontakten deines iPhone hinzugefügt: Einstellungen > Apps > Telefon > Blockierte Kontakte. Dort kannst du sie wieder freigeben.";
+"reported.guide.app.title" = "In SMS Shield blockieren";
+"reported.guide.app.message" = "Um einen Absender in der Liste dieser App zu sehen und deine Filterregeln zu nutzen, füge ihn hier hinzu.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Tippen Sie oben rechts auf +, um Nummern zum Blockieren hinzuzufügen";

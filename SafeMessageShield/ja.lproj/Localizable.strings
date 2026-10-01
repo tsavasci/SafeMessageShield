@@ -121,18 +121,10 @@
 "dashboard.subtitle" = "保護ハブ";
 "dashboard.blocked.metric" = "ブロック済み";
 "dashboard.allowed.metric" = "許可済み";
-"dashboard.junk.metric" = "迷惑SMS";
-"dashboard.rules.metric" = "ルール";
 "dashboard.quick.actions" = "クイック操作";
-"dashboard.last.junk" = "最新の迷惑";
-"dashboard.filter.activity" = "フィルター履歴";
-"dashboard.last.junk.sender" = "最新の迷惑送信者: %@";
-"dashboard.last.filter.activity" = "最新のフィルター履歴: %@";
-"dashboard.categorized.messages" = "%d 件の分類済みメッセージ";
-"dashboard.no.filter.activity" = "フィルター履歴はまだありません";
 "dashboard.setup.user.confirmed" = "拡張機能の設定を完了としてマークしました";
 "dashboard.setup.title" = "設定チェックリスト";
-"dashboard.setup.progress" = "%d/3 完了";
+"dashboard.setup.progress" = "%d/2 完了";
 "dashboard.setup.ios.settings" = "iOS拡張機能が有効";
 "dashboard.setup.ios.settings.subtitle" = "iOS設定でSMSフィルタリングと通話ブロックを有効にし、設定完了としてマークしてください。";
 "dashboard.setup.step.done" = "完了";
@@ -140,8 +132,6 @@
 "dashboard.setup.data.synced" = "フィルターデータ同期済み";
 "dashboard.setup.no.sync" = "リストやルールを変更した後、拡張機能データを更新するためにアプリを一度開いてください。";
 "dashboard.setup.last.sync" = "最終同期: %@";
-"dashboard.setup.filter.activity" = "フィルター活動を検出";
-"dashboard.setup.waiting.activity" = "まだSMSはフィルターされていません。拡張機能がメッセージを処理すると更新されます。";
 
 /* Management */
 "management.title" = "管理";
@@ -159,11 +149,16 @@
 "unknown.sender" = "不明";
 
 /* Reported Junk */
-"reported.junk" = "報告された迷惑";
-"no.recent.junk" = "最近の迷惑送信者はありません";
-"last.filtered.sender" = "最後にフィルタされた送信者";
-"mark.notjunk" = "迷惑ではないとしてマーク";
-"marked.notjunk.message" = "%@ を安全としてマークしました。";
+"reported.junk" = "迷惑メッセージを報告";
+"reported.junk.subtitle" = "メッセージと電話から迷惑を報告";
+"reported.guide.how.title" = "報告の方法";
+"reported.guide.step1" = "設定 > アプリ > 電話 > SMS/着信の報告 で SMS Shield を選択します。";
+"reported.guide.step2" = "メッセージで、不明な送信者との会話にある「迷惑メッセージを報告」をタップします。電話の場合は、履歴で番号を左にスワイプして「報告」をタップします。";
+"reported.guide.step3" = "SMS Shield の画面で確定します。iOSが送信者をブロックします。";
+"reported.guide.blocked.title" = "報告した送信者はどこに？";
+"reported.guide.blocked.message" = "プライバシー保護のため、iOSはSMS Shieldに報告内容を見せません。報告した送信者はiPhoneの着信拒否リストに追加されます：設定 > アプリ > 電話 > 着信拒否した連絡先。そこで解除できます。";
+"reported.guide.app.title" = "SMS Shieldでブロック";
+"reported.guide.app.message" = "送信者をこのアプリのリストに表示し、フィルタルールを使うには、ここで追加してください。";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "右上の + をタップしてブロックしたい番号を追加してください";

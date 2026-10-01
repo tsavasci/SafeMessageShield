@@ -280,22 +280,6 @@ class DataManager {
         userDefaults.set(enabled, forKey: "filterEnabled")
     }
 
-    func smsJunkCount() -> Int {
-        userDefaults.integer(forKey: "smsJunkCount")
-    }
-
-    func smsCategorizedCount() -> Int {
-        userDefaults.integer(forKey: "smsCategorizedCount")
-    }
-
-    func lastSMSFilterDate() -> Date? {
-        userDefaults.object(forKey: "lastSMSFilterDate") as? Date
-    }
-
-    func lastJunkSender() -> String? {
-        userDefaults.string(forKey: "lastJunkSender")
-    }
-
     func lastAppGroupSyncDate() -> Date? {
         userDefaults.object(forKey: lastAppGroupSyncDateKey) as? Date
     }

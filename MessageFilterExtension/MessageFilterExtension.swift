@@ -17,23 +17,6 @@ final class MessageFilterExtension: ILMessageFilterExtension {
     private let allowedSenderNamesNormalizedKey = "allowedSenderNamesNormalized"
     private let blockedNumbersNormalizedKey = "blockedNumbersNormalized"
     private let blockedSenderNamesNormalizedKey = "blockedSenderNamesNormalized"
-
-    private func incrementStatistic(key: String) {
-        // Keep this function extremely fast and non-blocking.
-        // Only try a lightweight UserDefaults write and return.
-        guard let sharedDefaults = UserDefaults(suiteName: self.suiteName) else {
-            logger.error("❌ Could not access shared UserDefaults (suiteName: \(self.suiteName))")
-            return
-        }
-
-        let current = sharedDefaults.integer(forKey: key)
-        let newCount = current + 1
-        // Fast set; avoid `synchronize()` and any file I/O to prevent timeouts.
-        sharedDefaults.set(newCount, forKey: key)
-        sharedDefaults.set(Date(), forKey: "lastSMSFilterDate")
-
-        logger.debug("Updated stat \(key)=\(newCount) via shared UserDefaults")
-    }
 }
 
 extension MessageFilterExtension: ILMessageFilterQueryHandling,
@@ -154,22 +137,15 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         // 2. Numara filtre kuralları kontrolü
             for rule in numberFilterRules {
                 if let prefix = rule["prefix"], MessageFilterMatcher.numberRuleMatches(type: "prefix", value: prefix, sender: sender, region: region) {
-                    incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: prefix=\(prefix)")
-                    // record last junk sender for app UI to allow 'Not Junk' action
-                    sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
                 if let suffix = rule["suffix"], MessageFilterMatcher.numberRuleMatches(type: "suffix", value: suffix, sender: sender, region: region) {
-                    incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: suffix=\(suffix)")
-                    sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
                 if let contains = rule["contains"], MessageFilterMatcher.numberRuleMatches(type: "contains", value: contains, sender: sender, region: region) {
-                    incrementStatistic(key: "smsJunkCount")
                     logger.info("🚫 Blocked as junk by number rule: contains=\(contains)")
-                    sharedDefaults.set(sender, forKey: "lastJunkSender")
                     return (.junk, .none)
                 }
             }
@@ -177,27 +153,20 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
         // 3. Blocklist kontrolü - açık kullanıcı kararı kategori kurallarından önce gelir.
         if !blockedNamesSet.isEmpty {
             if blockedNamesSet.contains(senderUppercase) {
-                incrementStatistic(key: "smsJunkCount")
                 logger.info("🚫 Blocked as junk (text sender exact): \(senderUppercase)")
-                sharedDefaults.set(sender, forKey: "lastJunkSender")
                 return (.junk, .none)
             }
         }
 
         for blockedName in blockedNames where MessageFilterMatcher.senderNamesMatch(stored: blockedName, sender: sender) {
-            incrementStatistic(key: "smsJunkCount")
             logger.info("🚫 Blocked as junk (text sender): \(blockedName)")
-            sharedDefaults.set(sender, forKey: "lastJunkSender")
             return (.junk, .none)
         }
 
         for blockedDigits in normalizedBlockedNumbers {
             if senderCandidates.contains(blockedDigits)
                 || MessageFilterMatcher.numbersMatch(stored: blockedDigits, sender: sender, region: region) {
-                // Junk sayacını artır
-                incrementStatistic(key: "smsJunkCount")
                 logger.info("🚫 Blocked as junk: number=\(blockedDigits)")
-                sharedDefaults.set(sender, forKey: "lastJunkSender")
                 return (.junk, .none)
             }
         }
@@ -209,7 +178,6 @@ extension MessageFilterExtension: ILMessageFilterQueryHandling,
                     || messageBody.range(of: keyword, options: [.caseInsensitive, .diacriticInsensitive]) != nil
                 {
                     let subAction = getSubAction(for: category)
-                    incrementStatistic(key: "smsCategorizedCount")
                     logger.info(
                         "📂 Categorized by rule: keyword=\(keyword) in sender or body, category=\(category)"
                     )

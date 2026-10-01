@@ -1,0 +1,216 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "report.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This sender will be blocked"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu gönderen engellenecek"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Absender wird blockiert"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se bloqueará a este remitente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cet expéditeur sera bloqué"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سيتم حظر هذا المرسل"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "यह प्रेषक ब्लॉक कर दिया जाएगा"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この送信者はブロックされます"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 발신자가 차단됩니다"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот отправитель будет заблокирован"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此发件人将被阻止"
+          }
+        }
+      }
+    },
+    "report.detail": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS adds this sender to your blocked contacts. You won't get messages or calls from them. To undo, go to Settings > Apps > Phone > Blocked Contacts."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS bu göndereni engellenen kişilerinize ekler. Bu gönderenden artık mesaj veya arama almazsınız. Geri almak için Ayarlar > Uygulamalar > Telefon > Engellenen Kişiler bölümüne gidin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS fügt diesen Absender deinen blockierten Kontakten hinzu. Du erhältst keine Nachrichten oder Anrufe mehr von ihm. Zum Aufheben: Einstellungen > Apps > Telefon > Blockierte Kontakte."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS añade este remitente a tus contactos bloqueados. No recibirás sus mensajes ni llamadas. Para deshacerlo, ve a Ajustes > Apps > Teléfono > Contactos bloqueados."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS ajoute cet expéditeur à vos contacts bloqués. Vous ne recevrez plus ses messages ni ses appels. Pour annuler, accédez à Réglages > Apps > Téléphone > Contacts bloqués."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يضيف iOS هذا المرسل إلى جهات الاتصال المحظورة. لن تتلقى منه رسائل أو مكالمات. للتراجع، انتقل إلى الإعدادات > التطبيقات > الهاتف > جهات الاتصال المحظورة."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS इस प्रेषक को आपके ब्लॉक किए गए संपर्कों में जोड़ देता है। आपको इनसे संदेश या कॉल नहीं मिलेंगे। पूर्ववत करने के लिए सेटिंग्स > ऐप्स > फ़ोन > ब्लॉक किए गए संपर्क पर जाएँ।"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOSがこの送信者を着信拒否リストに追加します。この送信者からのメッセージや電話は届かなくなります。元に戻すには、設定 > アプリ > 電話 > 着信拒否した連絡先 を開いてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS가 이 발신자를 차단된 연락처에 추가합니다. 이 발신자의 메시지나 전화를 더 이상 받지 않습니다. 취소하려면 설정 > 앱 > 전화 > 차단된 연락처로 이동하십시오."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS добавит этого отправителя в заблокированные контакты. Вы больше не будете получать от него сообщения и звонки. Чтобы отменить, откройте Настройки > Приложения > Телефон > Заблокированные контакты."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 会将此发件人添加到已阻止的联系人。你将不再收到其信息或来电。如需撤销，请前往“设置”>“App”>“电话”>“已阻止的联系人”。"
+          }
+        }
+      }
+    },
+    "report.no.sender": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No sender to report"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirilecek gönderen yok"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Absender zum Melden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay remitente que reportar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun expéditeur à signaler"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يوجد مرسل للإبلاغ عنه"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "रिपोर्ट करने के लिए कोई प्रेषक नहीं"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "報告する送信者がいません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "신고할 발신자가 없습니다"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет отправителя для отчёта"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有可报告的发件人"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

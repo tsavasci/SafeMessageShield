@@ -31,10 +31,6 @@ struct ContentView: View {
     @State private var dashboardFilterEnabled = false
     /// Sistemden okunan arama engelleme uzantısı durumu; belirlenemezse nil
     @State private var callBlockingEnabled: Bool?
-    @State private var dashboardJunkCount = 0
-    @State private var dashboardCategorizedCount = 0
-    @State private var dashboardLastFilterDate: Date?
-    @State private var dashboardLastJunkSender: String?
     @State private var dashboardLastSyncDate: Date?
 
     // ViewModel'i burada da kullanalım
@@ -88,7 +84,6 @@ struct ContentView: View {
                         setupChecklistCard
                         metricsGrid
                         quickActionsCard
-                        lastJunkCard
                         recentBlockedSection
                     }
                     .padding(.horizontal, 20)
@@ -272,7 +267,7 @@ struct ContentView: View {
                     Spacer()
                     ShieldStatusPill(
                         title: setupCompletedCountText,
-                        color: setupCompletedCount == 3 ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
+                        color: setupCompletedCount == 2 ? ShieldTheme.Colors.success : ShieldTheme.Colors.warning
                     )
                 }
 
@@ -292,13 +287,6 @@ struct ContentView: View {
                         subtitle: lastSyncText,
                         systemImage: "arrow.triangle.2.circlepath",
                         isComplete: dashboardLastSyncDate != nil
-                    )
-
-                    setupRow(
-                        title: NSLocalizedString("dashboard.setup.filter.activity", comment: ""),
-                        subtitle: dashboardLastFilterDate == nil ? NSLocalizedString("dashboard.setup.waiting.activity", comment: "") : filterActivityText,
-                        systemImage: "waveform.badge.magnifyingglass",
-                        isComplete: dashboardLastFilterDate != nil || dashboardJunkCount > 0 || dashboardCategorizedCount > 0
                     )
                 }
             }
@@ -353,16 +341,18 @@ struct ContentView: View {
                 systemImage: "checkmark.shield.fill",
                 color: ShieldTheme.Colors.success
             )
+            // SMS filtresi App Group'a yazamadığı için (iOS kısıtı) filtrelenen mesaj sayısı gösterilemez;
+            // yalnızca uygulamanın kendi tuttuğu veriler gösterilir.
             ShieldMetricCard(
-                title: NSLocalizedString("dashboard.junk.metric", comment: ""),
-                value: "\(dashboardJunkCount)",
-                systemImage: "message.badge.filled.fill",
+                title: NSLocalizedString("management.keywords.title", comment: ""),
+                value: "\(filterRulesList.count)",
+                systemImage: "text.badge.checkmark",
                 color: ShieldTheme.Colors.warning
             )
             ShieldMetricCard(
-                title: NSLocalizedString("dashboard.rules.metric", comment: ""),
-                value: "\(filterRulesList.count + numberFilterRulesList.count)",
-                systemImage: "slider.horizontal.3",
+                title: NSLocalizedString("management.number.rules.title", comment: ""),
+                value: "\(numberFilterRulesList.count)",
+                systemImage: "number",
                 color: ShieldTheme.Colors.primary
             )
         }
@@ -390,35 +380,12 @@ struct ContentView: View {
                         ShieldActionButton(title: NSLocalizedString("filter.customization", comment: ""), systemImage: "slider.horizontal.3", color: ShieldTheme.Colors.secondary) {
                             showingFilterCustomization = true
                         }
-                        ShieldActionButton(title: NSLocalizedString("dashboard.last.junk", comment: ""), systemImage: "tray.full.fill", color: ShieldTheme.Colors.warning) {
+                        ShieldActionButton(title: NSLocalizedString("reported.junk", comment: ""), systemImage: "tray.full.fill", color: ShieldTheme.Colors.warning) {
                             showingReportedJunk = true
                         }
                     }
                     .fixedSize(horizontal: false, vertical: true)
                 }
-            }
-        }
-    }
-
-    private var lastJunkCard: some View {
-        ShieldCard {
-            HStack(spacing: 14) {
-                Image(systemName: "waveform.badge.magnifyingglass")
-                    .font(.title2.weight(.semibold))
-                    .foregroundStyle(ShieldTheme.Colors.secondary)
-                    .frame(width: 34)
-                    .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(NSLocalizedString("dashboard.filter.activity", comment: ""))
-                        .font(.headline.weight(.semibold))
-                    Text(filterActivityText)
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                Spacer()
             }
         }
     }
@@ -478,28 +445,10 @@ struct ContentView: View {
         }
     }
 
-    private var filterActivityText: String {
-        if let dashboardLastJunkSender {
-            return String(format: NSLocalizedString("dashboard.last.junk.sender", comment: ""), dashboardLastJunkSender)
-        }
-
-        if let dashboardLastFilterDate {
-            let formattedDate = languageManager.formatted(dashboardLastFilterDate, date: .abbreviated, time: .shortened)
-            return String(format: NSLocalizedString("dashboard.last.filter.activity", comment: ""), formattedDate)
-        }
-
-        if dashboardCategorizedCount > 0 {
-            return String(format: NSLocalizedString("dashboard.categorized.messages", comment: ""), dashboardCategorizedCount)
-        }
-
-        return NSLocalizedString("dashboard.no.filter.activity", comment: "")
-    }
-
     private var setupCompletedCount: Int {
         var count = 0
         if protectionActive { count += 1 }
         if dashboardLastSyncDate != nil { count += 1 }
-        if dashboardLastFilterDate != nil || dashboardJunkCount > 0 || dashboardCategorizedCount > 0 { count += 1 }
         return count
     }
 
@@ -567,10 +516,6 @@ struct ContentView: View {
 
     private func refreshDashboard() {
         dashboardFilterEnabled = DataManager.shared.isFilterEnabled()
-        dashboardJunkCount = DataManager.shared.smsJunkCount()
-        dashboardCategorizedCount = DataManager.shared.smsCategorizedCount()
-        dashboardLastFilterDate = DataManager.shared.lastSMSFilterDate()
-        dashboardLastJunkSender = DataManager.shared.lastJunkSender()
         dashboardLastSyncDate = DataManager.shared.lastAppGroupSyncDate()
 
         Task {

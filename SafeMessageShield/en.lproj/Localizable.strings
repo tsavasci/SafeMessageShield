@@ -60,18 +60,10 @@
 "dashboard.subtitle" = "Protection hub";
 "dashboard.blocked.metric" = "Blocked";
 "dashboard.allowed.metric" = "Allowed";
-"dashboard.junk.metric" = "Junk SMS";
-"dashboard.rules.metric" = "Rules";
 "dashboard.quick.actions" = "Quick actions";
-"dashboard.last.junk" = "Last junk";
-"dashboard.filter.activity" = "Filter activity";
-"dashboard.last.junk.sender" = "Last junk sender: %@";
-"dashboard.last.filter.activity" = "Last filter activity: %@";
-"dashboard.categorized.messages" = "%d categorized messages";
-"dashboard.no.filter.activity" = "No filter activity yet";
 "dashboard.setup.user.confirmed" = "Extension setup marked as complete by you";
 "dashboard.setup.title" = "Setup checklist";
-"dashboard.setup.progress" = "%d/3 ready";
+"dashboard.setup.progress" = "%d/2 ready";
 "dashboard.setup.ios.settings" = "iOS extensions enabled";
 "dashboard.setup.ios.settings.subtitle" = "Enable SMS filtering and call blocking from iOS Settings, then mark setup as complete.";
 "dashboard.setup.step.done" = "Completed";
@@ -79,8 +71,6 @@
 "dashboard.setup.data.synced" = "Filter data synced";
 "dashboard.setup.no.sync" = "Open the app once after changing lists or rules to refresh extension data.";
 "dashboard.setup.last.sync" = "Last sync: %@";
-"dashboard.setup.filter.activity" = "Filter activity detected";
-"dashboard.setup.waiting.activity" = "No SMS has been filtered yet; this updates after the extension handles a message.";
 
 /* Management */
 "management.title" = "Manage";
@@ -159,11 +149,16 @@
 "category.group.promotional" = "Promotions";
 
 /* Reported Junk */
-"reported.junk" = "Reported Junk";
-"no.recent.junk" = "No recent junk sender";
-"last.filtered.sender" = "Last filtered sender";
-"mark.notjunk" = "Mark as Not Junk";
-"marked.notjunk.message" = "%@ marked as safe.";
+"reported.junk" = "Report Junk";
+"reported.junk.subtitle" = "Report spam from Messages and Phone";
+"reported.guide.how.title" = "How to report";
+"reported.guide.step1" = "In Settings > Apps > Phone > SMS/Call Reporting, select SMS Shield.";
+"reported.guide.step2" = "In Messages, tap “Report Junk” in a conversation from an unknown sender. For calls, swipe left on a number in Recents and tap Report.";
+"reported.guide.step3" = "Confirm on the SMS Shield screen. iOS blocks the sender.";
+"reported.guide.blocked.title" = "Where are reported senders?";
+"reported.guide.blocked.message" = "For privacy, iOS doesn't let SMS Shield see reports. Reported senders are added to your iPhone's blocked contacts: Settings > Apps > Phone > Blocked Contacts. You can unblock them there.";
+"reported.guide.app.title" = "Block in SMS Shield";
+"reported.guide.app.message" = "To see a sender in this app's list and use your filter rules, add it here.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Tap + at the top right to add numbers you want to block";
