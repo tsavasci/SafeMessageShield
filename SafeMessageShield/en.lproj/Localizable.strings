@@ -158,7 +158,7 @@
 "reported.guide.blocked.title" = "Where are reported senders?";
 "reported.guide.blocked.message" = "For privacy, iOS doesn't let SMS Shield see reports. Reported senders are added to your iPhone's blocked contacts: Settings > Apps > Phone > Blocked Contacts. You can unblock them there.";
 "reported.guide.app.title" = "Block in SMS Shield";
-"reported.guide.app.message" = "To see a sender in this app's list and use your filter rules, add it here.";
+"reported.guide.app.message" = "iOS can't block senders that use a name instead of a number (e.g. “SHOP”). Add them here to send their messages to Junk. Numbers added here also appear in this app's list.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Tap + at the top right to add numbers you want to block";

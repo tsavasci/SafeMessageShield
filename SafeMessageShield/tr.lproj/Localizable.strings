@@ -158,7 +158,7 @@
 "reported.guide.blocked.title" = "Bildirilenler nerede?";
 "reported.guide.blocked.message" = "Gizlilik nedeniyle iOS, bildirimleri SMS Shield'ın görmesine izin vermez. Bildirilen göndericiler iPhone'unuzun engellenen kişilerine eklenir: Ayarlar > Uygulamalar > Telefon > Engellenen Kişiler. Engeli oradan kaldırabilirsiniz.";
 "reported.guide.app.title" = "SMS Shield'da engelle";
-"reported.guide.app.message" = "Bir göndereni bu uygulamanın listesinde görmek ve filtre kurallarınızla kullanmak için buradan ekleyin.";
+"reported.guide.app.message" = "iOS, numara yerine ad kullanan göndericileri (örn. “MAGAZA”) engelleyemez. Mesajlarını Gereksiz'e göndermek için onları buradan ekleyin. Buradan eklenen numaralar bu uygulamanın listesinde de görünür.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Engellemek istediğiniz numaraları eklemek için sağ üstteki + butonuna dokunun";

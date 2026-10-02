@@ -210,6 +210,76 @@
           }
         }
       }
+    },
+    "report.name.note": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS can't block senders that use a name instead of a number. To send messages from this name to Junk, add it to SMS Shield's blocked list."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS, numara yerine ad kullanan göndericileri engelleyemez. Bu addan gelen mesajları Gereksiz'e göndermek için adı SMS Shield'ın engellenenler listesine ekleyin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS kann Absender, die statt einer Nummer einen Namen verwenden, nicht blockieren. Um Nachrichten dieses Namens in den Werbeordner zu leiten, füge ihn zur Sperrliste von SMS Shield hinzu."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS no puede bloquear remitentes que usan un nombre en lugar de un número. Para enviar sus mensajes a No deseados, añade este nombre a la lista de bloqueados de SMS Shield."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS ne peut pas bloquer les expéditeurs qui utilisent un nom au lieu d’un numéro. Pour envoyer leurs messages dans Indésirables, ajoutez ce nom à la liste de blocage de SMS Shield."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا يستطيع iOS حظر المرسلين الذين يستخدمون اسمًا بدلًا من رقم. لنقل رسائل هذا الاسم إلى غير المرغوب فيها، أضفه إلى قائمة الحظر في SMS Shield."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS उन प्रेषकों को ब्लॉक नहीं कर सकता जो नंबर के बजाय नाम का उपयोग करते हैं। इस नाम के संदेशों को जंक में भेजने के लिए, इसे SMS Shield की ब्लॉक सूची में जोड़ें।"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOSは、番号ではなく名前を使う送信者をブロックできません。この名前からのメッセージを迷惑メッセージに振り分けるには、SMS Shieldのブロックリストに追加してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS는 번호 대신 이름을 사용하는 발신자를 차단할 수 없습니다. 이 이름의 메시지를 정크로 보내려면 SMS Shield의 차단 목록에 추가하십시오."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS не может блокировать отправителей, использующих имя вместо номера. Чтобы сообщения с этим именем попадали в спам, добавьте его в список блокировки SMS Shield."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 无法阻止使用名称而非号码的发件人。若要将此名称的信息归入垃圾信息，请将其添加到 SMS Shield 的阻止列表。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

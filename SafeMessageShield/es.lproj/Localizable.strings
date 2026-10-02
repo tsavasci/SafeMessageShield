@@ -157,7 +157,7 @@
 "reported.guide.blocked.title" = "¿Dónde están los remitentes reportados?";
 "reported.guide.blocked.message" = "Por privacidad, iOS no permite que SMS Shield vea los reportes. Los remitentes reportados se añaden a los contactos bloqueados de tu iPhone: Ajustes > Apps > Teléfono > Contactos bloqueados. Puedes desbloquearlos allí.";
 "reported.guide.app.title" = "Bloquear en SMS Shield";
-"reported.guide.app.message" = "Para ver un remitente en la lista de esta app y usar tus reglas de filtro, añádelo aquí.";
+"reported.guide.app.message" = "iOS no puede bloquear remitentes que usan un nombre en lugar de un número (p. ej., “TIENDA”). Añádelos aquí para enviar sus mensajes a No deseados. Los números añadidos aquí también aparecen en la lista de esta app.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Toca + arriba a la derecha para añadir los números que quieras bloquear";

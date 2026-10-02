@@ -97,7 +97,12 @@ final class ReportViewController: ILClassificationUIExtensionViewController {
         } else {
             titleLabel.text = String(localized: "report.title", defaultValue: "This sender will be blocked")
             sendersLabel.text = senders.joined(separator: "\n")
-            detailLabel.text = String(localized: "report.detail", defaultValue: "iOS adds this sender to your blocked contacts. You won't get messages or calls from them. To undo, go to Settings > Apps > Phone > Blocked Contacts.")
+            var detail = String(localized: "report.detail", defaultValue: "iOS adds this sender to your blocked contacts. You won't get messages or calls from them. To undo, go to Settings > Apps > Phone > Blocked Contacts.")
+            // iOS'un engellenen kişiler listesi yalnızca numara/e-posta tutar; "BANKA" gibi adlar eklenmez (cihazda doğrulandı)
+            if senders.contains(where: { $0.rangeOfCharacter(from: .letters) != nil }) {
+                detail += "\n\n" + String(localized: "report.name.note", defaultValue: "iOS can't block senders that use a name instead of a number. To send messages from this name to Junk, add it to SMS Shield's blocked list.")
+            }
+            detailLabel.text = detail
         }
     }
 }

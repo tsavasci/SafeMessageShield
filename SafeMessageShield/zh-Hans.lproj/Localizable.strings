@@ -158,7 +158,7 @@
 "reported.guide.blocked.title" = "已报告的发件人在哪里？";
 "reported.guide.blocked.message" = "出于隐私考虑，iOS 不允许 SMS Shield 查看报告。已报告的发件人会被添加到 iPhone 的已阻止联系人：“设置”>“App”>“电话”>“已阻止的联系人”。你可以在那里解除阻止。";
 "reported.guide.app.title" = "在 SMS Shield 中阻止";
-"reported.guide.app.message" = "若要在此 App 的列表中显示某个发件人并使用你的过滤规则，请在此处添加。";
+"reported.guide.app.message" = "iOS 无法阻止使用名称而非号码的发件人（例如“SHOP”）。在此添加它们，即可将其信息归入垃圾信息。在此添加的号码也会显示在此 App 的列表中。";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "点击右上角的 + 添加您想拦截的号码";

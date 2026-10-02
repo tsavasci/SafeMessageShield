@@ -158,7 +158,7 @@
 "reported.guide.blocked.title" = "報告した送信者はどこに？";
 "reported.guide.blocked.message" = "プライバシー保護のため、iOSはSMS Shieldに報告内容を見せません。報告した送信者はiPhoneの着信拒否リストに追加されます：設定 > アプリ > 電話 > 着信拒否した連絡先。そこで解除できます。";
 "reported.guide.app.title" = "SMS Shieldでブロック";
-"reported.guide.app.message" = "送信者をこのアプリのリストに表示し、フィルタルールを使うには、ここで追加してください。";
+"reported.guide.app.message" = "iOSは、番号ではなく名前を使う送信者（例：「SHOP」）をブロックできません。そのメッセージを迷惑メッセージに振り分けるには、ここで追加してください。ここで追加した番号はこのアプリのリストにも表示されます。";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "右上の + をタップしてブロックしたい番号を追加してください";

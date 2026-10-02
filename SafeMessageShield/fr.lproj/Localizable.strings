@@ -157,7 +157,7 @@
 "reported.guide.blocked.title" = "Où sont les expéditeurs signalés ?";
 "reported.guide.blocked.message" = "Pour protéger votre vie privée, iOS ne permet pas à SMS Shield de voir les signalements. Les expéditeurs signalés sont ajoutés aux contacts bloqués de votre iPhone : Réglages > Apps > Téléphone > Contacts bloqués. Vous pouvez les débloquer à cet endroit.";
 "reported.guide.app.title" = "Bloquer dans SMS Shield";
-"reported.guide.app.message" = "Pour voir un expéditeur dans la liste de cette app et utiliser vos règles de filtrage, ajoutez-le ici.";
+"reported.guide.app.message" = "iOS ne peut pas bloquer les expéditeurs utilisant un nom au lieu d’un numéro (ex. « BOUTIQUE »). Ajoutez-les ici pour envoyer leurs messages dans Indésirables. Les numéros ajoutés ici apparaissent aussi dans la liste de cette app.";
 
 /* Confirmations & permissions */
 "no.blocked.message.manage" = "Touchez + en haut à droite pour ajouter les numéros à bloquer";
