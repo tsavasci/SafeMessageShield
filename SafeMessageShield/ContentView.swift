@@ -23,6 +23,10 @@ struct ContentView: View {
     @State private var showingContactPicker = false
     @State private var showingReportedJunk = false
     @State private var showingFilterCustomization = false
+    @State private var showingPresets = false
+    @State private var showingSimulator = false
+    @State private var showingSetupGuide = false
+    @State private var showingBackup = false
     @State private var pendingDeletion: BlockedNumber?
     @State private var contactErrorMessage: String?
     @State private var showingSuccessAlert = false
@@ -111,6 +115,22 @@ struct ContentView: View {
                 FilterCustomizationView()
                     .appLanguageEnvironment()
             }
+            .sheet(isPresented: $showingPresets) {
+                ProtectionPresetsView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingSimulator) {
+                FilterSimulatorView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingSetupGuide) {
+                SetupGuideView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingBackup) {
+                RuleBackupView()
+                    .appLanguageEnvironment()
+            }
             .onAppear {
                 refreshDashboard()
             }
@@ -182,7 +202,6 @@ struct ContentView: View {
             Spacer()
 
             ShieldStatusPill(
-                // Kısa durum etiketi; kartın başlığıyla aynı metni tekrar etmesin
                 title: protectionActive
                     ? NSLocalizedString("protection.status.on", comment: "")
                     : NSLocalizedString("protection.status.off", comment: ""),
@@ -228,8 +247,8 @@ struct ContentView: View {
                 }
 
                 HStack(spacing: 10) {
-                    Button(action: openRelevantSettings) {
-                        Label(NSLocalizedString("open.settings", comment: ""), systemImage: "arrow.up.forward.app.fill")
+                    Button(action: { showingSetupGuide = true }) {
+                        Label(NSLocalizedString("guide.nav.title", comment: ""), systemImage: "book.pages.fill")
                             .font(.subheadline.weight(.semibold))
                             .frame(maxWidth: .infinity)
                             .frame(height: 44)
@@ -239,9 +258,20 @@ struct ContentView: View {
                     }
                     .buttonStyle(.plain)
 
+                    Button(action: openRelevantSettings) {
+                        Image(systemName: "arrow.up.forward.app.fill")
+                            .font(.title3)
+                            .frame(width: 44, height: 44)
+                            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: ShieldTheme.Radius.medium, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(ShieldTheme.Colors.primary)
+                    .accessibilityLabel(NSLocalizedString("open.settings", comment: ""))
+
                     Button(action: {
                         DataManager.shared.setFilterEnabled(true)
                         refreshDashboard()
+                        StoreReviewManager.shared.recordPositiveAction()
                     }) {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.title3)
@@ -251,7 +281,6 @@ struct ContentView: View {
                     .buttonStyle(.plain)
                     .foregroundStyle(ShieldTheme.Colors.success)
                     .accessibilityLabel(NSLocalizedString("extensions.enabled", comment: ""))
-                    // Onay ikonu (checkmark) sistem tarafından "seçili" olarak okunmasın
                     .accessibilityRemoveTraits(.isSelected)
                 }
             }
@@ -274,7 +303,6 @@ struct ContentView: View {
                 VStack(spacing: 12) {
                     setupRow(
                         title: NSLocalizedString("dashboard.setup.ios.settings", comment: ""),
-                        // Adım tamamlanınca "işaretleyin" talimatı yerine durumu göster
                         subtitle: protectionActive
                             ? NSLocalizedString("dashboard.setup.user.confirmed", comment: "")
                             : NSLocalizedString("dashboard.setup.ios.settings.subtitle", comment: ""),
@@ -289,6 +317,20 @@ struct ContentView: View {
                         isComplete: dashboardLastSyncDate != nil
                     )
                 }
+
+                Divider()
+
+                Button(action: { showingSetupGuide = true }) {
+                    HStack {
+                        Image(systemName: "book.pages.fill")
+                        Text(NSLocalizedString("guide.open.button", comment: ""))
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(ShieldTheme.Colors.primary)
+                }
+                .buttonStyle(.plain)
             }
         }
     }
@@ -318,7 +360,6 @@ struct ContentView: View {
 
             Spacer()
         }
-        // Adım tek öğe olarak okunsun; durum ikon yerine metinle bildirilsin
         .accessibilityElement(children: .combine)
         .accessibilityValue(
             isComplete
@@ -341,8 +382,6 @@ struct ContentView: View {
                 systemImage: "checkmark.shield.fill",
                 color: ShieldTheme.Colors.success
             )
-            // SMS filtresi App Group'a yazamadığı için (iOS kısıtı) filtrelenen mesaj sayısı gösterilemez;
-            // yalnızca uygulamanın kendi tuttuğu veriler gösterilir.
             ShieldMetricCard(
                 title: NSLocalizedString("management.keywords.title", comment: ""),
                 value: "\(filterRulesList.count)",
@@ -373,7 +412,16 @@ struct ContentView: View {
                             showingContactPicker = true
                         }
                     }
-                    // Keep both buttons in a row the same height when a label wraps
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    HStack(spacing: 10) {
+                        ShieldActionButton(title: NSLocalizedString("presets.nav.title", comment: ""), systemImage: "sparkles.rectangle.stack.fill", color: ShieldTheme.Colors.primary) {
+                            showingPresets = true
+                        }
+                        ShieldActionButton(title: NSLocalizedString("sim.title", comment: ""), systemImage: "flask.fill", color: ShieldTheme.Colors.secondary) {
+                            showingSimulator = true
+                        }
+                    }
                     .fixedSize(horizontal: false, vertical: true)
 
                     HStack(spacing: 10) {
@@ -452,8 +500,6 @@ struct ContentView: View {
         return count
     }
 
-    /// Kullanıcı onayı tek başına yetmez; sistem arama engellemeyi kapalı bildiriyorsa koruma aktif sayılmaz.
-    /// (SMS filtresinin durumunu okuyan herkese açık bir API yok, o kısım kullanıcı onayına dayanır.)
     private var protectionActive: Bool {
         dashboardFilterEnabled && callBlockingEnabled != false
     }
@@ -466,7 +512,6 @@ struct ContentView: View {
         guard let dashboardLastSyncDate else {
             return NSLocalizedString("dashboard.setup.no.sync", comment: "")
         }
-        // Göreli zaman ("şimdi", "5 dakika önce"); dakikaya yuvarlanır ki son bir dakika "şimdi" olsun
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = languageManager.locale
         formatter.dateTimeStyle = .named
@@ -476,7 +521,6 @@ struct ContentView: View {
     }
 
     private func addNumberFromContact(phoneNumber: String) {
-        // Rehberdeki numara yerel biçimde olabilir; varsayılan ülkeye göre uluslararası biçime çevir
         let entry: PhoneNumberEntry
         switch RegionManager.shared.entry(for: phoneNumber) {
         case .success(let value):
@@ -488,24 +532,19 @@ struct ContentView: View {
         }
         let cleanedNumber = entry.storageValue
 
-        // Temizlenmiş numara ile kontrol et
         if DataManager.shared.isNumberBlocked(cleanedNumber) {
             print("⚠️ Numara zaten engelli: \(cleanedNumber)")
             return
         }
 
-        // Centralize persistence via DataManager (will insert into SwiftData when modelContext provided)
         DataManager.shared.addBlockedNumber(cleanedNumber, modelContext: modelContext)
-
-        // Call Directory Extension'ı güncelle
         reloadCallDirectory()
 
-        // Geri bildirim için (listede saklandığı biçimle aynı göster)
         lastBlockedNumber = PhoneNumberService.shared.displayString(forStored: entry.storageValue)
         showingSuccessAlert = true
-
-        // ViewModel'i sıfırla
         contactViewModel.selectedPhoneNumber = ""
+
+        StoreReviewManager.shared.recordPositiveAction()
     }
 
     private func deleteBlockedNumber(_ number: BlockedNumber) {
@@ -518,32 +557,31 @@ struct ContentView: View {
         dashboardFilterEnabled = DataManager.shared.isFilterEnabled()
         dashboardLastSyncDate = DataManager.shared.lastAppGroupSyncDate()
 
-        Task {
-            callBlockingEnabled = await SystemSettingsNavigator.callBlockingEnabledStatus()
-        }
-    }
-
-    private func reloadCallDirectory() {
-        CXCallDirectoryManager.sharedInstance.reloadExtension(
-            withIdentifier: SystemSettingsNavigator.callDirectoryExtensionIdentifier
-        ) { error in
+        CXCallDirectoryManager.sharedInstance.getEnabledStatusForExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { status, _ in
             DispatchQueue.main.async {
-                DataManager.shared.recordCallDirectoryReloadError(error)
+                self.callBlockingEnabled = (status == .enabled)
             }
         }
     }
 
-    /// Arama engelleme kapalıysa doğrudan CallKit'in ayar ekranını açar; açıksa
-    /// kullanıcıyı SMS filtresi talimatlarının bulunduğu Ayarlar sekmesine götürür.
     private func openRelevantSettings() {
-        if callBlockingEnabled != true {
-            SystemSettingsNavigator.openCallBlockingSettings()
+        if !dashboardFilterEnabled {
+            SystemSettingsNavigator.openAppSettings()
         } else {
-            selectedTab = 2
+            SystemSettingsNavigator.openCallBlockingSettings()
+        }
+    }
+
+    private func reloadCallDirectory() {
+        CXCallDirectoryManager.sharedInstance.reloadExtension(withIdentifier: "tsavasci.SafeMessageShield.CallDirectoryExtension") { error in
+            if let error = error {
+                print("❌ Call Directory Extension güncellenemedi: \(error.localizedDescription)")
+            } else {
+                print("✅ Call Directory Extension başarıyla güncellendi")
+            }
         }
     }
 }
-
 // MARK: - Blocked Number Row
 struct BlockedNumberRow: View {
     let blockedNumber: BlockedNumber

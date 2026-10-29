@@ -22,6 +22,9 @@ struct ManagementView: View {
     @State private var showingAddKeywordRule = false
     @State private var showingAddNumberRule = false
     @State private var pendingDeletion: PendingDeletion?
+    @State private var showingPresets = false
+    @State private var showingSimulator = false
+    @State private var showingBackup = false
 
     var body: some View {
         NavigationStack {
@@ -40,6 +43,22 @@ struct ManagementView: View {
             .navigationTitle(NSLocalizedString("management.title", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        Button(action: { showingPresets = true }) {
+                            Label(NSLocalizedString("presets.nav.title", comment: ""), systemImage: "sparkles.rectangle.stack.fill")
+                        }
+                        Button(action: { showingSimulator = true }) {
+                            Label(NSLocalizedString("sim.title", comment: ""), systemImage: "flask.fill")
+                        }
+                        Button(action: { showingBackup = true }) {
+                            Label(NSLocalizedString("backup.nav.title", comment: ""), systemImage: "arrow.triangle.2.circlepath.circle.fill")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .font(.title3)
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: showAddSheet) {
                         Image(systemName: "plus.circle.fill")
@@ -50,6 +69,18 @@ struct ManagementView: View {
             }
             .sheet(isPresented: $showingAddBlocked) {
                 AddBlockedSenderView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingPresets) {
+                ProtectionPresetsView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingSimulator) {
+                FilterSimulatorView()
+                    .appLanguageEnvironment()
+            }
+            .sheet(isPresented: $showingBackup) {
+                RuleBackupView()
                     .appLanguageEnvironment()
             }
             .sheet(isPresented: $showingAddAllowed) {
@@ -449,6 +480,7 @@ private struct AddBlockedSenderView: View {
         }
 
         DataManager.shared.addBlockedNumber(entry.storageValue, reason: reason, modelContext: modelContext)
+        StoreReviewManager.shared.recordPositiveAction()
         reloadCallDirectory()
         dismiss()
     }

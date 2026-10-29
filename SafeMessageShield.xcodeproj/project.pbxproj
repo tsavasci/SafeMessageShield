@@ -18,6 +18,7 @@
 		F30000312F00000100000031 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
 		F30000322F00000100000032 /* Shared/PhoneNumberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000302F00000100000030 /* Shared/PhoneNumberService.swift */; };
 		F30000332F00000100000033 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
+		F30000342F00000100000034 /* Shared/MessageFilterMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000112F00000100000011 /* Shared/MessageFilterMatcher.swift */; };
 		F30000432F00000100000043 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000412F00000100000041 /* PhoneNumberKit */; };
 		F30000442F00000100000044 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = F30000422F00000100000042 /* PhoneNumberKit */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = F263AC5C306EECD900AE3CCA;
 			remoteInfo = SMSReportExtension;
+		};
+		F30000522F00000100000052 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2F8BFDD2EBB545100BF757A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2F8BFE42EBB545100BF757A;
+			remoteInfo = SafeMessageShield;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -327,6 +335,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F30000512F00000100000051 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F30000132F00000100000013 /* SafeMessageShieldTests */,
@@ -471,6 +480,7 @@
 			files = (
 				F30000212F00000100000021 /* Shared/PhoneNumberNormalizer.swift in Sources */,
 				F30000312F00000100000031 /* Shared/PhoneNumberService.swift in Sources */,
+				F30000342F00000100000034 /* Shared/MessageFilterMatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +512,11 @@
 			target = F263AC5C306EECD900AE3CCA /* SMSReportExtension */;
 			targetProxy = F263AC65306EECD900AE3CCA /* PBXContainerItemProxy */;
 		};
+		F30000512F00000100000051 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2F8BFE42EBB545100BF757A /* SafeMessageShield */;
+			targetProxy = F30000522F00000100000052 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -522,6 +537,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.CallDirectoryExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -551,6 +567,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.CallDirectoryExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -580,6 +597,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.MessageFilterExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -609,6 +627,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.MessageFilterExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -638,6 +657,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.SMSReportExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -668,6 +688,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield.SMSReportExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -835,6 +856,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -876,6 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = tsavasci.SafeMessageShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -895,7 +918,7 @@
 		F30000182F00000100000018 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T54PTGTNBU;
@@ -907,14 +930,14 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SafeMessageShield.app/SafeMessageShield";
 			};
 			name = Debug;
 		};
 		F30000192F00000100000019 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "";
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T54PTGTNBU;
@@ -925,7 +948,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SafeMessageShield.app/SafeMessageShield";
 			};
 			name = Release;
 		};

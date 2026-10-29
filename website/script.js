@@ -1,204 +1,246 @@
-// Navbar scroll effect
-window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+/* SafeMessageShield — Modern Interactive Script & Multi-Language Engine */
+
+function resolveI18nValue(dict, path) {
+    return path
+        .split(".")
+        .reduce((acc, key) => (acc == null ? undefined : acc[key]), dict);
+}
+
+function initI18n() {
+    const languages = window.SMS_LANGUAGES || [];
+    const translations = window.SMS_TRANSLATIONS || {};
+    if (!languages.length || !Object.keys(translations).length) {
+        return;
     }
-});
 
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+    const STORAGE_KEY = "sms_lang";
+    const codes = languages.map((l) => l.code);
+
+    const detectInitialLanguage = () => {
+        try {
+            const urlLang = new URLSearchParams(window.location.search)
+                .get("lang")
+                ?.slice(0, 7)
+                .toLowerCase();
+            if (urlLang && codes.includes(urlLang)) {
+                return urlLang;
+            }
+        } catch (e) {
+            /* URLSearchParams unavailable */
+        }
+
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved && codes.includes(saved)) {
+                return saved;
+            }
+        } catch (e) {
+            /* localStorage unavailable */
+        }
+
+        const browserLangs = navigator.languages || [navigator.language || "en"];
+        for (const bl of browserLangs) {
+            const short = bl.slice(0, 2).toLowerCase();
+            if (codes.includes(short)) {
+                return short;
+            }
+        }
+        return "en";
+    };
+
+    const applyTranslations = (code) => {
+        const dict = translations[code] || translations.en;
+        const currentLangObj = languages.find((l) => l.code === code) || languages[0];
+
+        // Set document language and text direction
+        document.documentElement.lang = code;
+        document.documentElement.dir = currentLangObj.dir || "ltr";
+
+        // Translate text content
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const value = resolveI18nValue(dict, el.getAttribute("data-i18n"));
+            if (typeof value === "string") {
+                el.textContent = value;
+            }
+        });
+
+        // Translate HTML content (replaces {iOS} placeholder with gradient span)
+        document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            const value = resolveI18nValue(dict, el.getAttribute("data-i18n-html"));
+            if (typeof value === "string") {
+                el.innerHTML = value.replace(
+                    "{iOS}",
+                    '<span class="gradient-text">iOS</span>'
+                );
+            }
+        });
+
+        // Translate attributes (e.g. aria-label or placeholder)
+        document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+            el.getAttribute("data-i18n-attr")
+                .split(";")
+                .forEach((pair) => {
+                    const [attr, key] = pair.split(":").map((part) => part.trim());
+                    if (!attr || !key) return;
+                    const value = resolveI18nValue(dict, key);
+                    if (typeof value === "string") {
+                        el.setAttribute(attr, value);
+                    }
+                });
+        });
+
+        // Update current toggle labels
+        const currentFlagEl = document.getElementById("lang-current-flag");
+        const currentCodeEl = document.getElementById("lang-current-code");
+        if (currentFlagEl) currentFlagEl.textContent = currentLangObj.flag;
+        if (currentCodeEl) currentCodeEl.textContent = currentLangObj.code.toUpperCase();
+
+        // Update active class in menu
+        document.querySelectorAll("#lang-menu li").forEach((li) => {
+            li.classList.toggle("active", li.getAttribute("data-lang") === code);
+        });
+
+        // Save preference
+        try {
+            localStorage.setItem(STORAGE_KEY, code);
+        } catch (e) {
+            /* localStorage unavailable */
+        }
+
+        // Notify privacy policy page if present
+        if (typeof window.applyPrivacyTranslations === "function") {
+            window.applyPrivacyTranslations(code);
+        }
+    };
+
+    // Render language switcher menu items
+    const langMenuEl = document.getElementById("lang-menu");
+    if (langMenuEl) {
+        langMenuEl.innerHTML = languages
+            .map(
+                (l) =>
+                    `<li data-lang="${l.code}">
+                        <button type="button">
+                            <span class="lang-flag">${l.flag}</span>
+                            <span>${l.name}</span>
+                        </button>
+                    </li>`
+            )
+            .join("");
+
+        langMenuEl.querySelectorAll("li button").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const code = btn.closest("li").getAttribute("data-lang");
+                applyTranslations(code);
+                closeLangMenu();
             });
-        }
-    });
-});
-
-// Animate elements on scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe feature cards, steps, and sections
-document.addEventListener('DOMContentLoaded', function() {
-    // Set initial state for animated elements
-    const animatedElements = document.querySelectorAll('.feature-card, .step, .privacy-content > *');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Add stagger delay to feature cards
-    document.querySelectorAll('.feature-card').forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
-
-    // Add stagger delay to steps
-    document.querySelectorAll('.step').forEach((step, index) => {
-        step.style.transitionDelay = `${index * 0.15}s`;
-    });
-});
-
-// Mobile menu toggle (if needed in the future)
-function toggleMobileMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    navLinks.classList.toggle('active');
-}
-
-// Add parallax effect to hero background circles
-window.addEventListener('scroll', function() {
-    const scrolled = window.pageYOffset;
-    const circles = document.querySelectorAll('.gradient-circle');
-    
-    circles.forEach((circle, index) => {
-        const speed = (index + 1) * 0.1;
-        circle.style.transform = `translateY(${scrolled * speed}px)`;
-    });
-});
-
-// Update stats with animation (when they come into view)
-function animateCounter(element, target, duration) {
-    let current = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 16);
-}
-
-// Observe stats for counter animation
-const statsObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.animated) {
-            entry.target.dataset.animated = 'true';
-            // You can add counter animation here if needed for stats
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.stat-number').forEach(stat => {
-    statsObserver.observe(stat);
-});
-
-// Add hover effect to phone mockup
-const phoneMockup = document.querySelector('.phone-mockup');
-if (phoneMockup) {
-    phoneMockup.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.05) rotateY(5deg)';
-        this.style.transition = 'transform 0.3s ease';
-    });
-    
-    phoneMockup.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) rotateY(0deg)';
-    });
-}
-
-// Handle App Store link click (update this when you have the actual App Store URL)
-document.querySelectorAll('a[href="#"]').forEach(link => {
-    if (link.textContent.includes('App Store')) {
-        link.addEventListener('click', function(e) {
-            // Uncomment when you have the App Store URL
-            // window.open('YOUR_APP_STORE_URL', '_blank');
-            console.log('App Store link clicked - add your App Store URL here');
         });
     }
-});
 
-// Prevent default on placeholder links
-document.querySelectorAll('a[href="#download"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Scroll to download section
-        const downloadSection = document.querySelector('#download');
-        if (downloadSection) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = downloadSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+    const langToggleBtn = document.getElementById("lang-toggle");
+    const closeLangMenu = () => {
+        if (langMenuEl) langMenuEl.classList.remove("open");
+        if (langToggleBtn) langToggleBtn.setAttribute("aria-expanded", "false");
+    };
+
+    if (langToggleBtn && langMenuEl) {
+        langToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = langMenuEl.classList.toggle("open");
+            langToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!langToggleBtn.contains(e.target) && !langMenuEl.contains(e.target)) {
+                closeLangMenu();
+            }
+        });
+    }
+
+    // Initial translation run
+    const initialCode = detectInitialLanguage();
+    applyTranslations(initialCode);
+}
+
+// Mobile menu toggle
+function initNavToggle() {
+    const navToggle = document.querySelector(".nav-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    if (!navToggle || !navMenu) return;
+
+    navToggle.addEventListener("click", () => {
+        const isOpen = navMenu.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    navMenu.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+            navMenu.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+}
+
+// Navbar scroll styling
+function initNavbarScroll() {
+    const navbar = document.querySelector(".navbar");
+    if (!navbar) return;
+
+    window.addEventListener(
+        "scroll",
+        () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 40);
+        },
+        { passive: true }
+    );
+}
+
+// FAQ Accordion
+function initFaqAccordion() {
+    document.querySelectorAll(".faq-item").forEach((item) => {
+        const questionBtn = item.querySelector(".faq-question");
+        if (!questionBtn) return;
+        questionBtn.addEventListener("click", () => {
+            const wasActive = item.classList.contains("active");
+            document.querySelectorAll(".faq-item").forEach((other) => {
+                other.classList.remove("active");
             });
-        }
+            if (!wasActive) {
+                item.classList.add("active");
+            }
+        });
     });
+}
+
+// Table of contents active highlight for Docs / Privacy Policy
+function bindTocHighlight() {
+    const tocLinks = document.querySelectorAll(".docs-toc a");
+    const sections = document.querySelectorAll(".docs-section");
+    if (!tocLinks.length || !sections.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+                    tocLinks.forEach((link) => {
+                        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+                    });
+                }
+            });
+        },
+        { rootMargin: "-20% 0px -70% 0px" }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+}
+
+// Initialize on DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+    initI18n();
+    initNavToggle();
+    initNavbarScroll();
+    initFaqAccordion();
+    bindTocHighlight();
 });
-
-// Add active state to navigation links based on scroll position
-window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Easter egg: Konami code for fun
-const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            // Easter egg activated!
-            document.body.style.animation = 'rainbow 2s linear infinite';
-            setTimeout(() => {
-                document.body.style.animation = '';
-            }, 5000);
-            konamiIndex = 0;
-        }
-    } else {
-        konamiIndex = 0;
-    }
-});
-
-// Add rainbow animation for easter egg
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
-    }
-`;
-document.head.appendChild(style);

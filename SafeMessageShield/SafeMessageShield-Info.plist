@@ -13,7 +13,5 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSContactsUsageDescription</key>
-	<string>SMS Shield uses your contacts only on this device so you can pick numbers to block or allow.</string>
 </dict>
 </plist>

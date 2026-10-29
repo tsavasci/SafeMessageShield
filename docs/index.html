@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safe Message Shield – Spam SMS & Call Blocker for iOS</title>
+    <meta
+        name="description"
+        content="100% offline, privacy-first spam text and fraud call blocker for iOS. Neutralize casino promos, fake parcel delivery alerts, and robocalls with zero cloud tracking."
+    />
+    <meta
+        name="keywords"
+        content="SMS blocker, spam filter iOS, spam text blocker, iPhone spam filter, robocall blocker, privacy caller id, offline SMS filter, Safe Message Shield"
+    />
+    <meta name="author" content="Tamer Savaşcı" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#10B981" />
+    <meta name="apple-itunes-app" content="app-id=6755031025" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tsavasci.github.io/SafeMessageShield/" />
+    <meta
+        property="og:title"
+        content="Safe Message Shield – 100% Offline SMS & Call Filter for iOS"
+    />
+    <meta
+        property="og:description"
+        content="Block unwanted spam texts, fake parcel delivery links, and fraud calls 100% offline. Zero tracking, zero cloud servers. Powered by Apple IdentityLookup & CallKit."
+    />
+    <meta property="og:image" content="https://tsavasci.github.io/SafeMessageShield/app-icon.png" />
+    <meta property="og:site_name" content="Safe Message Shield" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://tsavasci.github.io/SafeMessageShield/" />
+    <meta
+        name="twitter:title"
+        content="Safe Message Shield – 100% Offline SMS & Call Filter for iOS"
+    />
+    <meta
+        name="twitter:description"
+        content="Block unwanted spam texts and fraud calls 100% offline. Zero data harvesting."
+    />
+    <meta name="twitter:image" content="https://tsavasci.github.io/SafeMessageShield/app-icon.png" />
+
+    <!-- Schema.org SoftwareApplication JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Safe Message Shield",
+      "operatingSystem": "iOS 18.0 or later",
+      "applicationCategory": "UtilitiesApplication",
+      "downloadUrl": "https://apps.apple.com/app/id6755031025",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "The 100% offline, privacy-first spam text and robocall blocker for iOS. Built on Apple's native IdentityLookup and CallKit frameworks.",
+      "author": {
+        "@type": "Person",
+        "name": "Tamer Savaşcı"
+      }
+    }
+    </script>
+
+    <link rel="canonical" href="https://tsavasci.github.io/SafeMessageShield/" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+</head>
+<body>
+    <a href="#main-content" class="skip-link" data-i18n="misc.skipLink">Skip to content</a>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="nav-logo" href="index.html">
+                <div class="logo-icon">
+                    <img src="app-icon.png" alt="Safe Message Shield Logo" class="logo-image" />
+                </div>
+                <span class="logo-text">Safe Message Shield</span>
+            </a>
+
+            <div class="nav-menu" id="nav-menu">
+                <a class="nav-link" href="#features" data-i18n="nav.features">Features</a>
+                <a class="nav-link" href="#presets" data-i18n="nav.presets">Smart Presets</a>
+                <a class="nav-link" href="#simulator" data-i18n="nav.simulator">Simulator</a>
+                <a class="nav-link" href="#how-it-works" data-i18n="nav.howItWorks">How It Works</a>
+                <a class="nav-link" href="#privacy" data-i18n="nav.privacy">Privacy</a>
+                <a class="nav-link" href="#faq" data-i18n="nav.faq">FAQ</a>
+
+                <!-- Language Switcher Dropdown -->
+                <div class="lang-switcher" id="lang-switcher">
+                    <button
+                        type="button"
+                        class="lang-toggle"
+                        id="lang-toggle"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-controls="lang-menu"
+                    >
+                        <span class="lang-flag" id="lang-current-flag">🇬🇧</span>
+                        <span class="lang-code" id="lang-current-code">EN</span>
+                        <svg class="lang-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Language"></ul>
+                </div>
+
+                <a
+                    class="nav-link download-btn"
+                    href="https://apps.apple.com/app/id6755031025"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-i18n="nav.download"
+                    >Download</a
+                >
+            </div>
+
+            <button
+                type="button"
+                class="nav-toggle"
+                aria-label="Toggle navigation"
+                data-i18n-attr="aria-label:misc.toggleNav"
+                aria-controls="nav-menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-i18n-html="hero.title">
+                        Silence SMS &amp; Call Spam on <span class="gradient-text">iOS</span>
+                    </h1>
+                    <p class="hero-subtitle" data-i18n="hero.subtitle">
+                        The 100% offline, privacy-first mobile shield. Neutralize casino promos, fake delivery phishing, and robocalls with zero data tracking. Your messages and contacts never leave your device.
+                    </p>
+                    <div class="hero-buttons">
+                        <a
+                            href="https://apps.apple.com/app/id6755031025"
+                            class="btn btn-primary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.67 1.37-.58.67-1.08 1.76-.94 2.8.01 0 .02 0 .03 0 1.02 0 2.01-.49 2.64-1.26z"/>
+                            </svg>
+                            <span data-i18n="hero.btnDownload">Download on App Store</span>
+                        </a>
+                        <a href="#features" class="btn btn-secondary" data-i18n="hero.btnLearnMore">Learn More</a>
+                    </div>
+                    <div class="hero-badges">
+                        <div class="badge">
+                            <span class="badge-icon">🛡️</span>
+                            <span data-i18n="hero.badges.0">100% Offline &amp; Private</span>
+                        </div>
+                        <div class="badge">
+                            <span class="badge-icon">⚡</span>
+                            <span data-i18n="hero.badges.1">Smart Scam Presets</span>
+                        </div>
+                        <div class="badge">
+                            <span class="badge-icon">🧪</span>
+                            <span data-i18n="hero.badges.2">Rule Simulator Sandbox</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual / Mockup -->
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-header">
+                            <div>
+                                <div style="font-weight: 700; font-size: 0.95rem; color: #fff;">Safe Message Shield</div>
+                                <div style="font-size: 0.75rem; color: #94a3b8;">iOS 18 Native Protection</div>
+                            </div>
+                            <div class="phone-status-pill">
+                                <span class="pulse-dot"></span>
+                                <span>PROTECTION ACTIVE</span>
+                            </div>
+                        </div>
+
+                        <div class="mockup-card">
+                            <div class="mockup-toggle-row">
+                                <div>
+                                    <div class="mockup-card-title">🎰 Casino &amp; Betting Preset</div>
+                                    <div class="mockup-card-desc">Active • 9 Keywords Loaded</div>
+                                </div>
+                                <div class="mockup-toggle-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="mockup-card">
+                            <div class="mockup-toggle-row">
+                                <div>
+                                    <div class="mockup-card-title">📦 Fake Delivery &amp; Customs</div>
+                                    <div class="mockup-card-desc">Active • Phishing links blocked</div>
+                                </div>
+                                <div class="mockup-toggle-btn"></div>
+                            </div>
+                        </div>
+
+                        <div class="mockup-card" style="border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.08);">
+                            <div class="mockup-card-title" style="color: #34d399;">🧪 Rule Sandbox Status</div>
+                            <div class="mockup-card-desc" style="color: #cbd5e1;">Evaluated 12 incoming patterns locally • 0 network requests</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" data-i18n="stats.stat1Value">100%</div>
+                        <div class="stat-label" data-i18n="stats.stat1Label">On-Device &amp; Offline</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-i18n="stats.stat2Value">0</div>
+                        <div class="stat-label" data-i18n="stats.stat2Label">Data Harvested</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-i18n="stats.stat3Value">11</div>
+                        <div class="stat-label" data-i18n="stats.stat3Label">Languages Supported</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-i18n="stats.stat4Value">iOS 18</div>
+                        <div class="stat-label" data-i18n="stats.stat4Label">Native Frameworks</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="features.badge">Core Features</div>
+                    <h2 class="section-title" data-i18n="features.title">Powerful Privacy-First Defense</h2>
+                    <p class="section-subtitle" data-i18n="features.subtitle">
+                        Engineered with native Apple frameworks to keep your personal communications quiet, safe, and strictly private.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">⚡</div>
+                        <h3 class="feature-title" data-i18n="features.items.0.title">Smart Protection Presets</h3>
+                        <p class="feature-description" data-i18n="features.items.0.desc">
+                            1-tap defense against casino blasts, fake parcel delivery phishing, loan traps, and crypto scams.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">🧪</div>
+                        <h3 class="feature-title" data-i18n="features.items.1.title">Interactive Simulator Sandbox</h3>
+                        <p class="feature-description" data-i18n="features.items.1.desc">
+                            Audit and verify how your active rules evaluate senders and messages before real texts arrive.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">📩</div>
+                        <h3 class="feature-title" data-i18n="features.items.2.title">Native iOS SMS Junk Filter</h3>
+                        <p class="feature-description" data-i18n="features.items.2.desc">
+                            Routes unwanted messages silently into the iOS Junk folder without notification buzzes.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">📞</div>
+                        <h3 class="feature-title" data-i18n="features.items.3.title">Call Directory Robocall Blocker</h3>
+                        <p class="feature-description" data-i18n="features.items.3.desc">
+                            Suppresses fraudulent telemarketing and scam calls at the iOS system level via CallKit.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">🌐</div>
+                        <h3 class="feature-title" data-i18n="features.items.4.title">Pattern &amp; Country Code Rules</h3>
+                        <p class="feature-description" data-i18n="features.items.4.desc">
+                            Block by international dialing codes (+XX), carrier prefixes, suffixes, or digit sequences.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">🔑</div>
+                        <h3 class="feature-title" data-i18n="features.items.5.title">Bank OTP &amp; 2FA Guardian</h3>
+                        <p class="feature-description" data-i18n="features.items.5.desc">
+                            Trusted family contacts and banking institutions are safeguarded so verification codes always arrive.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">🔒</div>
+                        <h3 class="feature-title" data-i18n="features.items.6.title">100% Offline Architecture</h3>
+                        <p class="feature-description" data-i18n="features.items.6.desc">
+                            No remote cloud servers, no account logins, and no contact harvesting. Total privacy.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">📁</div>
+                        <h3 class="feature-title" data-i18n="features.items.7.title">JSON Backup &amp; Sharing</h3>
+                        <p class="feature-description" data-i18n="features.items.7.desc">
+                            1-click export and import of your custom blocklists for seamless cross-device migration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Presets Section -->
+        <section id="presets" class="section" style="background: rgba(15, 23, 42, 0.3);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="presets.badge">Scam Defense</div>
+                    <h2 class="section-title" data-i18n="presets.title">1-Tap Smart Protection Presets</h2>
+                    <p class="section-subtitle" data-i18n="presets.subtitle">
+                        Turn on battle-tested keyword shields tailored for widespread modern spam patterns across 11 languages.
+                    </p>
+                </div>
+
+                <div class="presets-grid">
+                    <div class="preset-card">
+                        <div class="preset-icon">🎰</div>
+                        <h3 class="preset-name" data-i18n="presets.items.0.name">Casino &amp; Betting</h3>
+                        <p class="preset-desc" data-i18n="presets.items.0.desc">Free spins, slot machines, sportsbook promos, and illegal gambling blasts.</p>
+                    </div>
+
+                    <div class="preset-card">
+                        <div class="preset-icon">📦</div>
+                        <h3 class="preset-name" data-i18n="presets.items.1.name">Fake Delivery &amp; Customs</h3>
+                        <p class="preset-desc" data-i18n="presets.items.1.desc">Detained parcel alerts, unpaid customs duty links, and fake courier phishing.</p>
+                    </div>
+
+                    <div class="preset-card">
+                        <div class="preset-icon">💳</div>
+                        <h3 class="preset-name" data-i18n="presets.items.2.name">Predatory Loans</h3>
+                        <p class="preset-desc" data-i18n="presets.items.2.desc">Instant cash, zero-interest credit traps, and bogus debt relief solicitations.</p>
+                    </div>
+
+                    <div class="preset-card">
+                        <div class="preset-icon">🎁</div>
+                        <h3 class="preset-name" data-i18n="presets.items.3.name">Lottery &amp; Gift Cards</h3>
+                        <p class="preset-desc" data-i18n="presets.items.3.desc">Fake prize claims, free smartphone draws, and survey trap links.</p>
+                    </div>
+
+                    <div class="preset-card">
+                        <div class="preset-icon">💼</div>
+                        <h3 class="preset-name" data-i18n="presets.items.4.name">Crypto &amp; Job Scams</h3>
+                        <p class="preset-desc" data-i18n="presets.items.4.desc">Unsolicited WhatsApp/Telegram work-from-home fraud and crypto schemes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rule Simulator Sandbox -->
+        <section id="simulator" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="simulator.badge">Exclusive Sandbox</div>
+                    <h2 class="section-title" data-i18n="simulator.title">Interactive Rule Simulator</h2>
+                    <p class="section-subtitle" data-i18n="simulator.subtitle">
+                        Test any incoming sender or message text in a real-time sandbox before real messages land.
+                    </p>
+                </div>
+
+                <div class="simulator-box">
+                    <div class="sim-input-row">
+                        <input
+                            type="text"
+                            class="sim-input"
+                            value="Sender: +1 (800) 555-0199"
+                            readonly
+                            data-i18n-attr="value:simulator.testSender"
+                        />
+                        <input
+                            type="text"
+                            class="sim-input"
+                            style="flex: 2;"
+                            value="USPS: Your parcel is on hold due to missing address info. Update here: track-usps-fee.xyz"
+                            readonly
+                            data-i18n-attr="value:simulator.testBody"
+                        />
+                    </div>
+                    <div class="sim-result-card">
+                        <div class="sim-result-badge" data-i18n="simulator.simBadge">FILTERED: JUNK</div>
+                        <div class="sim-result-text" data-i18n="simulator.simExplanation">
+                            Matched Rule: 'Fake Delivery &amp; Customs Preset' → Action: Route to iOS Junk Tab (Silenced)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="section" style="background: rgba(15, 23, 42, 0.3);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="howItWorks.badge">Getting Started</div>
+                    <h2 class="section-title" data-i18n="howItWorks.title">Protected in 3 Simple Steps</h2>
+                    <p class="section-subtitle" data-i18n="howItWorks.subtitle">
+                        Fast and native iOS setup with zero registration required.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title" data-i18n="howItWorks.steps.0.title">Download Free</h3>
+                        <p class="step-desc" data-i18n="howItWorks.steps.0.desc">Get Safe Message Shield from the official iOS App Store.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title" data-i18n="howItWorks.steps.1.title">Enable Extensions</h3>
+                        <p class="step-desc" data-i18n="howItWorks.steps.1.desc">Toggle Safe Message Shield in iOS Settings under Messages &amp; Phone.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title" data-i18n="howItWorks.steps.2.title">Enjoy Peace of Mind</h3>
+                        <p class="step-desc" data-i18n="howItWorks.steps.2.desc">Spam texts fall silently into Junk, and fraud calls are blocked automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Comparison -->
+        <section id="privacy" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="privacy.badge">Zero-Knowledge</div>
+                    <h2 class="section-title" data-i18n="privacy.title">Why We Are Fundamentally Safer</h2>
+                    <p class="section-subtitle" data-i18n="privacy.subtitle">
+                        Unlike legacy caller ID apps that monetize your address book, Safe Message Shield is 100% on-device.
+                    </p>
+                </div>
+
+                <div class="privacy-compare-grid">
+                    <div class="compare-card bad">
+                        <h3 class="compare-title">
+                            <span style="color: #ef4444;">✕</span>
+                            <span data-i18n="privacy.legacyTitle">Legacy Caller ID Apps</span>
+                        </h3>
+                        <ul class="compare-list">
+                            <li><span>❌</span> <span data-i18n="privacy.legacyItems.0">Upload your complete address book to external cloud servers</span></li>
+                            <li><span>❌</span> <span data-i18n="privacy.legacyItems.1">Route incoming communication metadata through corporate datacenters</span></li>
+                            <li><span>❌</span> <span data-i18n="privacy.legacyItems.2">Sell telemetry and number graphs to data brokers</span></li>
+                            <li><span>❌</span> <span data-i18n="privacy.legacyItems.3">Lock basic pattern matching behind $4.99/week subscriptions</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="compare-card good">
+                        <h3 class="compare-title">
+                            <span style="color: #10b981;">✓</span>
+                            <span data-i18n="privacy.smsTitle">Safe Message Shield</span>
+                        </h3>
+                        <ul class="compare-list">
+                            <li><span>✅</span> <span data-i18n="privacy.smsItems.0">100% on-device computation via Apple IdentityLookup &amp; CallKit</span></li>
+                            <li><span>✅</span> <span data-i18n="privacy.smsItems.1">Never reads, accesses, or uploads your personal contact book</span></li>
+                            <li><span>✅</span> <span data-i18n="privacy.smsItems.2">Zero third-party analytics SDKs, zero advertising trackers</span></li>
+                            <li><span>✅</span> <span data-i18n="privacy.smsItems.3">Free, lightweight, transparent JSON rule export and import</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section" style="background: rgba(15, 23, 42, 0.3);">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge" data-i18n="faq.badge">Questions &amp; Answers</div>
+                    <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle" data-i18n="faq.subtitle">
+                        Everything you need to know about SafeMessageShield and iOS privacy.
+                    </p>
+                </div>
+
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.0.q">Can SafeMessageShield read my existing or past messages?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.0.a">
+                            No. Apple iOS strictly isolates message history. Third-party apps cannot read, search, or delete your past SMS conversations. Only newly incoming messages are evaluated by the iOS message filter extension.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.1.q">Do you upload my contacts or phone numbers to the cloud?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.1.a">
+                            Never. SafeMessageShield contains zero network tracking code. All filter matching, presets, and phone directory lookups run 100% offline on your iPhone.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.2.q">Will important bank OTP or 2FA verification codes be blocked?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.2.a">
+                            No. The built-in Whitelist protects known banking institutions and trusted contacts. You can also whitelist specific sender names or numbers with one tap.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.3.q">Does the app need to run in the background to filter spam?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.3.a">
+                            No. SafeMessageShield uses Apple's native IdentityLookup and CallDirectory system extensions. iOS triggers them automatically in the background even when the app is completely closed.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.4.q">How does the Interactive Simulator work?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.4.a">
+                            The Simulator uses the exact same matching engine as the background extension. You can type any sender number or message text to preview in real-time whether your active rules would permit, flag, or block it.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span data-i18n="faq.items.5.q">Can I transfer my rules to a new iPhone?</span>
+                            <svg class="faq-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer" data-i18n="faq.items.5.a">
+                            Yes! Use the 1-click JSON Backup feature to export your custom rules and import them seamlessly onto your new device.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Banner -->
+        <section id="download" class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 data-i18n="download.title">Reclaim Your Peace of Mind Today</h2>
+                    <p data-i18n="download.subtitle">
+                        Experience a silent, spam-free inbox. Download Safe Message Shield free on the App Store.
+                    </p>
+                    <a
+                        href="https://apps.apple.com/app/id6755031025"
+                        class="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.67 1.37-.58.67-1.08 1.76-.94 2.8.01 0 .02 0 .03 0 1.02 0 2.01-.49 2.64-1.26z"/>
+                        </svg>
+                        <span data-i18n="hero.btnDownload">Download on App Store</span>
+                    </a>
+                    <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 1.25rem;" data-i18n="download.note">
+                        Requires iOS 18.0 or later • 100% Offline • Zero Data Collection
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="nav-logo" style="margin-bottom: 0.5rem;">
+                        <div class="logo-icon">
+                            <img src="app-icon.png" alt="Safe Message Shield Logo" class="logo-image" />
+                        </div>
+                        <span class="logo-text">Safe Message Shield</span>
+                    </div>
+                    <p data-i18n="footer.desc">
+                        The 100% offline, privacy-first spam text and robocall blocker for iOS.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer.linksHeading">Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" data-i18n="nav.features">Features</a></li>
+                        <li><a href="#presets" data-i18n="nav.presets">Smart Presets</a></li>
+                        <li><a href="#simulator" data-i18n="nav.simulator">Simulator</a></li>
+                        <li><a href="#how-it-works" data-i18n="nav.howItWorks">How It Works</a></li>
+                        <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 data-i18n="footer.legalHeading">Legal &amp; Privacy</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html" data-i18n="footer.privacy">Privacy Policy</a></li>
+                        <li><a href="terms.html" data-i18n="footer.terms">Terms of Service</a></li>
+                        <li><a href="mailto:support@safemessageshield.app" data-i18n="footer.support">Support</a></li>
+                        <li><a href="https://github.com/tsavasci/SafeMessageShield" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Safe Message Shield. <span data-i18n="footer.copyright">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Translations & Interactivity -->
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

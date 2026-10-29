@@ -18,18 +18,29 @@ struct SafeMessageShieldApp: App {
             NumberFilterRule.self,
         ])
         
-        // App Group konteynerini kullan
-        guard let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: kAppGroupIdentifier) else {
-            fatalError("App Group container bulunamadı. Capabilities ayarlarını kontrol edin.")
-        }
+        // App Group konteynerini güvenli şekilde al, yoksa Application Support fallback kullan
+        let modelURL: URL = {
+            if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: kAppGroupIdentifier) {
+                return appGroupURL.appendingPathComponent("SafeMessageShield.sqlite")
+            }
+            let fallbackDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+                ?? URL(fileURLWithPath: NSTemporaryDirectory())
+            try? FileManager.default.createDirectory(at: fallbackDir, withIntermediateDirectories: true)
+            return fallbackDir.appendingPathComponent("SafeMessageShield.sqlite")
+        }()
         
-        let modelURL = appGroupURL.appendingPathComponent("SafeMessageShield.sqlite")
         let modelConfiguration = ModelConfiguration(schema: schema, url: modelURL, cloudKitDatabase: .none)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            // Model yüklenemezse kullanıcı deneyimini bozmamak için in-memory yedeğe geç
+            do {
+                let memoryConfig = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+                return try ModelContainer(for: schema, configurations: [memoryConfig])
+            } catch {
+                fatalError("Could not create ModelContainer: \(error)")
+            }
         }
     }()
 

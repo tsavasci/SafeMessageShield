@@ -127,6 +127,20 @@ struct SettingsView: View {
                     color: ShieldTheme.Colors.warning,
                     action: { showingReportedJunk = true }
                 )
+
+                Divider().padding(.leading, 42)
+
+                settingsRow(
+                    title: NSLocalizedString("settings.rate.app", comment: ""),
+                    subtitle: NSLocalizedString("settings.rate.app.subtitle", comment: ""),
+                    systemImage: "star.fill",
+                    color: ShieldTheme.Colors.warning,
+                    action: {
+                        if let url = URL(string: "https://apps.apple.com/app/id6755031025?action=write-review") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                )
             }
         }
     }

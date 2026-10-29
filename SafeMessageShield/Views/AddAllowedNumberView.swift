@@ -140,6 +140,9 @@ struct AddAllowedNumberView: View {
         // Centralize persistence through DataManager (will insert into SwiftData when modelContext provided)
         DataManager.shared.addAllowedNumber(cleanedValue, reason: reason, modelContext: modelContext)
         
+        // Puanlama yöneticisinde pozitif aksiyon kaydet
+        StoreReviewManager.shared.recordPositiveAction()
+        
         dismiss()
     }
 }

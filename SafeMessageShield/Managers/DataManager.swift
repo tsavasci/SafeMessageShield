@@ -26,10 +26,7 @@ class DataManager {
     private let lastAppGroupSyncDateKey = "lastAppGroupSyncDate"
 
     private init() {
-        guard let defaults = UserDefaults(suiteName: kAppGroupIdentifier) else {
-            fatalError("App Group oluşturulamadı. Capabilities ayarlarını kontrol edin.")
-        }
-        self.userDefaults = defaults
+        self.userDefaults = UserDefaults(suiteName: kAppGroupIdentifier) ?? .standard
     }
 
     // MARK: - Blocked Numbers Management

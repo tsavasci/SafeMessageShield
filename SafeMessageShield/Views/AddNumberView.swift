@@ -143,6 +143,9 @@ struct AddNumberView: View {
         
         // Call Directory Extension'ı güncelle
         reloadCallDirectory()
+
+        // Puanlama yöneticisinde pozitif aksiyon kaydet
+        StoreReviewManager.shared.recordPositiveAction()
         
         // Başarı mesajı göster; sayfa, uyarıdaki Tamam butonuyla kapanır
         showingSuccessAlert = true

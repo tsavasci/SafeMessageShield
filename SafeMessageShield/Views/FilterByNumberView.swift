@@ -157,6 +157,9 @@ struct AddNumberFilterRuleView: View {
             modelContext: modelContext
         )
         
+        // Puanlama yöneticisinde pozitif aksiyon kaydet
+        StoreReviewManager.shared.recordPositiveAction()
+        
         dismiss()
     }
 }
